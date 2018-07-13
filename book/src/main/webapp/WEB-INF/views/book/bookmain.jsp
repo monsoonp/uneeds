@@ -109,7 +109,8 @@ $(window).scroll(function() {
 						<h3>SERACH FOR WHAT U NEED!</h3>
 						<label class="realTime">
 							<i class="fab fa-algolia"></i>
-							${serverTime}
+							${serverTime}<br/>
+							${time}
 						</label>
 					</div>
 				</div>
