@@ -36,7 +36,7 @@ $(function(){
 	showTimes = setInterval(function() {	// 1.000초마다 내부 실행
 		//alert('http://webisfree.com');
 		//$(".realTime").value="${serverTime}";
-				
+		
 	}, 1000);
 	clearInterval(showTimes);	// showTimes 함수 정지
 	
