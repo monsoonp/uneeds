@@ -1,0 +1,100 @@
+/*!
+ * Start Bootstrap - Modern Business (https://startbootstrap.com/template-overviews/modern-business)
+ * Copyright 2013-2017 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-logomodern-business-nav/blob/master/LICENSE)
+ */
+
+body {
+	padding-top: 54px;
+	background: url('../img/backgroundbook.jpg') no-repeat repeat;
+	background-size: 100%;
+	-webkit-filter: brightness(1.0);
+	/*background-size: cover;*/   
+	background-position: center center;
+}
+
+@media (min-width: 992px) {
+	body {
+	  padding-top: 56px;
+	}
+}
+
+.carousel-item {
+	height: 65vh;
+	min-height: 300px;
+	background: no-repeat center center scroll;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.portfolio-item {
+	margin-bottom: 30px;
+}
+input::-webkit-input-placeholder { color: #c0c0c0; } 
+input::-ms-input-placeholder { color: #c0c0c0; } 
+input::-moz-placeholder { color: #c0c0c0; opacity: 1; } 
+input.searcher{
+	background-color: transparent;
+	font-family: 'Black Han Sans', sans-serif;
+	font-size: 2.0em;
+	color: #000000;
+	padding: 0 0 0 0;
+	border: none;
+	width: auto;
+
+}
+input.searcher:focus{
+	outline: none;
+}
+hr.searcherLine{
+	margin-top: 0;
+	border-top:2px solid #808080;
+	border-left:none;
+	border-right:none;
+	border-bottom:none;
+	width:100%;
+}
+
+
+button,
+html input[type="button"],
+/* 1 */
+input[type="reset"],
+input[type="submit"] {
+    -webkit-appearance: button; /* 2 */
+    cursor: pointer; /* 3 */
+}
+
+/* *
+* Re-set default cursor for disabled elements. */
+button[disabled],
+html input[disabled] {
+    cursor: default;
+}
+.display-none{
+	display: none;
+}
+#background{
+	/*
+	background: url('../img/backgroundbook.jpg') no-repeat;
+	-webkit-filter: brightness(1.0);
+	width: 100% auto;
+	height: 100%;
+	background-size:     cover;
+	*/
+	/*background-position: 70% 50%;*/
+	/*-webkit-background-clip: text;*/
+}
+/*
+.carousel-control-prev-icon, .carousel-control-next-icon {
+    height: 100px;
+    width: 100px;
+    outline: black;
+    background-color: rgba(0, 0, 0, 0.3);
+    background-size: 100%, 100%;
+    border-radius: 50%;
+    border: 1px solid black;
+}
+*/
