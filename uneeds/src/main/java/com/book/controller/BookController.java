@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.book.service.testServiceImpl;
 
 @Controller
-@RequestMapping("/book")
 public class BookController {
 	
 	@Inject

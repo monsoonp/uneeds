@@ -20,7 +20,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>/uneeds/*</url-pattern>
 	</servlet-mapping>
 	
 	<!-- book 페이지 -->
@@ -35,7 +35,7 @@
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>appServlet_book</servlet-name>
-		<url-pattern>/book/</url-pattern>
+		<url-pattern>/uneeds/book/*</url-pattern>
 	</servlet-mapping>
 
 	<!-- 필터 -->
