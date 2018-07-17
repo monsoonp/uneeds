@@ -11,16 +11,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-/**
- * Handles requests for the application home page.
- */
+//메인 controller
 @Controller
-public class HomeController {
+public class MainController {
 	
-	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
+	private static final Logger logger = LoggerFactory.getLogger(MainController.class);
 	
 	
-	// 메인 controller
+	
 	// http://localhost:8080/uneeds/
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
@@ -33,9 +31,17 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		
-		return "mains";
+		return "uneeds_main";
 	}
 	
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	public String login() {
+		return "uneeds_login";
+	}
+	@RequestMapping(value = "/join", method = RequestMethod.GET)
+	public String join() {
+		return "uneeds_join";
+	}
 	
 	
 }
