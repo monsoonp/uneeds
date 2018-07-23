@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /*!
  * Start Bootstrap - Modern Business (https://startbootstrap.com/template-overviews/modern-business)
  * Copyright 2013-2017 Start Bootstrap
@@ -6,7 +7,6 @@
 
 body {
 	padding-top: 54px;
-	background: url('../img/backgroundbook.jpg') no-repeat repeat;
 	background-size: 100%;
 	-webkit-filter: brightness(1.0);
 	/*background-size: cover;*/   
@@ -42,7 +42,7 @@ input.searcher{
 	color: #000000;
 	padding: 0 0 0 0;
 	border: none;
-	width: auto;
+	width: 100%;
 
 }
 input.searcher:focus{
@@ -87,6 +87,40 @@ html input[disabled] {
 	/*background-position: 70% 50%;*/
 	/*-webkit-background-clip: text;*/
 }
+
+/* centered columns styles */
+.row-centered {
+    text-align:center;
+}
+.col-centered {
+    display:inline-block;
+    float:none;
+    /* reset the text-align */
+    text-align:left;
+    /* inline-block space fix */
+    margin-right:-4px;
+    text-align: center;
+    background-color: #ccc;
+    border: 1px solid #ddd;
+}
+.centered-form .panel{
+	background: rgba(255, 255, 255, 0.8);
+	box-shadow: rgba(0, 0, 0, 0.3) 20px 20px 20px;
+	opacity: 0.5;
+}
+
+/* 네이버 지도 */
+#map{
+	width:100%;
+	height:500px;	
+}
+
+/*
+.nav-up{
+	top: -40px;
+}
+*/
+
 /*
 .carousel-control-prev-icon, .carousel-control-next-icon {
     height: 100px;
