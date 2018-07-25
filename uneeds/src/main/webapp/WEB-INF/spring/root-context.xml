@@ -33,7 +33,7 @@
 	<bean id="mysqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg name="sqlSessionFactory" ref="mysqlSessionFactory"></constructor-arg>
 	</bean>
-	<!-- 요청 sqlSessionMySql -->
+	<!-- 요청 mysqlSession -->
 	
 	<!-- Oracle dataSource -->
 	<bean id="oracleDataSource"	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
@@ -53,7 +53,7 @@
 	<bean id="oraclesqlSession" class="org.mybatis.spring.SqlSessionTemplate" destroy-method="clearCache">
 		<constructor-arg name="sqlSessionFactory" ref="oracleSqlSessionFactory"></constructor-arg>
 	</bean>
-	<!-- 요청 sqlSessionOracle -->
+	<!-- 요청 oraclesqlSession -->
 	
 	<!-- 도서 -->
 	<context:component-scan base-package="com.book.persistence"></context:component-scan>
