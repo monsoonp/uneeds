@@ -65,7 +65,7 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>appServlet</servlet-name>
+		<servlet-name>appServlet_admin</servlet-name>
 		<url-pattern>/uneeds/admin/*</url-pattern>
 	</servlet-mapping>
 	
@@ -80,7 +80,7 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>appServlet</servlet-name>
+		<servlet-name>appServlet_admin_movie</servlet-name>
 		<url-pattern>/uneeds/admin_movie/*</url-pattern>
 	</servlet-mapping>
 	
