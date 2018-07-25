@@ -15,8 +15,8 @@ public class testDAOImpl implements testDAO{
 	
 	@Override
 	public String selectTime() {
-		//return sqlSessionMySql.selectOne(namespace+".getTime");
-		return "testTime";
+		return mysqlSession.selectOne(namespace+".getTime");
+		//return "testTime";
 	}
 
 }
