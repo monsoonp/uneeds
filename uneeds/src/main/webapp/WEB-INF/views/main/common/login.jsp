@@ -12,7 +12,7 @@
  -->
 <!-- MODAL CONTROLL BUTTON -->
 <div>
-	<a type="button" class="btn btn-info btn-lg loginBtn" data-toggle="modal"
+	<a type="button" class="btn btn-primary btn-md loginBtn" data-toggle="modal"
 		data-target="#dvModal" data-backdrop="static">Login</a>
 </div>
 <!-- MODAL -->
