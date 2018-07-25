@@ -158,7 +158,7 @@
 			<version>${org.springframework-version}</version>
 		</dependency>
 		
-		<!-- jdbc설정 -->
+		<!-- ojdbc설정 -->
 		<dependency>
 			<groupId>oracle.jdbc</groupId>
 			<artifactId>OracleDriver</artifactId>

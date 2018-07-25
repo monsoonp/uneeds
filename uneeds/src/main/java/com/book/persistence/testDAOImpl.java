@@ -8,14 +8,15 @@ import org.springframework.stereotype.Repository;
 @Repository
 public class testDAOImpl implements testDAO{
 
-	@Inject SqlSession sqlSessionOracle;
-	@Inject SqlSession sqlSessionMySql;
+	@Inject SqlSession oraclesqlSession;
+	@Inject SqlSession mysqlSession;
 	
 	private static final String namespace="com.book.mappers.TestMapper";
 	
 	@Override
 	public String selectTime() {
-		return sqlSessionMySql.selectOne(namespace+".getTime");
+		//return sqlSessionMySql.selectOne(namespace+".getTime");
+		return "testTime";
 	}
 
 }

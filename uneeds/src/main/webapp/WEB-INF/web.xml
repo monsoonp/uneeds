@@ -37,7 +37,55 @@
 		<servlet-name>appServlet_book</servlet-name>
 		<url-pattern>/uneeds/book/*</url-pattern>
 	</servlet-mapping>
+	
+	<!-- movie 페이지 -->
+	<servlet>
+		<servlet-name>appServlet_movie</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context_movie.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>appServlet_book</servlet-name>
+		<url-pattern>/uneeds/movie/*</url-pattern>
+	</servlet-mapping>
+	
+	<!--관리자 단락 -->
+	<!-- 관리자 메인 -->
+	<servlet>
+		<servlet-name>appServlet_admin</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context_admin.xml</param-value><!-- 최초진입점 -->
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/uneeds/admin/*</url-pattern>
+	</servlet-mapping>
+	
+	<!-- 관리자 영화 -->
+	<servlet>
+		<servlet-name>appServlet_admin_movie</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context_admin_movie.xml</param-value><!-- 최초진입점 -->
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>appServlet</servlet-name>
+		<url-pattern>/uneeds/admin_movie/*</url-pattern>
+	</servlet-mapping>
+	
 
+	
 	<!-- 필터 -->
 	<filter>
 		<filter-name>hiddenHttpMethodFilter</filter-name>
@@ -45,7 +93,7 @@
 	</filter>
 	<filter-mapping>
 		<filter-name>hiddenHttpMethodFilter</filter-name>
-		<url-pattern>/</url-pattern>
+		<url-pattern>/*</url-pattern>
 	</filter-mapping>
 
 	<filter>
