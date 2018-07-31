@@ -71,6 +71,22 @@
 	</servlet-mapping>
 	
 	
+	<!-- travel 페이징 -->
+	<servlet>
+    	<servlet-name>appServlet_travel</servlet-name>
+    	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    	<init-param>
+      		<param-name>contextConfigLocation</param-name>
+      		<param-value>/WEB-INF/spring/appServlet/servlet-context_travel.xml</param-value>
+    	</init-param>
+    	<load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>appServlet_travel</servlet-name>
+    <url-pattern>/uneeds/travel/*</url-pattern>
+  </servlet-mapping>
+	
 	
 	<!--관리자 단락 -->
 	<!-- 관리자 메인 -->
