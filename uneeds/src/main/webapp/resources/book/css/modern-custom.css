@@ -28,6 +28,14 @@ body {
 	-o-background-size: cover;
 	background-size: cover;
 }
+.carousel-caption {
+	background: radial-gradient(ellipse at center, rgba(30,30,30,0.7), rgba(30,30,30,0.5), transparent, transparent);
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(30,30,30,0.7), rgba(30,30,30,0.5), transparent, transparent);
+	background: -o-radial-gradient(center, ellipse cover,  rgba(30,30,30,0.7), rgba(30,30,30,0.5), transparent, transparent);
+	background: -moz-radial-gradient(center, ellipse cover,  rgba(30,30,30,0.7), rgba(30,30,30,0.5), transparent, transparent);
+	background-position: center;
+	margin-bottom: 0;
+}
 
 .portfolio-item {
 	margin-bottom: 30px;
