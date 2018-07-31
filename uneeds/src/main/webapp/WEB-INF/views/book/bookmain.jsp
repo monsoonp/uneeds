@@ -88,8 +88,11 @@ function loading(){
 
 </script>
 <style type="text/css">
-body{
-	background: url('../resources/book/img/backgroundbook.jpg') no-repeat repeat;
+body {
+	background: url('${pageContext.request.contextPath}/resources/book/img/backgroundbook.jpg') no-repeat repeat;
+	background-size: 100%;
+	background-position: center;
+	
 }
 </style>
 </head>
@@ -134,7 +137,7 @@ body{
 					</div>
 				</div>
 				<!-- seller -->
-				<div class="carousel-item" onclick="location.href='seller'"
+				<div class="carousel-item" onclick="location.href='bestseller'"
 					style="background-image: url('../resources/book/img/booksale.jpg')">
 					<div class="carousel-caption d-none d-md-block">
 						<h3 style="color: black;">잘나가는 도서</h3>	
@@ -143,8 +146,8 @@ body{
 					</div>
 				</div>
 				<!-- store map -->
-				<div class="carousel-item" onclick="location.href='store'"
-					style="background-image: url('../resources/book/img/devbook.jpg');">
+				<div class="carousel-item" onclick="location.href='/uneeds/book/search/store'"
+					style="background-image: url('../resources/book/img/bookshop.jpg');">
 					<div class="carousel-caption d-none d-md-block">
 						<h3>서점 지도</h3>
 						<label>Book Store</label>
@@ -178,7 +181,6 @@ body{
 			</div> 
 		</div>
 		 -->
-		
 		<div class="row">
 			
 		</div>

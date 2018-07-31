@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.book.mappers.BookMapper">	<!-- namespace = package / 임의 설정 -->
+	<select id="getTime" resultType="string">
+		select now()
+	</select>
+	
+	<!-- 베스트셀러 페이지 -->
+	<!-- 인터넷 서점 목록 -->
+	<select id="storeList" resultType="com.book.domain.StoreVO">
+		select * from b_bookshop order by bscode asc
+	</select>
+	<!-- 서점별 장르 목록 -->
+	<select id="genreList" resultType="com.book.domain.GenreVO">
+		select * from b_sitegenre where bscode=
+			(select bscode from b_bookshop where bsname= #{bsname})
+				order by sgcode asc
+	</select>
+	
+	<!-- 서점, 장르 카테고리 값 가져오기,  장르이름 뒤에 공백이 포함될 경우 like로 처리 -->
+	<select id="selectCate" parameterType="hashmap" resultType="map">
+		select b.bscate, g.sgcategory from b_bookshop b, b_sitegenre g
+			where b.bsname=#{bsname} and  g.sgname like #{sgname} '%' and b.bscode=g.bscode
+	</select>
+	
+	<!-- 
+	<insert id="insertMember">
+		insert into tbl_member(userid ,userpw, username, email) 
+			values(#{userid}, #{userpw}, #{username}, #{email})
+	</insert>  # 파라미터 , VO객체와 이름이 같게 getter로 값 가져옴
+	-->
+	<!-- 
+	<select id="listMember" resultType="org.zerock.domain.MemberVO">
+		select * from tbl_member order by regdate desc
+	</select>
+	-->
+	
+	
+</mapper>

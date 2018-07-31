@@ -2,10 +2,25 @@
 /*
 body#LoginForm{ background-image:url("https://hdwallsource.com/img/2014/9/blur-26347-27038-hd-wallpapers.jpg"); background-repeat:no-repeat; background-position:center; background-size:cover; padding:10px;}
 */
+.loading{
+	background-image: url("/resources/book/img/bookpoploading.gif");
+	background-repeat:no-repeat;
+	background-position:center; 
+	background-size:cover;
+	z-index: 999;
+	position:fixed; 
+	width:100%;
+	height:100%;
+}
+
 .form-heading { color:#fff; font-size:23px;}
-.panel h2{ color:#444444; font-size:18px; margin:0 0 8px 0;}
-.panel p { color:#777777; font-size:14px; margin-bottom:30px; line-height:24px;}
-.login-form .form-control {
+.panel h2{ color:#444444; font-size:20px; margin:0 0 8px 0;}
+.panel h3{ color:#444444; font-size:18px; margin:0 0 8px 0;}
+.panel h4{ color:#444444; font-size:16px; margin:0 0 8px 0;}
+.panel p { color:#777777; font-size:14px; /*margin-bottom:30px; line-height:24px;*/}
+.panel h3 span{ clolr:#984949; }
+
+.books .form-control {
   background: #f7f7f7 none repeat scroll 0 0;
   border: 1px solid #d4d4d4;
   border-radius: 4px;
@@ -15,7 +30,7 @@ body#LoginForm{ background-image:url("https://hdwallsource.com/img/2014/9/blur-2
 }
 .main-div {
   /*background: #c0c0c0 none repeat scroll 0 0;*/
-  background-color: #ffffff;
+  
   background-color: rgba( 255, 255, 255, 0.7 );
   border-radius: 2px;
   margin: 15px auto 15px;
@@ -23,17 +38,27 @@ body#LoginForm{ background-image:url("https://hdwallsource.com/img/2014/9/blur-2
   width: 65%;
   padding: 10px 20px 20px 10px;
 }
+.main-book {
+  /*background: #c0c0c0 none repeat scroll 0 0;*/
+ /*background-color: #ffffff;*/
+  background-color: rgba( 255, 255, 255, 0.8 );
+  border-radius: 2px;
+  margin: 15px auto 15px;
+  /*max-width: 50%;*/
+  width: 100%;
+  padding: 10px 20px 20px 10px;
+}
 
-.login-form .form-group {
+.books .form-group {
   margin-bottom:10px;
 }
-.login-form{ text-align:center;}
+.books{ text-align:center;}
 .forgot a {
   color: #777777;
   font-size: 14px;
   text-decoration: underline;
 }
-.login-form  .btn.btn-primary {
+.books  .btn.btn-primary {
   background: #f0ad4e none repeat scroll 0 0;
   border-color: #f0ad4e;
   color: #ffffff;
@@ -52,8 +77,66 @@ body#LoginForm{ background-image:url("https://hdwallsource.com/img/2014/9/blur-2
   font-size: 14px;
   margin: auto;
 }
-.login-form .btn.btn-primary.reset {
+.books .btn.btn-primary.reset {
   background: #ff9900 none repeat scroll 0 0;
 }
 .back { text-align: left; margin-top:10px;}
 .back a {color: #444444; font-size: 13px;text-decoration: none;}
+
+/* 흰 글씨 */
+.color-white{
+	color: #ffffff;
+}
+ul li{
+	list-style-type:none;
+}
+.book-ul{
+	
+}
+.book-li{
+	
+}
+/* 책 이미지 */
+.book_img_div{
+	width: 130px; height: 200px;	
+	position: relative;
+}
+.book_img_div > div:nth-of-type(1){
+	/*background-color: rgba(230,210,50,0.8);*/
+	position: absolute;
+	display: inline-block;
+	width: 0; height: 0;
+	border-top: 20px solid rgba(249, 91, 0,0.8); border-left: 20px solid rgba(249, 91, 0,0.8);
+	border-bottom: 20px solid transparent; border-right: 20px solid transparent;
+	z-index: 998;
+}
+.book_img_div > div:nth-of-type(2){
+	position: absolute;
+	z-index: 999;
+	padding-top: 0;
+	padding-left: 5px;
+	
+}
+.book_img_div > div > span{
+	color: white;
+}
+.book_img_div > img{
+	width: 100%; height: 100%;
+}
+
+/* 검색창 */
+.search_form, .searcher{
+	width: 100%;
+}
+
+/* 검색결과 건수 */
+#total{
+	background-color: rgba(0,0,0,0.2);
+	font-family: ;
+	font-size: 2.0em;
+	color: #ffffff;
+	padding: 0 0 0 0;
+	border: none;
+	max-width: 20%:
+
+}

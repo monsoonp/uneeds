@@ -9,17 +9,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Book</title>
 <!-- css -->
-<link href="../resources/book/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<link href="../resources/book/css/modern-custom.css" rel="stylesheet"/>
-<link href="../resources/book/css/bookList.css" rel="stylesheet"/>
+<link href="/resources/book/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="/resources/book/css/modern-custom.css" rel="stylesheet"/>
+<link href="/resources/book/css/bookList.css" rel="stylesheet"/>
 <!-- jquery / bootstrap / js-->
 <script src="//code.jquery.com/jquery-latest.js"></script> <!-- must be top -->
-<script src="../resources/book/bootstrap/js/bootstrap.min.js"></script>
-<script src="../resources/book/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../resources/book/js/jquery.min.js"></script>
+<script src="/resources/book/bootstrap/js/bootstrap.min.js"></script>
+<script src="/resources/book/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/book/js/jquery.min.js"></script>
 <!-- swipe testing... -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.min.js"></script>
-<script src="../resources/book/js/book.js"></script>
+<script src="/resources/book/js/book.js"></script>
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <!-- <script src="../resources/book/js/bootstrap.bundle.min.js"></script> -->
 <!-- 구글폰트 -->
@@ -29,84 +29,158 @@
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
 
 <script type="text/javascript">
-var showTimes;	
-var currentPosition;
+var showTimes;		// 시간
+var currentPosition;	// 현 위치
+var inputText;	// 입력값
+var listCount;	// 리스트 카운팅
+var ul=$('.book-ul');	//책 목록
+var total; // 검색수 
+var display;	//가져온 목록수
 $(function(){
-	currentPosition = parseInt($("#right_section").css("top"));  
-
-	showTimes = setInterval(function() {	// 1.000초마다 내부 실행
-		//alert('http://webisfree.com');
-		//$(".realTime").value="${serverTime}";
-				
-	}, 1000);
-	clearInterval(showTimes);	// showTimes 함수 정지
+	// 저자, 출판사로 검색이 넘어올 시 
+	if('${text}'!=''){
+		
+		check_text('${text}');
+		$('.searcher').val('${text}')
+	}
+	currentPosition = parseInt($("#right_section").css("top"));  // 
+	
+	//input 태그 엔터 시
+	$('input[type="text"]').keydown(function() {
+	    if (event.keyCode === 13) {
+	        event.preventDefault();
+	        check_text($('.searcher').val());	// 텍스트 확인 후 검색
+	    }
+	    
+	});
 	
 });
+
+// 검색어가 같으면 다음 페이지 검색
+function check_text(text){
+	if (inputText!=text){
+		listCount = 1;
+		inputText = text;
+		total=0;
+		display=0;
+		ul.empty();
+		//alert(inputText+","+listCount);
+		
+	}else{
+		listCount+=1;
+	}
+	if(listCount <= 1000  && display <= total){
+		bind_book();
+	}else{
+		alert("검색 결과가 없습니다.");
+	}
+	
+}
+function bind_book(){
+	span = "<span> | </span>"
+	$.ajax({
+		url : "/uneeds/book/search/"+inputText+"/"+listCount,
+		type : 'get',	
+		dataType : 'json',
+       	contentType: "application/json; charset=utf-8",
+	    success : function(data, status, xhr) {
+	    	ul=$('.book-ul');
+	    	console.log(data);
+	    	total = data.total;
+	    	display += data.display;
+	    	$('#total').val(total+' 건');
+	    	items = data.items;
+	    	if(items[0] != null && display <= total){
+	    		$('#total').removeClass("display-none");	// 검색결과 수
+	    		
+		    	for (item in items ){
+		    		it = items[item];
+		    		if(it.discount != ''){
+		    			discount='<h4>'+it.price+'원→'+it.discount+'원 (10% 할인) </h4>';
+		    		}else{
+		    			discount='<h4>'+it.price+'원</h4>';
+		    		}
+		    		img = it.image.split("?");	//image 옵션값 나누기
+		    		title = it.title.split("(");	//제목 부제목 나누기
+		    		author = it.author.replace(/(<([^>]+)>)/ig,"");
+		    		author = '<a href="/uneeds/book/search/'+author+'">'+author.replace(/\|/g,", ")+'</a>'; // 저자로 검색
+		    		publisher = it.publisher.replace(/(<([^>]+)>)/ig,"");	// 출판사로 검색
+		    		publisher = '<a href="/uneeds/book/search/'+publisher+'">'+it.publisher+'</a>';	// 출판사로 검색
+		    		pubdate = it.pubdate;
+		    		ul.append("<li>"+
+			    		'<div class="main-div">'+
+							'<div class="row mb-4 py-auto">'+
+								'<div class="col-md-4 my-auto">'+
+									'<img src="'+img[0]+'"'+
+									'style="width:130px; height:200px;">'+
+								'</div>'+
+								'<div class="panel col-md-8  my-auto">'+
+									'<h2>'+title[0]+'</h2>'+
+									'<p>'+
+									author+span+
+									publisher+span+
+									pubdate+
+									'</p>'+
+									discount+
+								'</div>'+
+							'</div>'+
+						'</div>'+
+						"</li>");
+		    	}
+	    	}else{
+	    		//ul.empty();
+	    		ul.append("<li>"+
+			    		'<div class="main-div">'+
+							'<div class="row mb-4">'+
+								'<div class="panel col-md-12">'+
+									'<h2>검색 결과가 없습니다.</h2>'+
+								'</div>'+
+							'</div>'+
+						'</div>'+
+						"</li>");
+	    	}
+	    	
+		},beforeSend:function(){
+			$('#loading').removeClass('display-none');
+	    	$('#loading').addClass('loading');
+	    },complete: function(){
+			console.log("complete");
+			showTimes = setTimeout(function() {
+				$('#loading').addClass('display-none');
+				$('#loading').removeClass('loading');
+			}, 1000);
+		},
+	    error: function(error) {
+	    	console.log("error= " + error);
+		},
+		timeout:10000
+	});
+}
+
 // 스크롤 시
 $(window).scroll(function() {
 	// 스크롤이 바닥에 닿으면
 	if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-		//loading();
-   };
+		check_text(inputText);
+	};
    
-   var position = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다.  
-   if(position >= 600){
+	var position = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다.  
+	if(position >= 600){
 		$("#right_section").stop().animate({"top":position+currentPosition+"px"},100);  
-   }else{
-	   $("#right_section").stop().animate({"top":position+currentPosition+"px"},100);
-   }
-   
-});
-
-function loading(){
-	// 로딩 div display-none 클래스 제거
-	$("#loading").removeClass("display-none");
-	$("#loading").animate({"opacity":"1"},100);
-	// fixed-bottom 클래스 제거
-		$(".footer").removeClass("fixed-bottom");
-		// 1.000초 뒤 실행
-	setTimeout(() => {
-		// fixed-bottom 클래스 추가 
-    	$(".footer").addClass("fixed-bottom");
-    	// 로딩 div display-none 클래스 추가
-    	$("#loading").addClass("display-none");
-	}, 1000);
-    	//$("#prev").after("<br/><br/><br/><br/><br/><br/><br/>");
-    	$("p.book").after("<p>"+$("p.book").text()+"</p>");
-    	$("#loading").animate({"opacity":"0"},1000);//.addClass("display-none");
-}
-
-//스크롤 시
-$(window).scroll(function() {
-	// 스크롤이 바닥에 닿으면
-	if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-		$.ajax({
-			type : "get",
-			async : false, //false인 경우 동기식으로 처리한다.
-			//url : "http://192.168.0.61:8080/uneeds/ca_areacode.jsp",
-			success : function(data) {
-				console.log("success");
-			},
-			beforeSend:function(){
-		        $('#loading').removeClass('display-none');
-			},error : function(data, textStatus) {
-				console.log("error");
-			},
-			complete : function(data, textStatus) {
-				$('#loading').addClass('display-none');
-				console.log("complete");			
-			},
-			timeout:10000
-		}); //end ajax	
-		$(".login-form").appen($("."))
+	}else{
+		$("#right_section").stop().animate({"top":position+currentPosition+"px"},100);
 	}
    
+   
+   
 });
+
 
 </script>
 <style type="text/css">
 body {
-	background: url('../resources/book/img/books.jpeg') no-repeat repeat;
+	background: url('/resources/book/img/books.jpeg') no-repeat repeat;
+	background-size: 100%;
 }
 </style>
 </head>
@@ -116,9 +190,7 @@ body {
            <div><h1>찜 목록</h1></div>  
     </div>  
     <!-- loading -->
-	<div id="loading" class="display-none" style="position:fixed; width:100%;height:100%; z-index: 999;">  
-           <img class="loading-img" src="../resources/book/img/loading_preview.gif" style="position:absolute;width:100%;height:100%; z-index: 999;"/>
-    </div>
+	<div id="loading" class="display-none"></div>
 	
 	<!-- Navigation include -->
 	<jsp:include page="/WEB-INF/views/book/common/navbar.jsp"></jsp:include>
@@ -132,113 +204,35 @@ body {
 	<div class="container" id="background">
 
 		<h1 class="my-4">SEARCH!</h1>
-				
-		<div class="row">
-			
+		<div class="col-md-12">
+			<div class="row mb-4">
+				<form class="search_form">
+					<input type="text" value='' class="searcher" placeholder="검색 입력후 엔터" autofocus
+					style="width:100%;">
+				</form>
+				<hr class="searcherLine"/>
+			</div>
+			<div class="row mb-4">
+			<input type="text" id="total" class="display-none" readonly/>
+			<hr/>
 		</div>
-		<!-- /.row -->
+		</div>	
 		
-		<hr/>
+		
 		<!-- 책 목록 -->
-
-
-		<div class="login-form">
-		<ul>
-			<li>
-			<div class="main-div">
-				<div class="row mb-4" id="prev">
-					<div class="col-md-4 ml-auto mr-auto">
-						<img src="http://image.aladin.co.kr/product/15626/93/cover/8959603627_1.jpg"
-						style="width:130px; height:200px;">
-					</div>
-					<div class="panel col-md-8">
-						<h2>COS 코딩활용 능력평가 3급 엔트리</h2>
-						<p>
-							이현정 , 이혜연
-							<span>|</span>
-							렉스미디어닷넷
-							<span>|</span>
-							2018. 07. 20. 
-						</p>
-						<h4>15,000원→13,500원 (10% 할인) </h4>
-					</div>
-					<form id="Login"></form>
-				</div>
-			</div>
+	
+		<!--  -->
+		<div class="books">
+		<ul class="book-ul">
+			<li class="book-li">
 			</li>
-			<li>
-			<div class="main-div">
-				<div class="row mb-4" id="prev">
-					<div class="col-md-4 ml-auto mr-auto">
-						<img src="http://image.aladin.co.kr/product/15626/93/cover/8959603627_1.jpg"
-						style="width:130px; height:200px;">
-					</div>
-					<div class="panel col-md-8">
-						<h2>COS 코딩활용 능력평가 3급 엔트리</h2>
-						<p>
-							이현정 , 이혜연
-							<span>|</span>
-							렉스미디어닷넷
-							<span>|</span>
-							2018. 07. 20. 
-						</p>
-						<h4>15,000원→13,500원 (10% 할인) </h4>
-					</div>
-					<form id="Login"></form>
-				</div>
-			</div>
-			</li>
-			<li>
-			<div class="main-div">
-				<div class="row mb-4" id="prev">
-					<div class="col-md-4 ml-auto mr-auto">
-						<img src="http://image.aladin.co.kr/product/15626/93/cover/8959603627_1.jpg"
-						style="width:130px; height:200px;">
-					</div>
-					<div class="panel col-md-8">
-						<h2>COS 코딩활용 능력평가 3급 엔트리</h2>
-						<p>
-							이현정 , 이혜연
-							<span>|</span>
-							렉스미디어닷넷
-							<span>|</span>
-							2018. 07. 20. 
-						</p>
-						<h4>15,000원→13,500원 (10% 할인) </h4>
-					</div>
-					<form id="Login"></form>
-				</div>
-			</div>
-			</li>
-			<li>
-			<div class="main-div">
-				<div class="row mb-4" id="prev">
-					<div class="col-md-4 ml-auto mr-auto">
-						<img src="http://image.aladin.co.kr/product/15626/93/cover/8959603627_1.jpg"
-						style="width:130px; height:200px;">
-					</div>
-					<div class="panel col-md-8">
-						<h2>COS 코딩활용 능력평가 3급 엔트리</h2>
-						<p>
-							이현정 , 이혜연
-							<span>|</span>
-							렉스미디어닷넷
-							<span>|</span>
-							2018. 07. 20. 
-						</p>
-						<h4>15,000원→13,500원 (10% 할인) </h4>
-					</div>
-					<form id="Login"></form>
-				</div>
-			</div>
-			</li>
+			
 		</ul>
 		</div>
-		
 	</div>
 	
-	
-		
+	<!-- 하단 여백 -->
+	<div class="my-5"></div>
 
 	<!-- /.container -->
 
