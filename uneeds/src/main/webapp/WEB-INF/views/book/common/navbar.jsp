@@ -81,6 +81,20 @@
 				</li>
 				<!-- 드랍다운 2 end -->
 				
+				<!-- 내비 드랍다운3 -->
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						login 
+					</a>
+					<div class="dropdown-menu dropdown-menu-right"
+						aria-labelledby="navbarDropdownBlog">
+						<div class="dropdown-item">
+							<!-- login -->
+							<jsp:include page="/WEB-INF/views/book/common/loginnav.jsp"></jsp:include>
+						</div>
+					</div>
+				</li>
 			</ul>
 		</div>
 		<!-- 목록 end -->
