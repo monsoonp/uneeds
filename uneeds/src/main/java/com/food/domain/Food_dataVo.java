@@ -2,12 +2,12 @@ package com.food.domain;
 
 public class Food_dataVo {
 	private int fid, kid, lid;
-	private String fname, fdetail, faddr, fphone, fgmenu, fimg1, fimg2, fimg3;
+	private String fname, fdetail, faddr, fphone, fgmenu, fimg1, fimg2, fimg3, keyword;
 	
 	public Food_dataVo() {}
 
 	public Food_dataVo(int fid, int kid, int lid, String fname, String fdetail, String faddr, String fphone, String fgmenu,
-			String fimg1, String fimg2, String fimg3) {
+			String fimg1, String fimg2, String fimg3, String keyword) {
 		super();
 		this.fid = fid;
 		this.kid = kid;
@@ -20,6 +20,15 @@ public class Food_dataVo {
 		this.fimg1 = fimg1;
 		this.fimg2 = fimg2;
 		this.fimg3 = fimg3;
+		this.keyword = keyword;
+	}
+
+	public String getKeyword() {
+		return keyword;
+	}
+
+	public void setKeyword(String keyword) {
+		this.keyword = keyword;
 	}
 
 	public int getLid() {

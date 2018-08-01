@@ -4,11 +4,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.food.mapper.FoodMapper">
+	<!-- 몽고 음식점 데이터 INSERT -->
 	<insert id="insertFood">
 		INSERT INTO f_food (lid, fname, fdetail, faddr, fphone, fgmenu, kid, fimg1, fimg2, fimg3)
 		VALUES (#{lid}, #{fname}, #{fdetail}, #{faddr}, #{fphone}, #{fgmenu}, #{kid}, #{fimg1}, #{fimg2}, #{fimg3})
 	</insert>
+	
+	<!-- Mysql 음식점 목록 SELECT -->
 	<select id="listFood" resultType="com.food.domain.Food_dataVo">
 		SELECT * FROM f_food order by fid DESC
+	</select>
+	
+	<!-- Mysql 검색결과 SELECT -->
+	<select id="listSearch" resultType="com.food.domain.Food_dataVo">
+		SELECT * FROM f_food(fname, fdetail, faddr, fphone, fgmenu, fimg1, like) where fname =#{keyword} OR fdetail =#{keyword} OR faddr =#{keyword}
+		OR fphone =#{keyword} OR fgmenu = #{keyword} 
 	</select>
 </mapper>
