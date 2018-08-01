@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.movie.mapper.DiscountMapper">
+	<insert id="insertDiscount">
+		insert into mv_discount_table(disname, disrate) values(#{disname}, #{disrate})
+	</insert>
+	
+	<select id="listDiscount" resultType="com.movie.domain.DiscountVO">
+		select*from mv_discount_table
+	</select>
+	
+	<delete id="deleteDiscount">
+		delete from mv_discount_table where discountcd=#{discountcd}
+	</delete>
+	
+	<update id="updateDiscount">
+		update mv_discount_table set disrate=#{disrate} where discountcd=#{discountcd}
+	</update>
+</mapper>
