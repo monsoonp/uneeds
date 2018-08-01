@@ -37,7 +37,7 @@ public class MainController {
 		
 		return "uneeds_main";
 	}
-	
+	/*
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public String login() {
 		return "uneeds_login";
@@ -46,6 +46,7 @@ public class MainController {
 	public String join() {
 		return "uneeds_join";
 	}
+	*/
 	
 	
 	@RequestMapping(value = "login", method = RequestMethod.POST)
@@ -54,9 +55,16 @@ public class MainController {
 		session.setAttribute("login", "logined");
 		session.setAttribute("id", id);
 		session.setAttribute("site", site);
+		System.out.printf("사이트: %s, 아이디: %s",site, id);
 		
+		// 이전페이지 url가져오기
 		String referer = req.getHeader("Referer");
-		return referer;
+		return "redirect:"+referer;
+	}
+	
+	@RequestMapping(value = "login", method = RequestMethod.GET)
+	public String totalLogin(Locale locale, Model model) {
+		return "totalLogin";
 	}
 	
 	@RequestMapping(value = "logout", method = RequestMethod.GET)
@@ -64,6 +72,7 @@ public class MainController {
 		HttpSession session= req.getSession();
 		session.invalidate();
 		
+		//이전 url로 되돌아가기
 		String referer = req.getHeader("Referer");
 		return "redirect:"+referer;
 	}
