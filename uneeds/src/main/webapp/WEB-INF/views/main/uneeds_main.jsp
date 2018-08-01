@@ -35,6 +35,9 @@
 </style>
 </head>
 <body>
+
+	<!-- login -->
+	<jsp:include page="/WEB-INF/views/main/common/login.jsp"></jsp:include>
 	<!-- 
 	<div align="right" style="padding-top: 10px;">
 		<a href="#" style="padding-right: 10px;"> 
@@ -49,7 +52,7 @@
 		<button type="button" class="btn btn-primary btn-sm"  style="margin-right: 20px;" 
 		onclick="window.open('http://192.168.0.61:8080/uneeds/join','','width=400,height=500,left=600')">JOIN</button>
 	</div>
-	 -->
+	-->
 	<div class="container-fluid" align="center" style="padding-bottom: 10px;">
 		<a href="#"> 
 		<img src="../resources/main/img/mainlogo.png" alt="mainlogo" style="width: 20%;">
@@ -144,7 +147,5 @@
 		/ 개인정보보호관리책임자 : 권도혁<br> UNEEDS BIT Copyright © UNEEDS BIT Corp.
 		All Rights Reserved.<br>
 	</div>
-	<!-- login -->
-	<jsp:include page="/WEB-INF/views/main/common/login.jsp"></jsp:include>
 </body>
 </html>

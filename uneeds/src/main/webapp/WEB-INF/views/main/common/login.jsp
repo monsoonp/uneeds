@@ -11,62 +11,32 @@
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
  -->
 <!-- MODAL CONTROLL BUTTON -->
-<div>
-	<a type="button" class="btn btn-info btn-lg loginBtn" data-toggle="modal"
-		data-target="#dvModal" data-backdrop="static">Login</a>
-</div>
-<!-- MODAL -->
-<div class="modal fade" id="dvModal" role="dialog">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h2>LOGIN</h2>
-				<button type="button" class="btn btn-default" data-dismiss="modal">CLOSE</button>
-			</div>
-			<div class="modal-body">
-				
-				<!-- login div -->
-				<div class="loginDiv">
-					<!-- 구글 -->
-					<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
-					<!-- 페북 --><!-- 로그아웃 버튼 자동생성 -->
-					<div id="status"></div>
-					<div class="fb-login-button" data-size="large"
-						data-button-type="login_with" data-show-faces="false"
-						data-auto-logout-link="true" data-use-continue-as="false"></div>
-						
-					<!-- 네이버 -->
-					<div id="naver_id_login"></div>
-					<!-- 카카오 로그인 -->
-					<a id="kakao-login-btn"></a>
-				
-				</div>
-				<div class="logOutDiv">
-					<a href="#">${id} ( ${site} )</a>
-					<a href="#" onclick="totalLogout();">로그아웃</a>
-					<!-- 로그아웃
-					<a href="#" class="g_logout" onclick="signOut();"
-						style="padding: 0;">구글 로그아웃</a>
-					
-					
-					<div id="naver_id_logout" style="">
-						<a href="#" onclick="naverlogout();">네이버로그아웃</a>
-						<div id="dvLogin"></div>
-					</div>
-					
-					<a href="http://developers.kakao.com/logout">카카오로그아웃</a>
-					-->
- 				
-				</div>
-				<!-- login div end -->
 
-
-			</div>
-			<div class="modal-footer">UNEEDS</div>
-
-
-		</div>
+<div class="logDiv">
+	
+	<!-- login div -->
+	<div class="loginDiv">
+		<!-- 구글 -->
+		<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
+		<!-- 페북 --><!-- 로그아웃 버튼 자동생성 -->
+		<div id="status"></div>
+		<div class="fb-login-button" data-size="large"
+			data-button-type="login_with" data-show-faces="false"
+			data-auto-logout-link="true" data-use-continue-as="false"></div>
 	</div>
+	<div class="loginDiv">
+		<!-- 네이버 -->
+		<div id="naver_id_login"></div>
+		<!-- 카카오 로그인 -->
+		<a id="kakao-login-btn"></a>
+	</div>
+	<!-- logout div -->
+	<div class="logOutDiv">
+		<a href="#">${id} ( ${site} )</a>
+		<a href="#" onclick="totalLogout();">로그아웃</a>
+	</div>
+
+
 </div>
 
 <script>
@@ -139,18 +109,6 @@
 			xfbml : true,
 			version : 'v3.0'
 		});
-		/*
-		FB.ui({
-			  method: 'share_open_graph',
-			  action_type: 'og.likes',
-			  action_properties: JSON.stringify({
-			    object:'https://developers.facebook.com/docs/javascript/examples',
-		  })
-		}, function(response){
-		  // Debug response (optional)
-		  console.log(response);
-		});
-		*/
 		//페북 로그인
 		FB.login(function(response) {
 		    if (response.authResponse) {

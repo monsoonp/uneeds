@@ -11,3 +11,15 @@
 	z-index: 999;
 	right: 0px;
 }
+.logDiv{
+	position: absolute;
+	top: 50px;
+	margin-right: 10px;
+	z-index: 999;
+	right: 0px;
+	
+}
+.logDiv > .loginDiv > div{
+	float:left;
+	display: inline-block;
+}
