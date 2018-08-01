@@ -13,18 +13,18 @@ import com.food.domain.Food_dataVo;
 public class Food_MydataDAOImpl implements Food_MydataDAO {
 
 	@Inject
-	private SqlSession mySqlSession; 
+	private SqlSession mysqlSession; 
 	
 	private static final String namespace = "com.food.mapper.FoodMapper";
 
 	@Override
 	public void insertData(Food_dataVo vo) {
-		mySqlSession.insert(namespace + ".insertFood", vo);		
+		mysqlSession.insert(namespace + ".insertFood", vo);		
 	}
 
 	@Override
 	public List<Food_dataVo> selectFood() {
-		List<Food_dataVo> list = mySqlSession.selectList(namespace + ".listFood");
+		List<Food_dataVo> list = mysqlSession.selectList(namespace + ".listFood");
 		return list;
 	}
 	
