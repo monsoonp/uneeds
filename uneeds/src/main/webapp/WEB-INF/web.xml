@@ -49,7 +49,7 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>appServlet_book</servlet-name>
+		<servlet-name>appServlet_movie</servlet-name>
 		<url-pattern>/uneeds/movie/*</url-pattern>
 	</servlet-mapping>
 	
