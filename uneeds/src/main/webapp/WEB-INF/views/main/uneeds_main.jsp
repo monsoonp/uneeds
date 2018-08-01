@@ -60,15 +60,13 @@
 	</div>
 
 	<div class="bg-primary sticky-top" align="center">
-		<a class="nav-link" href="http://192.168.1.128:8080/web/">공연/전시</a>
-		<a class="nav-link" href="http://192.168.0.61:8080/uneeds/book/">도서</a>
-		<a class="nav-link" href="http://192.168.0.198:8080/web/mReservation.jsp">영화/엔터</a>
-		<a class="nav-link" href="http://192.168.0.209:8080/zerock/food_main.jsp">맛집</a>
-		<a class="nav-link" href="http://192.168.0.37:8080/web/viewtest.jsp">여행+</a>
-		<a class="nav-link" href="http://192.168.0.3:8080/main_test2.jsp">의료</a>
-		<a class="nav-link" href="#">어학</a>
-		<a class="nav-link" href="#">쇼핑N</a>
-		
+		<a class="nav-link" href="/uneeds/book/">도서</a>
+		<a class="nav-link" href="/uneeds/food/main">맛집</a>
+		<a class="nav-link" href="/uneeds/travel/viewtest">여행+</a>
+		<a class="nav-link" href="/uneeds/medical/main_view">의료</a>
+		<a class="nav-link" href="/uneeds/movie/main">영화/엔터</a>
+		<a class="nav-link" href="/uneeds/">공연/전시</a>
+		<a class="nav-link" href="/uneeds/admin/main">ADMIN</a>
 	</div>
 	<!-- 1단 -->
 	<div class="row">
