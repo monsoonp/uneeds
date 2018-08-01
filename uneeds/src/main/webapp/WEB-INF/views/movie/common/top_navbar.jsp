@@ -78,7 +78,7 @@ p{
 		<div class="row">
 			<nav class="navbar navbar-expand-sm sticky-top">
 				<!-- Brand/logo -->
-				<a href="http://localhost:8080/uneeds/"> <img
+				<a href="/uneeds/"> <img
 					src="/resources/movie/img/minilogo_movie.png" alt="logo"
 					style="width: 70%;">
 				</a>

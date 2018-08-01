@@ -1,9 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
+<html>
 <head>
-<title>Uneeds Movie</title>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
@@ -21,7 +22,6 @@
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 <script src="http://code.jquery.com/ui/1.8.18/jquery-ui.min.js"></script>
   <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <link rel="stylesheet" href="/resources/demos/style.css">
   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
@@ -103,7 +103,7 @@
 	  $("#img_mpop").attr("src","/resources/movie/img/"+ mname+".png");
   }
  </script>
-</head>
+
 <style>
 .nav-item {
 	font-size: 16px;
@@ -183,8 +183,10 @@ option{
 .ui-datepicker td span, .ui-datepicker td a{
 padding-bottom: 5px; margin: 2px; margin-bottom: 5px;
 }
-
+.text-muted{	display: inline-block;
+	margin: 0;}
 </style>
+</head>
 
 <body>
 	<!-- top navi -->
@@ -329,12 +331,12 @@ padding-bottom: 5px; margin: 2px; margin-bottom: 5px;
 							<div class="col-lg-3" style="padding-left: 20px; font-size: small; font-weight: bold;"
 								align="left">
 								<input type="text" class="resultinput" id="rmovie"value="영화를 선택하세요." readonly="readonly" style="font-size: medium; padding-bottom: 5px;"><br>
-								<p class="text-muted" style="padding-right: 10px; padding-bottom: 5px;">극장</p><input type="text" id="rtheater"class="resultinput" value="-" readonly="readonly">
-								<p class="text-muted" style="padding-right: 10px; padding-bottom: 5px;">날짜 </p><input type="text" id="getdate" readonly="readonly" style="border: 0px; background-color: #343a40; color: white; font-weight: bold;">
-								<p class="text-muted" style="padding-right: 10px; padding-bottom: 5px;">시간 </p><input type="text" id="rtime"class="resultinput" value="-" readonly="readonly">
-								<p class="text-muted" style="padding-right: 10px; padding-bottom: 5px;">인원 </p><input type="text" id="amountT"class="resultinput" value="-" readonly="readonly">
-								<p class="text-muted" style="padding-right: 10px; padding-bottom: 5px;">좌석 </p><input type="text" class="resultinput" value="-" readonly="readonly">
-								<p class="text-muted" style="padding-right: 10px; padding-bottom: 5px;">금액 </p><input type="text" id="rprice" class="resultinput" value="0" readonly="readonly" style="color: gold; font-size: x-large; width: 80px;"><br>
+								<p class="text-muted" style="padding-right: 10px; padding-bottom: 5px;">극장</p><input type="text" id="rtheater"class="resultinput" value="-" readonly="readonly" style="width: 70px;"><br>
+								<p class="text-muted" style="padding-right: 10px; padding-bottom: 5px;">날짜 </p><input type="text" id="getdate" readonly="readonly" style="border: 0px; background-color: #343a40; color: white; font-weight: bold;width: 70px;"><br>
+								<p class="text-muted" style="padding-right: 10px; padding-bottom: 5px;">시간 </p><input type="text" id="rtime"class="resultinput" value="-" readonly="readonly" style="width: 70px;"><br>
+								<p class="text-muted" style="padding-right: 10px; padding-bottom: 5px;">인원 </p><input type="text" id="amountT"class="resultinput" value="-" readonly="readonly"style="width: 100px;"><br>
+								<p class="text-muted" style="padding-right: 10px; padding-bottom: 5px;">좌석 </p><input type="text" class="resultinput" value="-" readonly="readonly" style="width: 70px;"><br>
+								<p class="text-muted" style="padding-right: 10px; padding-bottom: 5px;">금액 </p><input type="text" id="rprice" class="resultinput" value="0" readonly="readonly" style="color: gold; font-size: x-large; width: 100px;"><br>
 								<div align="right" style="padding-top: 10px;">
 								<button type="button" class="btn btn-success btn-sm" onclick="location.href='http://localhost:8080/uneeds/movie/reserv_seat'">좌석선택</button></div>
 						</div>
@@ -343,7 +345,7 @@ padding-bottom: 5px; margin: 2px; margin-bottom: 5px;
 			</div>
 		</div>
 		</div>
-	
+		</div>
 	<!-- footer -->
 	<jsp:include page="/WEB-INF/views/movie/common/footer.jsp"></jsp:include>
 	
