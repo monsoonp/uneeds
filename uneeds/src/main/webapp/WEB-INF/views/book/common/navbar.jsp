@@ -18,9 +18,9 @@
 		<!-- 내비 목록 -->
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item"><a class="nav-link" href="http://192.168.0.198:8080/web/uneeds_main.jsp">Home</a>
+				<li class="nav-item"><a class="nav-link" href="/uneeds/">Home</a>
 				</li>
-				<li class="nav-item"><a class="nav-link" href="search">검색</a>
+				<li class="nav-item"><a class="nav-link" href="/uneeds/book/search">검색</a>
 				</li>
 				<!-- 내비 드랍다운1 -->
 				<li class="nav-item dropdown">
@@ -34,7 +34,7 @@
 						<a class="dropdown-item" href="#">
 							신간 목록
 						</a> 
-						<a class="dropdown-item" href="#">
+						<a class="dropdown-item" href="/uneeds/book/bestseller">
 							베스트 셀러
 						</a> 
 						<a class="dropdown-item" href="#">
@@ -43,10 +43,10 @@
 					</div>
 				</li>
 				
-				<li class="nav-item"><a class="nav-link" href="store">서점</a>
+				<li class="nav-item"><a class="nav-link" href="/uneeds/book/store">서점</a>
 				</li>
 				
-				<!-- 내비 드랍다운2 -->
+				<!-- 내비 드랍다운1 -->
 				<li class="nav-item dropdown"><a
 					class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog"
 					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -81,9 +81,24 @@
 				</li>
 				<!-- 드랍다운 2 end -->
 				
+				<!-- 내비 드랍다운3 -->
+				<li class="nav-item dropdown">
+					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog"
+					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						login 
+					</a>
+					<div class="dropdown-menu dropdown-menu-right"
+						aria-labelledby="navbarDropdownBlog">
+						<div class="dropdown-item">
+							<!-- login -->
+							<jsp:include page="/WEB-INF/views/book/common/loginnav.jsp"></jsp:include>
+						</div>
+					</div>
+				</li>
 			</ul>
 		</div>
 		<!-- 목록 end -->
 		
 	</div>
+	
 </nav>

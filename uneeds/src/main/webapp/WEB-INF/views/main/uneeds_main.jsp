@@ -19,7 +19,7 @@
 <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 <script	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3-min.js"></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-<link href="../resources/main/css/login.css" rel="stylesheet"/>
+<link href="${pageContext.request.contextPath }/resources/main/css/login.css" rel="stylesheet"/>
 <style>
 	.nav-link{
 		display: inline-block; color:white;
@@ -65,6 +65,7 @@
 		<a class="nav-link" href="http://192.168.0.3:8080/main_test2.jsp">의료</a>
 		<a class="nav-link" href="#">어학</a>
 		<a class="nav-link" href="#">쇼핑N</a>
+		
 	</div>
 	<!-- 1단 -->
 	<div class="row">
