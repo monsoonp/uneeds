@@ -4,7 +4,7 @@
 <html>
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-<link rel="stylesheet" href="/resources/css/food_search.css">
+<link rel="stylesheet" href="/resources/food/css/food_search.css">
 <meta charset="UTF-8">
 <title>UNEEDS FOOD</title>
 </head>
@@ -13,7 +13,7 @@
 	<div id="search_area">
 		<div id="search_warpper">
 			<div id="logo_cell">
-				<a href="main"><img alt="로고" src="/resources/image/logo_main.png"></a>
+				<a href="main"><img alt="로고" src="/resources/food/image/logo_main.png"></a>
 			</div>
 			<div id="search_input_wrapper">
 				<input type="text" id="search_input" name="search" autocomplete="off">

@@ -1,0 +1,78 @@
+body{
+    	background: url('/resources/food/image/main.jpg') no-repeat center center fixed;
+		background-repeat: no-repeat; 
+ 		background-attachment: fixed; 
+ 		bacakground-size:cover;
+ 		-webkit-background-size:cover;
+ 		-moz-background-size:cover;
+ 		-o-background-size:cover;
+ 		min-width:800px;	 
+	}
+
+	li{
+		list-style: none;
+	}
+	
+	#main_first_message{
+		position: absolute;
+    	top: 230px;
+    	left: 50%;
+    	width: 655px;
+    	margin-left: -276px;
+	}
+	
+	#main_first_message > ul{
+		margin: 0px;
+		padding: 0px;
+	}
+	
+	#main_first_message > ul > li{
+		color: white; 
+		font-size: 100px;
+	}
+	
+	#main_search{
+		position: relative;
+		margin-top: 40px;
+		padding: 0 30px;
+		display: table;
+    	border-collapse: separate;
+	}
+	
+	#input{
+		border-radius: 25px;
+    	height: 43px;
+    	border-top-right-radius: 0;
+    	border-bottom-right-radius: 0;
+    	padding: 6px 12px;
+    	font-size: 14px;
+    	background-color: #fff;
+    	border: 1px solid #ccc;
+    	display: table-cell;
+    	width: 100%;
+    	outline: none;
+	}
+	
+	#input_span{
+		position: relative;
+    	font-size: 0;
+    	white-space: nowrap;
+    	width: 1%;
+		vertical-align: middle;
+		display: table-cell;
+	}
+	
+	#btn_input{
+		background: #00f1ff none repeat scroll 0 0;
+		border-radius: 25px; 
+		color: #fff;
+		font-size: 19px;
+		height: 43px;
+		width:90px;
+		padding: 0 0px;
+		text-shadow: 1px 1px rgba(0, 0, 0, 0.5);
+		border-top-left-radius: 0;
+    	border-bottom-left-radius: 0;
+    	position: relative;
+    	outline: none;
+	}

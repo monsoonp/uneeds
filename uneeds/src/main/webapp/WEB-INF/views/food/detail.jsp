@@ -4,7 +4,7 @@
 <html>
 <head>
 <script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=iXc25gyU5cMUdYySUzre"></script>
-<link rel="stylesheet" href="/resources/css/food_detail.css">
+<link rel="stylesheet" href="/resources/food/css/food_detail.css">
 <meta charset="UTF-8">
 <title>UNEEDS FOOD</title>
 </head>
@@ -14,7 +14,7 @@
 	<div id="search_area">
 		<div id="search_warpper">
 			<div id="logo_cell">
-				<a href="main"><img alt="로고" src="/resources/image/logo_main.png"></a>
+				<a href="main"><img alt="로고" src="/resources/food/image/logo_main.png"></a>
 			</div>
 			<div id="search_input_wrapper">
 				<input type="text" id="search_input" name="search" autocomplete="off">

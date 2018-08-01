@@ -1,7 +1,7 @@
 package com.food.controller;
 
 import java.io.UnsupportedEncodingException;
-
+import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -30,7 +30,6 @@ import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoIterable;
 
 @Controller
-//@RequestMapping(value="/food")
 public class FoodController {
 	private static final Logger logger = LoggerFactory.getLogger(FoodController.class);
 
@@ -40,21 +39,36 @@ public class FoodController {
 	@Inject
 	Food_MydataDAO dao;
 	
+	@RequestMapping(value="main", method=RequestMethod.POST)
+	public String main_post(HttpServletRequest r) {
+		try {
+			r.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		System.out.println(r.getParameter("main_search"));
+		return "redirect:search";
+	}
+	
+	// 메인페이지 로딩
 	@RequestMapping(value="main", method=RequestMethod.GET)
 	public String main() {
-		logger.info("Welcome search! The client url is {}.", "/food/food_main");		
+		logger.info("Welcome search! The client url is {}.", "/uneeds/food/main");		
 		return "main";
 	}
 	
+	// 검색 페이지 로딩
 	@RequestMapping(value="search", method=RequestMethod.GET)
 	public String search() {
-		logger.info("Welcome search! The client url is {}.", "/food/food_main");		
+		logger.info("Welcome search! The client url is {}.", "/uneeds/food/search");
 		return "search";
 	}
 	
+	// 상세보기 로딩
 	@RequestMapping(value="detail", method=RequestMethod.GET)
 	public String detail() {
-		logger.info("Welcome search! The client url is {}.", "/food/food_main");		
+		logger.info("Welcome search! The client url is {}.", "/uneeds/food/detail");		
 		return "detail";
 	}
 	
