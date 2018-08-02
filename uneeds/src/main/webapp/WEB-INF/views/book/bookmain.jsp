@@ -146,7 +146,7 @@ body {
 					</div>
 				</div>
 				<!-- store map -->
-				<div class="carousel-item" onclick="location.href='/uneeds/book/search/store'"
+				<div class="carousel-item" onclick="location.href='/uneeds/book/store'"
 					style="background-image: url('../resources/book/img/bookshop.jpg');">
 					<div class="carousel-caption d-none d-md-block">
 						<h3>서점 지도</h3>

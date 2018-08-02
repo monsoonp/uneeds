@@ -31,13 +31,13 @@
 					</a>
 					<!-- 선택 목록 -->
 					<div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-						<a class="dropdown-item" href="#">
+						<a class="dropdown-item" href="/uneeds/book/bestseller">
 							신간 목록
 						</a> 
 						<a class="dropdown-item" href="/uneeds/book/bestseller">
 							베스트 셀러
 						</a> 
-						<a class="dropdown-item" href="#">
+						<a class="dropdown-item" href="/uneeds/book/bestseller">
 							스테디 셀러
 						</a> 
 					</div>

@@ -3,7 +3,8 @@
 <!-- Footer -->
 <footer class="py-1 bg-dark fixed-bottom footer">
 	<div class="container">
-		<p class="m-0 text-center text-white">Copyright &copy; U NEEDS 2018</p>
+		<div id="clock"></div>
+		<p class="m-0 text-center text-white">Copyright &copy; UNEEDS 2018</p>
 	</div>
 	<!-- /.container -->
 </footer>
