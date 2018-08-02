@@ -49,7 +49,7 @@ $(function(){
 	$('input[type="text"]').keydown(function() {
 	    if (event.keyCode === 13) {
 	        event.preventDefault();
-	        check_text($('.searcher').val());	// 텍스트 확인 후 검색
+	        check_text($('.searcher'	).val());	// 텍스트 확인 후 검색
 	    }
 	    
 	});

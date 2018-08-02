@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@ taglib prefix="book" uri="/resources/book/tld/BookTag.tld"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -238,16 +239,29 @@ body {
 										</p>
 									</c:if>
 								<p>
-									${b.result.items[0].author.replace('|',', ') } 
+									<a href="/uneeds/book/search/${aut = b.result.items[0].author.replace('|',', ') }">${aut }</a>
 									<span>|</span>
-									${b.result.items[0].publisher } 
+									<a href="/uneeds/book/search/${pub = b.result.items[0].publisher }">${pub }</a>
 									<span>|</span>
 									${b.result.items[0].pubdate }
 								</p>
 								<p>
 									ISBN : ${fn:split(b.result.items[0].isbn,' ' )[1]}
 								</p>
-								<h3>${b.result.items[0].price }원→<span>${b.result.items[0].discount }</span>원 (10% 할인)</h3>
+								<c:choose>
+									<c:when test="${b.result.items[0].discount ne '' }">
+										<h3>
+											<span class="price">${p = b.result.items[0].price }</span>원 →
+											<span class="discount">${d = b.result.items[0].discount }</span>원 
+											(${book:getDiscount(p,d) }% 할인)
+											
+										</h3>
+									</c:when>
+									<c:otherwise>
+										<h3>${b.result.items[0].price }원</h3>
+									</c:otherwise>
+								</c:choose>
+								
 							</div>
 						</div>
 					</div> 

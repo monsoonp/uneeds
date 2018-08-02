@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.movie.mapper.TheaterMapper">
+	<insert id="insertTheater">
+		insert into mv_theater_table(tname, taddr) 
+		value(#{tname},#{taddr})
+	</insert>
+	
+	<select id="listTheater" resultType="com.movie.domain.TheaterVO">
+		select*from mv_theater_table order by tname asc
+	</select>
+	
+	<delete id="deleteTheater">
+		delete from mv_theater_table where theatercd=#{theatercd}
+	</delete>
+</mapper>

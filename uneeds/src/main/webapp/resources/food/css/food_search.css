@@ -1,0 +1,289 @@
+body {
+    background-color: rgb(247, 245, 240);
+}
+a:link {
+	text-decoration: none;
+	color: black;
+}
+
+a:visited {
+	text-decoration: none;
+	color: black;
+}
+
+a:hover {
+	text-decoration: none;
+	color: black;
+}
+
+li {
+	list-style: none;
+}
+
+#search_area {
+	margin-left: auto;
+	margin-right: auto;
+	width: 960px;
+	height: 70px;
+}
+
+#search_contain_area {
+	width: 100%;
+	height: 70px;
+	background-color: rgba(0, 205, 205, 0.85);
+}
+
+#search_warpper {
+	padding-right: 0px;
+    padding-left: 0px;
+	margin-right: auto;
+    margin-left: auto;
+}
+
+#logo_cell {
+	float: left;
+    margin: 13px 0px;
+    margin-right: 118px;
+    width: 100px;
+    height: 40px;
+    
+}
+
+#search_input_wrapper{
+	position: relative;
+    float: left;
+    margin: 18px 0px;
+    width: auto;
+    height: auto;
+}
+
+#search_input{
+	position: relative;
+    float: left;
+    width: 500px;
+    height: 30px;
+    font-size: 17px;
+    padding: 0px 8px;
+    color: rgb(100,100,100);
+    outline: none;
+    background-color: rgb(255,255,255);
+    border: 0px;
+}
+
+#search_btn{
+	position: relative;
+    float: left;
+    width: 30px;
+    height: 30px;
+    background-size: 30px 30px;
+    background-color: rgb(0,205,205);
+    background-image:url("https://dcicons.s3.amazonaws.com/dicons/img/main/ms_button.png");
+    outline: none;
+    padding: 0px;
+    border: 0px;
+}
+
+#user_info{
+	float: right!important;
+	margin: 20px 0px;	
+}
+
+#null_div{
+	height: 20px;
+}
+
+#menu_area{
+	margin: 0 auto;
+}
+
+#menu_div {
+	margin: 0 auto;
+	text-align: center;
+	overflow: hidden;
+	width: 960px;
+	border: 3px solid white;
+}
+
+#menu_ul{
+	margin: 0px;
+	padding: 0px;
+	padding-left: 75px;
+}
+
+#menu_li_first{
+	padding-left: 0px;
+	float: left;
+	font-size: 17px;
+}
+
+#menu_li_second{
+	padding-left: 70px;
+	float: left;
+	font-size: 17px;
+}
+
+#main_area{
+	min-height: 475px;
+    margin: 0 auto;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    font-size: 0px;
+    letter-spacing: 0px;
+    word-spacing: 0px;
+    text-align: center;
+}
+
+#search_list{
+	position: relative;
+	padding: 0;
+    margin-left: auto;
+    margin-right: auto;
+    width: 960px;
+}
+
+#search_contain{
+	position: relative;
+	display: -webkit-flex;
+	width: 100%;
+    height: 230px;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #fff;
+}
+
+.search_contain_img{
+	position: relative;
+	display: block;
+	width: 320px;
+    height: 100%;
+    padding: 10px 10px 20px 10px;
+}
+
+#search_img{
+	padding:0;
+	margin:0;
+	overflow: hidden;
+    position: relative;
+    z-index: 0;
+    width: 100%;
+    height: 100%;
+    background: url(https://dcicons.s3.amazonaws.com/dicons/img/list/list/ic_profile_blog_pic.png) center no-repeat;
+    background-color: #e0e0e0;
+}
+
+#search_contain_food_title{
+	position: relative;
+	padding: 10px 10px 20px 10px;
+    height: 100%;
+    text-align: left;
+}
+
+#null_food_title{
+	height: 16px;
+}
+
+#search_food_title{
+	color: #404041;
+    font-size: 30px;
+    line-height: 36px;
+}
+
+#search_food_title_kind{
+	color: #808184;
+    font-size: 18px;
+}
+
+#null_title{
+	height: 66px;
+}
+
+#search_food_title_count{
+	margin-bottom: 12px;
+}
+
+#search_food_title_count_contain{
+	float: left;
+    width: 25%;
+    padding: 0px 5px;
+    border-left: 1px solid #e0e0e0;
+}
+
+#search_food_title_count_num{
+	color: #00cdcd;
+    font-size: 18px;
+}
+
+#search_food_title_count_lang{
+	color: #808184;
+    font-size: 12px;
+}
+
+#search_food_info_contain{
+	position: relative;
+    flex: none;
+    -webkit-flex: none;
+    display: flex;
+    display: -webkit-flex;
+    flex-direction: column;
+    -ms-flex-direction: column;
+    -webkit-flex-direction: column;
+    width: 305px;
+    height: 100%;
+    padding: 10px 0px 20px 10px;
+    background: none;
+    text-align: left;
+}
+
+#search_contain_food_info_explan{
+	flex: 1;
+    -webkit-flex: 1;
+    display: flex;
+    display: -webkit-flex;
+    justify-content: space-between;
+    -webkit-justify-content: space-between;
+    align-items: center;
+    -webkit-align-items: center;
+}
+
+#search_food_info_explan_img{
+	-webkit-flex: none;
+    margin-right: 20px;
+}
+
+#search_food_info_explan_text{
+	-webkit-flex: 1;
+    color: #404041;
+    font-size: 14px;
+}
+
+#page_index{
+	margin-top: 33px;
+}
+
+#page_index_table{
+	margin-left: auto;
+    margin-right: auto;
+}
+
+#page_index_table_left_arrow{
+	width: 26px;
+    height: 26px;
+}
+
+#arrow_img{
+	width: 26px;
+    height: 26px;
+}
+
+#null_page_index{
+	width:20px;
+}
+
+#page_index_cell{
+	width: 34px;
+    height: 66px;
+    text-align: center;
+    color: #00cdcd;
+    font-size: 16px;
+    vertical-align: middle;
+}

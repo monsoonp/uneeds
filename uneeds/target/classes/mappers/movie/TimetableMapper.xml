@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.movie.mapper.TimetableMapper">
+	<insert id="insertTimetable">
+		insert into mv_timetable(theatercd, tnumcd, rtimecd) 
+		values(#{theatercd}, #{tnumcd}, #{rtimecd})
+	</insert>
+	
+	<delete id="deleteTimetable">
+		delete from mv_timetable where timecd=#{timecd}
+	</delete>
+</mapper>

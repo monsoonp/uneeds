@@ -75,7 +75,7 @@ function loading(){
 	// fixed-bottom 클래스 제거
 		$(".footer").removeClass("fixed-bottom");
 		// 1.000초 뒤 실행
-	setTimeout(() => {
+	setTimeout(() => {	//화살표함수
 		// fixed-bottom 클래스 추가 
     	$(".footer").addClass("fixed-bottom");
     	// 로딩 div display-none 클래스 추가
@@ -89,9 +89,9 @@ function loading(){
 </script>
 <style type="text/css">
 body {
-	background: url('${pageContext.request.contextPath}/resources/book/img/backgroundbook.jpg') no-repeat repeat;
+	background: url('/resources/book/img/backgroundbook.jpg') no-repeat repeat;
 	background-size: 100%;
-	background-position: center;
+	background-position: center 65%;
 	
 }
 </style>
@@ -146,7 +146,7 @@ body {
 					</div>
 				</div>
 				<!-- store map -->
-				<div class="carousel-item" onclick="location.href='/uneeds/book/search/store'"
+				<div class="carousel-item" onclick="location.href='/uneeds/book/store'"
 					style="background-image: url('../resources/book/img/bookshop.jpg');">
 					<div class="carousel-caption d-none d-md-block">
 						<h3>서점 지도</h3>
@@ -217,7 +217,5 @@ body {
 	<!-- Footer include -->
 	<jsp:include page="/WEB-INF/views/book/common/footer.jsp"></jsp:include>
 
-	<!-- login -->
-	<jsp:include page="/WEB-INF/views/book/common/login.jsp"></jsp:include>
 </body>
 </html>

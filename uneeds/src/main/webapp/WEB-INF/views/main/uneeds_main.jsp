@@ -19,7 +19,7 @@
 <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 <script	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3-min.js"></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-<link href="../resources/main/css/login.css" rel="stylesheet"/>
+<link href="${pageContext.request.contextPath }/resources/main/css/login.css" rel="stylesheet"/>
 <style>
 	.nav-link{
 		display: inline-block; color:white;
@@ -35,6 +35,9 @@
 </style>
 </head>
 <body>
+
+	<!-- login -->
+	<jsp:include page="/WEB-INF/views/main/common/login.jsp"></jsp:include>
 	<!-- 
 	<div align="right" style="padding-top: 10px;">
 		<a href="#" style="padding-right: 10px;"> 
@@ -49,7 +52,7 @@
 		<button type="button" class="btn btn-primary btn-sm"  style="margin-right: 20px;" 
 		onclick="window.open('http://192.168.0.61:8080/uneeds/join','','width=400,height=500,left=600')">JOIN</button>
 	</div>
-	 -->
+	-->
 	<div class="container-fluid" align="center" style="padding-bottom: 10px;">
 		<a href="#"> 
 		<img src="../resources/main/img/mainlogo.png" alt="mainlogo" style="width: 20%;">
@@ -57,14 +60,13 @@
 	</div>
 
 	<div class="bg-primary sticky-top" align="center">
-		<a class="nav-link" href="http://192.168.1.128:8080/web/">공연/전시</a>
-		<a class="nav-link" href="http://192.168.0.61:8080/uneeds/book/">도서</a>
-		<a class="nav-link" href="http://192.168.0.198:8080/web/mReservation.jsp">영화/엔터</a>
-		<a class="nav-link" href="http://192.168.0.209:8080/zerock/food_main.jsp">맛집</a>
-		<a class="nav-link" href="http://192.168.0.37:8080/web/viewtest.jsp">여행+</a>
-		<a class="nav-link" href="http://192.168.0.3:8080/main_test2.jsp">의료</a>
-		<a class="nav-link" href="#">어학</a>
-		<a class="nav-link" href="#">쇼핑N</a>
+		<a class="nav-link" href="/uneeds/book/">도서</a>
+		<a class="nav-link" href="/uneeds/food/main">맛집</a>
+		<a class="nav-link" href="/uneeds/travel/viewtest">여행+</a>
+		<a class="nav-link" href="/uneeds/medical/main_view">의료</a>
+		<a class="nav-link" href="/uneeds/movie/main">영화/엔터</a>
+		<a class="nav-link" href="/uneeds/">공연/전시</a>
+		<a class="nav-link" href="/uneeds/admin/main">ADMIN</a>
 	</div>
 	<!-- 1단 -->
 	<div class="row">
@@ -143,7 +145,5 @@
 		/ 개인정보보호관리책임자 : 권도혁<br> UNEEDS BIT Copyright © UNEEDS BIT Corp.
 		All Rights Reserved.<br>
 	</div>
-	<!-- login -->
-	<jsp:include page="/WEB-INF/views/main/common/login.jsp"></jsp:include>
 </body>
 </html>

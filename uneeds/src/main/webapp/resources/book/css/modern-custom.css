@@ -27,6 +27,15 @@ body {
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;
+	padding-bottom: 0;
+}
+.carousel-caption {
+	background: radial-gradient(ellipse at center, rgba(30,30,30,0.7), rgba(30,30,30,0.5), transparent, transparent);
+	background: -webkit-radial-gradient(center, ellipse cover, rgba(30,30,30,0.7), rgba(30,30,30,0.5), transparent, transparent);
+	background: -o-radial-gradient(center, ellipse cover,  rgba(30,30,30,0.7), rgba(30,30,30,0.5), transparent, transparent);
+	background: -moz-radial-gradient(center, ellipse cover,  rgba(30,30,30,0.7), rgba(30,30,30,0.5), transparent, transparent);
+	background-position: center;
+	margin-bottom: 0;
 }
 
 .portfolio-item {
@@ -115,20 +124,20 @@ html input[disabled] {
 	height:500px;	
 }
 
-/*
-.nav-up{
-	top: -40px;
+/* 시계 */
+#clock{
+	padding: 0 0;
+	margin: 0 0;
+	position: absolute;
+	/*border:1px solid #dedede;*/ 
+	width: 115px; 
+	/*height:25px;*/
+	right: 10%;
+	color: #c0c0c0;
+	font-size: 18px; 
+	text-align: center;
+	display: inline-block;
 }
-*/
-
-/*
-.carousel-control-prev-icon, .carousel-control-next-icon {
-    height: 100px;
-    width: 100px;
-    outline: black;
-    background-color: rgba(0, 0, 0, 0.3);
-    background-size: 100%, 100%;
-    border-radius: 50%;
-    border: 1px solid black;
+.inline-block{
+	display: inline-block;
 }
-*/

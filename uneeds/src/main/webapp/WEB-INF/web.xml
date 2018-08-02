@@ -37,6 +37,16 @@
 		<servlet-name>appServlet_book</servlet-name>
 		<url-pattern>/uneeds/book/*</url-pattern>
 	</servlet-mapping>
+	<jsp-config>
+	    <taglib>
+	        <taglib-uri>
+	            /resources/book/tld/BookTag.tld
+	        </taglib-uri>
+	        <taglib-location>
+	            /resources/book/tld/BookTag.tld
+	        </taglib-location>    
+	    </taglib>
+	</jsp-config>
 	
 	<!-- movie 페이지 -->
 	<servlet>
@@ -49,11 +59,25 @@
 		<load-on-startup>1</load-on-startup>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>appServlet_book</servlet-name>
+		<servlet-name>appServlet_movie</servlet-name>
 		<url-pattern>/uneeds/movie/*</url-pattern>
 	</servlet-mapping>
 	
-	
+	<!-- 공연전시  -->
+	<servlet>
+    <servlet-name>appServlet_exhibition</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    <init-param>
+      <param-name>contextConfigLocation</param-name>
+      <param-value>/WEB-INF/spring/appServlet/servlet-context_exhibition.xml</param-value>
+    </init-param>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>appServlet_exhibition</servlet-name>
+    <url-pattern>/uneeds/exhibition/*</url-pattern>
+  </servlet-mapping>
+  
 	<!-- medical 페이징 -->
 	<servlet>
 		<servlet-name>appServlet_medical</servlet-name>
@@ -71,6 +95,37 @@
 	</servlet-mapping>
 	
 	
+	<!-- travel 페이징 -->
+	<servlet>
+    	<servlet-name>appServlet_travel</servlet-name>
+    	<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+    	<init-param>
+      		<param-name>contextConfigLocation</param-name>
+      		<param-value>/WEB-INF/spring/appServlet/servlet-context_travel.xml</param-value>
+    	</init-param>
+    	<load-on-startup>1</load-on-startup>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>appServlet_travel</servlet-name>
+    <url-pattern>/uneeds/travel/*</url-pattern>
+  </servlet-mapping>
+  
+	<!-- food 페이징 -->
+	<servlet>
+		<servlet-name>appServlet_food</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/servlet-context_food.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+		
+	<servlet-mapping>
+		<servlet-name>appServlet_food</servlet-name>
+		<url-pattern>/uneeds/food/*</url-pattern>
+	</servlet-mapping>
 	
 	<!--관리자 단락 -->
 	<!-- 관리자 메인 -->

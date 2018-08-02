@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.movie.mapper.PayMapper">
+	<insert id="insertPay">
+		insert into mv_pay_table(payname, paydrate) 
+		value(#{payname},#{paydrate})
+	</insert>
+	
+	<select id="listPay" resultType="com.movie.domain.PayVO">
+		select*from mv_pay_table
+	</select>
+	
+	<delete id="deletePay">
+		delete from mv_pay_table where paycd=#{paycd}
+	</delete>
+	
+	<update id="updatePay">
+		update mv_pay_table set paydrate=#{paydrate} where paycd=#{paycd}
+	</update>
+</mapper>
