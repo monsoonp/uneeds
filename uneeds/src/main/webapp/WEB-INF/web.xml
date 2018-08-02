@@ -37,6 +37,16 @@
 		<servlet-name>appServlet_book</servlet-name>
 		<url-pattern>/uneeds/book/*</url-pattern>
 	</servlet-mapping>
+	<jsp-config>
+	    <taglib>
+	        <taglib-uri>
+	            /resources/book/tld/BookTag.tld
+	        </taglib-uri>
+	        <taglib-location>
+	            /resources/book/tld/BookTag.tld
+	        </taglib-location>    
+	    </taglib>
+	</jsp-config>
 	
 	<!-- movie 페이지 -->
 	<servlet>
