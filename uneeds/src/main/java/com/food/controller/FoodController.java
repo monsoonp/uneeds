@@ -1,6 +1,7 @@
 package com.food.controller;
 
 import java.io.UnsupportedEncodingException;
+
 import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,8 +20,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 import com.food.domain.Food_dataVo;
 import com.food.mongos.MongoUtil;
 import com.food.persistence.Food_MydataDAO;
@@ -40,14 +44,15 @@ public class FoodController {
 	Food_MydataDAO dao;
 	
 	@RequestMapping(value="main", method=RequestMethod.POST)
-	public String main_post(HttpServletRequest r) {
+	public String main_post(HttpServletRequest r, RedirectAttributes ra) {
 		try {
 			r.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println(r.getParameter("main_search"));
+		String searchs = r.getParameter("main_search");
+		ra.addAttribute("searchs", searchs);
 		return "redirect:search";
 	}
 	
@@ -60,9 +65,28 @@ public class FoodController {
 	
 	// 검색 페이지 로딩
 	@RequestMapping(value="search", method=RequestMethod.GET)
-	public String search() {
+	public String search(@RequestParam("searchs") String searchs, Model m) {
 		logger.info("Welcome search! The client url is {}.", "/uneeds/food/search");
+		System.out.println(searchs);
+		Food_dataVo vo = new Food_dataVo();
+		vo.setKeyword(searchs);
+		System.out.println(vo.getKeyword());
+		m.addAttribute("search_list", dao.searchFood(vo));
 		return "search";
+	}
+	
+	@RequestMapping(value="search", method=RequestMethod.POST)
+	public String searchs(HttpServletRequest r, RedirectAttributes ra) {
+		logger.info("Welcome search! The client url is {}.", "/uneeds/food/searchs");
+		try {
+			r.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		String search = r.getParameter("search");
+		ra.addAttribute("searchs", search);
+		return "redirect:search";
 	}
 	
 	// 상세보기 로딩
@@ -71,22 +95,7 @@ public class FoodController {
 		logger.info("Welcome search! The client url is {}.", "/uneeds/food/detail");		
 		return "detail";
 	}
-	
-	// 몽고DB 테스트
-	@RequestMapping("/list_bigbirds")
-	public String listBigbirds(Model m) {
-		// 컬렉션
-		MongoCollection<Document> col = MongoUtil.getCollection("food_database", "bigbirds");
-		// find
-		FindIterable<Document> docs = col.find();
-		// Iterable을 list로 변환
-		Iterator<Document> it = docs.iterator();
-		// setAttribute
-		m.addAttribute("list", it);
-		// return
-		return "list_bigbirds";
-	}
-	
+		
 	/* MongodbConnection list*/
 	@RequestMapping("/mongoutil_test")
 	public String testMongoutil(Model m) {
@@ -110,7 +119,7 @@ public class FoodController {
 			logger.error("예외! : " + e.getMessage());
 		}
 		//
-		return new ArrayList<>();
+		return new ArrayList<Document>();
 	}
 	
 	@RequestMapping(value = "food_insert", method = RequestMethod.POST)
