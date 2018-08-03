@@ -17,7 +17,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- Mysql 검색결과 SELECT -->
 	<select id="listSearch" resultType="com.food.domain.Food_dataVo">
-		SELECT * FROM f_food(fname, fdetail, faddr, fphone, fgmenu, fimg1, like) where fname =#{keyword} OR fdetail =#{keyword} OR faddr =#{keyword}
-		OR fphone =#{keyword} OR fgmenu = #{keyword} 
+		SELECT fname, fdetail, faddr, fphone, fgmenu, fimg1, flike FROM f_food where fname like concat('%',#{keyword},'%') OR fdetail like concat('%',#{keyword},'%') OR faddr like concat('%',#{keyword},'%')
+		OR fphone like concat('%',#{keyword},'%') OR fgmenu like concat('%',#{keyword},'%') order by fname asc limit 1,10
 	</select>
 </mapper>

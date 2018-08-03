@@ -1,11 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/food/css/food_search.css">
 <meta charset="UTF-8">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+
+</script>
 <title>UNEEDS FOOD</title>
 </head>
 <body>
@@ -15,10 +21,12 @@
 			<div id="logo_cell">
 				<a href="main"><img alt="로고" src="/resources/food/image/logo_main.png"></a>
 			</div>
-			<div id="search_input_wrapper">
-				<input type="text" id="search_input" name="search" autocomplete="off">
-				<button type="submit" id="search_btn"></button>
-			</div>
+			<form action="search" method="post">
+				<div id="search_input_wrapper">
+					<input type="text" id="search_input" name="search" autocomplete="off">
+					<button type="submit" id="search_btn"></button>
+				</div>
+			</form>
 			<div id="user_info">
 				<ul style="margin: 0px; padding: 0px;">
 					<li style="color: white;">LOGIN</li>
@@ -44,349 +52,58 @@
 </div>
 <div id="main_area">
 	<div id="search_list">
-		<div id="search_contain">
-			<div class="search_contain_img">
-				<div id="search_img">
-				</div>
-			</div>
-			<div id="search_contain_food_title">
-				<div id="null_food_title"></div>
-				<div id="search_food_title">
-					<a href="detail">새벽집</a>
-				</div>
-				<div id="search_food_title_kind">
-					육회, 선지해장국, 육회비빔밥
-				</div>
-				<div id="null_title"></div>
-				<div id="search_food_title_count">
-					<div id="search_food_title_count_contain" style="border-left: none; ">
-						<div id="search_food_title_count_num">100</div>
-						<div id="search_food_title_count_lang">종아요</div>
-					</div>
-					<div id="search_food_title_count_contain">
-						<div id="search_food_title_count_num">12</div>
-						<div id="search_food_title_count_lang">평가</div>
+		<c:forEach items="${search_list}" var="sl">
+			<div id="search_contain">
+				<div class="search_contain_img">
+					<div id="search_img">
+						<img alt="음식사진" src="${sl.fimg1}">
 					</div>
 				</div>
-			</div>
-			<div id="search_food_info_contain">
-				<div id="search_contain_food_info_explan">
+				<div id="search_contain_food_title">
+					<div id="null_food_title"></div>
+					<div id="search_food_title">
+						<a href="#">${sl.fname}</a>
+					</div>
+					<div id="search_food_title_kind">
+						${sl.fgmenu}
+					</div>
+					<div id="null_title"></div>
+					<div id="search_food_title_count">
+						<div id="search_food_title_count_contain" style="border-left: none; ">
+							<div id="search_food_title_count_num">${sl.flike}</div>
+							<div id="search_food_title_count_lang">종아요</div>
+						</div>
+						<div id="search_food_title_count_contain">
+							<div id="search_food_title_count_num">12</div>
+							<div id="search_food_title_count_lang">평가</div>
+						</div>
+					</div>
+				</div>
+				<div id="search_food_info_contain">
+					<div id="search_contain_food_info_explan">
+							<div id="search_food_info_explan_img">
+								<img style="width: 16px; height: 16px;"
+									src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_keyword.png">
+							</div>
+							<div id="search_food_info_explan_text">${sl.fdetail}</div>
+					</div>
+					<div id="search_contain_food_info_explan">
 						<div id="search_food_info_explan_img">
 							<img style="width: 16px; height: 16px;"
-								src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_keyword.png">
+								src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_address.png">
 						</div>
-						<div id="search_food_info_explan_text">해장, 야식, 무한도전맛집, 수요미식회, 연중무휴</div>
-				</div>
-				<div id="search_contain_food_info_explan">
-					<div id="search_food_info_explan_img">
-						<img style="width: 16px; height: 16px;"
-							src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_address.png">
+						<div id="search_food_info_explan_text">${sl.faddr}</div>
 					</div>
-					<div id="search_food_info_explan_text">청담동 · 서울특별시 강남구 청담동 129-10</div>
-				</div>
-				<div id="search_contain_food_info_explan">
-					<div id="search_food_info_explan_img">
-						<img style="width: 16px; height: 16px;"
-							src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_tel.png">
-					</div>
-					<div id="search_food_info_explan_text">02-546-5739</div>
-				</div>
-			</div>
-		</div>
-		<div id="search_contain">
-			<div class="search_contain_img">
-				<div id="search_img">
-				</div>
-			</div>
-			<div id="search_contain_food_title">
-				<div id="null_food_title"></div>
-				<div id="search_food_title">
-					<a href="#">새벽집</a>
-				</div>
-				<div id="search_food_title_kind">
-					육회, 선지해장국, 육회비빔밥
-				</div>
-				<div id="null_title"></div>
-				<div id="search_food_title_count">
-					<div id="search_food_title_count_contain" style="border-left: none; ">
-						<div id="search_food_title_count_num">100</div>
-						<div id="search_food_title_count_lang">종아요</div>
-					</div>
-					<div id="search_food_title_count_contain">
-						<div id="search_food_title_count_num">12</div>
-						<div id="search_food_title_count_lang">평가</div>
-					</div>
-				</div>
-			</div>
-			<div id="search_food_info_contain">
-				<div id="search_contain_food_info_explan">
+					<div id="search_contain_food_info_explan">
 						<div id="search_food_info_explan_img">
 							<img style="width: 16px; height: 16px;"
-								src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_keyword.png">
+								src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_tel.png">
 						</div>
-						<div id="search_food_info_explan_text">해장, 야식, 무한도전맛집, 수요미식회, 연중무휴</div>
-				</div>
-				<div id="search_contain_food_info_explan">
-					<div id="search_food_info_explan_img">
-						<img style="width: 16px; height: 16px;"
-							src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_address.png">
-					</div>
-					<div id="search_food_info_explan_text">청담동 · 서울특별시 강남구 청담동 129-10</div>
-				</div>
-				<div id="search_contain_food_info_explan">
-					<div id="search_food_info_explan_img">
-						<img style="width: 16px; height: 16px;"
-							src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_tel.png">
-					</div>
-					<div id="search_food_info_explan_text">02-546-5739</div>
-				</div>
-			</div>
-		</div>
-		<div id="search_contain">
-			<div class="search_contain_img">
-				<div id="search_img">
-				</div>
-			</div>
-			<div id="search_contain_food_title">
-				<div id="null_food_title"></div>
-				<div id="search_food_title">
-					<a href="#">새벽집</a>
-				</div>
-				<div id="search_food_title_kind">
-					육회, 선지해장국, 육회비빔밥
-				</div>
-				<div id="null_title"></div>
-				<div id="search_food_title_count">
-					<div id="search_food_title_count_contain" style="border-left: none; ">
-						<div id="search_food_title_count_num">100</div>
-						<div id="search_food_title_count_lang">종아요</div>
-					</div>
-					<div id="search_food_title_count_contain">
-						<div id="search_food_title_count_num">12</div>
-						<div id="search_food_title_count_lang">평가</div>
+						<div id="search_food_info_explan_text">${sl.fphone}</div>
 					</div>
 				</div>
 			</div>
-			<div id="search_food_info_contain">
-				<div id="search_contain_food_info_explan">
-						<div id="search_food_info_explan_img">
-							<img style="width: 16px; height: 16px;"
-								src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_keyword.png">
-						</div>
-						<div id="search_food_info_explan_text">해장, 야식, 무한도전맛집, 수요미식회, 연중무휴</div>
-				</div>
-				<div id="search_contain_food_info_explan">
-					<div id="search_food_info_explan_img">
-						<img style="width: 16px; height: 16px;"
-							src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_address.png">
-					</div>
-					<div id="search_food_info_explan_text">청담동 · 서울특별시 강남구 청담동 129-10</div>
-				</div>
-				<div id="search_contain_food_info_explan">
-					<div id="search_food_info_explan_img">
-						<img style="width: 16px; height: 16px;"
-							src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_tel.png">
-					</div>
-					<div id="search_food_info_explan_text">02-546-5739</div>
-				</div>
-			</div>
-		</div>
-		<div id="search_contain">
-			<div class="search_contain_img">
-				<div id="search_img">
-				</div>
-			</div>
-			<div id="search_contain_food_title">
-				<div id="null_food_title"></div>
-				<div id="search_food_title">
-					<a href="#">새벽집</a>
-				</div>
-				<div id="search_food_title_kind">
-					육회, 선지해장국, 육회비빔밥
-				</div>
-				<div id="null_title"></div>
-				<div id="search_food_title_count">
-					<div id="search_food_title_count_contain" style="border-left: none; ">
-						<div id="search_food_title_count_num">100</div>
-						<div id="search_food_title_count_lang">종아요</div>
-					</div>
-					<div id="search_food_title_count_contain">
-						<div id="search_food_title_count_num">12</div>
-						<div id="search_food_title_count_lang">평가</div>
-					</div>
-				</div>
-			</div>
-			<div id="search_food_info_contain">
-				<div id="search_contain_food_info_explan">
-						<div id="search_food_info_explan_img">
-							<img style="width: 16px; height: 16px;"
-								src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_keyword.png">
-						</div>
-						<div id="search_food_info_explan_text">해장, 야식, 무한도전맛집, 수요미식회, 연중무휴</div>
-				</div>
-				<div id="search_contain_food_info_explan">
-					<div id="search_food_info_explan_img">
-						<img style="width: 16px; height: 16px;"
-							src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_address.png">
-					</div>
-					<div id="search_food_info_explan_text">청담동 · 서울특별시 강남구 청담동 129-10</div>
-				</div>
-				<div id="search_contain_food_info_explan">
-					<div id="search_food_info_explan_img">
-						<img style="width: 16px; height: 16px;"
-							src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_tel.png">
-					</div>
-					<div id="search_food_info_explan_text">02-546-5739</div>
-				</div>
-			</div>
-		</div>
-		<div id="search_contain">
-			<div class="search_contain_img">
-				<div id="search_img">
-				</div>
-			</div>
-			<div id="search_contain_food_title">
-				<div id="null_food_title"></div>
-				<div id="search_food_title">
-					<a href="#">새벽집</a>
-				</div>
-				<div id="search_food_title_kind">
-					육회, 선지해장국, 육회비빔밥
-				</div>
-				<div id="null_title"></div>
-				<div id="search_food_title_count">
-					<div id="search_food_title_count_contain" style="border-left: none; ">
-						<div id="search_food_title_count_num">100</div>
-						<div id="search_food_title_count_lang">종아요</div>
-					</div>
-					<div id="search_food_title_count_contain">
-						<div id="search_food_title_count_num">12</div>
-						<div id="search_food_title_count_lang">평가</div>
-					</div>
-				</div>
-			</div>
-			<div id="search_food_info_contain">
-				<div id="search_contain_food_info_explan">
-						<div id="search_food_info_explan_img">
-							<img style="width: 16px; height: 16px;"
-								src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_keyword.png">
-						</div>
-						<div id="search_food_info_explan_text">해장, 야식, 무한도전맛집, 수요미식회, 연중무휴</div>
-				</div>
-				<div id="search_contain_food_info_explan">
-					<div id="search_food_info_explan_img">
-						<img style="width: 16px; height: 16px;"
-							src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_address.png">
-					</div>
-					<div id="search_food_info_explan_text">청담동 · 서울특별시 강남구 청담동 129-10</div>
-				</div>
-				<div id="search_contain_food_info_explan">
-					<div id="search_food_info_explan_img">
-						<img style="width: 16px; height: 16px;"
-							src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_tel.png">
-					</div>
-					<div id="search_food_info_explan_text">02-546-5739</div>
-				</div>
-			</div>
-		</div>
-		<div id="search_contain">
-			<div class="search_contain_img">
-				<div id="search_img">
-				</div>
-			</div>
-			<div id="search_contain_food_title">
-				<div id="null_food_title"></div>
-				<div id="search_food_title">
-					<a href="#">새벽집</a>
-				</div>
-				<div id="search_food_title_kind">
-					육회, 선지해장국, 육회비빔밥
-				</div>
-				<div id="null_title"></div>
-				<div id="search_food_title_count">
-					<div id="search_food_title_count_contain" style="border-left: none; ">
-						<div id="search_food_title_count_num">100</div>
-						<div id="search_food_title_count_lang">종아요</div>
-					</div>
-					<div id="search_food_title_count_contain">
-						<div id="search_food_title_count_num">12</div>
-						<div id="search_food_title_count_lang">평가</div>
-					</div>
-				</div>
-			</div>
-			<div id="search_food_info_contain">
-				<div id="search_contain_food_info_explan">
-						<div id="search_food_info_explan_img">
-							<img style="width: 16px; height: 16px;"
-								src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_keyword.png">
-						</div>
-						<div id="search_food_info_explan_text">해장, 야식, 무한도전맛집, 수요미식회, 연중무휴</div>
-				</div>
-				<div id="search_contain_food_info_explan">
-					<div id="search_food_info_explan_img">
-						<img style="width: 16px; height: 16px;"
-							src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_address.png">
-					</div>
-					<div id="search_food_info_explan_text">청담동 · 서울특별시 강남구 청담동 129-10</div>
-				</div>
-				<div id="search_contain_food_info_explan">
-					<div id="search_food_info_explan_img">
-						<img style="width: 16px; height: 16px;"
-							src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_tel.png">
-					</div>
-					<div id="search_food_info_explan_text">02-546-5739</div>
-				</div>
-			</div>
-		</div>
-		<div id="search_contain">
-			<div class="search_contain_img">
-				<div id="search_img">
-				</div>
-			</div>
-			<div id="search_contain_food_title">
-				<div id="null_food_title"></div>
-				<div id="search_food_title">
-					<a href="#">새벽집</a>
-				</div>
-				<div id="search_food_title_kind">
-					육회, 선지해장국, 육회비빔밥
-				</div>
-				<div id="null_title"></div>
-				<div id="search_food_title_count">
-					<div id="search_food_title_count_contain" style="border-left: none; ">
-						<div id="search_food_title_count_num">100</div>
-						<div id="search_food_title_count_lang">종아요</div>
-					</div>
-					<div id="search_food_title_count_contain">
-						<div id="search_food_title_count_num">12</div>
-						<div id="search_food_title_count_lang">평가</div>
-					</div>
-				</div>
-			</div>
-			<div id="search_food_info_contain">
-				<div id="search_contain_food_info_explan">
-						<div id="search_food_info_explan_img">
-							<img style="width: 16px; height: 16px;"
-								src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_keyword.png">
-						</div>
-						<div id="search_food_info_explan_text">해장, 야식, 무한도전맛집, 수요미식회, 연중무휴</div>
-				</div>
-				<div id="search_contain_food_info_explan">
-					<div id="search_food_info_explan_img">
-						<img style="width: 16px; height: 16px;"
-							src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_address.png">
-					</div>
-					<div id="search_food_info_explan_text">청담동 · 서울특별시 강남구 청담동 129-10</div>
-				</div>
-				<div id="search_contain_food_info_explan">
-					<div id="search_food_info_explan_img">
-						<img style="width: 16px; height: 16px;"
-							src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_tel.png">
-					</div>
-					<div id="search_food_info_explan_text">02-546-5739</div>
-				</div>
-			</div>
-		</div>
+		</c:forEach>
 		<div id="page_index">
 			<table id="page_index_table">
 				<tbody>
@@ -398,7 +115,7 @@
 						</td>
 						<td id="null_page_index"></td>
 						<td id="page_index_cell">
-							<a href="#">1</a>
+							<a href="#" name="paging">1</a>
 						</td>
 						<td id="page_index_cell">
 							<a href="#">2</a>
