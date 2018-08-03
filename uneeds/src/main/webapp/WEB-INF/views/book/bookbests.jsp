@@ -14,6 +14,7 @@
 <link href="${pageContext.request.contextPath}/resources/book/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link href="${pageContext.request.contextPath}/resources/book/css/modern-custom.css" rel="stylesheet"/>
 <link href="${pageContext.request.contextPath}/resources/book/css/bookList.css" rel="stylesheet"/>
+<link href="${pageContext.request.contextPath}/resources/book/css/animate.css" rel="stylesheet"/>
 <!-- jquery / bootstrap / js-->
 <script src="//code.jquery.com/jquery-latest.js"></script> <!-- must be top -->
 <script src="${pageContext.request.contextPath}/resources/book/bootstrap/js/bootstrap.min.js"></script>
@@ -134,6 +135,7 @@ function showBests(genre){
 
 
 //모바일 감지
+/*
 function findBootstrapEnvironment() {
 	var envs = ['xs', 'sm', 'md', 'lg'];
 	
@@ -150,6 +152,11 @@ function findBootstrapEnvironment() {
 		}
 	}
 }
+*/
+function book_info(frm){
+	frm.submit();
+}
+
 </script>
 <style type="text/css">
 body {
@@ -221,18 +228,19 @@ body {
 			<c:forEach items="${bests[0].bookList }" var="b">
 			
 				<li>
+					<form action="/uneeds/book/info" method="post">
+					
 					<div class="main-div">
 						<div class="row mb-4 my-auto py-auto" id="prev">
 							<div class="col-md-4 my-auto">
-								
-								<div class="book_img_div">
+								<div class="book_img_div mx-auto">
 									<div></div>
 									<div><span>${b.rank }</span></div>
-									<img src="${fn:split(b.result.items[0].image,'?')[0] }">
+									<img src="${img = fn:split(b.result.items[0].image,'?')[0] }">
 								</div>
 							</div>
 							<div class="panel col-md-8 my-auto">
-								<h2>${fn:split(b.result.items[0].title,'(' )[0] }</h2>
+								<h2 onclick="book_info(this.form);">${fn:split(b.result.items[0].title,'(' )[0] }</h2>
 									<c:if test="${fn:split(b.result.items[0].title,'(' )[1] ne null}">
 										<p>
 											(${fn:split(b.result.items[0].title,'(' )[1]}
@@ -243,17 +251,17 @@ body {
 									<span>|</span>
 									<a href="/uneeds/book/search/${pub = b.result.items[0].publisher }">${pub }</a>
 									<span>|</span>
-									${b.result.items[0].pubdate }
+									${date = b.result.items[0].pubdate }
 								</p>
 								<p>
-									ISBN : ${fn:split(b.result.items[0].isbn,' ' )[1]}
+									ISBN : ${isbn = fn:split(b.result.items[0].isbn,' ' )[1]}
 								</p>
 								<c:choose>
 									<c:when test="${b.result.items[0].discount ne '' }">
 										<h3>
 											<span class="price">${p = b.result.items[0].price }</span>원 →
 											<span class="discount">${d = b.result.items[0].discount }</span>원 
-											(${book:getDiscount(p,d) }% 할인)
+											(${disRate = book:getDiscount(p,d) }% 할인)
 											
 										</h3>
 									</c:when>
@@ -265,7 +273,20 @@ body {
 							</div>
 						</div>
 					</div> 
-						
+					
+					<input name="title" class="display-none" value="${b.result.items[0].title}">
+					<input name="isbn" class="display-none" value="${fn:split((fn:split(isbn,'>')[1]),'<')[0]}">
+					<input name="author" class="display-none" value="${aut}">
+					<input name="pub" class="display-none" value="${pub}">
+					<input name="img" class="display-none" value="${img}">
+					<input name="price" class="display-none" value="${p}">
+					<input name="discount" class="display-none" value="${d}">
+					<input name="disRate" class="display-none" value="${disRate}">
+					<!-- <input name="date" class="display-none" value="${date}"> -->
+					<input name="desc" class="display-none" value="${b.result.items[0].description}">
+					<input name="link" class="display-none" value="${b.result.items[0].link}">
+					
+					</form>	
 				</li>
 			
 			</c:forEach>

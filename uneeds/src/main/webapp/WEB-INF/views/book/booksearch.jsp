@@ -12,6 +12,7 @@
 <link href="/resources/book/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link href="/resources/book/css/modern-custom.css" rel="stylesheet"/>
 <link href="/resources/book/css/bookList.css" rel="stylesheet"/>
+<link href="../resources/book/css/animate.css" rel="stylesheet"/>
 <!-- jquery / bootstrap / js-->
 <script src="//code.jquery.com/jquery-latest.js"></script> <!-- must be top -->
 <script src="/resources/book/bootstrap/js/bootstrap.min.js"></script>
@@ -44,12 +45,19 @@ $(function(){
 		$('.searcher').val('${text}')
 	}
 	currentPosition = parseInt($("#right_section").css("top"));  // 
+	/*
+	showTimes = setInterval(function() {	// 1.000초마다 내부 실행
+		
+				
+	}, 1000);
+	clearInterval(showTimes);	// showTimes 함수 정지
+	*/
 	
 	//input 태그 엔터 시
 	$('input[type="text"]').keydown(function() {
 	    if (event.keyCode === 13) {
 	        event.preventDefault();
-	        check_text($('.searcher'	).val());	// 텍스트 확인 후 검색
+	        check_text($('.searcher').val());	// 텍스트 확인 후 검색
 	    }
 	    
 	});
@@ -72,7 +80,7 @@ function check_text(text){
 	if(listCount <= 1000  && display <= total){
 		bind_book();
 	}else{
-		alert("검색 결과가 없습니다.");
+		//alert("검색 결과가 없습니다.");
 	}
 	
 }
@@ -96,26 +104,34 @@ function bind_book(){
 		    	for (item in items ){
 		    		it = items[item];
 		    		if(it.discount != ''){
-		    			discount='<h4>'+it.price+'원→'+it.discount+'원 (10% 할인) </h4>';
+		    			discount='<h4><span class="price">'+it.price+
+		    						'</span>원 → <span class="discount"><b>'+it.discount+
+		    						'</b></span>원 ('+((it.price-it.discount)*100/it.price).toFixed(0)+'% 할인) </h4>';
 		    		}else{
 		    			discount='<h4>'+it.price+'원</h4>';
 		    		}
-		    		img = it.image.split("?");	//image 옵션값 나누기
-		    		title = it.title.split("(");	//제목 부제목 나누기
+		    		img = it.image.split("?")[0];	//image 옵션값 나누기
+		    		img = img == ''? '/resources/book/img/defaultbook.png':img;	//이미지가 없으면 디폴트 이미지
+		    		//console.log(img);
+		    		title = it.title.split("(")[0];	//제목 부제목 나누기
+		    		
 		    		author = it.author.replace(/(<([^>]+)>)/ig,"");
 		    		author = '<a href="/uneeds/book/search/'+author+'">'+author.replace(/\|/g,", ")+'</a>'; // 저자로 검색
-		    		publisher = it.publisher.replace(/(<([^>]+)>)/ig,"");	// 출판사로 검색
+		    		
+		    		publisher = it.publisher.replace(/(<([^>]+)>)/ig,"");
 		    		publisher = '<a href="/uneeds/book/search/'+publisher+'">'+it.publisher+'</a>';	// 출판사로 검색
+		    		
 		    		pubdate = it.pubdate;
+		    		
 		    		ul.append("<li>"+
 			    		'<div class="main-div">'+
-							'<div class="row mb-4 py-auto">'+
-								'<div class="col-md-4 my-auto">'+
-									'<img src="'+img[0]+'"'+
+							'<div class="row mb-4 my-auto py-auto">'+
+								'<div class="col-md-4 my-auto mx-auto">'+
+									'<img src="'+img+'"'+
 									'style="width:130px; height:200px;">'+
 								'</div>'+
 								'<div class="panel col-md-8  my-auto">'+
-									'<h2>'+title[0]+'</h2>'+
+									'<h2>'+title+'</h2>'+
 									'<p>'+
 									author+span+
 									publisher+span+
@@ -141,14 +157,18 @@ function bind_book(){
 	    	}
 	    	
 		},beforeSend:function(){
-			$('#loading').removeClass('display-none');
-	    	$('#loading').addClass('loading');
-	    },complete: function(){
+			if(listCount == 1){
+				$('#loading').removeClass('display-none');
+		    	$('#loading').addClass('loading');
+			}
+		},complete: function(){
 			console.log("complete");
-			showTimes = setTimeout(function() {
-				$('#loading').addClass('display-none');
-				$('#loading').removeClass('loading');
-			}, 1000);
+			if(listCount == 1){
+				setTimeout(function() {
+					$('#loading').addClass('display-none');
+					$('#loading').removeClass('loading');
+				}, 1000);
+			}
 		},
 	    error: function(error) {
 	    	console.log("error= " + error);
@@ -174,6 +194,25 @@ $(window).scroll(function() {
    
    
 });
+/*
+function loading(){
+	// 로딩 div display-none 클래스 제거
+	$("#loading").removeClass("display-none");
+	$("#loading").animate({"opacity":"1"},100);
+	// fixed-bottom 클래스 제거
+		$(".footer").removeClass("fixed-bottom");
+		// 1.000초 뒤 실행
+	setTimeout(() => {
+		// fixed-bottom 클래스 추가 
+    	$(".footer").addClass("fixed-bottom");
+    	// 로딩 div display-none 클래스 추가
+    	$("#loading").addClass("display-none");
+	}, 1000);
+    	//$("#prev").after("<br/><br/><br/><br/><br/><br/><br/>");
+    	$("p.book").after("<p>"+$("p.book").text()+"</p>");
+    	$("#loading").animate({"opacity":"0.5"},1000);//.addClass("display-none");
+}
+*/
 
 
 </script>
