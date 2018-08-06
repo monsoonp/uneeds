@@ -81,11 +81,11 @@
 
 <div class="row" style="height: 200px;">
 	<div class="col-lg2" style="width: 220px; text-align: center; background: #848484;">
-		<h2 style="padding-top: 70px;"><a href="#">LOGOUT</a></h2>
+		<h2 style="padding-top: 70px;"><a href="/uneeds/">LOGOUT</a></h2>
 	</div>
 	<div class="col-lg2" style="width: 220px;"></div>
 	<div class="col-lg2" style="width: 220px; text-align: center; background: #04B4AE;">
-		<h2 style="padding-top: 70px;"><a href="http://localhost:8080/uneeds/admin_movie/main">MOVIE</a></h2>
+		<h2 style="padding-top: 70px;"><a href="/uneeds/admin_movie/main">MOVIE</a></h2>
 	</div>
 	<div class="col-lg2" style="width: 220px;">
 		<img src="/resources/admin/img/logo3.jpg"  style="height: 200px; width: 220px;">

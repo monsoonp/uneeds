@@ -50,7 +50,7 @@
                     <div class="total_search01">
                         <input type="text" id="headerSearchValue" placeholder="키워드를 검색하세요." name="Name" title="검색어 입력">
                         <a href="#" id="btn-site-search"><img src="../../../resources/medical/img/search_icon_02.png"></a>
-                        </div>                   
+                        </div>
                 </div>
             </nav>
         </div>
@@ -269,6 +269,10 @@ function bindKind(){
 		
 }
 
+
+
+
+
 	/* 지도 초기 옵션 */
 	var map = new naver.maps.Map(document.getElementById('map'), mapOptions);
 	
@@ -300,6 +304,27 @@ function bindKind(){
 		
 		
 	}
+	
+	//검색병원 목록 불러오기
+	function searchhospital(){
+		
+		$.ajax({
+			url : 'hospitalSearch',
+			type : 'GET',
+			dataType: 'xml',
+			data : {
+				  'hname' : String($('#hname').val() )
+			},success : function(data, state){
+				bindList(data);	
+			}, error : function(request, state, error){
+				alert(error);
+			}
+					
+			});
+		
+		
+	}
+	
 	
 		
 	// 병원 목록 불러오기2
@@ -424,6 +449,7 @@ function bindKind(){
 			
 			//선택한 병원 및 약국 맵에서 정보 보기
 			$("#site-box").on("click",".icon-no", function(){
+				
 				var ind = $(this).data('index');				
 				listClickHandler(ind);
 				
@@ -476,38 +502,20 @@ $(function(){
 		  bindhospital();		  
 	});
 	  
-	  
+	   var hname = String($('#hname').val() );
+	   if(!hname==""){
+		   searchhospital();
+	   }else{
+		   alert("값없음");
+	   }
+	   
 	  
 });
-
-
-$(function (){
-	$.ajax({
-		url : 'hospitalInfoView',
-		type : 'GET',
-		dataType: 'xml',
-		data : {
-			  'sido' : 110000,
-			  'sigun' : 110001,
-			  'kind' : 01
-		},success : function(data, state){
-			bindList(data);	
-		}, error : function(request, state, error){
-			alert("설마?");
-		}
-				
-		});
-	
-	
-});
-
-
-
-
 
 </script>
-
-
-
+<%
+String hname = (String) request.getParameter("hname"); 
+%>
+<li><input type="hidden" name="ykiho" value="<%=hname%>" id="hname"/></li>
 </body>
 </html>
