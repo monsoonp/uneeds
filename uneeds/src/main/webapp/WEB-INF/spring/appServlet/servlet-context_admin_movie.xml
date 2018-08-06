@@ -31,7 +31,7 @@
 	
 	<!-- 서버파일 저장경로설정 -->
 	<beans:bean id="uploadPath" class="java.lang.String">
-		<beans:constructor-arg value="C:\\sts-bundle\\ws\\uneeds\\src\\main\\webapp\\resources\\movie\\img">
+		<beans:constructor-arg value="C:\\sts-bundle\\ws\\maven.1533288059885\\uneeds\\src\\main\\webapp\\resources\\movie\\img">
 		</beans:constructor-arg>
 	</beans:bean>
 </beans:beans>
