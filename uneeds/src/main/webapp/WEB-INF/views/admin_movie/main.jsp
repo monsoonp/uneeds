@@ -42,7 +42,11 @@ li {
 .card-body{
 	font-size: small;
 }
+	.navbar-brand2:hover{color:white; text-decoration: none;}
+	.navbar-brand2{text-decoration: none; color: gold;}
 </style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
 	function testc(e){
 		var x =e.getAttribute("id");
@@ -58,15 +62,13 @@ li {
 	function step1(e){
 		//x = e.firstChild.nodeValue;
 		//alert(e.getAttribute("moviecd"))
-		
-		
 		$.get("mlistMoviestep1", { "moviecd" : e.getAttribute('moviecd') }, function(data, state){
 			var items = data.movieInfoResult.movieInfo;
 	
 			$("#moviecd")[0].value = items.movieCd;
-			$("#movienm")[0].value = items.movieNm;
+			$("#moviename")[0].value = items.movieNm;
 			$("#showtm")[0].value = items.showTm;
-			$("#opendt")[0].value = items.openDt;
+			$("#openDt")[0].value = items.openDt;
 			
 			//장르
 			var gen = "";
@@ -172,13 +174,15 @@ li {
 		tbsh.empty();
 		tbsb.empty();
 		tbsh.append("<tr><th style='width: 150px;'>상영형태코드</th><th>상영형태상세</th><th>-</th></tr>");
-		
+		$("#sellshowtycd").empty();
 		$.get("list_Showtype",function(data, state){
 			for (var i = 0; i < data.length; i++) {
 				var d = data[i];
 				tbsb.append("<tr><td>" + d.showtycd +"</td><td>"+d.showtyname+"</td><td>"+
 						 "<span class='badge badge-pill badge-danger' showtycd= '" + d.showtycd +
 				"' onclick='delete_st(this);'>삭제</span></td></tr>");
+				
+				$("#sellshowtycd").append("<option value='"+d.showtycd+"'>"+d.showtyname+"</option>");
 			}
 		});
 	}
@@ -197,10 +201,10 @@ li {
 		tbtheh.empty();
 		tbtheb.empty();
 
-		tbtheh.append("<tr><th>지점코드</th><th>지점명</th><th>주소</th><th>-</th></tr>");
+		tbtheh.append("<tr><th style='width: 70px;'>지점코드</th><th>지점명</th><th>주소</th><th>-</th></tr>");
 		
 		$("#sel_theatercd").empty();
-		
+		$("#sel_to_theatercd").empty();
 		$.get("list_Theater",function(data, state){
 			for (var i = 0; i < data.length; i++) {
 				var d = data[i];
@@ -208,6 +212,7 @@ li {
 						d.taddr+"</td><td>"+"<span class='badge badge-pill badge-danger' theatercd= '" 
 						+ d.theatercd +"' onclick='delete_th(this);'>삭제</span></td></tr>");
 				$("#sel_theatercd").append("<option value='"+d.theatercd+"'>"+d.tname+"</option>");
+				$("#sel_to_theatercd").append("<option value='"+d.theatercd+"'>"+d.tname+"</option>");
 			}
 		});
 	}
@@ -339,17 +344,17 @@ li {
 	}
 	
 	//시간표리스트
-	function bindTTlist(){
+	function bindVTlist(){
 		tbtth= $("#tbtimetable thead");
 		tbttb= $("#tbtimetable tbody");
 		tbtth.empty();
 		tbttb.empty();
-		tbtth.append("<tr><th style='width: 150px;'>시간표코드</th><th>지점명</th><th>상영관</th><th>시간</th><th>-</th></tr>");
+		tbtth.append("<tr><th style='width: 150px;'>상영시간표코드</th><th>지점명</th><th>상영관</th><th>시간</th><th>-</th></tr>");
 		
-		$.get("list_Timetable",function(data, state){
+		$.get("list_VTimetable",function(data, state){
 			for (var i = 0; i < data.length; i++) {
 				var d = data[i];
-				tbrb.append("<tr><td>" + d.timetcd +"</td><td>"+d.tname+"</td><td>"+d.tnum+"</td><td>"+d.rtime+"</td><td>"+
+				tbttb.append("<tr><td>" + d.timetcd +"</td><td>"+d.tname+"</td><td>"+d.tnum+"</td><td>"+d.rtime+"</td><td>"+
 						 "<span class='badge badge-pill badge-danger' timetcd= '" + d.timetcd +
 				"' onclick='delete_tiemtable(this);'>삭제</span></td></tr>");
 			}
@@ -359,12 +364,99 @@ li {
 	//상영시간삭제
 	function delete_timetable(e){
 		$.post("delete_Timetable", { "timetcd" : e.getAttribute('timetcd') }, function(data, state){
-			bindTTlist();
+			bindVTlist();
 		});
 	}
 	
+	//네비바메뉴
+	function navstate(){
+		$("#accordion").attr("style","display:none;");
+		$("#reserv_state").attr("style","");
+	}
+	
+	function navstate_s(){
+		$("#accordion").attr("style","");
+		$("#reserv_state").attr("style","display:none;");
+	}
+	
+	//지점별검색 리스트 바인딩
+	function bindlist_searchtt(){
+		frm=$("#frm_totimetable")[0];
+		$.get("list_searchVTimetable",{"theatercd":frm.sel_to_theatercd.value},function(data, state){
+			tbttth= $("#tbtotimetable thead");
+			tbtttb= $("#tbtotimetable tbody");
+			tbttth.empty();
+			tbtttb.empty();		
+			for (var i = 0; i < data.length; i++) {
+				var d = data[i];
+				if(i==0){
+					tbttth.append("<tr><th style='width: 100px;color:gold;'>"+d.tname+"점</th><th>상영관</th><th>시간</th></tr>");
+				}
+				tbtttb.append("<tr><td></td><td>"+d.tnum+"</td><td>"+d.rtime+"</td></tr>");
+			}
+		});
+	}
+	
+	//보유영화바인딩
+	function bindMVlist(){
+		tbmh= $("#tbmovie thead");
+		tbmb= $("#tbmovie tbody");
+		tbmh.empty();
+		tbmb.empty();
+		tbmh.append("<tr><th>영화코드</th><th>영화명</th><th>상영시간(분)</th><th>개봉일자</th><th>장르</th><th>감독</th><th>-</th></tr>");
+		
+		$("#sellmoviecd").empty();
+		
+		$.get("list_Movies",function(data, state){
+			for (var i = 0; i < data.length; i++) {
+				var d = data[i];
+				var newd = d.openDt.substring(0,10);
+				tbmb.append("<tr><td>" + d.moviecd +"</td><td>"+d.moviename+"</td><td>"+
+						 d.showtm +"</td><td>"+ newd +"</td><td>"+
+						 d.genres +"</td><td>"+d.directors+"</td><td>"+
+						 "<span class='badge badge-pill badge-danger' moviecd= '" + d.moviecd +
+				"' onclick='delete_mv(this);'>삭제</span></td></tr>");
+
+				$("#sellmoviecd").append("<option value='"+d.moviecd+"'>"+d.moviename+"</option>");
+			}
+		});
+	}
+	//상영형태삭제
+	function delete_mv(e){
+		$.post("delete_Movies", { "moviecd" : e.getAttribute('moviecd') }, function(data, state){
+			bindMVlist();
+		});
+	}
+
+	
+	//상영영화 뷰바인딩
+	function bindVRMlist(){
+		ulvr= $("#ulvrmovie");
+		ulvr.empty();
+		
+		$.get("list_VRmovie",function(data, state){
+			for (var i = 0; i < data.length; i++) {
+				var d = data[i];
+				ulvr.append("<li>"+ (i+1) +". "+d.moviename +" "+ d. showtyname 
+						+" <span class='badge badge-pill badge-danger' umoviecd='"
+						+d.umoviecd+"' onclick='delete_rele(this);' style='margin-left:5px;'>삭제</span><li>");
+			}
+		});
+	}
+	//상영영화삭제
+	function delete_rele(e){
+		$.post("delete_Release", { "umoviecd" : e.getAttribute('umoviecd') }, function(data, state){
+			bindVRMlist();
+		});
+	}
 	
 	$(function(){
+		//네비바관리
+		navstate_s();
+		
+		//상영중인 영화
+		bindVRMlist();
+		
 		//관람등급리스트바인딩
 		bindWGlist();
 		//상영형태리스트바인딩
@@ -379,7 +471,43 @@ li {
 		bindDlist();
 		
 		//시간표바인딩
-		bindTTlist();
+		bindVTlist();
+		//보유영화바인딩
+		bindMVlist();
+		
+		//파일up
+		$("#form_step1 button").on("click", function(){
+			var frm = $("form_step1")[0];
+	        var formData = new FormData(document.getElementById('form_step1'));
+	        $.ajax({
+	            url : 'up_Movie',
+	            type : 'post',
+	            data : formData,
+	            processData : false,
+	            contentType : false,
+	            success : function(result) {
+	                //alert("파일 업로드하였습니다.");
+	                bindMVlist();
+	    			$("#collapseLeft3").attr("class","collapse show");
+	    			$("#collapseLeft1").attr("class","collapse");
+	    			
+	    			$("#moviecd")[0].value = "";
+	    			$("#moviename")[0].value = "";
+	    			$("#showtm")[0].value ="";
+	    			$("#openDt")[0].value = "";
+	    			$("#genres")[0].value = "";
+	    			$("#imgup")[0].value = "";
+	    			$("#directors")[0].value = "";
+	    			$("#actors")[0].value = "";
+	    			
+	            },
+	            error : function(error) {
+	                alert("파일 업로드에 실패하였습니다.");
+	            }
+	        });
+	    });
+		
+
 		
 		$("#sel_tnumcd").empty();
 		for(var i=1;i<10;i++){
@@ -389,7 +517,7 @@ li {
 		$("#form_api_search button").on("click", function(){
 			frm = $("#form_api_search")[0];
 			//alert(frm.moviename.value); //input상자 검색값			
-			$.get("listMovie", { "moviename" : frm.moviename.value }, function(data, state){
+			$.get("listMovie", { "moviename" : frm.movienm.value }, function(data, state){
 				   // 초기
 				   var items = data.movieListResult.movieList;
 				   var table = $("#seach_movie_list tbody");
@@ -490,19 +618,40 @@ li {
 
 			$.post("insert_Timetable",{"theatercd":frm.sel_theatercd.value,"tnumcd":frm.sel_tnumcd.value,"rtimecd":frm.sel_rtimecd.value},
 					function(data, state){
-				bindRTlist();
-				frm.rtime.value="";
+				bindVTlist();
 			});
 		});
+		
+		//시간표 지점별 검색
+		$("#frm_totimetable button").on("click", function(){
+			bindlist_searchtt();
+		});
+		
+		//step2 상영영화등록
+		$("#frm_release button").on("click", function(){
+			frm=$("#frm_release")[0];
+			var mcd = $("#sellmoviecd")[0].value;
+			var scd=$("#sellshowtycd")[0].value;
+			//alert(frm);
+			$.post("insert_Release",{"moviecd":mcd,"showtycd":scd}, function(data, state){
+				$("#collapseLeft2").attr("class","collapse");
+				bindVRMlist();
+				window.scrollTo(0,0);
+			});
+		});
+		
 	});
+
 	
 </script>
+
 </head>
 <body>
 	<nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: #8A0886;">
-		<a class="navbar-brand" href="http://localhost:8080/uneeds/admin/main" style="font-weight: bold;">
-		U admin</a> 
-		<a class="navbar-brand" href="http://localhost:8080/uneeds/admin_movie/main" style="font-weight: bold;">MOVIE</a>
+		<a class="navbar-brand" href="/uneeds/admin/main" style="font-weight: bold; font: gold;">
+		U admin</a>
+		<a class="navbar-brand2" href="javascript:navstate_s()"  style="font-weight: bold;padding-left: 30px;">MOVIECODE</a>
+		<a class="navbar-brand2" href="javascript:navstate()" id="a_rservstate" style="font-weight: bold;padding-left: 30px;">RESERV_STATE</a>
 	</nav>
 	<div class="row" style="height: 1500px;">
 		<!-- 상영영화관리 -->
@@ -511,32 +660,11 @@ li {
 				<li style="color: #E6E6E6; font-weight: bold;">■ 상영 영화 관리</li>
 			</ul>
 			<div class="row"
-				style="font-weight: bold; font-size: small; border-right: 5px; border-right-color: green;">
+				style="font-weight: bold; font-size: small; border-right: 5px;">
 				<div class="col-lg-12">
-					<ul
-						style="padding-left: 5px; overflow: scroll; margin: 0; height: 250px; color: white;background-color: #04B4AE;">
-						<li id="891212" onclick="testc(this);">1. 앤트맨과 와스프  2D
-						<span class="badge badge-pill badge-danger">삭제</span>
-						</li>
-						<li>2. 마녀 3D<span class="badge badge-pill badge-danger">삭제</span>
-						</li>
-						<li>3. 탐정-리턴즈<span class="badge badge-pill badge-danger">삭제</span>
-						</li>
-						<li>4. 오늘밤, 로맨스극장에서
-						<span class="badge badge-pill badge-danger">삭제</span>
-						</li>
-						<li>5. 앤트맨과 와스프 <span class="badge badge-pill badge-danger">삭제</span>
-						</li>
-						<li>6. 마녀 <span class="badge badge-pill badge-danger">삭제</span>
-						</li>
-						<li>7. 탐정-리턴즈<span class="badge badge-pill badge-danger">삭제</span>
-						</li>
-						<li>8. 오늘밤, 로맨스극장에서<span class="badge badge-pill badge-danger">삭제</span>
-						</li>
-						<li>9. 오늘밤, 로맨스극장에서<span class="badge badge-pill badge-danger">삭제</span>
-						</li>
-						<li>10. 오늘밤, 로맨스극장에서<span class="badge badge-pill badge-danger">삭제</span>
-						</li>
+					<ul id="ulvrmovie"
+						style="padding-top:15px; padding-left: 10px; overflow: scroll; margin: 0; height: 250px; color: #D8D8D8;background-color: black;">
+						
 					</ul>
 				</div>
 			</div>
@@ -558,7 +686,7 @@ li {
 									<form method="get" id="form_api_search">
 									<table>
 										<tr>
-											<td><input type="text" name="moviename" class="form-control form-control-sm" style="width: 200px;" placeholder="영화명을 입력하세요."></td>
+											<td><input type="text" name="movienm" class="form-control form-control-sm" style="width: 200px;" placeholder="영화명을 입력하세요."></td>
 											<td><button type="button" class="btn btn-block btn-sm"
 											style="background-color: #8A0886; color: white; font-weight: bold;">검색</button></td>
 										</tr>
@@ -582,7 +710,7 @@ li {
 							<div id="collapseLeft1" class="collapse"
 								data-parent="#accordion">
 								<div class="card-body">
-									<form id="form_step1">
+									<form id="form_step1" method="post" enctype="multipart/form-data">
 									<div class="row">
 										<div class="col" style="font-size: small;">
 											<table id="tb_step1_1">
@@ -592,7 +720,7 @@ li {
 												</tr>
 												<tr>
 													<td style="padding-right:10px; ">영화명</td>
-													<td><input type="text" id="movienm" name="movienm" class="form-control form-control-sm" style="width: 200px;"readonly="readonly"></td>
+													<td><input type="text" id="moviename" name="moviename" class="form-control form-control-sm" style="width: 200px;"readonly="readonly"></td>
 												</tr>
 												<tr>
 													<td style="padding-right:10px; ">상영시간(분)</td>
@@ -600,7 +728,7 @@ li {
 												</tr>
 												<tr>
 													<td style="padding-right:10px; ">개봉일자</td>
-													<td><input type="text" id="opendt" name="opendt" class="form-control form-control-sm" style="width: 200px;"readonly="readonly"></td>
+													<td><input type="text" id="openDt" name="openDt" class="form-control form-control-sm" style="width: 200px;"readonly="readonly"></td>
 												</tr>
 												<tr>
 													<td style="padding-right:10px; ">장르</td>
@@ -619,8 +747,8 @@ li {
 													</td>
 												</tr>
 												<tr>
-													<td style="padding-right:10px; ">이미지경로</td>
-													<td><input type="file" id="imagepath" name="imagepath" class="form-control-file border" style="width: 200px;" required="required"></td>
+													<td style="padding-right:10px; ">이미지파일</td>
+													<td><input type="file" id="imgup" name="imgup" class="form-control-file border" style="width: 200px;" required="required"></td>
 												</tr>
 												<tr>
 													<td style="padding-right:10px; ">감독</td>
@@ -632,11 +760,10 @@ li {
 												</tr>
 												<tr>
 													<td colspan="2" style="padding-top: 5px;">
-													<button type="button" class="btn btn-block btn-sm" style="background-color: #8A0886; color: white; font-weight: bold;">
-													등록</button></td>
+													<button type="button" class="btn btn-block btn-sm" style="background-color: #8A0886; color: white; font-weight: bold;">입력</button>
+													</td>
 												</tr>
 											</table>
-											
 										</div>
 									</div>
 									</form>
@@ -644,19 +771,7 @@ li {
 							</div>
 						</div>
 
-						<div class="card">
-							<div class="card-header bg-dark">
-								<a class="collapsed card-link" data-toggle="collapse"  style="color: white; font-weight: bold;"
-									href="#collapseLeft2">step2. 상영 영화 등록(상영 형태 등록 포함)</a>
-							</div>
-							<div id="collapseLeft2" class="collapse" data-parent="#accordion">
-								<div class="card-body">Lorem ipsum dolor sit amet,
-									consectetur adipisicing elit, sed do eiusmod tempor incididunt
-									ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis
-									nostrud exercitation ullamco laboris nisi ut aliquip ex ea
-									commodo consequat.</div>
-							</div>
-						</div>
+					
 
 						<div class="card">
 							<div class="card-header bg-dark">
@@ -665,63 +780,60 @@ li {
 							</div>
 							<div id="collapseLeft3" class="collapse" data-parent="#accordion">
 								<div class="card-body">
-									<table class="table table-dark table-hover"
-								style="text-align: center; font-size: small;">
-								<thead>
-									<tr>
-										<th>영화코드</th>
-										<th>영화명</th>
-										<th>상영시간(분)</th>
-										<th>개봉일자</th>
-										<th>장르</th>
-										<th>관람등급</th>
-										<th>image</th>
-										<th>감독</th>
-										<th>배우</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr>
-										<td>980518</td>
-										<td>데드풀 2</td>
-										<td>158</td>
-										<td>18-05-19</td>
-										<td>액션,드라마,판타지</td>
-										<td>12세 이상</td>
-										<td>데드풀.png</td>
-										<td>고아라다앙</td>
-										<td>고아라,고아라,고아라</td>
-									</tr>
-									<tr>
-										<td>980518</td>
-										<td>데드풀 2</td>
-										<td>158</td>
-										<td>18-05-19</td>
-										<td>액션,드라마,판타지</td>
-										<td>12세 이상</td>
-										<td>데드풀.png</td>
-										<td>고아라다앙</td>
-										<td>고아라,고아라,고아라</td>
-									</tr>
-								</tbody>
-							</table>
+									<table class="table table-dark table-hover" id="tbmovie"
+										style="text-align: center; font-size: x-small;">
+										<thead>
+										</thead>
+										<tbody>
+										</tbody>
+									</table>
+								</div>
+							</div>	
+						</div>
+						
+						<div class="card">
+							<div class="card-header bg-dark">
+								<a class="collapsed card-link" data-toggle="collapse"  style="color: white; font-weight: bold;"
+									href="#collapseLeft2">step2. 상영 영화 등록(상영 형태 등록 포함)</a>
+							</div>
+							<div id="collapseLeft2" class="collapse" data-parent="#accordion">
+								<div class="card-body">
+								<form id="frm_release" method="post"> 
+									<table>
+										<tr>
+											<td style="padding-right:10px; ">영화</td>
+											<td style="padding-right:30px; ">
+												<select class="form-control form-control-sm" id="sellmoviecd" name="sellmoviecd" required="required" style="width: 250px;">
+										      	</select>
+											</td>
+											<td style="padding-right:10px; ">상영형태</td>
+											<td style="padding-right:10px; ">
+												<select class="form-control form-control-sm" id="sellshowtycd" name="sellshowtycd" required="required" style="width: 200px;">
+										      	</select>
+											</td>
+											<td style="padding-right:10px; ">
+												<button type="button" class="btn btn-block btn-sm" style="background-color: #8A0886; color: white; font-weight: bold;">등록</button>
+											</td>
+										</tr>
+									</table>
+									</form>
 								</div>
 							</div>
 						</div>
+						
 					</div>
 				</div>
 			</div>
 		</div>
 
-
 		<!-- 영화코드관리 -->
 		<div class="col-xl-6">
-
+			
+			<div id="accordion">
 			<ul style="padding-left: 5px; padding-top: 10px; margin: 0;">
 				<li style="color: #424242; font-weight: bold;">■ 영화 코드 관리</li>
 			</ul>
-
-			<div id="accordion">
+			
 				<div class="card">
 					<div class="card-header bg-dark" >
 						<a class="card-link" data-toggle="collapse" href="#collapseOne" style="color: white; font-weight: bold;">
@@ -735,13 +847,15 @@ li {
 									<tr>
 										<td><input type="text" name="wgradename" class="form-control form-control-sm" style="width: 300px;" placeholder="추가할 관람등급을 입력하세요."></td>
 										<td><button type="button" class="btn btn-block btn-sm"
-										style="background-color: #04B4AE; color: white; font-weight: bold;">등록</button></td>
-										<td style="padding-left: 10px;"> 1~5번 코드는 고유코드이므로 삭제할수 없습니다. </td>
+										style="background-color: #04B4AE; color: white; font-weight: bold;">등록</button></td>					
+									</tr>
+									<tr>
+										<td style="padding-left: 10px;font-weight: bold;" colspan="2"> 1~5번 코드는 고유코드이므로 삭제할수 없습니다. </td>
 									</tr>
 								</table>
 							</form>
 							<div class="table-responsive-sm" >
-								<table class="table" id="tbwgrade" style="text-align: center;width: 700px;">
+								<table class="table" id="tbwgrade" style="text-align: center;width: 500px;">
 							      <thead class="thead-dark"></thead>
 							      <tbody></tbody>
 							     </table>
@@ -768,7 +882,7 @@ li {
 								</table>
 							</form>
 							<div class="table-responsive-sm" >
-								<table class="table" id="tbshowtype" style="text-align: center;width: 700px;">
+								<table class="table" id="tbshowtype" style="text-align: center;width: 500px;">
 							      <thead class="thead-dark"></thead>
 							      <tbody></tbody>
 							     </table>
@@ -796,7 +910,7 @@ li {
 							</form>
 							<div class="table-responsive-sm" >
 								<table class="table" id="tbtheater" style="text-align: center; font-size: small;">
-							      <thead class="thead-dark"></thead>
+							      <thead class="thead-dark" style="font-size: x-small;"></thead>
 							      <tbody></tbody>
 							     </table>
 							</div>
@@ -807,15 +921,14 @@ li {
 				<div class="card">
 					<div class="card-header bg-dark">
 						<a class="collapsed card-link" data-toggle="collapse" style="font-weight: bold;color: white;"
-							href="#collapse4"> 상영시간코드 </a>
-						
+							href="#collapse4"> 상영시간코드</a>
 					</div>
 					<div id="collapse4" class="collapse" data-parent="#accordion">
 						<div class="card-body">
 							<form id="frm_rtime" method="post">
 								<table style="margin-bottom: 10px;">
 									<tr>
-										<td><input type="text" name="rtime" class="form-control form-control-sm" style="width: 300px;" placeholder="추가할 상영시간을 입력하세요.ex)09:00,23:00"></td>
+										<td><input type="text" name="rtime" class="form-control form-control-sm" style="width: 300px;" placeholder="ex)09:00 추가할 상영시간을 입력하세요."></td>
 										<td><button type="button" class="btn btn-block btn-sm"
 										style="background-color: #04B4AE; color: white; font-weight: bold;">등록</button></td>
 									</tr>
@@ -889,30 +1002,31 @@ li {
 				</div>
 				
 				<ul style="padding-left: 5px; padding-top: 10px; margin: 0;">
-					<li style="color: #424242; font-weight: bold;">■ 지점별 상영시간표 관리</li>
+					<li style="color: #424242; font-weight: bold;">■ 상영시간표 관리</li>
 				</ul>
+				
 				<div class="card">
 					<div class="card-header bg-dark">
 						<a class="collapsed card-link" data-toggle="collapse" style="font-weight: bold;color: white;"
-							href="#collapse8">상영시간표관리</a>
+							href="#collapse8">상영시간표 등록</a>
 					</div>
 					<div id="collapse8" class="collapse" data-parent="#accordion">
 						<div class="card-body">
 							<form id="frm_timetable" method="post">
 							<table>
 								<tr>
-									<td style="padding-right: 10px;">지점선택</td>
-									<td style="padding-right: 10px;">
+									<td style="padding-right: 5px; font-size: 10px;">지점</td>
+									<td style="padding-right: 5px;">
 										<select class="form-control-sm" id="sel_theatercd"name="sel_theatercd" style="width: 150px;">
 										</select>
 									</td>
-									<td style="padding-right: 10px;">상영관선택</td>
-									<td style="padding-right: 10px;">
+									<td style="padding-right: 5px;  font-size: 10px;">상영관</td>
+									<td style="padding-right: 5px;">
 										<select class="form-control-sm" id="sel_tnumcd" name="sel_tnumcd" style="width: 150px;">
 										</select>
 									</td>
-									<td style="padding-right: 10px;">상영시간선택</td>
-									<td style="padding-right: 10px;">
+									<td style="padding-right: 5px; font-size: 10px;">상영시간</td>
+									<td style="padding-right: 5px;">
 										<select class="form-control-sm" id="sel_rtimecd" name="sel_rtimecd" style="width: 150px;">
 										</select>
 									</td>
@@ -921,8 +1035,8 @@ li {
 									</td>
 								</tr>
 							</table></form>
-							<div class="table-responsive-sm" >
-								<table class="table" id="tbtimetable" style="text-align: center;width: 650px;">
+							<div class="table-responsive-sm" style="padding-top: 20px;">
+								<table class="table" id="tbtimetable" style="text-align: center;width: 690px;">
 							      <thead class="thead-dark"></thead>
 							      <tbody></tbody>
 							     </table>
@@ -931,17 +1045,50 @@ li {
 					</div>
 				</div>
 				
+				<div class="card">
+					<div class="card-header bg-dark">
+						<a class="collapsed card-link" data-toggle="collapse" style="font-weight: bold;color: white;"
+							href="#collapse9">영화관 지점별 시간표</a>
+					</div>
+					<div id="collapse9" class="collapse" data-parent="#accordion">
+						<div class="card-body">
+							<form id="frm_totimetable" method="get">
+								<table style="margin-bottom: 10px;">
+									<tr>
+										<td style="padding-right: 10px;">
+											<select class="form-control-sm" id="sel_to_theatercd" name="sel_to_theatercd" style="width: 300px;">
+											</select>
+										</td>
+										<td><button type="button" class="btn btn-block btn-sm"
+										style="background-color: #04B4AE; color: white; font-weight: bold;">검색</button></td>
+									</tr>
+								</table>
+							</form>
+							<div class="table-responsive-sm" >
+								<table class="table" id="tbtotimetable" style="text-align: center;width: 500px;">
+							      <thead class="thead-dark"></thead>
+							      <tbody></tbody>
+							     </table>
+							</div>
+							
+						</div>
+					</div>
+				</div>
 				
+				
+			</div>
+		
+			<div id="reserv_state" style="display: none;">
 				<ul style="padding-left: 5px; padding-top: 10px; margin: 0;">
 					<li style="color: #424242; font-weight: bold;">■ 예매현황</li>
 				</ul>
-
+				<div id="accordion3">
 				<div class="card">
-					<div class="card-header bg-dark">
-						<a class="collapsed card-link" data-toggle="collapse" style="color: white; font-weight: bold;"
-							href="#collapse7"> 예매리스트현황 </a>
+					<div class="card-header" style="background-color: #FFBF00;">
+						<a class="collapsed card-link" data-toggle="collapse" style="color: black; font-weight: bold;"
+							href="#collapse7"> 예매현황 </a>
 					</div>
-					<div id="collapse7" class="collapse" data-parent="#accordion">
+					<div id="collapse7" class="collapse show" data-parent="#accordion3">
 						<div class="card-body">
 							<table class="table table-dark table-hover"
 								style="text-align: center; font-size: small;">
@@ -975,7 +1122,7 @@ li {
 										<td>2명</td>
 										<td>22000</td>
 									</tr>
-									</tr>
+									
 									<tr>
 										<td>980518023725</td>
 										<td>건대</td>
@@ -985,32 +1132,17 @@ li {
 										<td>22000</td>
 										<td><span class="badge badge-danger">취소</span></td>
 									</tr>
-									<tr>
-										<td>980518023725</td>
-										<td>건대</td>
-										<td>데드풀 2</td>
-										<td>18-05-19 16:30</td>
-										<td>2명</td>
-										<td>22000</td>
-										<td></td>
-									</tr>
-									<tr>
-										<td>980518023725</td>
-										<td>건대</td>
-										<td>데드풀 2</td>
-										<td>18-05-19 16:30</td>
-										<td>2명</td>
-										<td>22000</td>
-										<td></td>
-									</tr>
-
 								</tbody>
 							</table>
 						</div>
 					</div>
 				</div>
-			</div>
+				</div>
+				</div>
+			
+			
 		</div>
+		
 	</div>
 
 </body>

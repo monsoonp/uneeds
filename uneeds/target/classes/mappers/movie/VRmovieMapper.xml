@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.movie.mapper.VRmovieMapper">
+	<select id="listVRmovie" resultType="com.movie.domain.ViewRmovieVO">
+		select*from rmovie_view order by umoviecd desc
+	</select>
+</mapper>
