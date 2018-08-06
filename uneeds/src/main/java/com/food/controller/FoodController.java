@@ -103,7 +103,7 @@ public class FoodController {
 		// collection list
 		MongoIterable<String> cols = MongoUtil.getDb("food_database").listCollectionNames();
 		// Iterable�쓣 list濡� 蹂��솚
-		List<Object> list = StreamSupport.stream(cols.spliterator(), false).collect(Collectors.toList());
+		List<String> list = StreamSupport.stream(cols.spliterator(), false).collect(Collectors.toList());
 		// setAttribute
 		m.addAttribute("list", list);
 		return "mongo_list";
