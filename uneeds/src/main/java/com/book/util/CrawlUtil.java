@@ -80,7 +80,7 @@ public class CrawlUtil {
 			System.out.println(Jsoup.parse(used_price.toString()).text());
 			*/
 			
-			System.out.println(vo.toString());
+			//System.out.println(vo.toString());
 		} catch (Exception e) {
 			System.out.println("yes24 crawl error");
 		}
@@ -105,7 +105,7 @@ public class CrawlUtil {
 			String new_price = Jsoup.parse(Jsoup.connect(new_link).get().select("span.sell_price").first().toString()).text();
 			vo.setNew_price(new_price);
 			
-			System.out.println(vo.toString());
+			//System.out.println(vo.toString());
 		} catch (Exception e) {
 			System.out.println("kyobo crawl error");
 		}

@@ -7,9 +7,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Book</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- css -->
 <link href="${pageContext.request.contextPath}/resources/book/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link href="${pageContext.request.contextPath}/resources/book/css/modern-custom.css" rel="stylesheet"/>
@@ -47,7 +47,7 @@ $(function(){
 });
 // 스크롤 시
 $(window).scroll(function() {
-	// 스크롤이 바닥에 닿으면
+	// 스크롤이 바닥에 닿으면	
 	if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 		//loading();
 	};
@@ -61,23 +61,7 @@ $(window).scroll(function() {
    
 });
 
-function loading(){
-	// 로딩 div display-none 클래스 제거
-	$("#loading").removeClass("display-none");
-	$("#loading").animate({"opacity":"1"},100);
-	// fixed-bottom 클래스 제거
-		$(".footer").removeClass("fixed-bottom");
-		// 1.000초 뒤 실행
-	setTimeout(() => {
-		// fixed-bottom 클래스 추가 
-    	$(".footer").addClass("fixed-bottom");
-    	// 로딩 div display-none 클래스 추가
-    	$("#loading").addClass("display-none");
-	}, 1000);
-    	//$("#prev").after("<br/><br/><br/><br/><br/><br/><br/>");
-    	//$("p.book").after("<p>"+$("p.book").text()+"</p>");
-    	$("#loading").animate({"opacity":"0.5"},1000);//.addClass("display-none");
-}
+
 var shopName;
 var genreName;
 if('${site}'!=null){
@@ -154,7 +138,9 @@ function findBootstrapEnvironment() {
 }
 */
 function book_info(frm){
-	frm.submit();
+	frm.submit(function(){
+		$('#loading').removeClass('display-none');
+	});
 }
 
 </script>
@@ -171,6 +157,7 @@ body {
            <div><h1>찜 목록</h1></div>  
     </div>  
     <!-- loading -->
+	<div id="loading" class="display-none"></div>
 	
 	
 	<!-- Navigation include -->
@@ -275,8 +262,8 @@ body {
 									
 								</div>
 							</div>
-						</div>  
-					
+						</div> 
+						
 						<input name="title" id="title" type="hidden" value="${b.result.items[0].title}">
 						<input name="author" id="author" type="hidden" value="${aut}">
 						<input name="pub" id="pub" type="hidden" value="${pub}">
@@ -290,7 +277,7 @@ body {
 						<input name="disRate" id="disRate" type="hidden" value="${disRate}">
 						<input name="desc" id="desc" type="hidden" value="${b.result.items[0].description}">
 						<input name="link" id="link" type="hidden" value="${b.result.items[0].link}">
-					
+						
 					</form>	
 				</li>
 			
