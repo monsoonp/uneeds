@@ -148,3 +148,17 @@ ul li{
 	max-width: 20%:
 
 }
+
+/* 상세페이지 */
+.title{
+	color:#0080ff; font-size:20px; margin:0 0 8px 0;
+	padding: 0 0 0 0;
+	border: none;
+	border-color: transparent;
+	background-color: transparent;
+	text-align: center;
+	width:100%;
+}
+.title:hover {
+	color:#0000ff;
+}

@@ -1,19 +1,26 @@
 package com.book.domain;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class BookInfoVO {
+public class BookInfoVO implements Serializable {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	
 	//
-	private int isbn;
 	private String title;
 	private String author;
 	private String pub;
 	private String img;
+	
+	private String isbn;
+	private String date;
+	
 	private int price;
 	private int discount;
 	private int disRate;
-	private Date date;
 	private String desc;
 	private String link;
 	
@@ -21,30 +28,23 @@ public class BookInfoVO {
 	public BookInfoVO() {
 		super();
 	}
-	public BookInfoVO(int isbn, String title, String author, String pub, String img, int price, int discount,
-			int disRate, Date date, String desc, String link) {
+	public BookInfoVO(String title, String author, String pub, String img, String isbn, String date, int price,
+			int discount, int disRate, String desc, String link) {
 		super();
-		this.isbn = isbn;
 		this.title = title;
 		this.author = author;
 		this.pub = pub;
 		this.img = img;
+		this.isbn = isbn;
+		this.date = date;
 		this.price = price;
 		this.discount = discount;
 		this.disRate = disRate;
-		this.date = date;
 		this.desc = desc;
 		this.link = link;
 	}
-
-
+	
 	//
-	public int getIsbn() {
-		return isbn;
-	}
-	public void setIsbn(int isbn) {
-		this.isbn = isbn;
-	}
 	public String getTitle() {
 		return title;
 	}
@@ -69,6 +69,18 @@ public class BookInfoVO {
 	public void setImg(String img) {
 		this.img = img;
 	}
+	public String getIsbn() {
+		return isbn;
+	}
+	public void setIsbn(String isbn) {
+		this.isbn = isbn;
+	}
+	public String getDate() {
+		return date;
+	}
+	public void setDate(String date) {
+		this.date = date;
+	}
 	public int getPrice() {
 		return price;
 	}
@@ -87,12 +99,6 @@ public class BookInfoVO {
 	public void setDisRate(int disRate) {
 		this.disRate = disRate;
 	}
-	public Date getDate() {
-		return date;
-	}
-	public void setDate(Date date) {
-		this.date = date;
-	}
 	public String getDesc() {
 		return desc;
 	}
@@ -105,13 +111,20 @@ public class BookInfoVO {
 	public void setLink(String link) {
 		this.link = link;
 	}
+	public static long getSerialversionuid() {
+		return serialVersionUID;
+	}
 	
 	//
 	@Override
 	public String toString() {
-		return "BookInfoVO [isbn=" + isbn + ", title=" + title + ", author=" + author + ", pub=" + pub + ", img=" + img
-				+ ", price=" + price + ", discount=" + discount + ", disRate=" + disRate + ", date=" + date + ", desc="
+		return "BookInfoVO [title=" + title + ", author=" + author + ", pub=" + pub + ", img=" + img + ", isbn=" + isbn
+				+ ", date=" + date + ", price=" + price + ", discount=" + discount + ", disRate=" + disRate + ", desc="
 				+ desc + ", link=" + link + "]";
 	}
+	
+	
+	
+	
 	
 }
