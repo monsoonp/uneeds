@@ -10,6 +10,7 @@ import org.bson.Document;
 import org.springframework.stereotype.Service;
 
 import com.book.domain.GenreVO;
+import com.book.domain.PriceVO;
 import com.book.domain.StoreVO;
 import com.book.persistence.BestsellerDAO;
 import com.book.persistence.SearchDAO;
@@ -59,6 +60,12 @@ public class BookServiceImpl implements BookService{
 		// iterator를 List<Document> 변환
 		List<Document> list = Lists.newArrayList(it);
 		return list;
+	}
+
+	@Override
+	public Map<String, PriceVO> getPrice(String isbn) {
+		
+		return null;
 	}
 
 	

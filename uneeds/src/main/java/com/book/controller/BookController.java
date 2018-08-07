@@ -127,11 +127,11 @@ public class BookController {
 		ModelAndView mav = new ModelAndView();
 		logger.info("Welcome info! The client url is {}.", "/book/info");
 
-		CrawlUtil.getPrices(String.format("%s", biVo.getIsbn()));
 		System.out.println("vo: " + biVo.toString());
 
 		mav.addObject("info", CrawlUtil.bookInfo(biVo.getLink()));
 		mav.addObject("price", CrawlUtil.getPrices(biVo.getIsbn()));
+		;
 		mav.setViewName("bookinfo");
 		return mav;
 	}
