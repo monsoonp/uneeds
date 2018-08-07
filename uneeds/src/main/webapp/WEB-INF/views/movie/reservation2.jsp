@@ -357,7 +357,7 @@ option{
 								<p class="text-muted" style="padding-right: 10px;padding-top: 10px;">금액 </p><input type="text" class="resultinput" value="48,000" readonly="readonly" style="color: gold; font-size: x-large; width: 80px;">
 								</div>
 								<div align="right" style="padding-top: 10px;">
-								<button type="button" class="btn btn-success btn-sm" onclick="location.href='http://localhost:8080/uneeds/movie/reserv_paym'">결제하기</button></div>
+								<button type="button" class="btn btn-success btn-sm" onclick="location.href='/uneeds/movie/reserv_paym'">결제하기</button></div>
 						</div>
 
 					</div>

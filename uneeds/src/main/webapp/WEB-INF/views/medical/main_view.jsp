@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
 <title>Hospital</title>
 
@@ -21,7 +21,7 @@
 
 <div id="hd_wrapper">
         <ul id="tnb">
-                        <li><a href="#">회원가입</a></li>
+            <li><a href="#">회원가입</a></li>
             <li><a href="#"><b>로그인</b></a></li>
 
         </ul>
@@ -41,8 +41,8 @@
                 <h2>메인메뉴</h2>
                 <ul id="gnb_1dul">
                     <li id="logo"> <a href="main_view"><img src="../../../resources/medical/img/doc.png" alt=""></a> </li>
-                    <li style="display:none;"><a href="#" id="slide-menu-xxx" data-view="slide-type">추천-병원찾기</a></li>
-                    <li><a href="hospitalViewPage" id="slide-menu" data-view="slide-type">병원찾기</a></li>
+                    
+                    <li><a href="hospitalViewPage" >병원찾기</a></li>
                     <li><a href="hospital_view2.jsp">응급진료</a></li>
                     <li><a href="medicalViewPage">동네약국</a></li>
                 </ul>
@@ -52,14 +52,13 @@
                     <div class="total_search01">
                         <input type="text" id="headerSearchValue" placeholder="키워드를 검색하세요." name="Name" title="검색어 입력">
                         <a href="#" id="btn-site-search"><img src="https://goodhospital.kr/theme/gh/images/search_icon_02.png"></a>
-                        </div>
-                    
+                    </div>                    
                 </div>
-
-                
-            </nav>
+            </nav>            
         </div>
-        <div id="h-nav-wrap">
+        
+        <!--  test 시작-->
+        <div id="h-nav-wrap" class="dropdown-content">
             <div id="h-nav">
                 <button class="h-close"><i class="material-icons">close</i></button>
                 <ul id="h-type" class="clearfix">
@@ -72,28 +71,37 @@
                     <div id="slide-type" class="slide-wrap">
                         <ul class="slide-box">
                             <li>
-                                <div> <a href="javascript:change_department('1');"><img src="https://goodhospital.kr/theme/gh/images/menu_img/menu_icon_02_01_off.png">
+                                <div> <a href="#"><img src="https://goodhospital.kr/theme/gh/images/menu_img/menu_icon_02_01_off.png">
                                       <div class="menu_icon_txt">성형외과</div></a>
                                 </div>
+                            </li> 
+                       </ul>
+                    </div>
+                    <div id="slide-symptom" class="slide-wrap">
+                        <ul class="slide-box">
+                            <li>
+                                <div> <a href="#"><img src="https://goodhospital.kr/theme/gh/images/menu_img/menu_icon_01_01_off.png">
+                                      <div class="menu_icon_txt">두통/만성피로</div></a>
+                                </div>      
                             </li>
-                            
+   
                         </ul>
                     </div>
                     <div id="slide-theme" class="slide-wrap">
                         <ul class="slide-box">
                            <li>
-                                <div> <a href="javascript:change_department('201');"><img src="https://goodhospital.kr/theme/gh/images/menu_img/menu_icon_03_09_off.png">
+                                <div> <a href="#"><img src="https://goodhospital.kr/theme/gh/images/menu_img/menu_icon_03_09_off.png">
                                       <div class="menu_icon_txt">외국인진료</div></a>
                                 </div>
                             </li>
-                            
-                         
+
                         </ul>
                     </div>
                 </div>
-            </div>
-            
+            </div>            
         </div>
+        <!-- test 끝 -->
+        
     </div>
     <!-- } 상단 끝 -->
     
@@ -105,7 +113,7 @@
         <div id="container">
 <div class="m_cont_01">
     <p class="s_line"></p>
-    <div style="width:1200px; height:520px; background-color:#fff; margin:0 auto; position:relative;">
+    <div style="width:1200px; height:700px; background-color:#fff; margin:0 auto; position:relative;">
         <p class="charact"><img src="../../../resources/medical/img/main_doctor.png" alt="의사 케릭터" /></p>
  		<p class="main_txt"><img src="https://goodhospital.kr/theme/gh/images/main_txt_01.png" /></p>
  
@@ -123,6 +131,24 @@
 </div>
 
 <!-- } 콘텐츠 끝 -->
-
+<script>
+$(function(){
+	// 상단 검색용
+	$("#btn-site-search").on("click", function(){
+		var hnames= $('#headerSearchValue').val();
+		openNew(hnames);				
+	});
+	
+	// 메인 검색용
+	$("#btn-site-search-index").on("click", function(){
+		var hnames= $('#search-stx-index').val();
+		openNew(hnames);				
+	});
+	function openNew(hname){
+		window.open("http://192.168.0.64:8080/uneeds/medical/hospitalViewPage?hname="+hname);
+	}
+	
+});
+</script>
 </body>
 </html>

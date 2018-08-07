@@ -19,7 +19,6 @@
     var mapx = Number($("#YPos").val() );
     var mapy = Number($("#XPos").val() );
 
-
     /* 지도 초기 옵션 */
 	var map = new naver.maps.Map('map', mapOptions);
     	
@@ -54,6 +53,7 @@
     	
     	
     	  var code = String($("#ykiho").val() );
+    	  
     	  $.get("hospitalDetailView", {ykiho : code}, function(data, state){
     		  // 성공한 경우
     		  if(state == "success"){
@@ -389,7 +389,6 @@ String mapy = request.getParameter("ypos");
                 <h2>메인메뉴</h2>
                 <ul id="gnb_1dul">
                     <li id="logo"> <a href="main_view"><img src="../../../resources/medical/img/doc.png" alt=""></a> </li>
-                    <li style="display:none;"><a href="#" id="slide-menu-xxx" data-view="slide-type">추천-병원찾기</a></li>
                     <li><a href="hospitalViewPage" id="slide-menu" data-view="slide-type">병원찾기</a></li>
                     <li><a href="hospitalViewPage">응급진료</a></li>
                     <li><a href="medicalViewPage">동네약국</a></li>
@@ -419,8 +418,7 @@ String mapy = request.getParameter("ypos");
 <div id="wrapper">
 <div id="container-cover" style="display:none; background-color:#000;position:absolute;width:100%;height:2000px;top:127px; opacity:0.7;z-index:5;"></div>
         <div id="container">
-		        <!-- <div id="container_title">좋은병원</div>-->
-        			            <div style="width:1200px;margin:10px auto;">
+        	<div style="width:1200px;margin:10px auto;">
         			            
 <style>
 #hos-main-slide {
@@ -523,17 +521,17 @@ String mapy = request.getParameter("ypos");
 
 <div style=" width:1200px; margin:50px 0 30px 0;">
 <!--병원 정보 시작-->
-    <div class="hospital_info" style="position:relative;" > 
-        
-                
-        <!-- 약도 --->
-        <div class="hos_b_tit" id="viewMap">
-        <h5>- 병원 위치</h5><div id='map' style='width:100%;height:450px;'> </div>
-        <p id="nearPlace"></p>
- 
-    
-        </div>
-<div class="hospital_view_box" id="viewBox">
+      <!-- 약도 ---> 
+<div id='map' style='width:100%;height:450px;'> </div>
+     
+	<div class="hospital_view_box" id="viewBox">
+      <div class="hos_b_tit" id="viewMap">
+        <h5>- 병원 위치</h5>
+        <p id="nearPlace" class="nearPlace"></p>
+       </div>
+       
+        <!-- 전화예약하기 인터넷예약하기 -->
+     
 	<div class="hos_b_tit">
 		<span class="tit_area_top_bar"></span>
 			<h1>
@@ -548,38 +546,32 @@ String mapy = request.getParameter("ypos");
 	</div>
 	
 	<!-- 홈페이지 주소 -->
-	<div class="hos_b_tit" id="homepage">	</div>
+	<div class="hos_b_tit" id="homepage" class="homepage">	</div>
 	
 	<div class="hos_b_tit">
 		<h5>- 진료시간</h5>
-			<table class="table_stat03" id="timeTable">
-				
-			</table>
+			<table class="table_stat03" id="timeTable">	</table>
 	</div>
 	
 	<!-- 특수 진료정보 -->
 	<div class="hos_b_tit" >
-		<h5>- 특수진료정보</h5>
-			<p id="special"> </p>
+		<h5>- 특수진료정보</h5><p id="special" class="special"> </p>
 			
 	</div>
-								
+	<!-- 의료장비 -->			
 	<div class="hos_b_tit">
-		<h5>- 의료장비</h5>
-			<p id="equipment"> </p>
+		<h5>- 의료장비</h5><p id="equipment" class="equipment"> </p>
 	</div>
-								
+	<!-- 교통정보 -->			
 	<div class="hos_b_tit">
-		<h5>- 교통정보</h5>
-			<p id="transport"> </p>
+		<h5>- 교통정보</h5><p id="transport" class="transport"> </p>
 	</div>
-								
+	<!-- 연락처 -->					
 	<div class="hos_b_tit">
-		<h5>- 연락처</h5>
-			<p id="tel"> </p>
+		<h5>- 연락처</h5><p id="tel" class="tel"> </p>
 	</div>
         
-								
+<!-- 예약 폼 -->					
 <div class="hos_b_tit">
 <h5>- 병원 예약하기</h5>
 <div class="reservation">  
@@ -620,12 +612,12 @@ String mapy = request.getParameter("ypos");
     </div>
   </div>  
 </div>
+</div> <!-- 예약폼 끝 -->
 
+</div>
 
 </div>
 
-</div>
-</div>
 </div>
 </div>
 </div>

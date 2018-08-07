@@ -7,13 +7,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Book</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- css -->
 <link href="${pageContext.request.contextPath}/resources/book/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link href="${pageContext.request.contextPath}/resources/book/css/modern-custom.css" rel="stylesheet"/>
 <link href="${pageContext.request.contextPath}/resources/book/css/bookList.css" rel="stylesheet"/>
+<link href="${pageContext.request.contextPath}/resources/book/css/animate.css" rel="stylesheet"/>
 <!-- jquery / bootstrap / js-->
 <script src="//code.jquery.com/jquery-latest.js"></script> <!-- must be top -->
 <script src="${pageContext.request.contextPath}/resources/book/bootstrap/js/bootstrap.min.js"></script>
@@ -46,7 +47,7 @@ $(function(){
 });
 // 스크롤 시
 $(window).scroll(function() {
-	// 스크롤이 바닥에 닿으면
+	// 스크롤이 바닥에 닿으면	
 	if ($(window).scrollTop() == $(document).height() - $(window).height()) {
 		//loading();
 	};
@@ -60,23 +61,7 @@ $(window).scroll(function() {
    
 });
 
-function loading(){
-	// 로딩 div display-none 클래스 제거
-	$("#loading").removeClass("display-none");
-	$("#loading").animate({"opacity":"1"},100);
-	// fixed-bottom 클래스 제거
-		$(".footer").removeClass("fixed-bottom");
-		// 1.000초 뒤 실행
-	setTimeout(() => {
-		// fixed-bottom 클래스 추가 
-    	$(".footer").addClass("fixed-bottom");
-    	// 로딩 div display-none 클래스 추가
-    	$("#loading").addClass("display-none");
-	}, 1000);
-    	//$("#prev").after("<br/><br/><br/><br/><br/><br/><br/>");
-    	//$("p.book").after("<p>"+$("p.book").text()+"</p>");
-    	$("#loading").animate({"opacity":"0.5"},1000);//.addClass("display-none");
-}
+
 var shopName;
 var genreName;
 if('${site}'!=null){
@@ -134,6 +119,7 @@ function showBests(genre){
 
 
 //모바일 감지
+/*
 function findBootstrapEnvironment() {
 	var envs = ['xs', 'sm', 'md', 'lg'];
 	
@@ -150,6 +136,13 @@ function findBootstrapEnvironment() {
 		}
 	}
 }
+*/
+function book_info(frm){
+	frm.submit(function(){
+		$('#loading').removeClass('display-none');
+	});
+}
+
 </script>
 <style type="text/css">
 body {
@@ -164,6 +157,7 @@ body {
            <div><h1>찜 목록</h1></div>  
     </div>  
     <!-- loading -->
+	<div id="loading" class="display-none"></div>
 	
 	
 	<!-- Navigation include -->
@@ -221,51 +215,70 @@ body {
 			<c:forEach items="${bests[0].bookList }" var="b">
 			
 				<li>
-					<div class="main-div">
-						<div class="row mb-4 my-auto py-auto" id="prev">
-							<div class="col-md-4 my-auto">
-								
-								<div class="book_img_div">
-									<div></div>
-									<div><span>${b.rank }</span></div>
-									<img src="${fn:split(b.result.items[0].image,'?')[0] }">
+					<form action="/uneeds/book/info" method="post">
+					
+						<div class="main-div">
+							<div class="row mb-4 my-auto py-auto" id="prev">
+								<div class="col-md-4 my-auto">
+									<div class="book_img_div mx-auto">
+										<div></div>
+										<div><span>${b.rank }</span></div>
+										<img src="${img = fn:split(b.result.items[0].image,'?')[0] }">
+									</div>
+								</div>
+								<div class="panel col-md-8 my-auto">
+									<!--  onclick="book_info(this.form);" -->
+									<!-- <h2>${fn:split(b.result.items[0].title,'(' )[0] }</h2> -->
+									<input class="title" value="${fn:split(b.result.items[0].title,'(' )[0] }" 
+										readonly onclick="book_info(this.form);"/>
+										<c:if test="${fn:split(b.result.items[0].title,'(' )[1] ne null}">
+											<p>
+												(${fn:split(b.result.items[0].title,'(' )[1]}
+											</p>
+										</c:if>
+									<p>
+										<a href="/uneeds/book/search/${aut = b.result.items[0].author.replace('|',', ') }">${aut }</a>
+										<span>|</span>
+										<a href="/uneeds/book/search/${pub = b.result.items[0].publisher }">${pub }</a>
+										<span>|</span>
+										${date = b.result.items[0].pubdate }
+									</p>
+									<p>
+										ISBN : ${isbn = fn:split(b.result.items[0].isbn,' ' )[1]}
+									</p>
+									<c:choose>
+										<c:when test="${b.result.items[0].discount ne '' }">
+											<h3>
+												<span class="price">${p = b.result.items[0].price }</span>원 →
+												<span class="discount">${d = b.result.items[0].discount }</span>원 
+												(${disRate = book:getDiscount(p,d) }% 할인)
+												
+											</h3>
+										</c:when>
+										<c:otherwise>
+											<h3>${b.result.items[0].price }원</h3>
+										</c:otherwise>
+									</c:choose>
+									
 								</div>
 							</div>
-							<div class="panel col-md-8 my-auto">
-								<h2>${fn:split(b.result.items[0].title,'(' )[0] }</h2>
-									<c:if test="${fn:split(b.result.items[0].title,'(' )[1] ne null}">
-										<p>
-											(${fn:split(b.result.items[0].title,'(' )[1]}
-										</p>
-									</c:if>
-								<p>
-									<a href="/uneeds/book/search/${aut = b.result.items[0].author.replace('|',', ') }">${aut }</a>
-									<span>|</span>
-									<a href="/uneeds/book/search/${pub = b.result.items[0].publisher }">${pub }</a>
-									<span>|</span>
-									${b.result.items[0].pubdate }
-								</p>
-								<p>
-									ISBN : ${fn:split(b.result.items[0].isbn,' ' )[1]}
-								</p>
-								<c:choose>
-									<c:when test="${b.result.items[0].discount ne '' }">
-										<h3>
-											<span class="price">${p = b.result.items[0].price }</span>원 →
-											<span class="discount">${d = b.result.items[0].discount }</span>원 
-											(${book:getDiscount(p,d) }% 할인)
-											
-										</h3>
-									</c:when>
-									<c:otherwise>
-										<h3>${b.result.items[0].price }원</h3>
-									</c:otherwise>
-								</c:choose>
-								
-							</div>
-						</div>
-					</div> 
+						</div> 
 						
+						<input name="title" id="title" type="hidden" value="${b.result.items[0].title}">
+						<input name="author" id="author" type="hidden" value="${aut}">
+						<input name="pub" id="pub" type="hidden" value="${pub}">
+						<input name="img" id="img" type="hidden" value="${img}">
+						
+						<input name="isbn" id="isbn" type="hidden" value="${fn:split((fn:split(isbn,'>')[1]), '<')[0]}">
+						<input name="date" id="date" type="hidden" value="${date}">
+						
+						<input name="price" id="price" type="hidden" value="${p}">
+						<input name="discount" id="discount" type="hidden" value="${d}">	
+						<input name="disRate" id="disRate" type="hidden" value="${disRate}">
+						<input name="desc" id="desc" type="hidden" value="${b.result.items[0].description}">
+						<input name="link" id="link" type="hidden" value="${b.result.items[0].link}">
+						
+					</form>	
 				</li>
 			
 			</c:forEach>

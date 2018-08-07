@@ -62,14 +62,14 @@ public class FoodController {
 		return "redirect:search";
 	}
 	
-	// 메인페이지 로딩
+	// 硫붿씤�럹�씠吏� 濡쒕뵫
 	@RequestMapping(value="main", method=RequestMethod.GET)
 	public String main() {
 		logger.info("Welcome search! The client url is {}.", "/uneeds/food/main");		
 		return "main";
 	}
 	
-	// 검색 페이지 로딩
+	// 寃��깋 �럹�씠吏� 濡쒕뵫
 	@RequestMapping(value="search", method=RequestMethod.GET)
 	public String search(@ModelAttribute("svo") Food_searchVo svo, @RequestParam("searchs") String searchs, Model m) throws Exception {
 		logger.info("Welcome search! The client url is {}.", "/uneeds/food/search");
@@ -96,7 +96,7 @@ public class FoodController {
 		return "redirect:search";
 	}
 	
-	// 상세보기 로딩
+	// �긽�꽭蹂닿린 濡쒕뵫
 	@RequestMapping(value="detail", method=RequestMethod.GET)
 	public String detail(@RequestParam("fid") int fid, Model m) {
 		logger.info("Welcome search! The client url is {}.", "/uneeds/food/detail");
@@ -107,10 +107,10 @@ public class FoodController {
 	/* MongodbConnection list*/
 	@RequestMapping("/mongoutil_test")
 	public String testMongoutil(Model m) {
-		// list_collection 을 MongoUtil로 구현
+		// list_collection �쓣 MongoUtil濡� 援ы쁽
 		// collection list
 		MongoIterable<String> cols = MongoUtil.getDb("food_database").listCollectionNames();
-		// Iterable을 list로 변환
+		// Iterable�쓣 list濡� 蹂��솚
 		List<String> list = StreamSupport.stream(cols.spliterator(), false).collect(Collectors.toList());
 		// setAttribute
 		m.addAttribute("list", list);
@@ -124,7 +124,7 @@ public class FoodController {
 			String cn = r.getParameter("col_name");
 			return fds.listAll(cn);
 		} catch (Exception e) {
-			logger.error("예외! : " + e.getMessage());
+			logger.error("�삁�쇅! : " + e.getMessage());
 		}
 		//
 		return new ArrayList<>();
@@ -139,8 +139,8 @@ public class FoodController {
 			e.printStackTrace();
 		}
 		
-		// Kid String -> int 변환
-		// 초기
+		// Kid String -> int 蹂��솚
+		// 珥덇린
 		String kids = r.getParameter("kid");
 		int kid = Integer.parseInt(kids);
 		String lids = r.getParameter("lid");

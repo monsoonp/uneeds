@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "com.movie.mapper.MovieMapper">
+	<insert id="insertMovie">
+		insert into mv_movie_table
+		values(#{moviecd},#{moviename},#{showtm},#{openDt},#{genres},#{wgradecd},
+		#{imgpath},#{directors},#{actors})
+	</insert>
+	
+	<select id="listMovie" resultType="com.movie.domain.MovieVO">
+		select*from mv_movie_table
+	</select>
+	
+	<delete id="deleteMovie">
+		delete from mv_movie_table where moviecd=#{moviecd}
+	</delete>
+</mapper>

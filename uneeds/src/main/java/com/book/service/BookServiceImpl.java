@@ -10,8 +10,10 @@ import org.bson.Document;
 import org.springframework.stereotype.Service;
 
 import com.book.domain.GenreVO;
+import com.book.domain.PriceVO;
 import com.book.domain.StoreVO;
 import com.book.persistence.BestsellerDAO;
+import com.book.persistence.SearchDAO;
 import com.book.util.NaverSearch;
 import com.google.common.collect.Lists;
 import com.mongodb.client.FindIterable;
@@ -21,6 +23,8 @@ public class BookServiceImpl implements BookService{
 	
 	@Inject
 	BestsellerDAO bDao;
+	@Inject
+	SearchDAO sDao;
 	
 	@Override
 	public String getTime() {
@@ -29,11 +33,8 @@ public class BookServiceImpl implements BookService{
 	
 	@Override
 	public StringBuffer bookSearch(String text, int start) {
-		NaverSearch ns = new NaverSearch();
-		StringBuffer sb = ns.booksearch(text, start);
-		System.out.println(sb);	//stringBuffer 값
-		return sb;
-	}
+		return sDao.search(text, start);
+	}	
 
 	@Override
 	public List<StoreVO> selectStore() {
@@ -59,6 +60,12 @@ public class BookServiceImpl implements BookService{
 		// iterator를 List<Document> 변환
 		List<Document> list = Lists.newArrayList(it);
 		return list;
+	}
+
+	@Override
+	public Map<String, PriceVO> getPrice(String isbn) {
+		
+		return null;
 	}
 
 	

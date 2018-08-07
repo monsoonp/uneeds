@@ -2,7 +2,7 @@ package com.book.domain;
 
 import java.util.Date;
 
-public class BestsVO {
+public class BookVO {
 	
 	//
 	private int bcode;
@@ -16,10 +16,10 @@ public class BestsVO {
 	private Date bdate;
 	private String bdesc;
 	
-	public BestsVO() {
+	public BookVO() {
 		super();
 	}
-	public BestsVO(int bcode, int bisbn, String btitle, int acode, int pcode, String bimage, int bprice, int bdiscount,
+	public BookVO(int bcode, int bisbn, String btitle, int acode, int pcode, String bimage, int bprice, int bdiscount,
 			Date bdate, String bdesc) {
 		super();
 		this.bcode = bcode;

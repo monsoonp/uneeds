@@ -338,7 +338,7 @@ padding-bottom: 5px; margin: 2px; margin-bottom: 5px;
 								<p class="text-muted" style="padding-right: 10px; padding-bottom: 5px;">좌석 </p><input type="text" class="resultinput" value="-" readonly="readonly" style="width: 70px;"><br>
 								<p class="text-muted" style="padding-right: 10px; padding-bottom: 5px;">금액 </p><input type="text" id="rprice" class="resultinput" value="0" readonly="readonly" style="color: gold; font-size: x-large; width: 100px;"><br>
 								<div align="right" style="padding-top: 10px;">
-								<button type="button" class="btn btn-success btn-sm" onclick="location.href='http://localhost:8080/uneeds/movie/reserv_seat'">좌석선택</button></div>
+								<button type="button" class="btn btn-success btn-sm" onclick="location.href='/uneeds/movie/reserv_seat'">좌석선택</button></div>
 						</div>
 					</div>
 				</div>

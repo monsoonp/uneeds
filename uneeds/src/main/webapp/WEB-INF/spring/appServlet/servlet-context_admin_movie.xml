@@ -23,4 +23,15 @@
 	
 	<!-- 컨트롤러 -->
 	<context:component-scan base-package="com.admin_movie.controller"></context:component-scan>
+
+	<!--파일업로드-->
+	<beans:bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<beans:property name="maxUploadSize" value="10485760"></beans:property><!-- 10MB -->
+	</beans:bean>
+	
+	<!-- 서버파일 저장경로설정 -->
+	<beans:bean id="uploadPath" class="java.lang.String">
+		<beans:constructor-arg value="C:\\sts-bundle\\ws\\maven.1533288059885\\uneeds\\src\\main\\webapp\\resources\\movie\\img">
+		</beans:constructor-arg>
+	</beans:bean>
 </beans:beans>

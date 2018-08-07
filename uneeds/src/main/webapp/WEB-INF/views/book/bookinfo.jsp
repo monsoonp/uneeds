@@ -59,23 +59,6 @@ $(window).scroll(function() {
    
 });
 
-function loading(){
-	// 로딩 div display-none 클래스 제거
-	$("#loading").removeClass("display-none");
-	$("#loading").animate({"opacity":"1"},100);
-	// fixed-bottom 클래스 제거
-		$(".footer").removeClass("fixed-bottom");
-		// 1.000초 뒤 실행
-	setTimeout(() => {
-		// fixed-bottom 클래스 추가 
-    	$(".footer").addClass("fixed-bottom");
-    	// 로딩 div display-none 클래스 추가
-    	$("#loading").addClass("display-none");
-	}, 1000);
-    	//$("#prev").after("<br/><br/><br/><br/><br/><br/><br/>");
-    	//$("p.book").after("<p>"+$("p.book").text()+"</p>");
-    	$("#loading").animate({"opacity":"0.5"},1000);//.addClass("display-none");
-}
 var shopName;
 var genreName;
 if('${site}'!=null){
@@ -153,7 +136,7 @@ function findBootstrapEnvironment() {
 <style type="text/css">
 body {
 	background: url('${pageContext.request.contextPath}/resources/book/img/devbook.jpg') no-repeat repeat;
-	background-size:cover;
+	background-size: 100% auto;
 }
 </style>
 </head>
@@ -186,13 +169,82 @@ body {
 		<div class="books">
 			<div class="main-book">
 				<div class="row mb-4 my-auto py-auto" id="prev">
-					<div class="col-md-12 my-auto">
-						
-						<div class="book_img_div">
-						</div>
+					<!-- 이미지 -->
+					<div class="col-md-4 my-auto">
+						<img src="${infoVo.img }" style="width:80%; height: 80%"/>
 					</div>
-					<div class="panel col-md-12 my-auto">
-					
+					<!-- 도서 -->
+					<div class="panel col-md-4 my-auto">
+						<h2>${fn:split(infoVo.title,'(' )[0]}</h2>
+							<c:if test="${fn:split(infoVo.title,'(' )[1] ne null}">
+								<p>
+									(${fn:split(infoVo.title,'(' )[1]}
+								</p>
+							</c:if>
+						<p>
+							${infoVo.author }
+							<span>|</span>
+							${infoVo.pub }
+							<span>|</span>
+							${infoVo.date }
+						</p>
+						<p>
+							ISBN : ${infoVo.isbn}
+						</p>
+						<c:choose>
+							<c:when test="${infoVo.discount ne null }">
+								<h3>
+									<span class="price">${infoVo.price }</span>원 →
+									<span class="discount">${infoVo.discount }</span>원 
+									(${disRate }% 할인)
+								</h3>
+							</c:when>
+							<c:otherwise>
+								<h3>${infoVo.price }원</h3>
+							</c:otherwise>
+						</c:choose>
+					</div>
+					<!-- 최저가 -->
+					<div class="col-md-4 my-auto">
+						<table class="table table-striped">
+							<tr>
+								<td></td>
+								<td>새책</td>
+								<td>중고</td>
+								<td>E-북</td>
+							</tr>
+							<tr>
+								<td>YES24</td>
+								<td>${price.yes24.new_price }</td>
+								<td></td>
+								<td>${price.yes24.e_price  }</td>
+							</tr>
+							<tr>
+								<td>교보문고</td>
+								<td>${price.kyobo.new_price }</td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>알라딘</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+							<tr>
+								<td>인터파크</td>
+								<td></td>
+								<td></td>
+								<td></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<!-- 도서 상세 -->
+				<div class="row mb-4 my-auto py-auto" id="prev">
+					<div class="col-md-8 my-auto mx-auto">
+						<hr/>
+						${info }
 					</div>
 				</div>
 			</div>
