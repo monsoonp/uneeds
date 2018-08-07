@@ -1,13 +1,13 @@
 package com.food.persistence;
 
 import java.util.List;
-
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.food.domain.Food_dataVo;
+import com.food.domain.Food_searchVo;
 
 @Repository
 public class Food_MydataDAOImpl implements Food_MydataDAO {
@@ -29,9 +29,18 @@ public class Food_MydataDAOImpl implements Food_MydataDAO {
 	}
 
 	@Override
-	public List<Food_dataVo> searchFood(Food_dataVo vo) {
-		List<Food_dataVo> search_list = mysqlSession.selectList(namespace + ".listSearch", vo);
-		return search_list;
+	public List<Food_dataVo> searchFood(Food_searchVo svo) throws Exception{
+		return mysqlSession.selectList(namespace + ".listSearch", svo);
+	}
+
+	@Override
+	public int countPaging(Food_searchVo svo) {
+		return mysqlSession.selectOne(namespace + ".listCount", svo);
+	}
+
+	@Override
+	public Food_dataVo detail(Integer fid) {
+		return mysqlSession.selectOne(namespace + ".detail", fid);
 	}
 	
 }

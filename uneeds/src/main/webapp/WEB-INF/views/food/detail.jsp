@@ -44,13 +44,13 @@
 	<div id="food_detail_img_contain">
 		<div id="food_detail_img">
 			<div id="food_detail_img_imgs">
-				<img alt="음식1" src="/zerock/resources/image/food1.jpeg" style="width: 320px; height: 180px;">
+				<img alt="음식1" src="${list.fimg1}" style="width: 320px; height: 180px;">
 			</div>
 			<div id="food_detail_img_imgs">
-				<img alt="음식1" src="/zerock/resources/image/food2.jpeg" style="width: 320px; height: 180px;">
+				<img alt="음식1" src="${list.fimg2}" style="width: 320px; height: 180px;">
 			</div>
 			<div id="food_detail_img_imgs">
-				<img alt="음식1" src="/zerock/resources/image/food3.jpeg" style="width: 320px; height: 180px;">
+				<img alt="음식1" src="${list.fimg3}" style="width: 320px; height: 180px;">
 			</div>
 		</div>
 	</div>	
@@ -60,14 +60,14 @@
 	<div id="food_detail_title_area">
 		<div id="food_detail_title_area_title">
 			<span
-				style="display: table-cell; vertical-align: middle; font-size: 37px; width: 160px; padding-left: 5px;">새벽집</span>
+				style="display: table-cell; vertical-align: middle; font-size: 37px; width: 40%; padding-left: 5px;">${list.fname}</span>
 			<span
-				style="display: table-cell; vertical-align: bottom; padding-bottom: 10px; font-size: 18px; padding-left: 5px;">한식</span>
+				style="display: table-cell; vertical-align: bottom; padding-bottom: 10px; font-size: 18px; padding-left: 5px;">${list.kname}</span>
 		</div>
 		<div id="food_detail_title_area_count_contain">
 			<div id="food_detail_title_area_count">
 				<div id="food_detail_title_area_count_like">
-					<div id="food_detail_title_area_count_like_num">97</div>
+					<div id="food_detail_title_area_count_like_num">${list.flike}</div>
 					<div id="food_detail_title_area_count_like_lang">좋아요</div>
 				</div>
 				<div id="food_detail_title_area_count_like">
@@ -102,14 +102,14 @@
 				<div id="food_detail_content_info_common_img">
 					<img alt="주소" src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_address.png" style="width: 22px; height: 22px;">
 				</div>
-				<div id="food_detail_content_info_common_lang">서울특별시 강남구 청담동 129-10</div>
+				<div id="food_detail_content_info_common_lang">${list.faddr}</div>
 			</div>
 			<!-- 음식점 연락처 -->
 			<div id="food_detail_content_info_common">
 				<div id="food_detail_content_info_common_img">
 					<img alt="연락처" src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_tel.png" style="width: 22px; height: 22px;">
 				</div>
-				<div id="food_detail_content_info_common_lang">02-546-5739</div>
+				<div id="food_detail_content_info_common_lang">${list.fphone}</div>
 			</div>
 			<!-- 음식점 영업시간 -->
 			<div id="food_detail_content_info_time">
