@@ -7,14 +7,13 @@ import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,8 +21,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.book.domain.BookInfoVO;
 import com.book.domain.GenreVO;
+import com.book.domain.PriceVO;
 import com.book.service.BookService;
 import com.book.util.CrawlUtil;
+import com.book.util.NaverSearch;
+import com.mysql.cj.xdevapi.JsonParser;
 
 @Controller("BookController")
 //@RequestMapping(value="/book")
@@ -120,29 +122,31 @@ public class BookController {
 		return mav;
 	}
 	
-	// 도서 상세 페이지
-	@RequestMapping(value = "info", method = RequestMethod.POST)
-	public ModelAndView bookInfo(HttpServletRequest req, @ModelAttribute("infoVo") BookInfoVO biVo) throws Exception {
-		// req.setCharacterEncoding("utf-8");
+	@RequestMapping(value="info/{isbn}", method=RequestMethod.GET)
+	public ModelAndView bookInfo(@PathVariable("isbn") String isbn) throws Exception {
 		ModelAndView mav = new ModelAndView();
+		String result = NaverSearch.booksearch(isbn).toString();
+		
+		//mav.addObject("info", JsonParser.parseDoc(result.substring(1, result.length())));
+		mav.addObject("info", JsonParser.parseDoc(result));
+		
+		//mav.addObject("price", CrawlUtil.getPrices(isbn));
 		logger.info("Welcome info! The client url is {}.", "/book/info");
-
-		System.out.println("vo: " + biVo.toString());
-
-		mav.addObject("info", CrawlUtil.bookInfo(biVo.getLink()));
-		mav.addObject("price", CrawlUtil.getPrices(biVo.getIsbn()));
-		;
+		
 		mav.setViewName("bookinfo");
 		return mav;
 	}
-
-	@RequestMapping(value = "info/{isbn}", method = RequestMethod.GET)
-	public ModelAndView bookInfo(@PathVariable("isbn") int isbn) {
-		ModelAndView mav = new ModelAndView();
-		logger.info("Welcome info! The client url is {}.", "/book/info");
-
-		mav.setViewName("bookinfo");
-		return mav;
+	@ResponseBody
+	@RequestMapping(value="info/bookdesc", method=RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String bookDesc(@RequestBody BookInfoVO biVo) throws Exception {
+		System.out.println(biVo.getLink());
+		return CrawlUtil.bookInfo(biVo.getLink()).toString();
+	}
+	@ResponseBody
+	@RequestMapping(value="info/bookprice", method=RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public Map<String, PriceVO> bookPrice(@RequestBody BookInfoVO biVo) throws Exception {
+		System.out.println(biVo.getIsbn());
+		return CrawlUtil.getPrices(biVo.getIsbn());
 	}
 	
 	

@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
-<!-- login 사용 페이지 head 아래, jquery도 추가할 것-->
  
 <meta name="google-signin-scope" content="profile email">
 <meta name="google-signin-client_id" content="412414727668-s6eej5gc6l0emtej7ccvr949oo2l68hg.apps.googleusercontent.com">
@@ -9,7 +8,6 @@
 <script src="https://apis.google.com/js/platform.js?onload=init" async defer></script>
 <script	src="https://static.nid.naver.com/js/naverLogin_implicit-1.0.3.js" charset="utf-8"></script>
 <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
-
 
 <div class="logitem">
 	
@@ -27,7 +25,6 @@
 		<div id="naver_id_login"></div>
 		<!-- 카카오 로그인 -->
 		<a id="kakao-login-btn"></a>
-	
 	</div>
 	<div class="logOutDiv">
 		<a href="#">${id} ( ${site} )</a>
@@ -101,86 +98,14 @@
 		});
 	}
 	
-	//페북
-	window.fbAsyncInit = function() {
-		FB.init({
-			appId : '1250201825110378',
-			autoLogAppEvents : true,
-			xfbml : true,
-			version : 'v3.0'
-		});
-		//페북 로그인
-		FB.login(function(response) {
-		    if (response.authResponse) {
-		    	console.log('Welcome!  Fetching your information.... ');
-		    	FB.api('/me', function(response) {
-		     		console.log('Good to see you, ' + response.name + '.');
-		    	});
-		    } else {
-		    	console.log('User cancelled login or did not fully authorize.');
-		    }
-		}, {scope: 'public_profile, email'});
-		FB.getLoginStatus(function(response) {
-		    statusChangeCallback(response);
-		});
-	};
 	
-	
-	
-	//페북 로그인 버튼
-	(function(d, s, id) {
-		var js, fjs = d.getElementsByTagName(s)[0];
-		if (d.getElementById(id)) {
-			return;
-		}
-		js = d.createElement(s);
-		js.id = id;
-		js.src = "https://connect.facebook.net/ko_KR/sdk.js";
-		fjs.parentNode.insertBefore(js, fjs);
-	}(document, 'script', 'facebook-jssdk'));
-
-	function statusChangeCallback(response) {
-		console.log('statusChangeCallback');
-		console.log(response);
-		// The response object is returned with a status field that lets the
-		// app know the current login status of the person.
-		// Full docs on the response object can be found in the documentation
-		// for FB.getLoginStatus().
-		if (response.status === 'connected') {
-			// Logged into your app and Facebook.
-			fb_info();
-			
-		} else {
-			// The person is not logged into your app or we are unable to tell.
-			// document.getElementById('status').innerHTML = 'Please log '+ 'into this app.';
-		}
-	}
-	//페북 값 받아오기
-	function fb_info() {
-		console.log('Welcome!  Fetching your information.... ');
-	    FB.api('/me', {fields: 'email,name'}, function(response) {
-			console.log('Successful login for: ' + response.name+", "+response.email+"(facebook)");
-			//document.getElementById('status').innerHTML = 'Thanks for logging in, ' + response.name + '!';
-
-			//로그인 요청
-			if('${login}'!='logined'){
-				send_login(select_id(response.email), "facebook");
-			}
-	    });
-	}
-	//페북 로그아웃
-	function fblogout() { 
-        FB.logout(function(response) {
-          // user is now logged out
-        });
-    }
 	
 	//네이버 로그인
 	var naver_id_login = new naver_id_login("dhxVzayDoaI1Ff2KDolt",
-				"http://192.168.0.61:8080/uneeds/book/");
+				"http://192.168.0.12:8080/uneeds/book/");
 	var state = naver_id_login.getUniqState();
 	naver_id_login.setButton("white", 2, 40);
-	naver_id_login.setDomain("192.168.0.61:8080/");
+	naver_id_login.setDomain("192.168.0.12:8080/");
 	//naver_id_login.setPopup();
 	naver_id_login.init_naver_id_login();
 	naver_id_login.get_naver_userprofile("naverState();");

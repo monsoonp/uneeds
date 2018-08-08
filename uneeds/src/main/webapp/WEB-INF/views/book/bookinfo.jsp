@@ -3,8 +3,9 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@ taglib prefix="book" uri="/resources/book/tld/BookTag.tld"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -32,15 +33,11 @@
 <script type="text/javascript">
 var showTimes;	
 var currentPosition;
+
 $(function(){
 	currentPosition = parseInt($("#right_section").css("top"));  
-
-	showTimes = setInterval(function() {	// 1.000초마다 내부 실행
-		//alert('http://webisfree.com');
-		//$(".realTime").value="${serverTime}";
-				
-	}, 1000);
-	clearInterval(showTimes);	// showTimes 함수 정지
+	desc();
+	prices();
 	
 });
 // 스크롤 시
@@ -59,62 +56,6 @@ $(window).scroll(function() {
    
 });
 
-var shopName;
-var genreName;
-if('${site}'!=null){
-	shopName='${site}';
-}
-if('${genre}'!=null){
-	genreName='${genre}';
-}
-
-
-// 서점 목록- 장르보여주기
-function showGenre(shop){
-	$("#shoplist a").removeClass('active');
-	shopName=$(shop).text();
-	console.log(shop);	
-
-	$.ajax({
-		url : "/uneeds/book/bestseller/"+shopName,
-		type : 'get',	
-		dataType : 'json',
-       	contentType: "application/json; charset=utf-8",
-	    success : function(data, status, xhr) {
-	    	console.log(data);
-	    	$('#genrelist').empty();
-	    	for(var i=0; i < data.length; i++){
-	    		console.log(data[i]);
-	    		d = data[i];
-	    		//console.log(d.sgname+", "+genreName);
-	    		if((genreName == d.sgname) && (shopName == '${site}')){	//선택된 장르 active
-	    			$('#genrelist').append(	
-							'<a type="button" class="btn btn-primary btn-sm active"' +
-							'data-toggle="button" onclick="showBests(this);">'+d.sgname+'</a> ');
-	    		}else{
-	    			$('#genrelist').append(
-							'<a type="button" class="btn btn-primary btn-sm"' +
-							'data-toggle="button" onclick="showBests(this);">'+d.sgname+'</a> ');
-	    		}
-	    	};
-	    	
-		},complete: function(){
-			
-		},
-	    error: function(error) {
-	    alert("error= " + error);
-		},
-		timeout:10000
-	});
-}
-//
-function showBests(genre){
-	genreName=$(genre).text();
-	location.href="/uneeds/book/bestseller/"+shopName+"/"+genreName.replace(/\//g,"-");	
-	//replace 정규식 / /안에, \특수문자 ,g 전역
-}
-
-
 //모바일 감지
 function findBootstrapEnvironment() {
 	var envs = ['xs', 'sm', 'md', 'lg'];
@@ -132,6 +73,66 @@ function findBootstrapEnvironment() {
 		}
 	}
 }
+
+function desc(){
+	var link = "${fn:replace(info.items[0].link, '\"','')}";
+		console.log(link);
+	$.ajax({
+		url:"/uneeds/book/info/bookdesc",
+		data:JSON.stringify({
+			title : 'hello',
+			link : link 
+		}),
+		type : 'post',	
+		dataType : 'text',
+		contentType: "application/json; charset=utf-8",
+	    success : function(data, status) {
+	    	//console.log(data);
+	    	$('#desc').append(data);
+	    },complete: function(){
+			$('#content').remove();
+		},error: function(error) {
+			console.log("error: "+error);
+		},timeout:10000
+	    
+	});
+}
+function prices(){
+	var tbl = $("#prices");
+	var isbn = "${fn:replace( fn:split(fn:split(fn:split(info.items[0].isbn,' ' )[1], '>')[1] ,'<')[0],'\"','') }";
+	console.log(isbn);
+	$.ajax({
+		url:"/uneeds/book/info/bookprice",
+		data:JSON.stringify({
+			title : 'hello',
+			isbn : isbn 
+		}),
+		type : 'post',	
+		dataType : 'json',
+		contentType: "application/json; charset=utf-8",
+	    success : function(data, status) {
+	    	//console.log(data);
+	    	yes = data.yes24;
+	    	kyo = data.kyobo;
+	    	ala = data.aladin;
+	    	tbl.append("<tr><td><a href="+yes.url+">yes24</a></td><td>"+yes.new_price+"</td><td>"+
+	    										yes.used_price+"</td><td>"+yes.e_price+"</td></tr>");
+	    	tbl.append("<tr><td><a href="+kyo.url+">교보문고</a></td><td>"+kyo.new_price+"</td><td>"+
+	    										kyo.used_price+"</td><td>"+kyo.e_price+"</td></tr>");
+	    	tbl.append("<tr><td><a href="+ala.url+">알라딘</a></td><td>"+ala.new_price+"</td><td>"+
+	    										ala.used_price+"</td><td>"+ala.e_price+"</td></tr>");
+	    	tbl.append("<tr><td><a href="+yes.url+">인터파크</a></td><td>"+
+												yes.new_price+"</td><td>"+
+												yes.used_price+"</td><td>"+
+												yes.e_price+"</td></tr>");
+	    },complete: function(){
+			$('#loadingtr').remove();
+		},error: function(error) {
+			console.log("error: "+error);
+		},timeout:10000
+	    
+	});
+}
 </script>
 <style type="text/css">
 body {
@@ -142,8 +143,8 @@ body {
 </head>
 <body>
 	<!-- ${pageContext.request.contextPath} 프로젝트 webapp까지의 경로 -->
-	<div id="right_section"  class="pointed md-2" style="position:absolute;top:100px;right:0;z-index: 999;margin-right: 100px;">  
-           <div><h1>찜 목록</h1></div>  
+	<div id="right_section"  class="pointed md-2">  
+           <!-- <div><h1>찜 목록</h1></div> -->  
     </div>  
 	
 	
@@ -165,38 +166,48 @@ body {
 		<hr/>
 		<!-- 책 목록 -->
 
-
+		<c:set var="infoVo" value="${info.items[0] }"/>
 		<div class="books">
 			<div class="main-book">
-				<div class="row mb-4 my-auto py-auto" id="prev">
+				<div class="row mb-4 my-auto mx-auto px-auto py-3">
 					<!-- 이미지 -->
-					<div class="col-md-4 my-auto">
-						<img src="${infoVo.img }" style="width:80%; height: 80%"/>
+					<div class="col-md-5 my-auto mx-auto">
+						<!--<c:set var="img" value="${fn:replace(fn:split(infoVo.image,'?')[0],'\"','' )}"/>-->
+						<c:set var="img" value="${fn:substring(infoVo.image, 1, fn:indexOf(infoVo.image, '?'))}"/>
+						<c:choose>
+							<c:when test="${img ne null || img ne ''}">
+								<img src="${img}" style="width:80%; height: 80%"/>
+							</c:when>
+							<c:otherwise>
+								<img src="/resources/book/img/defaultbook.png" style="width:80%; height: 80%"/>
+							</c:otherwise>
+						</c:choose>
 					</div>
 					<!-- 도서 -->
-					<div class="panel col-md-4 my-auto">
-						<h2>${fn:split(infoVo.title,'(' )[0]}</h2>
+					<div class="panel col-md-5 my-auto mx-auto">
+						<h2>${fn:replace( fn:split(infoVo.title,'(' )[0] ,'\"','')}</h2>
 							<c:if test="${fn:split(infoVo.title,'(' )[1] ne null}">
 								<p>
-									(${fn:split(infoVo.title,'(' )[1]}
+									(${fn:replace( fn:split(infoVo.title,'(' )[1] ,'\"','')}
 								</p>
 							</c:if>
 						<p>
-							${infoVo.author }
+							${fn:replace(infoVo.author,'\"','') }
 							<span>|</span>
-							${infoVo.pub }
+							${fn:replace(infoVo.publisher,'\"','') }
 							<span>|</span>
-							${infoVo.date }
+							${fn:replace(infoVo.pubdate,'\"','') }
 						</p>
 						<p>
-							ISBN : ${infoVo.isbn}
+							<c:set var="isbn" value="${fn:split(infoVo.isbn,' ' )[1]}" />
+							ISBN : ${fn:replace( fn:split(fn:split(isbn, '>')[1] ,'<')[0],'\"','') }
 						</p>
 						<c:choose>
 							<c:when test="${infoVo.discount ne null }">
 								<h3>
-									<span class="price">${infoVo.price }</span>원 →
-									<span class="discount">${infoVo.discount }</span>원 
-									(${disRate }% 할인)
+									<span class="price">${price = fn:replace(infoVo.price,'\"','') }</span>원 →
+									<span class="discount">${discount = fn:replace(infoVo.discount,'\"','') }</span>원 
+									(${book:getDiscount(price, discount) }% 할인)
 								</h3>
 							</c:when>
 							<c:otherwise>
@@ -204,47 +215,34 @@ body {
 							</c:otherwise>
 						</c:choose>
 					</div>
-					<!-- 최저가 -->
-					<div class="col-md-4 my-auto">
-						<table class="table table-striped">
+				</div>
+				<!-- 최저가 -->
+				<div class="row mb-4 my-auto mx-auto px-auto py-3">
+					<div class="col-md-8 mx-auto my-auto py-auto">
+						<table id="prices" class="table table-striped">
 							<tr>
 								<td></td>
 								<td>새책</td>
 								<td>중고</td>
 								<td>E-북</td>
 							</tr>
-							<tr>
-								<td>YES24</td>
-								<td>${price.yes24.new_price }</td>
-								<td></td>
-								<td>${price.yes24.e_price  }</td>
+							<tr id="loadingtr">
+								<td colspan="4">
+									<div class="contentloading">
+									</div>
+								</td>
 							</tr>
-							<tr>
-								<td>교보문고</td>
-								<td>${price.kyobo.new_price }</td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>알라딘</td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
-							<tr>
-								<td>인터파크</td>
-								<td></td>
-								<td></td>
-								<td></td>
-							</tr>
+							
 						</table>
 					</div>
 				</div>
 				<!-- 도서 상세 -->
-				<div class="row mb-4 my-auto py-auto" id="prev">
-					<div class="col-md-8 my-auto mx-auto">
+				<div class="row mb-4 my-auto py-auto">
+					<div id="desc" class="col-md-12 my-auto mx-auto">
 						<hr/>
-						${info }
+						<div id="content" class="contentloading">
+						
+						</div>
 					</div>
 				</div>
 			</div>

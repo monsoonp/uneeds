@@ -1,6 +1,6 @@
 package com.book.domain;
 
-public class StoreVO {
+public class StoreVO{
 	//
 	private int bscode;
 	private String bscate;
