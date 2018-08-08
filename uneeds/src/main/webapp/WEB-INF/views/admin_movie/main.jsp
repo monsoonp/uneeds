@@ -58,6 +58,37 @@ li {
 		alert(ta.value);
 	}
 	
+	function realtimeClock() {
+		  document.rtcForm.rtcInput.value = getTimeStamp();
+		  setTimeout("realtimeClock()", 1000);
+		}
+
+
+		function getTimeStamp() { // 24시간제
+		  var d = new Date();
+		  var s ="TIME "+
+		    leadingZeros(d.getFullYear(), 4) + '-' +
+		    leadingZeros(d.getMonth() + 1, 2) + '-' +
+		    leadingZeros(d.getDate(), 2) + ' ' +
+
+		    leadingZeros(d.getHours(), 2) + ':' +
+		    leadingZeros(d.getMinutes(), 2) + ':' +
+		    leadingZeros(d.getSeconds(), 2);
+		  return s;
+		}
+
+
+		function leadingZeros(n, digits) {
+		  var zero = '';
+		  n = n.toString();
+
+		  if (n.length < digits) {
+		    for (i = 0; i < digits - n.length; i++)
+		      zero += '0';
+		  }
+		  return zero + n;
+		}
+		
 	
 	function step1(e){
 		//x = e.firstChild.nodeValue;
@@ -475,6 +506,8 @@ li {
 		//보유영화바인딩
 		bindMVlist();
 		
+		realtimeClock();
+		
 		//파일up
 		$("#form_step1 button").on("click", function(){
 			var frm = $("form_step1")[0];
@@ -652,6 +685,10 @@ li {
 		U admin</a>
 		<a class="navbar-brand2" href="javascript:navstate_s()"  style="font-weight: bold;padding-left: 30px;">MOVIECODE</a>
 		<a class="navbar-brand2" href="javascript:navstate()" id="a_rservstate" style="font-weight: bold;padding-left: 30px;">RESERV_STATE</a>
+		<form name="rtcForm">
+			<input type="text" name="rtcInput" readonly="readonly" 
+			style="font-weight: bold; font-size: x-large; border: 0px; background-color: #8A0886; color: white; width: 1000px; text-align: right;"/>
+		</form>
 	</nav>
 	<div class="row" style="height: 1500px;">
 		<!-- 상영영화관리 -->
