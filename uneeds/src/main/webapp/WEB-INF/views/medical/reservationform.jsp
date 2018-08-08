@@ -65,6 +65,7 @@ $('.calendar tbody td').click(function(){
 
 </script>
      <script>
+     // 이거 왜 안돼?
     $(function(){
         $("#choice").on("click",function(){
         	var ind = $(this).data("index");
