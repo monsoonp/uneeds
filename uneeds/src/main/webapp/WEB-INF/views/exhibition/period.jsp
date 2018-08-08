@@ -23,12 +23,13 @@
 
 	$(function () {
 		$.get("api_realm.jsp", {realMCode : this.value} ,bindRealm);
-		$("#btnRealm").on("click", function () {
+		$("#btnPeriod").on("click", function () {
 			
-			var para = $("#selRealm").val();
+			var from = $("#selRealm").val();
+			var to = $("#selRealm").val();
+
 			
-			
-			$.get("api_realm.jsp", {realMCode : para} ,bindRealm);
+			$.get("api_period", {from : para} ,bindRealm);
 		});
 	});
 
@@ -39,25 +40,15 @@
 	<div class="row">
 		<div class="col-lg-12">
 			<h1 class="page-header"></h1>
-			<select id="selRealm">
-						<!-- /* A000 연극 / B000 음악(콘서드, 뮤지컬 등) / C000 무용 / D000 미술 /E000 건축 / G000 영상 / H000 문학 / I000 문화정책 / J000 축제문화공간 / L000 기타 */ -->
-				<option value="A000">연극</option>
-				<option value="B000">음악(콘서트, 뮤지컬 등)</option>
-				<option value="C000">무용</option>
-				<option value="D000">미술</option>
-				<option value="E000">건축</option>
-				<option value="G000">영상</option>
-				<option value="H000">문학</option>
-				<option value="I000">문화정책</option>
-				<option value="J000">축제문화공간</option>
-				<option value="L000">기타</option>
+			<select id="selPeriod">
+
 			</select>
-			<button id="btnRealm"> search </button>
+			<button id="btnPeriod"> search </button>
 		</div>
 		<!-- /.col-lg-12 -->
 	</div>
 	<!-- /.row -->
-	<div class="row" id="divRealm">
+	<div class="row" id="divPeriod">
 	
 	</div>
 </div>
