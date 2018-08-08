@@ -74,9 +74,8 @@ public class BookController {
 		return mav;
 	}
 	@ResponseBody
-	@RequestMapping(value="/search/{text}/{num}", method=RequestMethod.GET, produces = "application/json; charset=utf8")
+	@RequestMapping(value="search/{text}/{num}", method=RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public StringBuffer bookSearch(@PathVariable("text") String text, @PathVariable("num") int start) {
-		
 		return bservice.bookSearch(text, start);
 	}   
 	
@@ -89,7 +88,7 @@ public class BookController {
 	}
 	//도서 베스트셀러 인터넷 서점 장르목록 가져오기
 	@ResponseBody
-	@RequestMapping(value="bestseller/{site}", method=RequestMethod.GET)
+	@RequestMapping(value="bestseller/{site}", method=RequestMethod.POST)
 	public List<GenreVO> bookSeller(@PathVariable("site") String site, Model model) {
 		List<GenreVO> gVO = bservice.selectGenre(site);
 		model.addAttribute("site", site);
@@ -116,7 +115,7 @@ public class BookController {
 	@RequestMapping(value="store", method=RequestMethod.GET)
 	public ModelAndView bookShop() {
 		ModelAndView mav = new ModelAndView();
-		logger.info("Welcome shop! The client url is {}.", "/book/shop");
+		logger.info("Welcome store! The client url is {}.", "/book/shop");
 	
 		mav.setViewName("bookshop");
 		return mav;
