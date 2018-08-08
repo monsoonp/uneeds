@@ -17,10 +17,18 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- Mysql 검색결과 SELECT -->
 	<select id="listSearch" resultType="com.food.domain.Food_dataVo">
-		SELECT fid, fname, fdetail, faddr, fphone, fgmenu, fimg1, flike FROM f_food where fname like concat('%',#{keyword},'%') OR fdetail like concat('%',#{keyword},'%') OR faddr like concat('%',#{keyword},'%')
-		OR fphone like concat('%',#{keyword},'%') OR fgmenu like concat('%',#{keyword},'%') order by fname asc limit #{pageStart}, #{perPageNum}
+		SELECT food.* FROM (select * from f_food WHERE fname like concat('%',#{keyword},'%') or faddr like concat('%',#{keyword},'%') or 
+	    fgmenu like concat('%',#{keyword},'%')) food limit #{pageStart}, #{perPageNum};
+	</select>
+
+	<!-- Mysql 검색결과 SELECT -->
+	<select id="listSearch_kid" resultType="com.food.domain.Food_dataVo">
+		SELECT food.* FROM (select * from f_food WHERE fname like concat('%',#{keyword},'%') or faddr like concat('%',#{keyword},'%') or 
+	    fgmenu like concat('%',#{keyword},'%')) food where food.kid = #{kid} limit #{pageStart}, #{perPageNum};
+
 	</select>
 	
+
 	<!-- Mysql 검색결과 카운트 -->
 	<select id="listCount" resultType="int">
 		SELECT count(*) FROM f_food where fname like concat('%',#{keyword},'%') OR fdetail like concat('%',#{keyword},'%') OR faddr like concat('%',#{keyword},'%')
@@ -29,6 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- Mysql 음식점 자세히 보기 -->
 	<select id="detail" resultType="com.food.domain.Food_dataVo">
-		SELECT food.fname, food.faddr, food.fphone, food.fgmenu, food.fimg1, food.fimg2, food.fimg3, food.flike, kind.kname FROM f_food food, f_kind kind where food.fid = #{fid} and food.kid = kind.kid; 
+		SELECT food.fname, food.faddr, food.fphone, food.fgmenu, food.fdetail, food.fimg1, food.fimg2, food.fimg3, food.flike, kind.kname FROM f_food food, f_kind kind where food.fid = #{fid} and food.kid = kind.kid; 
 	</select>
+	
 </mapper>

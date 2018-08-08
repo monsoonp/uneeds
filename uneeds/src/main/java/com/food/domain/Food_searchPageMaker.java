@@ -53,7 +53,7 @@ public class Food_searchPageMaker {
 	public String makeSearch(int page) {
 		
 		UriComponents uriComponents = UriComponentsBuilder.newInstance().queryParam("page", page).queryParam("perPageNum", svo.getPerPageNum())
-									  .queryParam("searchs", svo.getKeyword()).build();
+									  .queryParam("searchs", svo.getKeyword()).queryParam("kid", svo.getKid()).build();
 		
 		return uriComponents.toUriString();
 	}

@@ -4,6 +4,7 @@
 <html>
 <head>
 <script src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=iXc25gyU5cMUdYySUzre"></script>
+<script src="/resources/ckeditor/ckeditor.js"></script>
 <link rel="stylesheet" href="/resources/food/css/food_detail.css">
 <meta charset="UTF-8">
 <title>UNEEDS FOOD</title>
@@ -100,68 +101,29 @@
 			<!-- 음식점 주소 -->
 			<div id="food_detail_content_info_common">
 				<div id="food_detail_content_info_common_img">
-					<img alt="주소" src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_address.png" style="width: 22px; height: 22px;">
+					<img alt="주소" src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/profile/main/icon-profile-address@2x.png" style="width: 22px; height: 22px;">
 				</div>
 				<div id="food_detail_content_info_common_lang">${list.faddr}</div>
 			</div>
 			<!-- 음식점 연락처 -->
 			<div id="food_detail_content_info_common">
 				<div id="food_detail_content_info_common_img">
-					<img alt="연락처" src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/list/ic_card_tel.png" style="width: 22px; height: 22px;">
+					<img alt="연락처" src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/profile/main/icon-profile-call@2x.png" style="width: 22px; height: 22px;">
 				</div>
 				<div id="food_detail_content_info_common_lang">${list.fphone}</div>
 			</div>
-			<!-- 음식점 영업시간 -->
-			<div id="food_detail_content_info_time">
-				<div id="food_detail_content_info_time_title">영업시간</div>
-				<div id="food_detail_content_info_time_open_contain">
-					<div id="food_detail_content_info_time_img">
-						<img src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/profile/main/icon-profile-time@2x.png" style="width: 22px; height: 22px;">
-					</div>
-					<div id="food_detail_content_info_time_open">
-						<div id="food_detail_content_info_time_open_day">월-금</div>
-						<div id="food_detail_content_info_time_open_clcok">
-							<div id="food_detail_content_info_time_open_clcok_time">정오12시-오후10시 30분</div>
-							<div id="food_detail_content_info_time_open_clcok_text">(오더마감 21시 30분)</div>
-						</div>
-					</div>
+			<!-- 음식점 상세설명 -->
+			<div id="food_detail_content_info_common">
+				<div id="food_detail_content_info_common_img">
+					<img alt="상세설명" src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/profile/main/icon-profile-tag@2x.png" style="width: 22px; height: 22px;">
 				</div>
-				<div id="food_detail_content_info_time_closed_contain">
-					<div id="food_detail_content_info_time_open">
-						<div id="food_detail_content_info_time_open_day">휴무일</div>
-						<div id="food_detail_content_info_time_open_clcok">
-							<div id="food_detail_content_info_time_open_clcok_time">첫째주 화</div>
-							<div id="food_detail_content_info_time_open_clcok_text">(짝수달 화요일)</div>
-						</div>
-					</div>
-				</div>
+				<div id="food_detail_content_info_common_lang">${list.fdetail}</div>
 			</div>
-			<!-- 음식점 메뉴 -->
-			<div id="food_detail_content_info_menu">
-				<div id="food_detail_content_info_time_title">메뉴 정보</div>
-				<div id="food_detail_content_info_time_img">
-					<img src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/profile/main/icon-profile-menu@2x.png" style="width: 22px; height: 22px;">
+			<div id="food_detail_content_info_common">
+				<div id="food_detail_content_info_common_img">
+					<img alt="메뉴" src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/profile/main/icon-profile-menu@2x.png" style="width: 22px; height: 22px;">
 				</div>
-				<div id="food_detail_content_info_menu_first">
-					<div id="food_detail_content_info_menu_first_one_text">육회비빔밥</div>
-					<div id="food_detail_content_info_menu_first_one_money_area">
-						<div id="food_detail_content_info_menu_first_one_money">10,000원</div>
-					</div>
-				</div>
-				<div id="food_detail_content_info_menu_second_contain">
-					<div id="food_detail_content_info_menu_second">
-						<div id="food_detail_content_info_menu_first_one_text">갈비탕</div>
-						<div id="food_detail_content_info_menu_first_one_money_area">
-							<div id="food_detail_content_info_menu_first_one_money">18,000원</div>
-						</div>
-					</div>
-					<div id="food_detail_content_info_menu_second">
-						<div id="food_detail_content_info_menu_first_one_text">샤브샤브(160g)</div>
-						<div id="food_detail_content_info_menu_first_one_money_area">
-							<div id="food_detail_content_info_menu_first_one_money">32,000원</div>
-						</div>
-					</div>
-				</div>
+				<div id="food_detail_content_info_common_lang">${list.fgmenu}</div>
 			</div>
 		</div>
 	</div>
@@ -169,7 +131,10 @@
 	<div id="food_detail_content_review">
 		<div id="food_detail_content_review_write">
 			<div id="food_detail_content_review_write_title">review</div>
-			<div id="food_detail_content_review_write_textarea"></div>
+			<div id="food_detail_content_review_write_textarea">
+				<textarea name="contents" required="required"></textarea>
+				<script>CKEDITOR.replace('content');</script>
+			</div>
 			<div id="food_detail_content_review_write_btn">
 				<button>저장</button>
 			</div>
