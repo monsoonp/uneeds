@@ -43,7 +43,7 @@
                     <li id="logo"> <a href="main_view"><img src="../../../resources/medical/img/doc.png" alt=""></a> </li>
                     
                     <li><a href="hospitalViewPage" >병원찾기</a></li>
-                    <li><a href="hospital_view2.jsp">응급진료</a></li>
+                    <li><a href="hospitalViewPage">응급진료</a></li>
                     <li><a href="medicalViewPage">동네약국</a></li>
                 </ul>
                 
@@ -146,6 +146,7 @@ $(function(){
 	});
 	function openNew(hname){
 		window.open("http://192.168.0.64:8080/uneeds/medical/hospitalViewPage?hname="+hname);
+// 		window.open("http://localhost:8080/uneeds/medical/hospitalViewPage?hname="+hname);
 	}
 	
 });
