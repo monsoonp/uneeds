@@ -23,7 +23,7 @@
 			</div>
 			<form action="search" method="post">
 				<div id="search_input_wrapper">
-					<input type="text" id="search_input" name="search" autocomplete="off">
+					<input type="text" id="search_input" name="search" autocomplete="off" value="${param.searchs}">
 					<button type="submit" id="search_btn"></button>
 				</div>
 			</form>
