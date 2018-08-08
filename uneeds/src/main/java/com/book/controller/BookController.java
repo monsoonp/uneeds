@@ -48,6 +48,7 @@ public class BookController {
 		String formattedDate = dateFormat.format(date);
 		
 		mav.addObject("serverTime", formattedDate);
+		mav.addObject("time", bservice.getTime());
 		mav.setViewName("bookmain");
 
 		return mav;
