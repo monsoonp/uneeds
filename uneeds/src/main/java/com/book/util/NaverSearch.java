@@ -9,7 +9,7 @@ import java.net.URLEncoder;
 public class NaverSearch {
 
 	// 검색페이지 query, 페이지 번호
-	public StringBuffer booksearch(String text, int start) {
+	public static StringBuffer booksearch(String text, int start) {
 		String clientId = "dhxVzayDoaI1Ff2KDolt";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "QStSv4TdXn";//애플리케이션 클라이언트 시크릿값";
         StringBuffer response = null;
@@ -49,7 +49,7 @@ public class NaverSearch {
 	}
 	
 	// 상세페이지 isbn으로 검색
-	public StringBuffer booksearch(String isbn) {
+	public static StringBuffer booksearch(String isbn) {
 		String clientId = "dhxVzayDoaI1Ff2KDolt";//애플리케이션 클라이언트 아이디값";
         String clientSecret = "QStSv4TdXn";//애플리케이션 클라이언트 시크릿값";
         StringBuffer response = null;
@@ -79,7 +79,7 @@ public class NaverSearch {
                 response.append(inputLine);
             }
             br.close();
-            //System.out.println(response.toString());	//결과값
+            System.out.println(response.toString());	//결과값
         } catch (Exception e) {
             System.out.println(e);
         }

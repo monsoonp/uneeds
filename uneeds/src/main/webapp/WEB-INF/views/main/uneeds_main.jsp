@@ -36,23 +36,8 @@
 </head>
 <body>
 
-	<!-- login -->
-	<jsp:include page="/WEB-INF/views/main/common/login.jsp"></jsp:include>
-	<!-- 
-	<div align="right" style="padding-top: 10px;">
-		<a href="#" style="padding-right: 10px;"> 
-		<img src="../resources/main/img/n.png" alt="naver" style="width:25px;height: 25px;">
-		</a>
-		<a href="#" style="padding-right: 10px;"> 
-		<img src="../resources/main/img/k.png" alt="kakao" style="width:25px;height: 25px;">
-		</a>
-		<a onclick="window.open('http://192.168.0.61:8080/uneeds/login','','width=400,height=450,left=600')" style="padding-right: 10px;"> 
-		<img src="../resources/main/img/u.png" alt="uneeds" style="width:25px;height: 25px;">
-		</a>
-		<button type="button" class="btn btn-primary btn-sm"  style="margin-right: 20px;" 
-		onclick="window.open('http://192.168.0.61:8080/uneeds/join','','width=400,height=500,left=600')">JOIN</button>
-	</div>
-	-->
+	<jsp:include page="uneeds_main_top.jsp" flush="false"/>
+	
 	<div class="container-fluid" align="center" style="padding-bottom: 10px;">
 		<a href="#"> 
 		<img src="../resources/main/img/mainlogo.png" alt="mainlogo" style="width: 20%;">
@@ -65,7 +50,7 @@
 		<a class="nav-link" href="/uneeds/travel/viewtest">여행+</a>
 		<a class="nav-link" href="/uneeds/medical/main_view">의료</a>
 		<a class="nav-link" href="/uneeds/movie/main">영화/엔터</a>
-		<a class="nav-link" href="/uneeds/exhibition/">공연/전시</a>
+		<a class="nav-link" href="/uneeds/">공연/전시</a>
 		<a class="nav-link" href="/uneeds/admin/main">ADMIN</a>
 	</div>
 	<!-- 1단 -->
