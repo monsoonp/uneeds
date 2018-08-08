@@ -7,14 +7,17 @@ import java.net.HttpURLConnection;
 
 import java.net.URL;
 import java.net.URLEncoder;
-import java.text.DateFormat;
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,7 +29,11 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import com.mongo.util.MongoUtil;
+import com.mongodb.DB;
+import com.mongodb.MongoClient;
+import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.MongoIterable;
 import com.travel.model.TourcodeVO;
 import com.travel.persistence.TourDAO;
 
@@ -44,6 +51,16 @@ public class HomeController {
 	@RequestMapping(value = "/viewtest")
 	public String test(Locale locale, Model model) {
 		return "viewtest";
+	}
+	
+	@RequestMapping(value = "/main")
+	public String main(Locale locale, Model model) {
+		return "main";
+	}
+	
+	@RequestMapping(value = "/bookmark")
+	public String bookmark(Locale locale, Model model) {
+		return "bookmark";
 	}
 
 	@RequestMapping(value = "areasidocode", method = RequestMethod.GET)
@@ -229,6 +246,46 @@ public class HomeController {
 		System.out.println(sb.toString());
 
 		return new ResponseEntity<String>(sb.toString(), responseHeaders, HttpStatus.CREATED);
+	}
+	
+	/* 회원정보 등록 */
+	@RequestMapping(value = "insertMapinfo", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, String> insertMemberAjax(HttpServletRequest r, TourcodeVO vo) {
+		try {
+			r.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// 초기
+		HashMap<String, String> states = new HashMap<>();
+		states.put("state", "ok");
+		// insert
+		dao.insertMember(vo);
+		
+		return states;
+	}
+	
+	@RequestMapping(value="/list_collection")
+	public String listMongo(Model m) {
+		ArrayList<String> list = new ArrayList<>();
+		// 0. Client 객체
+		MongoClient mgc =  new MongoClient("192.168.0.18", 27017);
+		// 1. 연결
+		MongoDatabase mgd = mgc.getDatabase("uneeds_db");
+		// 3. 컬렉션들
+		MongoIterable<String> cols = mgd.listCollectionNames();
+		
+		// 4.Iterable을 List로 변환
+		/*List<String> list = StreamSupport.stream(cols.spliterator(), false).collect(Collectors.toList());
+		m.addAttribute("list", list);*/
+		for (String s : cols) {
+			list.add(s);
+		}
+		
+		m.addAttribute("list", list);
+		
+		return "list_collection";
 	}
 	
 }
