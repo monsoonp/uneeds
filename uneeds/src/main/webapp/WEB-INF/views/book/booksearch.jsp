@@ -128,7 +128,7 @@ function bind_book(){
 									'style="width:130px; height:200px;">'+
 								'</div>'+
 								'<div class="panel col-md-8  my-auto">'+
-									'<h2><a href="/uneeds/book/info/'+isbn+'">'+title+'</a></h2>'+
+									'<h2><a href="/uneeds/book/info/'+isbn+'" target="_blank">'+title+'</a></h2>'+
 									'<p>'+
 									author+span+
 									publisher+span+

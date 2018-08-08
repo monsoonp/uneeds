@@ -192,9 +192,9 @@ body {
 								</p>
 							</c:if>
 						<p>
-							${fn:replace(infoVo.author,'\"','') }
+							<a href='/uneeds/book/search/${author = fn:replace(infoVo.author,'\"','') }'>${author }</a>
 							<span>|</span>
-							${fn:replace(infoVo.publisher,'\"','') }
+							<a href='/uneeds/book/search/${pub = fn:replace(infoVo.publisher,'\"','') }'>${pub }</a>
 							<span>|</span>
 							${fn:replace(infoVo.pubdate,'\"','') }
 						</p>
