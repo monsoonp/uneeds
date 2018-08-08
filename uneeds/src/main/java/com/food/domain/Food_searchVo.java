@@ -4,6 +4,7 @@ public class Food_searchVo {
 	private String keyword;
 	private int page;
 	private int perPageNum;
+	private int kid;
 
 	public Food_searchVo() {
 		this.page = 1;
@@ -46,6 +47,14 @@ public class Food_searchVo {
 	
 	public int getPageStart() {
 		return (this.page-1) * perPageNum;
+	}
+	
+	public int getKid() {
+		return kid;
+	}
+
+	public void setKid(int kid) {
+		this.kid = kid;
 	}
 
 	@Override

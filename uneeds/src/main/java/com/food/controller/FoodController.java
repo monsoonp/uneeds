@@ -59,22 +59,29 @@ public class FoodController {
 		}
 		String searchs = r.getParameter("main_search");
 		ra.addAttribute("searchs", searchs);
+		int kid = 0;
+		ra.addAttribute("kid",kid);
 		return "redirect:search";
 	}
 	
-	// 硫붿씤�럹�씠吏� 濡쒕뵫
+	// 메인페이지 로딩
 	@RequestMapping(value="main", method=RequestMethod.GET)
 	public String main() {
 		logger.info("Welcome search! The client url is {}.", "/uneeds/food/main");		
 		return "main";
 	}
 	
-	// 寃��깋 �럹�씠吏� 濡쒕뵫
+	// 검색 페이지 로딩
 	@RequestMapping(value="search", method=RequestMethod.GET)
-	public String search(@ModelAttribute("svo") Food_searchVo svo, @RequestParam("searchs") String searchs, Model m) throws Exception {
+	public String search(Food_dataVo dvo, Food_searchVo svo, @RequestParam("searchs") String searchs, @RequestParam("kid") int kid, Model m) throws Exception {
 		logger.info("Welcome search! The client url is {}.", "/uneeds/food/search");
 		svo.setKeyword(searchs);
-		m.addAttribute("search_list", dao.searchFood(svo));
+		svo.setKid(kid);
+		if(kid == 0) {
+			m.addAttribute("search_list", dao.searchFood(svo));			
+		}else {
+			m.addAttribute("search_list", dao.searchFood_kind(svo));
+		}
 		Food_searchPageMaker pageMaker = new Food_searchPageMaker();
 		pageMaker.setSvo(svo);
 		pageMaker.setTotalCount(fs.countpage(svo));
@@ -96,7 +103,7 @@ public class FoodController {
 		return "redirect:search";
 	}
 	
-	// �긽�꽭蹂닿린 濡쒕뵫
+	// 상세보기 로딩
 	@RequestMapping(value="detail", method=RequestMethod.GET)
 	public String detail(@RequestParam("fid") int fid, Model m) {
 		logger.info("Welcome search! The client url is {}.", "/uneeds/food/detail");
@@ -107,10 +114,10 @@ public class FoodController {
 	/* MongodbConnection list*/
 	@RequestMapping("/mongoutil_test")
 	public String testMongoutil(Model m) {
-		// list_collection �쓣 MongoUtil濡� 援ы쁽
+		// list_collection 을 MongoUtil로 구현
 		// collection list
 		MongoIterable<String> cols = MongoUtil.getDb("food_database").listCollectionNames();
-		// Iterable�쓣 list濡� 蹂��솚
+		// Iterable을 list로 변환
 		List<String> list = StreamSupport.stream(cols.spliterator(), false).collect(Collectors.toList());
 		// setAttribute
 		m.addAttribute("list", list);
@@ -124,7 +131,7 @@ public class FoodController {
 			String cn = r.getParameter("col_name");
 			return fds.listAll(cn);
 		} catch (Exception e) {
-			logger.error("�삁�쇅! : " + e.getMessage());
+			logger.error("예외! : " + e.getMessage());
 		}
 		//
 		return new ArrayList<>();
@@ -139,8 +146,8 @@ public class FoodController {
 			e.printStackTrace();
 		}
 		
-		// Kid String -> int 蹂��솚
-		// 珥덇린
+		// Kid String -> int 변환
+		// 초기
 		String kids = r.getParameter("kid");
 		int kid = Integer.parseInt(kids);
 		String lids = r.getParameter("lid");

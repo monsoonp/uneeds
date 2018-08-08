@@ -5,10 +5,10 @@
 <%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 <%@ taglib prefix="book" uri="/resources/book/tld/BookTag.tld"%>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <title>Book</title>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <!-- css -->
 <link href="${pageContext.request.contextPath}/resources/book/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
@@ -80,7 +80,7 @@ function showGenre(shop){
 
 	$.ajax({
 		url : "/uneeds/book/bestseller/"+shopName,
-		type : 'get',	
+		type : 'post',	
 		dataType : 'json',
        	contentType: "application/json; charset=utf-8",
 	    success : function(data, status, xhr) {
@@ -138,8 +138,11 @@ function findBootstrapEnvironment() {
 }
 */
 function book_info(frm){
+	frm.action = "/uneeds/book/info/"+frm.isbn.value;
+	frm.method = "get"
 	frm.submit(function(){
 		$('#loading').removeClass('display-none');
+		return true;
 	});
 }
 
@@ -147,7 +150,7 @@ function book_info(frm){
 <style type="text/css">
 body {
 	background: url('${pageContext.request.contextPath}/resources/book/img/books.jpeg') no-repeat repeat;
-	background-size: 100%;
+	background-size: 100% auto;
 }
 </style>
 </head>
@@ -215,10 +218,9 @@ body {
 			<c:forEach items="${bests[0].bookList }" var="b">
 			
 				<li>
-					<form action="/uneeds/book/info" method="post">
-					
+					<form method="post" >
 						<div class="main-div">
-							<div class="row mb-4 my-auto py-auto" id="prev">
+							<div class="row mb-4 my-auto py-auto">
 								<div class="col-md-4 my-auto">
 									<div class="book_img_div mx-auto">
 										<div></div>
@@ -244,7 +246,8 @@ body {
 										${date = b.result.items[0].pubdate }
 									</p>
 									<p>
-										ISBN : ${isbn = fn:split(b.result.items[0].isbn,' ' )[1]}
+										<c:set var="isbn" value="${fn:split(b.result.items[0].isbn,' ' )[1]}"></c:set>
+										ISBN : ${isbn = fn:substring(isbn,fn:indexOf(isbn,'<b>')+3,fn:indexOf(isbn,'</b>')) }
 									</p>
 									<c:choose>
 										<c:when test="${b.result.items[0].discount ne '' }">
@@ -259,24 +262,11 @@ body {
 											<h3>${b.result.items[0].price }원</h3>
 										</c:otherwise>
 									</c:choose>
+									<input name="isbn" id="isbn" type="hidden" value="${isbn}">
 									
 								</div>
 							</div>
 						</div> 
-						
-						<input name="title" id="title" type="hidden" value="${b.result.items[0].title}">
-						<input name="author" id="author" type="hidden" value="${aut}">
-						<input name="pub" id="pub" type="hidden" value="${pub}">
-						<input name="img" id="img" type="hidden" value="${img}">
-						
-						<input name="isbn" id="isbn" type="hidden" value="${fn:split((fn:split(isbn,'>')[1]), '<')[0]}">
-						<input name="date" id="date" type="hidden" value="${date}">
-						
-						<input name="price" id="price" type="hidden" value="${p}">
-						<input name="discount" id="discount" type="hidden" value="${d}">	
-						<input name="disRate" id="disRate" type="hidden" value="${disRate}">
-						<input name="desc" id="desc" type="hidden" value="${b.result.items[0].description}">
-						<input name="link" id="link" type="hidden" value="${b.result.items[0].link}">
 						
 					</form>	
 				</li>

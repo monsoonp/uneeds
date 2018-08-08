@@ -10,6 +10,59 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
+function getMongoList(){
+	$.ajax({
+		url : "mongo_list_ajax",
+		timeout : 60000,
+		dataType : "json",
+		data : {
+			col_name : $("#col_name").val()				
+		},
+		success : function(data, status){
+			alert("성공!!!")
+			// 초기 변수 선언
+			var ul = $("#mongo_list");
+			var lis = "";
+			var d = null;
+			ul.empty();
+
+			// 이전 li 내용 제거
+				
+			// li 태그 그리기
+			for(var i=0; i<data.length; i++){
+				d = data[i]
+				lis += "<li><input name='fid' type='text' readonly='readonly' value='" + d._id + "'></li>" +
+						"<li><input name='fname' type='text' readonly='readonly' value='" + d.title + "'></li>" + 
+						"<li><input name='fgmenu' type='text' readonly='readonly' value='" + d.menu + "'></li>" +
+						"<li><input name='fdetail' type='text' readonly='readonly' value='" + d.detail + "'></li>" +
+				       "<li><input name='faddr' type='text' readonly='readonly' value='" + d.addr + "'></li>" + 
+				       "<li><input name='fphone' type='text' readonly='readonly' value='" + d.phone + "'></li>" + 
+				       "<li><input name='kid' type='text' readonly='readonly' value='" + d.kind + "'></li>" + 
+				       "<li><input name='fimg1' type='text' readonly='readonly' value='" + d.img1 + "'></li>" +
+				       "<li><input name='fimg2' type='text' readonly='readonly' value='" + d.img2 + "'></li>" +
+				       "<li><input name='fimg3' type='text' readonly='readonly' value='" + d.img3 + "'></li>"
+				$.post("food_insert",{
+						lid : $("#col_num").val(),
+						fname : d.title,
+						fgmenu : d.menu,
+						fdetail : d.detail,
+						faddr : d.addr, 
+						fphone : d.phone,
+						kid : d.kind,
+						fimg1 : d.img1,
+						fimg2 : d.img2,
+						fimg3 : d.img3
+					}).done(function(data, state){
+						console.log(data);
+						console.log(state);
+					});
+			}
+				ul.append(lis);
+		}
+	});
+	
+}
+
 
 </script>
 <title>UNEEDS FOOD</title>
@@ -23,7 +76,7 @@
 			</div>
 			<form action="search" method="post">
 				<div id="search_input_wrapper">
-					<input type="text" id="search_input" name="search" autocomplete="off">
+					<input type="text" id="search_input" name="search" autocomplete="off" value="${param.searchs}">
 					<button type="submit" id="search_btn"></button>
 				</div>
 			</form>
@@ -41,12 +94,11 @@
 	<div id="menu_div">
 		<ul id="menu_ul">
 			<li id="menu_li_first"><a href="#">내 주변</a></li>
-			<li id="menu_li_second"><a href="#">한식</a></li>
-			<li id="menu_li_second"><a href="#">양식</a></li>
-			<li id="menu_li_second"><a href="#">일식</a></li>
-			<li id="menu_li_second"><a href="#">중식</a></li>
-			<li id="menu_li_second"><a href="#">이색음식</a></li>
-			<li id="menu_li_second"><a href="#">카페 / 전통 찻집</a></li>
+			<li id="menu_li_second"><a href="search?searchs=${param.searchs}&kid=1">한식</a></li>
+			<li id="menu_li_second"><a href="search?searchs=${param.searchs}&kid=2">중식</a></li>
+			<li id="menu_li_second"><a href="search?searchs=${param.searchs}&kid=3">일식</a></li>
+			<li id="menu_li_second"><a href="search?searchs=${param.searchs}&kid=4">카페 / 전통 찻집</a></li>
+			<li id="menu_li_second"><a href="search?searchs=${param.searchs}&kid=5">양식</a></li>
 		</ul>
 	</div>
 </div>

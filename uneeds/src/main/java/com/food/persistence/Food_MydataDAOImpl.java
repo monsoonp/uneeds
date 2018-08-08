@@ -42,5 +42,10 @@ public class Food_MydataDAOImpl implements Food_MydataDAO {
 	public Food_dataVo detail(Integer fid) {
 		return mysqlSession.selectOne(namespace + ".detail", fid);
 	}
+
+	@Override
+	public List<Food_dataVo> searchFood_kind(Food_searchVo svo) throws Exception {
+		return mysqlSession.selectList(namespace + ".listSearch_kid", svo);
+	}
 	
 }

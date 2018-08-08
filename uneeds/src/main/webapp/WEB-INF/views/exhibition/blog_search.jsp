@@ -14,7 +14,7 @@ function bindblogs() {
 	//이전의 li 제거
 	$("#ulNews").empty();
 
-	// form
+	// forms
 	frm = $("#frmM_search")[0];
 	text = frm.text.value;
 	console.log("stext:" +text);
@@ -52,15 +52,13 @@ $(function() {
 
 <body>
 
-	<h1 id=getNews>MY NAVER NEWS</h1>
+	<h1 id=getNews>blog_search</h1>
 
 	<form id="frmM_search">
 
 		<ul>
 
-			<li><input name="text" type="text" placeholder="검색어"
-
-				required="required" /></li>
+			<li><input name="text" type="text" placeholder="검색어" required="required" /></li>
 
 			<li><button type="button" class="btn">SEARCH</button></li>
 

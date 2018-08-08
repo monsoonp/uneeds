@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
-<html>
+<html lang="ko">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -114,15 +114,12 @@ function bind_book(){
 		    		img = img == ''? '/resources/book/img/defaultbook.png':img;	//이미지가 없으면 디폴트 이미지
 		    		//console.log(img);
 		    		title = it.title.split("(")[0];	//제목 부제목 나누기
-		    		
 		    		author = it.author.replace(/(<([^>]+)>)/ig,"");
 		    		author = '<a href="/uneeds/book/search/'+author+'">'+author.replace(/\|/g,", ")+'</a>'; // 저자로 검색
-		    		
 		    		publisher = it.publisher.replace(/(<([^>]+)>)/ig,"");
 		    		publisher = '<a href="/uneeds/book/search/'+publisher+'">'+it.publisher+'</a>';	// 출판사로 검색
-		    		
+		    		isbn = it.isbn.split(' ')[1];
 		    		pubdate = it.pubdate;
-		    		
 		    		ul.append("<li>"+
 			    		'<div class="main-div">'+
 							'<div class="row mb-4 my-auto py-auto">'+
@@ -131,7 +128,7 @@ function bind_book(){
 									'style="width:130px; height:200px;">'+
 								'</div>'+
 								'<div class="panel col-md-8  my-auto">'+
-									'<h2>'+title+'</h2>'+
+									'<h2><a href="/uneeds/book/info/'+isbn+'">'+title+'</a></h2>'+
 									'<p>'+
 									author+span+
 									publisher+span+
@@ -225,7 +222,7 @@ body {
 </head>
 <body>
 	<!-- ${pageContext.request.contextPath} 프로젝트 webapp까지의 경로 -->
-	<div id="right_section" style="position:absolute;top:100px;right:100px;z-index: 999;padding-right: 100px;">  
+	<div id="right_section" class="pointed">  
            <div><h1>찜 목록</h1></div>  
     </div>  
     <!-- loading -->

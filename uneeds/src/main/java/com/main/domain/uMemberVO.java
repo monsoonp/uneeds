@@ -11,7 +11,7 @@ public class uMemberVO {
 	private String mnick;
 	private Date udate;
 
-	// »ı¼ºÀÚ
+	// ìƒì„±ì
 	public uMemberVO() {
 	}
 

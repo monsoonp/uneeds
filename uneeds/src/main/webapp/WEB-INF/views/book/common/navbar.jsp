@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%> 
+    
 <nav class="navbar navbar-expand-lg navbar-white bg-white fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="http://192.168.0.61:8080/uneeds/book/">
+			<a class="navbar-brand" href="/uneeds/book/">
 				<img src="${pageContext.request.contextPath}/resources/book/img/bookmain.png"/>
 			</a>
 		<button class="navbar-toggler navbar-toggler-right" type="button"
@@ -77,6 +78,7 @@
 						<a class="dropdown-item" href="#">
 							어학
 						</a>
+						
 					</div>
 				</li>
 				<!-- 드랍다운 2 end -->
@@ -95,10 +97,9 @@
 						</div>
 					</div>
 				</li>
+				
 			</ul>
 		</div>
 		<!-- 목록 end -->
-		
 	</div>
-	
 </nav>
