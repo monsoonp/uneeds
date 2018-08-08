@@ -9,17 +9,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Book</title>
 <!-- css -->
-<link href="../resources/book/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<link href="../resources/book/css/modern-custom.css" rel="stylesheet"/>
-<link href="../resources/book/css/login.css" rel="stylesheet"/>
+<link href="/resources/book/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<link href="/resources/book/css/modern-custom.css" rel="stylesheet"/>
+<link href="/resources/book/css/bookList.css" rel="stylesheet"/>
+<link href="/resources/book/css/login.css" rel="stylesheet"/>
 <!-- jquery / bootstrap / js-->
 <script src="//code.jquery.com/jquery-latest.js"></script> <!-- must be top -->
-<script src="../resources/book/bootstrap/js/bootstrap.min.js"></script>
-<script src="../resources/book/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../resources/book/js/jquery.min.js"></script>
+<script src="/resources/book/bootstrap/js/bootstrap.min.js"></script>
+<script src="/resources/book/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/resources/book/js/jquery.min.js"></script>
 <!-- swipe testing... -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.min.js"></script>
-<script src="../resources/book/js/book.js"></script>
+<script src="/resources/book/js/book.js"></script>
 <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
 <!-- <script src="../resources/book/js/bootstrap.bundle.min.js"></script> -->
 

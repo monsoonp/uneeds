@@ -8,3 +8,16 @@
 	</div>
 	<!-- /.container -->
 </footer>
+
+<script>
+// 스크롤 이동시
+$(window).scroll(function() {
+	$('.footer').removeClass("fixed-bottom");
+	$('.footer').addClass("display-none");
+	setTimeout(function(){
+		$('.footer').addClass("fixed-bottom");
+		$('.footer').removeClass("display-none");
+		$('.footer').addClass("animated animatedFadeInUp fadeInUp");
+	}, 1000);	 
+});
+</script>
