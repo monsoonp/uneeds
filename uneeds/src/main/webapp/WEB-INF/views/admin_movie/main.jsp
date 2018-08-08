@@ -687,7 +687,7 @@ li {
 		<a class="navbar-brand2" href="javascript:navstate()" id="a_rservstate" style="font-weight: bold;padding-left: 30px;">RESERV_STATE</a>
 		<form name="rtcForm">
 			<input type="text" name="rtcInput" readonly="readonly" 
-			style="font-weight: bold; font-size: x-large; border: 0px; background-color: #8A0886; color: white; width: 1000px; text-align: right;"/>
+			style="font-weight: bold; font-size: x-large; border: 0px; background-color: #8A0886; color: white; width: 1150px; text-align: right;"/>
 		</form>
 	</nav>
 	<div class="row" style="height: 1500px;">
