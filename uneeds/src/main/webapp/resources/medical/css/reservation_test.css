@@ -1,43 +1,89 @@
+/* reservation_step02 */
+.step02 dl.info dt {width:330px;height:40px;border-bottom:3px solid #529ae6; margin-left: 40px}
+.step02 dl.info dt h3 {width:150px;height:40px;margin:0 0 0 10px;background:#529ae6  no-repeat 100% 0;color:#fff;line-height:40px;font-size:18px;text-indent:10px;}
+.step02 dl.info dd {width:328px;height:133px;margin-bottom:20px;border:1px solid #adc8cd;border-top:none;font-size:12px;color:#717b81;}
+.step02 dl.info dd label {
+	margin:10px 0 0 10px;
+	display: block;
+ 	color: rgba(0, 0, 0, 0.6);
+ 	font-size: 12px;
+ 	font-weight: 500;
+ 	line-height: 1;
+  	text-transform: uppercase;
+ 	letter-spacing: .2em;
+  }
+  
+.step02 dl.info dd input {
+	margin:10px 10px 0 10px;
+	border-radius: 4px;
+	}
+
+
+.reservation-group {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+      -ms-flex-wrap: wrap;
+          flex-wrap: wrap;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  margin: 0px 0 20px;
+}
+
+.gender {
+	margin: 0px 0 20px;
+	width:173px;
+	height: 21px;
+}
+
 /* reservation_step03 */
 .step03 {margin:0 0 0 40px 40px;clear:both;}
 .step03 .con_left {float:left;height:100%;}
-.step03 dl.calendar {margin:20px 20px 20px 0;}
-.step03 dl.calendar dt {width:330px;height:40px;border-bottom:3px solid #529ae6;}
-.step03 dl.calendar dt h3 {width:128px;height:40px;margin:0 0 0 10px;background:#529ae6  no-repeat 100% 0;color:#fff;line-height:40px;font-size:18px;text-indent:10px;}
-.step03 dl.calendar dd .ti {position:relative;width:328px;height:67px;border:1px solid #adc8cd;border-top:none;font-size:24px;color:#089dba;line-height:67px;text-align:center;}
-.step03 dl.calendar dd .ti .btn_prev {display:block;position:absolute;top:20px;left:24px;width:4px;height:15px;padding:5px; background: url('../img/arrow05.gif') no-repeat 0 0;text-indent:-5000px;cursor:pointer;}
-.step03 dl.calendar dd .ti .btn_next {display:block;position:absolute;top:20px;right:24px;width:4px;height:15px;padding:5px; background: url('../img/arrow06.gif') no-repeat 0 0;text-indent:-5000px;cursor:pointer;}
-.step03 dl.calendar dd .con {width:330px;}
-.step03 dl.calendar dd .con table {width:100%;margin-bottom:20px;border-bottom:1px solid #adc8cd;font-size:12px;color:#373a3c;}
+.step03 dl.calendar_list {margin:20px 20px 20px 0;}
+.step03 dl.calendar_list dt {width:360px;height:40px;border-bottom:3px solid #529ae6; margin-left: 40px}
+.step03 dl.calendar_list dt h3 {width:128px;height:40px;margin:0 0 0 10px;background:#529ae6  no-repeat 100% 0;color:#fff;line-height:40px;font-size:18px;text-indent:10px;}
+.step03 dl.calendar_list dd .ti {position:relative;width:328px;height:67px;border:1px solid #adc8cd;border-top:none;font-size:24px;color:#089dba;line-height:67px;text-align:center;}
+.step03 dl.calendar_list dd .ti .btn_prev {display:block;position:absolute;top:20px;left:24px;width:4px;height:15px;padding:5px; background: url('../img/arrow05.gif') no-repeat 0 0;text-indent:-5000px;cursor:pointer;}
+.step03 dl.calendar_list dd .ti .btn_next {display:block;position:absolute;top:20px;right:24px;width:4px;height:15px;padding:5px; background: url('../img/arrow06.gif') no-repeat 0 0;text-indent:-5000px;cursor:pointer;}
+.step03 dl.calendar_list dd .con {width:330px;}
+.step03 dl.calendar_list dd .con table {width:100%;margin-bottom:20px;border-bottom:1px solid #adc8cd; border-left:1px solid #adc8cd; border-right:1px solid #adc8cd;  font-size:12px;color:#373a3c;}
+.step03 dl.calendar_list dd .con table tbody th span {display:block;width:46px;height:46px;border-left:1px solid #d9d2c5;border-bottom:1px solid #adc8cd;color:#a8a498;font-weight:normal;line-height:46px;}
 
 
-.step03 dl.calendar dd .con table tbody th span {display:block;width:46px;height:46px;border-left:1px solid #d9d2c5;border-bottom:1px solid #adc8cd;color:#a8a498;font-weight:normal;line-height:46px;}
-.step03 dl.calendar dd .con table tbody th span.first {border-left:1px solid #adc8cd;}
-.step03 dl.calendar dd .con table tbody th span.last {border-right:1px solid #adc8cd;}
-.step03 dl.calendar dd .con table tbody td span {position:relative;display:block;width:46px;height:46px;border-left:1px solid #d9d2c5;border-top:1px solid #d9d2c5;text-align:center;line-height:46px;}
-.step03 dl.calendar dd .con table tbody td span.first {border-left:1px solid #adc8cd;}
-.step03 dl.calendar dd .con table tbody td span.last {border-right:1px solid #adc8cd;}
-.step03 dl.calendar dd .con table tbody td span:hover {width:45px;height:45px;border:1px solid #53afc8;cursor:pointer;color:#089dba;font-weight:bold;line-height:46px;}
-.step03 dl.calendar dd .con table tbody td span.last:hover {width:46px;}
-.step03 dl.calendar dd .con table tbody td span.today {font-weight:bold;color:#089dba;}
-.step03 dl.calendar dd .con table tbody td span.impossible {background:#eee9e4;color:#a8a498;}
-.step03 dl.calendar dd .con table tbody td span.impossible:hover {width:46px;height:46px;border:1px solid #d9d2c5;border-right:none;border-bottom:none;line-height:46px;font-weight:normal;cursor:normal;}
-.step03 dl.calendar dd .con table tbody td span.impossible.first:hover {border-left:1px solid #adc8cd;}
-.step03 dl.calendar dd .con table tbody td span.impossible.last:hover {border-right:1px solid #adc8cd;}
-.step03 dl.calendar dd .con table tbody td span.next {background:#f2faf9;}
-.step03 dl.calendar dd .con table tbody td span .on {position:absolute;top:-20px;left:10px;width:34px;height:35px;background:url('../img/ico_spot.png') no-repeat 0 0;}
-.step03 dl.calendar dd .con table tbody td span.active {width:45px;height:45px;border:1px solid #53afc8;background:#53afc8;color:#fff;font-weight:bold;}
-.step03 dl.calendar dd .mobile_con {display:none;}
-.step03 dl.calendar dd.txt {width:328px;height:62px;padding:24px 0 0 0;border:1px solid #d9d2c5;background:#f9f4f0;color:#7f7f7f;font-size:14px;line-height:18px;clear:both;text-align:center;}
-.step03 dl.calendar dd.txt strong {color:#373a3c;}
-.step03 dl.calendar dd.txt#txt02 {display:none;}
+.step03 dl.calendar_list dd .con table tbody td span {position:relative;display:block;width:46px;height:46px;border-left:1px solid #d9d2c5;border-top:1px solid #d9d2c5;text-align:center;line-height:46px;}
+.step03 dl.calendar_list dd .con table tbody td span.first {border-left:1px solid #adc8cd;}
+.step03 dl.calendar_list dd .con table tbody td span.last {border-right:1px solid #adc8cd;}
+.step03 dl.calendar_list dd .con table tbody td span:hover {width:45px;height:45px;border:1px solid #53afc8;cursor:pointer;color:#089dba;font-weight:bold;line-height:46px;}
+.step03 dl.calendar_list dd .con table tbody td span.last:hover {width:46px;}
+.step03 dl.calendar_list dd .con table tbody td span.today {font-weight:bold;color:#089dba;}
+.step03 dl.calendar_list dd .con table tbody td span.impossible {background:#eee9e4;color:#a8a498;}
+.step03 dl.calendar_list dd .con table tbody td span.impossible:hover {width:46px;height:46px;border:1px solid #d9d2c5;border-right:none;border-bottom:none;line-height:46px;font-weight:normal;cursor:normal;}
+.step03 dl.calendar_list dd .con table tbody td span.impossible.first:hover {border-left:1px solid #adc8cd;}
+.step03 dl.calendar_list dd .con table tbody td span.impossible.last:hover {border-right:1px solid #adc8cd;}
+.step03 dl.calendar_list dd .con table tbody td span.next {background:#f2faf9;}
+.step03 dl.calendar_list dd .con table tbody td span .on {position:absolute;top:-20px;left:10px;width:34px;height:35px;background:url('../img/ico_spot.png') no-repeat 0 0;}
+.step03 dl.calendar_list dd .con table tbody td span.active {width:45px;height:45px;border:1px solid #53afc8;background:#53afc8;color:#fff;font-weight:bold;}
+
+
+
+
+.step03 dl.calendar_list dd .mobile_con {display:none;}
+.step03 dl.calendar_list dd.txt {width:328px;height:62px;padding:24px 0 0 0;border:1px solid #d9d2c5;background:#f9f4f0;color:#7f7f7f;font-size:14px;line-height:18px;clear:both;text-align:center;}
+.step03 dl.calendar_list dd.txt strong {color:#373a3c;}
+.step03 dl.calendar_list dd.txt#txt02 {display:none;}
+
 .step03 dl.memo {margin:20px 20px 20px 0;}
-.step03 dl.memo dt {width:330px;height:40px; no-repeat 0 0;border-bottom:3px solid #529ae6;}
+.step03 dl.memo dt {width:330px;height:40px; no-repeat 0 0;border-bottom:3px solid #529ae6; margin-left: 40px}
 .step03 dl.memo dt h3 {width:128px;height:40px;margin:0 0 0 10px;background:#529ae6  no-repeat 100% 0;color:#fff;line-height:40px;font-size:18px;text-indent:10px;}
 .step03 dl.memo dd {width:328px;height:113px;margin-bottom:20px;border:1px solid #adc8cd;border-top:none;font-size:12px;color:#717b81;}
 .step03 dl.memo dd textarea {width:297px;height:82px;margin:10px 0 0 10px;padding:10px 0 0 10px;border:none;no-repeat 0 0;}
+
 .step03 dl.time {position:relative;float:left;margin:20px 20px 20px 0;}
-.step03 dl.time dt {width:330px;height:40px;border-bottom:3px solid #529ae6;}
+.step03 dl.time dt {width:330px;height:40px;border-bottom:3px solid #529ae6; margin-left: 40px}
 .step03 dl.time dt h3 {width:128px;height:40px;margin:0 0 0 10px;background:#529ae6;color:#fff;line-height:40px;font-size:18px;text-indent:10px;}
 .step03 dl.time .division {position:relative;width:329px;height:25px;top:-25px;text-align:right;}
 .step03 dl.time .division .yes {width:70px;padding:0 0 0 26px;background:url('../img/ico_yes.gif') no-repeat 0 1px;font-size:12px;color:#373a3c;}
@@ -57,16 +103,17 @@
 .step03 dl.time dd table td ul.time10 li span.active {background:#ffffff;color:#000000;font-weight:bold;}
 .step03 dl.time dd table td ul.time10 li span.active:hover {width:81px;height:30px;line-height:30px;border:none;}
 .step03 dl.time dd table td ul.time10 li .on {position:absolute;top:-25px;left:28px;width:39px;height:37px;background:url('../img/ico_spot.png') no-repeat 0 0;z-index:30;}
-
 .step03 dl.time dd.point .bg {position:absolute;top:43px;left:1px;width:328px;height:421px;padding:260px 0 0 0;background:#fff;filter:alpha(opacity=80);-moz-opacity:0.8;-khtml-opacity:0.8;opacity:0.8;z-index:100;}
 .step03 dl.time dd.point p {position:absolute;top:43px;left:1px;width:328px;height:421px;padding:260px 0 0 0;z-index:110;font-size:24px;line-height:29px;color:#f69100;text-align:center;}
 .step03 dl.time dd.point p img {margin:0 0 15px 0}
+
 .step03 .description {width:523px;margin:10px 0;padding:20px 0 18px 155px;border:1px solid #d9d2c5;color:#7f7f7f;font-size:12px;line-height:16px;background:url('../img/ico_point.gif') no-repeat 50px 38px;clear:both;}
 .step03 .description p {margin:7px 0;}
 .step03 .description strong {font-size:14px;color:#089dba;}
 .step03 .description span {color:#089dba;}
 .step03 .description p.txt {color:#373a3c;}
 .step03 .description ul {margin-top:10px;}
+
 .step03 .btn_side {top:10px;width:680px;margin:0 0 50px 0}
 .step03 .btn_side .btn01 {width:93px;height:41px;line-height:41px;font-size:16px;color:#529ae6;}
 .step03 .btn_side .btn01 img {margin-right:29px;vertical-align:middle;}
