@@ -2,10 +2,12 @@ package com.food.persistence;
 
 import java.util.List;
 import com.food.domain.Food_dataVo;
+import com.food.domain.Food_searchVo;
 
 public interface Food_MydataDAO {
 	public void insertData(Food_dataVo vo);
 	public List<Food_dataVo> selectFood();
-	public List<Food_dataVo> searchFood(Food_dataVo vo);
-	
+	public List<Food_dataVo> searchFood(Food_searchVo svo) throws Exception;
+	public int countPaging(Food_searchVo svo);
+	public Food_dataVo detail(Integer fid);
 }

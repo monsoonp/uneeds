@@ -1,7 +1,6 @@
 package com.food.controller;
 
 import java.io.UnsupportedEncodingException;
-
 import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -26,9 +26,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.food.domain.Food_dataVo;
+import com.food.domain.Food_searchPageMaker;
+import com.food.domain.Food_searchVo;
 import com.food.mongos.MongoUtil;
 import com.food.persistence.Food_MydataDAO;
 import com.food.service.Food_MongodataService;
+import com.food.service.Food_MydataService;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoIterable;
@@ -42,6 +45,9 @@ public class FoodController {
 	
 	@Inject
 	Food_MydataDAO dao;
+	
+	@Inject
+	private Food_MydataService fs;
 	
 	@RequestMapping(value="main", method=RequestMethod.POST)
 	public String main_post(HttpServletRequest r, RedirectAttributes ra) {
@@ -65,13 +71,14 @@ public class FoodController {
 	
 	// 寃��깋 �럹�씠吏� 濡쒕뵫
 	@RequestMapping(value="search", method=RequestMethod.GET)
-	public String search(@RequestParam("searchs") String searchs, Model m) {
+	public String search(@ModelAttribute("svo") Food_searchVo svo, @RequestParam("searchs") String searchs, Model m) throws Exception {
 		logger.info("Welcome search! The client url is {}.", "/uneeds/food/search");
-		System.out.println(searchs);
-		Food_dataVo vo = new Food_dataVo();
-		vo.setKeyword(searchs);
-		System.out.println(vo.getKeyword());
-		m.addAttribute("search_list", dao.searchFood(vo));
+		svo.setKeyword(searchs);
+		m.addAttribute("search_list", dao.searchFood(svo));
+		Food_searchPageMaker pageMaker = new Food_searchPageMaker();
+		pageMaker.setSvo(svo);
+		pageMaker.setTotalCount(fs.countpage(svo));
+		m.addAttribute("pageMaker", pageMaker);
 		return "search";
 	}
 	
@@ -91,8 +98,9 @@ public class FoodController {
 	
 	// �긽�꽭蹂닿린 濡쒕뵫
 	@RequestMapping(value="detail", method=RequestMethod.GET)
-	public String detail() {
-		logger.info("Welcome search! The client url is {}.", "/uneeds/food/detail");		
+	public String detail(@RequestParam("fid") int fid, Model m) {
+		logger.info("Welcome search! The client url is {}.", "/uneeds/food/detail");
+		m.addAttribute("list", dao.detail(fid));
 		return "detail";
 	}
 		
@@ -119,7 +127,7 @@ public class FoodController {
 			logger.error("�삁�쇅! : " + e.getMessage());
 		}
 		//
-		return new ArrayList<Document>();
+		return new ArrayList<>();
 	}
 	
 	@RequestMapping(value = "food_insert", method = RequestMethod.POST)

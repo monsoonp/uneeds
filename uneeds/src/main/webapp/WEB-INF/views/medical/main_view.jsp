@@ -43,7 +43,7 @@
                     <li id="logo"> <a href="main_view"><img src="../../../resources/medical/img/doc.png" alt=""></a> </li>
                     
                     <li><a href="hospitalViewPage" >병원찾기</a></li>
-                    <li><a href="hospital_view2.jsp">응급진료</a></li>
+                    <li><a href="hospitalViewPage">응급진료</a></li>
                     <li><a href="medicalViewPage">동네약국</a></li>
                 </ul>
                 
@@ -52,12 +52,9 @@
                     <div class="total_search01">
                         <input type="text" id="headerSearchValue" placeholder="키워드를 검색하세요." name="Name" title="검색어 입력">
                         <a href="#" id="btn-site-search"><img src="https://goodhospital.kr/theme/gh/images/search_icon_02.png"></a>
-                        </div>
-                    
+                    </div>                    
                 </div>
-
-                
-            </nav>
+            </nav>            
         </div>
         
         <!--  test 시작-->
@@ -101,8 +98,7 @@
                         </ul>
                     </div>
                 </div>
-            </div>
-            
+            </div>            
         </div>
         <!-- test 끝 -->
         
@@ -149,7 +145,8 @@ $(function(){
 		openNew(hnames);				
 	});
 	function openNew(hname){
-		window.open("http://192.168.0.64:8080/uneeds/medical/hospitalViewPage?hname="+hname); 
+		window.open("http://192.168.0.64:8080/uneeds/medical/hospitalViewPage?hname="+hname);
+// 		window.open("http://localhost:8080/uneeds/medical/hospitalViewPage?hname="+hname);
 	}
 	
 });

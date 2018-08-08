@@ -23,7 +23,7 @@
 			</div>
 			<form action="search" method="post">
 				<div id="search_input_wrapper">
-					<input type="text" id="search_input" name="search" autocomplete="off">
+					<input type="text" id="search_input" name="search" autocomplete="off" value="${param.searchs}">
 					<button type="submit" id="search_btn"></button>
 				</div>
 			</form>
@@ -62,7 +62,7 @@
 				<div id="search_contain_food_title">
 					<div id="null_food_title"></div>
 					<div id="search_food_title">
-						<a href="#">${sl.fname}</a>
+						<a href="detail?fid=${sl.fid}">${sl.fname}</a>
 					</div>
 					<div id="search_food_title_kind">
 						${sl.fgmenu}
@@ -108,48 +108,27 @@
 			<table id="page_index_table">
 				<tbody>
 					<tr>
+						<c:if test="${pageMaker.prev}">
 						<td id="page_index_table_left_arrow">
-							<a href="#">
+							<a href="search${pageMaker.makeSearch(pageMaker.startPage - 1)}">
 								<img src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/page/bt_arw_s_L.png" id="arrow_img">
 							</a>
 						</td>
+						</c:if>
 						<td id="null_page_index"></td>
+						<c:forEach begin="${pageMaker.startPage}" end="${pageMaker.endPage}" var="idx">
 						<td id="page_index_cell">
-							<a href="#" name="paging">1</a>
+							<a href="search${pageMaker.makeSearch(idx)}" name="paging">${idx}</a>
 						</td>
-						<td id="page_index_cell">
-							<a href="#">2</a>
-						</td>
-						<td id="page_index_cell">
-							<a href="#">3</a>
-						</td>
-						<td id="page_index_cell">
-							<a href="#">4</a>
-						</td>
-						<td id="page_index_cell">
-							<a href="#">5</a>
-						</td>
-						<td id="page_index_cell">
-							<a href="#">6</a>
-						</td>
-						<td id="page_index_cell">
-							<a href="#">7</a>
-						</td>
-						<td id="page_index_cell">
-							<a href="#">8</a>
-						</td>
-						<td id="page_index_cell">
-							<a href="#">9</a>
-						</td>
-						<td id="page_index_cell">
-							<a href="#">10</a>
-						</td>
+						</c:forEach>
 						<td id="null_page_index"></td>
+						<c:if test="${pageMaker.next && pageMaker.endPage > 0}">
 						<td id="page_index_table_left_arrow">
-							<a href="#">
+							<a href="search${pageMaker.makeSearch(pageMaker.endPage+1)}">
 								<img src="https://dfzrjox9sv97l.cloudfront.net/dicons_20160930/img/list/page/bt_arw_s_R.png" id="arrow_img">
 							</a>
 						</td>
+						</c:if>
 					</tr>
 				</tbody>
 			</table>
