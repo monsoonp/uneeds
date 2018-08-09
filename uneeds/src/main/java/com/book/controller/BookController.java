@@ -141,7 +141,7 @@ public class BookController {
 	public String bookDesc(@RequestBody BookInfoVO biVo) throws Exception {
 		String link = biVo.getLink();
 		System.out.println(link);
-		return link;
+		return CrawlUtil.bookInfo(link).toString();
 	}
 	// 도서 가격 정보
 	@ResponseBody
