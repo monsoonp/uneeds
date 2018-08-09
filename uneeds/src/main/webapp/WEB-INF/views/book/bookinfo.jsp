@@ -56,24 +56,6 @@ $(window).scroll(function() {
    
 });
 
-//모바일 감지
-function findBootstrapEnvironment() {
-	var envs = ['xs', 'sm', 'md', 'lg'];
-	
-	var point = $(".pointed");
-	point.appendTo($('body'));
-	
-	for (var i = envs.length - 1; i >= 0; i--) {
-		var env = envs[i];
-		
-		point.addClass('hidden-'+env);
-		if (point.is(':hidden')) {
-			point.remove();
-		return env;
-		}
-	}
-}
-
 function desc(){
 	var link = "${fn:replace(info.items[0].link, '\"','')}";
 		console.log(link);
@@ -87,7 +69,7 @@ function desc(){
 		dataType : 'text',
 		contentType: "application/json; charset=utf-8",
 	    success : function(data, status) {
-	    	//console.log(data);
+	    	console.log(data);
 	    	$('#desc').append(data);
 	    },complete: function(){
 			$('#content').remove();
@@ -100,13 +82,13 @@ function desc(){
 function prices(){
 	var tbl = $("#prices");
 	var isbn = "${fn:replace( fn:split(fn:split(fn:split(info.items[0].isbn,' ' )[1], '>')[1] ,'<')[0],'\"','') }";
-	console.log(isbn);
+	//console.log(isbn);
 	$.ajax({
 		url:"/uneeds/book/info/bookprice",
 		data:JSON.stringify({
 			title : 'hello',
 			isbn : isbn 
-		}),
+		}), 
 		type : 'post',	
 		dataType : 'json',
 		contentType: "application/json; charset=utf-8",
@@ -115,23 +97,25 @@ function prices(){
 	    	yes = data.yes24;
 	    	kyo = data.kyobo;
 	    	ala = data.aladin;
-	    	tbl.append("<tr><td><a href="+yes.url+">yes24</a></td><td>"+yes.new_price+"</td><td>"+
+	    	ipk = data.interpark;
+	    	tbl.append("<tr><td><a href="+yes.url+" target='_blank'>yes24</a></td><td>"+yes.new_price+"</td><td>"+
 	    										yes.used_price+"</td><td>"+yes.e_price+"</td></tr>");
-	    	tbl.append("<tr><td><a href="+kyo.url+">교보문고</a></td><td>"+kyo.new_price+"</td><td>"+
+	    	tbl.append("<tr><td><a href="+kyo.url+" target='_blank'>교보문고</a></td><td>"+kyo.new_price+"</td><td>"+
 	    										kyo.used_price+"</td><td>"+kyo.e_price+"</td></tr>");
-	    	tbl.append("<tr><td><a href="+ala.url+">알라딘</a></td><td>"+ala.new_price+"</td><td>"+
+	    	tbl.append("<tr><td><a href="+ala.url+" target='_blank'>알라딘</a></td><td>"+ala.new_price+"</td><td>"+
 	    										ala.used_price+"</td><td>"+ala.e_price+"</td></tr>");
-	    	tbl.append("<tr><td><a href="+yes.url+">인터파크</a></td><td>"+
-												yes.new_price+"</td><td>"+
-												yes.used_price+"</td><td>"+
-												yes.e_price+"</td></tr>");
-	    },complete: function(){
+	    	tbl.append("<tr><td><a href="+ipk.url+" target='_blank'>인터파크</a></td><td>"+ipk.new_price.split("(")[0]+"</td><td>"+
+	    										ipk.used_price+"</td><td>"+ipk.e_price.split(" ")[0]+"</td></tr>");
+	    },
+	    complete: function(){
 			$('#loadingtr').remove();
-		},error: function(error) {
+		},
+		error: function(error) {
 			console.log("error: "+error);
-		},timeout:10000
-	    
+		},
+		timeout: 10000
 	});
+	//$('#loadingtr').remove();
 }
 </script>
 <style type="text/css">
@@ -139,6 +123,7 @@ body {
 	background: url('${pageContext.request.contextPath}/resources/book/img/devbook.jpg') no-repeat repeat;
 	background-size: 100% auto;
 }
+
 </style>
 </head>
 <body>
@@ -147,11 +132,10 @@ body {
            <!-- <div><h1>찜 목록</h1></div> -->  
     </div>  
 	
-	
 	<!-- Navigation include -->
 	<jsp:include page="/WEB-INF/views/book/common/navbar.jsp"></jsp:include>
 	
-	
+		
 	<header>
 		
 	</header>
@@ -190,6 +174,7 @@ body {
 								<p>
 									(${fn:replace( fn:split(infoVo.title,'(' )[1] ,'\"','')}
 								</p>
+								
 							</c:if>
 						<p>
 							<a href='/uneeds/book/search/${author = fn:replace(infoVo.author,'\"','') }'>${author }</a>
@@ -238,11 +223,10 @@ body {
 				</div>
 				<!-- 도서 상세 -->
 				<div class="row mb-4 my-auto py-auto">
-					<div id="desc" class="col-md-12 my-auto mx-auto">
+					<div class="col-md-12 my-auto mx-auto">
 						<hr/>
-						<div id="content" class="contentloading">
-						
-						</div>
+						<div id="content" class="contentloading"></div>
+						<p id="desc"></p>
 					</div>
 				</div>
 			</div>
@@ -253,8 +237,7 @@ body {
 	<!-- 하단 여백 -->
 	<div class="my-5"></div>
 	
-		
-
+	
 	<!-- /.container -->
 
 	<!-- Footer include -->

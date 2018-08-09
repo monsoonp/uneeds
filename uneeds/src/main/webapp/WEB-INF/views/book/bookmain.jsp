@@ -22,7 +22,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.min.js"></script>
 <script src="/resources/book/js/book.js"></script>
 <!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> -->
-<!-- <script src="../resources/book/js/bootstrap.bundle.min.js"></script> -->
+<!-- <script src="/resources/book/js/bootstrap.bundle.min.js"></script> -->
 
 <!-- 구글폰트 -->
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans" rel="stylesheet">
@@ -98,15 +98,10 @@ body {
 </style>
 </head>
 <body>
-	<!-- ${pageContext.request.contextPath} 프로젝트 webapp까지의 경로 -->
-	<!-- 
-	<div id="right_section" style="position:absolute;top:600px;right:100px;z-index: 999;">  
-           <div><h1>I'LL FOLLOW U</h1></div>  
-    </div>  
-     -->
+	
     <!-- loading -->
 	<div id="loading" class="display-none" style="position:fixed; width:100%;height:100%; z-index: 999;">  
-           <img class="loading-img" src="../resources/book/img/loading_preview.gif" style="position:absolute;width:100%;height:100%; z-index: 999;"/>
+           <img class="loading-img" src="/resources/book/img/loading_preview.gif" style="position:absolute;width:100%;height:100%; z-index: 999;"/>
     </div>
 	
 	<!-- Navigation include -->
@@ -139,7 +134,7 @@ body {
 				</div>
 				<!-- seller -->
 				<div class="carousel-item" onclick="location.href='bestseller'"
-					style="background-image: url('../resources/book/img/booksale.jpg')">
+					style="background-image: url('/resources/book/img/booksale.jpg')">
 					<div class="carousel-caption d-none d-md-block">
 						<h3 style="color: black;">잘나가는 도서</h3>	
 						<h3 style="color: black;">Best n Steady</h3>	
@@ -148,7 +143,7 @@ body {
 				</div>
 				<!-- store map -->
 				<div class="carousel-item" onclick="location.href='/uneeds/book/store'"
-					style="background-image: url('../resources/book/img/bookshop.jpg');">
+					style="background-image: url('/resources/book/img/bookshop.jpg');">
 					<div class="carousel-caption d-none d-md-block">
 						<h3>서점 지도</h3>
 						<label>Book Store</label>
@@ -171,21 +166,6 @@ body {
 	<div class="container" id="background">
 
 		<h1 class="my-4">WELCOME!</h1>
-		<!-- 검색창 -->
-		<!-- 
-		<div class="col-md-12">
-			<div class="row mb-4">
-				<form action="#" method="get">
-					<input value='' class="searcher" placeholder="검색 입력후 엔터" autofocus>
-				</form>
-				<hr class="searcherLine"/>
-			</div> 
-		</div>
-		 -->
-		<div class="row">
-			
-		</div>
-		<!-- /.row -->
 		
 		<hr/>
 
@@ -198,15 +178,10 @@ body {
 				</p>
 				<hr/>
 			</div>
-			<div class="col-md-12" style="height:600px;"></div>
+			<div style="height:600px;"></div>
 			
 			<div class="col-md-4">
 				<hr/>
-				<!-- 
-				<a class="btn btn-sm btn-secondary btn-block" href="">
-					TOP
-				</a>
-				 -->
 			</div>
 	
 			

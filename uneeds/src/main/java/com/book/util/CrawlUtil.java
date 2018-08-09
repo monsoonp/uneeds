@@ -56,6 +56,7 @@ public class CrawlUtil {
 		return hm;
 	}
 	
+	// yes24
 	public static PriceVO getYes24(String isbn)throws Exception {
 		Elements d= null;
 		PriceVO vo = null;
@@ -94,8 +95,7 @@ public class CrawlUtil {
 		
 		return vo;
 	}
-	
-	
+	// 교보문고
 	public static PriceVO getKyobo(String isbn)throws Exception {
 		Element d= null;
 		PriceVO vo = null;
@@ -131,6 +131,7 @@ public class CrawlUtil {
 		return vo;
 	}
 	
+	// 알라딘
 	public static PriceVO getAladin(String isbn)throws Exception {
 		Element d= null;
 		PriceVO vo = null;
@@ -141,7 +142,6 @@ public class CrawlUtil {
 			vo.setUrl(url);	// 가격 정보 url
 			d = Jsoup.connect(url).get().select("div.ss_book_box").first(); // 도서 검색
 			
-			
 			//새책
 			String new_price = Jsoup.parse(d.select("span.ss_p2").toString()).text();
 			vo.setNew_price(new_price);
@@ -150,11 +150,11 @@ public class CrawlUtil {
 			String e_price = Jsoup.parse(d.select("li:contains(전자책)").toString()).text();
 			vo.setE_price(e_price.split(": ")[1]);
 			
-			//중고 url http://used.kyobobook.co.kr/product/prod	uctSearchList.ink?type=isbn&typeValue= {isbn}
+			//중고 
 			url = "http://www.aladin.co.kr/search/wsearchresult.aspx?SearchTarget=Used&KeyWord="+isbn;
 			
-			String str = Jsoup.connect(url).get().
-					select("div.ss_book_box").select("td:contains(회원중고)").select("tr:contains(회원중고)").
+			d =	Jsoup.connect(url).get().select("div.ss_book_box").first();
+			String str = d.select("td:contains(회원중고)").select("tr:contains(회원중고)").
 					select("table:nth-child(1)").select("table:nth-child(1)").select("td:contains(회원중고)").
 					select("tr:nth-child(4)").toString();
 			
@@ -167,87 +167,35 @@ public class CrawlUtil {
 		
 		return vo;
 	}
-	
-	
-	
-	//테스트
-	public static List<Document> testCrawl(String url) throws Exception {
-		// 초기
-		//List<String> list = null;
-
-		// PAGE CRAWLING
+	// 인터파크
+	public static PriceVO getInterpark(String isbn)throws Exception {
+		Element d= null;
+		PriceVO vo = null;
+		String url=String.format("http://bsearch.interpark.com/dsearch/book.jsp?query=%s", isbn);	
 		try {
 			// 전체 HTML
-			Elements d = Jsoup.connect("http://news.naver.com/").get().select("a[href]");
-			// HTML을 TEXT로 파싱(태그 제거)
-			String text = Jsoup.parse(d.toString()).text();
-			// logger.error("test1 : " + text);
-			// 제거 배열
-			String[] stripChars = { ":", ";", ",", ".", "-", "_", "^", "~", "(", ")", "[", "]", "'", "?", "|", ">", "<",
-					"!", "\"", "{", "}", "/", "*", "&", "+", "$", "@", "%", "`", "#", "=", "·", "…", "’", "‘", "“", "”",
-					"→" };
-			// 불필요한 기호 제거
-			for (String s : stripChars) {
-				// logger.error("- " + s);
-				text = text.replace(s, " ");
-			}
-
-			System.out.println("text2"+text);
-
-			// HashMap에 단어별 빈도수
-			// 뉴스, 3
-			// 사회, 2
-			String[] words = text.split(" ");
-			Map<String, Integer> counts = new HashMap<>();
-
-			// 빈도수 출력
-			Integer count = 1;
-			String strTemp = null;
-			// 1개이상의 수에 대한 패턴
-			final Pattern pattern = Pattern.compile("\\d+", Pattern.MULTILINE);
-			Matcher matcher = null;
-			for (String s : words) {
-				// 키워드가 수인경우 제외
-				matcher = pattern.matcher(s);
-				strTemp = matcher.replaceAll("");
-				if (strTemp.equals("")) {
-					continue;
-				}
-				// 새로 추가하는 경우 1, 기존인 경우 기+1
-				count = counts.get(s);
-				if (!Objects.isNull(count)) {
-					count += 1;
-				} else {
-					count = 1;
-				}
-				// UPDATE
-				counts.put(s, count);
-			}
-			// MAP 출력 / List로 변환
-			Calendar c = Calendar.getInstance();
-			c.add(Calendar.HOUR_OF_DAY, 9);
-			List<Document> news = new ArrayList<>();
-			Document n=new Document();
-			for (String key : counts.keySet()) {
-				/*
-				n = new NewsKeyword();
-				n.append("id", key);
-				n.append("count", counts.get(key));
-				n.append("date", c.getTime());
-				n.append("date", c.getTime());
-				news.add(n);
-				*/
-				System.out.println(key + " : " + counts.get(key));
-				
-			}
+			vo = new PriceVO();
+			vo.setUrl(url);	// 가격 정보 url
+			d = Jsoup.connect(url).get().select("div.list_wrap").first(); // 도서 검색
 			
-
+			
+			//새책
+			String new_price = Jsoup.parse(d.select("span.nowMoney").toString()).text();
+			vo.setNew_price(new_price);
+			
+			//이북
+			String e_price = Jsoup.parse(d.select("span.Fprice").toString()).text();
+			vo.setE_price(e_price);
+			
+			
+			
+			System.out.println("interpark: "+vo.toString());
 		} catch (Exception e) {
-			
+			System.out.println("interpark crawl error");
 		}
-
-		return null;
 		
+		return vo;
 	}
+	
 	
 }

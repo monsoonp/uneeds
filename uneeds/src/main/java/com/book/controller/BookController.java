@@ -28,7 +28,6 @@ import com.book.util.NaverSearch;
 import com.mysql.cj.xdevapi.JsonParser;
 
 @Controller("BookController")
-//@RequestMapping(value="/book")
 public class BookController {
 	
 	@Inject
@@ -47,10 +46,9 @@ public class BookController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		String formattedDate = dateFormat.format(date);
 		
-		mav.addObject("serverTime", formattedDate);
-		mav.addObject("time", bservice.getTime());
+		//mav.addObject("serverTime", formattedDate);
+		
 		mav.setViewName("bookmain");
-
 		return mav;
 		
 	}
@@ -121,7 +119,7 @@ public class BookController {
 		return mav;
 	}
 	
-
+	// 도서 정보
 	@RequestMapping(value="info/{isbn}", method=RequestMethod.GET)
 	public ModelAndView bookInfo(@PathVariable("isbn") String isbn) throws Exception {
 		ModelAndView mav = new ModelAndView();
@@ -136,12 +134,16 @@ public class BookController {
 		mav.setViewName("bookinfo");
 		return mav;
 	}
+	
+	// 도서 상세 정보
 	@ResponseBody
 	@RequestMapping(value="info/bookdesc", method=RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public String bookDesc(@RequestBody BookInfoVO biVo) throws Exception {
-		System.out.println(biVo.getLink());
-		return CrawlUtil.bookInfo(biVo.getLink()).toString();
+		String link = biVo.getLink();
+		System.out.println(link);
+		return link;
 	}
+	// 도서 가격 정보
 	@ResponseBody
 	@RequestMapping(value="info/bookprice", method=RequestMethod.POST, produces = "application/json; charset=utf-8")
 	public Map<String, PriceVO> bookPrice(@RequestBody BookInfoVO biVo) throws Exception {

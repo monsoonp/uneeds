@@ -24,7 +24,7 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <!-- <script src="../resources/book/js/bootstrap.bundle.min.js"></script> -->
 <!-- 구글폰트 -->
-<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Kirang+Haerang" rel="stylesheet">
 <!-- Font Awesome - Glyphicons 대용 -->
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
 <script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>

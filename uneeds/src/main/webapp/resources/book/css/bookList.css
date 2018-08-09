@@ -147,14 +147,12 @@ ul li{
 
 /* 검색결과 건수 */
 #total{
-	background-color: rgba(0,0,0,0.2);
-	font-family: ;
+	background-color: rgba(30, 30, 30, 0.3);
+	font-family: 'Kirang Haerang', cursive;
 	font-size: 2.0em;
 	color: #ffffff;
 	padding: 0 0 0 0;
 	border: none;
-	max-width: 20%:
-
 }
 
 /* 상세페이지 */
