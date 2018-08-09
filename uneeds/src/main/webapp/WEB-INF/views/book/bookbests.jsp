@@ -229,10 +229,8 @@ body {
 									</div>
 								</div>
 								<div class="panel col-md-8 my-auto">
-									<!--  onclick="book_info(this.form);" -->
-									<!-- <h2>${fn:split(b.result.items[0].title,'(' )[0] }</h2> -->
-									<input class="title" value="${fn:split(b.result.items[0].title,'(' )[0] }" 
-										readonly onclick="book_info(this.form);"/>
+									<!-- title -->
+									<button class="title" onclick="book_info(this.form);">${fn:split(b.result.items[0].title,'(' )[0] }</button>
 										<c:if test="${fn:split(b.result.items[0].title,'(' )[1] ne null}">
 											<p>
 												(${fn:split(b.result.items[0].title,'(' )[1]}
