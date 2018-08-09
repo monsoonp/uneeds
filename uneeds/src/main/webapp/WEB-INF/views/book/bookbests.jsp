@@ -195,7 +195,7 @@ body {
 			<div class="col-md-8" id="genrelist">
 				<c:forEach items="${glist }" var="g">
 					<c:choose>
-						<c:when test="${genre == g.sgname and site == bsname}">	<!-- 해당 페이지의 사이트와 장르구분 -->
+						<c:when test="${genre == fn:replace(g.sgname,' ','') and site == bsname}">	<!-- 해당 페이지의 사이트와 장르구분 -->
 							<a type="button" class="btn btn-primary btn-sm active" 
 							data-toggle='button' onclick="showBests(this);">${g.sgname }</a>
 						</c:when>
