@@ -174,44 +174,6 @@ function bind_book(){
 	});
 }
 
-// 스크롤 시
-$(window).scroll(function() {
-	// 스크롤이 바닥에 닿으면
-	if ($(window).scrollTop() == $(document).height() - $(window).height()) {
-		check_text(inputText);
-	};
-   
-	var position = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다.  
-	if(position >= 600){
-		$("#right_section").stop().animate({"top":position+currentPosition+"px"},100);  
-	}else{
-		$("#right_section").stop().animate({"top":position+currentPosition+"px"},100);
-	}
-   
-   
-   
-});
-/*
-function loading(){
-	// 로딩 div display-none 클래스 제거
-	$("#loading").removeClass("display-none");
-	$("#loading").animate({"opacity":"1"},100);
-	// fixed-bottom 클래스 제거
-		$(".footer").removeClass("fixed-bottom");
-		// 1.000초 뒤 실행
-	setTimeout(() => {
-		// fixed-bottom 클래스 추가 
-    	$(".footer").addClass("fixed-bottom");
-    	// 로딩 div display-none 클래스 추가
-    	$("#loading").addClass("display-none");
-	}, 1000);
-    	//$("#prev").after("<br/><br/><br/><br/><br/><br/><br/>");
-    	$("p.book").after("<p>"+$("p.book").text()+"</p>");
-    	$("#loading").animate({"opacity":"0.5"},1000);//.addClass("display-none");
-}
-*/
-
-
 </script>
 <style type="text/css">
 body {
@@ -221,10 +183,7 @@ body {
 </style>
 </head>
 <body>
-	<!-- ${pageContext.request.contextPath} 프로젝트 webapp까지의 경로 -->
-	<div id="right_section" class="pointed">  
-           <div><h1>찜 목록</h1></div>  
-    </div>  
+	
     <!-- loading -->
 	<div id="loading" class="display-none"></div>
 	
@@ -239,31 +198,28 @@ body {
 	<!-- Page Content -->
 	<div class="container" id="background">
 
-		<h1 class="my-4">SEARCH!</h1>
-		<div class="col-md-12">
-			<div class="row mb-4">
+		<div class="row mb-4 py-4">
+			<div class="col-md-12">
 				<form class="search_form">
-					<input type="text" value='' class="searcher" placeholder="검색 입력후 엔터" autofocus
-					style="width:100%;">
+					<input type="text" value='' class="searcher" placeholder="검색 입력후 엔터" autofocus>
 				</form>
 				<hr class="searcherLine"/>
 			</div>
-			<div class="row mb-4">
-			<input type="text" id="total" class="display-none" readonly/>
-			<hr/>
+			<div class="col-md-4 px-auto">
+				<!-- 검색 결과 수 -->
+				<input type="text" id="total" class="display-none" style="width: 90%;" readonly/>
+			</div>	
 		</div>
-		</div>	
-		
 		
 		<!-- 책 목록 -->
 	
 		<!--  -->
 		<div class="books">
-		<ul class="book-ul">
-			<li class="book-li">
-			</li>
-			
-		</ul>
+			<ul class="book-ul">
+				<li class="book-li">
+				</li>
+				
+			</ul>
 		</div>
 	</div>
 	
