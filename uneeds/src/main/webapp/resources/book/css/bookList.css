@@ -95,8 +95,14 @@ body#LoginForm{ background-image:url("https://hdwallsource.com/img/2014/9/blur-2
 .color-white{
 	color: #ffffff;
 }
+ul{
+	margin: 0;
+	padding: 0;
+}
 ul li{
 	list-style-type:none;
+	margin: 0;
+	paddin: 0;
 }
 .book-ul{
 	
