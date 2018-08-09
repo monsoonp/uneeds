@@ -19,7 +19,7 @@
 		<!-- 내비 목록 -->
 		<div class="collapse navbar-collapse" id="navbarResponsive">
 			<ul class="navbar-nav ml-auto">
-				<li class="nav-item"><a class="nav-link" href="/uneeds/">Home</a>
+				<li class="nav-item"><a class="nav-link" href="/uneeds/book/">Home</a>
 				</li>
 				<li class="nav-item"><a class="nav-link" href="/uneeds/book/search">검색</a>
 				</li>
@@ -54,6 +54,9 @@
 						Other Pages </a>
 					<div class="dropdown-menu dropdown-menu-right"
 						aria-labelledby="navbarDropdownBlog">
+						<a class="dropdown-item" href="/uneeds/">
+							UNEEDS HOME
+						</a> 
 						<a class="dropdown-item" href="#">
 							공연 / 전시
 						</a> 
