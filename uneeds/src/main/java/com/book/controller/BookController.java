@@ -85,7 +85,6 @@ public class BookController {
 		
 		model.addAttribute("site", "YES24");
 		model.addAttribute("genre", "종합");
-		model.addAttribute("slist", bservice.selectStore());
 		model.addAttribute("glist", bservice.selectGenre("YES24"));
 		Map<String, String> cate = bservice.getCate("YES24", "종합");
 		model.addAttribute("bests", bservice.findBests(cate.get("bscate"), cate.get("sgcategory")));
