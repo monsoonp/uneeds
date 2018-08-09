@@ -26,17 +26,7 @@ public class CrawlUtil {
 		try {
 			// 전체 HTML
 			d = Jsoup.connect(url).get().select("div.section.detail");
-			// HTML을 TEXT로 파싱(태그 제거)
-			//String text = Jsoup.parse(d.toString()).text();
-			
-			/*
-			System.out.println(text);
-			System.out.println("===============================");
-			System.out.println(d.select("div.dsc"));
-			System.out.println("===============================");
-			System.out.println(d.select("div:contains(책소개)"));
-			*/
-			
+						
 		} catch (Exception e) {
 			System.out.println("naver bookpage crawl error");
 		}
@@ -54,6 +44,18 @@ public class CrawlUtil {
 		
 		
 		return hm;
+	}
+	
+	public static Elements getPoint(String url)throws Exception{
+		Elements d= null;
+		try {
+			// 전체 HTML
+			d = Jsoup.connect(url).get().select("div.review_point2");
+		} catch (Exception e) {
+			System.out.println("naver point crawl error");
+		}
+			
+		return d.first().select("span[style]");
 	}
 	
 	// yes24

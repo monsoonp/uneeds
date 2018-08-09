@@ -26,8 +26,7 @@
 <!-- 구글폰트 -->
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Kirang+Haerang" rel="stylesheet">
 <!-- Font Awesome - Glyphicons 대용 -->
-<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
 <script type="text/javascript">
 var showTimes;		// 시간
@@ -174,6 +173,15 @@ function bind_book(){
 	});
 }
 
+function change(i){
+	if($(i).hasClass('fas') == true){
+		$(i).addClass('far');
+		$(i).removeClass('fas');
+	}else{
+		$(i).addClass('fas');
+		$(i).removeClass('far');
+	}
+}
 </script>
 <style type="text/css">
 body {

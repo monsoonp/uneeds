@@ -82,6 +82,14 @@ public class BookController {
 	public String bookSeller(Model model) {
 		logger.info("Welcome search! The client url is {}.", "/book/bestseller");
 		model.addAttribute("slist",bservice.selectStore());
+		
+		model.addAttribute("site", "YES24");
+		model.addAttribute("genre", "종합");
+		model.addAttribute("slist", bservice.selectStore());
+		model.addAttribute("glist", bservice.selectGenre("YES24"));
+		Map<String, String> cate = bservice.getCate("YES24", "종합");
+		model.addAttribute("bests", bservice.findBests(cate.get("bscate"), cate.get("sgcategory")));
+		
 		return "bookbests";
 	}
 	//도서 베스트셀러 인터넷 서점 장르목록 가져오기
@@ -150,6 +158,12 @@ public class BookController {
 		System.out.println(biVo.getIsbn());
 		return CrawlUtil.getPrices(biVo.getIsbn());
 	}
-	
+	// 도서 평점 정보
+	@ResponseBody
+	@RequestMapping(value="info/bookpoint", method=RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public String bookPoint(@RequestBody BookInfoVO biVo) throws Exception {
+		String link = biVo.getLink();
+		return CrawlUtil.getPoint(link).toString().split(":")[1].split("%")[0];
+	}
 	
 }

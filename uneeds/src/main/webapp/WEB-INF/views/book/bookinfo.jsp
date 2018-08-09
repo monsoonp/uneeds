@@ -27,8 +27,7 @@
 <!-- 구글폰트 -->
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans" rel="stylesheet">
 <!-- Font Awesome - Glyphicons 대용 -->
-<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
 <script type="text/javascript">
 var showTimes;	
@@ -38,7 +37,7 @@ $(function(){
 	currentPosition = parseInt($("#right_section").css("top"));  
 	desc();
 	prices();
-	
+	point();
 });
 // 스크롤 시
 $(window).scroll(function() {
@@ -56,6 +55,51 @@ $(window).scroll(function() {
    
 });
 
+function point(){
+	var link = "${fn:replace(info.items[0].link, '\"','')}";
+		console.log(link);
+	$.ajax({
+		url:"/uneeds/book/info/bookpoint",
+		data:JSON.stringify({
+			title : null,
+			link : link 
+		}),
+		type : 'post',	
+		dataType : 'text',
+		contentType: "application/json; charset=utf-8",
+	    success : function(data, status) {
+	    	var point = data;
+	    	var full = parseInt(point/20);
+	    	var half = Math.round((point-full*20)/10) == 0? 0:1;
+	    	var emp = 5 - full - half;
+	    	console.log(point+","+full+","+half+","+emp);
+	    	var f_star = '<i class="fas fa-star"></i>';
+	    	var h_star = '<i class="fas fa-star-half-alt"></i>';
+	    	var e_star = '<i class="far fa-star"></i>';
+	    	var star_rating = '';
+	    	for (var i = 0; i < full; i++) {
+	    		star_rating+=f_star;
+			}
+	    	for (var i = 0; i < half; i++) {
+	    		star_rating+=h_star;
+			}
+	    	for (var i = 0; i < emp; i++) {
+	    		star_rating+=e_star;
+			}
+	    	$('h2').after(star_rating);
+	    	
+	    	//<i class="fas fa-star"></i>
+			//<i class="fas fa-star-half-alt"></i>			
+			//<i class="far fa-star"></i>
+	    	
+	    },complete: function(){
+			
+		},error: function(error) {
+			console.log("error: "+error);
+		},timeout: 10000
+	    
+	});
+}
 function desc(){
 	var link = "${fn:replace(info.items[0].link, '\"','')}";
 		console.log(link);
@@ -69,7 +113,6 @@ function desc(){
 		dataType : 'text',
 		contentType: "application/json; charset=utf-8",
 	    success : function(data, status) {
-	    	console.log(data);
 	    	$('#desc').append(data);
 	    },complete: function(){
 			$('#content').remove();
@@ -117,6 +160,16 @@ function prices(){
 	});
 	//$('#loadingtr').remove();
 }
+
+function change(i){
+	if($(i).hasClass('fas') == true){
+		$(i).addClass('far');
+		$(i).removeClass('fas');
+	}else{
+		$(i).addClass('fas');
+		$(i).removeClass('far');
+	}
+}
 </script>
 <style type="text/css">
 body {
@@ -154,6 +207,10 @@ body {
 		<div class="books">
 			<div class="main-book">
 				<div class="row mb-4 my-auto mx-auto px-auto py-3">
+					<!-- 북마크 -->
+					<div class="info_bookmark">
+						<i class="far fa-bookmark fa-3x" onclick="change(this);"></i>
+					</div>
 					<!-- 이미지 -->
 					<div class="col-md-5 my-auto mx-auto">
 						<!--<c:set var="img" value="${fn:replace(fn:split(infoVo.image,'?')[0],'\"','' )}"/>-->
@@ -177,9 +234,9 @@ body {
 								
 							</c:if>
 						<p>
-							<a href='/uneeds/book/search/${author = fn:replace(infoVo.author,'\"','') }'>${author }</a>
+							<a href='/uneeds/book/search/${author = fn:replace(infoVo.author, "\"", "") }'>${author }</a>
 							<span>|</span>
-							<a href='/uneeds/book/search/${pub = fn:replace(infoVo.publisher,'\"','') }'>${pub }</a>
+							<a href='/uneeds/book/search/${pub = fn:replace(infoVo.publisher, "\"", "") }'>${pub }</a>
 							<span>|</span>
 							${fn:replace(infoVo.pubdate,'\"','') }
 						</p>

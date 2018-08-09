@@ -28,8 +28,7 @@
 <!-- 구글폰트 -->
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans" rel="stylesheet">
 <!-- Font Awesome - Glyphicons 대용 -->
-<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/solid.js" integrity="sha384-+Ga2s7YBbhOD6nie0DzrZpJes+b2K1xkpKxTFFcx59QmVPaSA8c7pycsNaFwUK6l" crossorigin="anonymous"></script>
-<script defer src="https://use.fontawesome.com/releases/v5.0.8/js/fontawesome.js" integrity="sha384-7ox8Q2yzO/uWircfojVuCQOZl+ZZBg2D2J5nkpLqzH1HY0C1dHlTKIbpRz/LG23c" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
 <script type="text/javascript">
 var showTimes;	
@@ -76,8 +75,7 @@ if('${genre}'!=null){
 function showGenre(shop){
 	$("#shoplist a").removeClass('active');
 	shopName=$(shop).text();
-	console.log(shop);	
-
+	
 	$.ajax({
 		url : "/uneeds/book/bestseller/"+shopName,
 		type : 'post',	
@@ -87,7 +85,7 @@ function showGenre(shop){
 	    	console.log(data);
 	    	$('#genrelist').empty();
 	    	for(var i=0; i < data.length; i++){
-	    		console.log(data[i]);
+	    		//console.log(data[i]);
 	    		d = data[i];
 	    		//console.log(d.sgname+", "+genreName);
 	    		if((genreName == d.sgname) && (shopName == '${site}')){	//선택된 장르 active
@@ -117,26 +115,6 @@ function showBests(genre){
 	//replace 정규식 / /안에, \특수문자 ,g 전역
 }
 
-
-//모바일 감지
-/*
-function findBootstrapEnvironment() {
-	var envs = ['xs', 'sm', 'md', 'lg'];
-	
-	var point = $(".pointed");
-	point.appendTo($('body'));
-	
-	for (var i = envs.length - 1; i >= 0; i--) {
-		var env = envs[i];
-		
-		point.addClass('hidden-'+env);
-		if (point.is(':hidden')) {
-			point.remove();
-		return env;
-		}
-	}
-}
-*/
 function book_info(frm){
 	frm.action = "/uneeds/book/info/"+frm.isbn.value;
 	frm.method = "get"
@@ -146,6 +124,15 @@ function book_info(frm){
 	});
 }
 
+function change(i){
+	if($(i).hasClass('fas') == true){
+		$(i).addClass('far');
+		$(i).removeClass('fas');
+	}else{
+		$(i).addClass('fas');
+		$(i).removeClass('far');
+	}
+}
 </script>
 <style type="text/css">
 body {
@@ -221,6 +208,10 @@ body {
 					<form method="post" >
 						<div class="main-div">
 							<div class="row mb-4 my-auto py-auto">
+								<!-- 북마크 -->
+								<div class="list_bookmark">
+									<i class="far fa-bookmark fa-2x" onclick="change(this);"></i>
+								</div>
 								<div class="col-md-4 my-auto">
 									<div class="book_img_div mx-auto">
 										<div></div>

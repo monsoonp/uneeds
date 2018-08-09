@@ -173,3 +173,28 @@ ul li{
 .title:hover {
 	color:#0000ff;
 }
+
+.fa-star-half-alt, .fa-star{
+	color: orange; 
+	font-size: 20px;
+} 
+.fa-bookmark, .fa-heart{
+	font-size: 20px;
+}
+.fa-heart{
+	color: #ff4444;
+}
+
+.list_bookmark{
+	right: -5px; 
+	top: -10px; 
+	position: absolute; 
+	z-index: 999;
+}
+.info_bookmark{
+	right: -20px; 
+	top: -10px; 
+	position: absolute; 
+	z-index: 999;
+}
+
