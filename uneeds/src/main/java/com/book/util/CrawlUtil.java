@@ -41,7 +41,7 @@ public class CrawlUtil {
 		hm.put("yes24", getYes24(isbn));
 		hm.put("kyobo", getKyobo(isbn));
 		hm.put("aladin", getAladin(isbn));
-		
+		hm.put("interpark", getInterpark(isbn));
 		
 		return hm;
 	}
