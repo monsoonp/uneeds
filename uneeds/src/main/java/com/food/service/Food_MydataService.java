@@ -11,4 +11,5 @@ public interface Food_MydataService {
 	
 	public List<Food_dataVo> searchFood(Food_searchVo svo) throws Exception;
 	public int countpage(Food_searchVo svo);
+	public int countpage_kid(Food_searchVo svo);
 }

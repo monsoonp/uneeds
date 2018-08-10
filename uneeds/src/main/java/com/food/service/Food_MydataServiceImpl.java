@@ -26,4 +26,9 @@ public class Food_MydataServiceImpl implements Food_MydataService{
 		return dao.countPaging(svo);
 	}
 
+	@Override
+	public int countpage_kid(Food_searchVo svo) {
+		return dao.countPaging_kid(svo);
+	}
+
 }

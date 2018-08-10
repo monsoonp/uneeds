@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -73,18 +75,18 @@ public class FoodController {
 	
 	// 검색 페이지 로딩
 	@RequestMapping(value="search", method=RequestMethod.GET)
-	public String search(Food_dataVo dvo, Food_searchVo svo, @RequestParam("searchs") String searchs, @RequestParam("kid") int kid, Model m) throws Exception {
+	public String search(Food_searchVo svo, @RequestParam("searchs") String searchs, @RequestParam("kid") int kid, Model m) throws Exception {
 		logger.info("Welcome search! The client url is {}.", "/uneeds/food/search");
 		svo.setKeyword(searchs);
 		svo.setKid(kid);
 		if(kid == 0) {
-			m.addAttribute("search_list", dao.searchFood(svo));			
+			m.addAttribute("search_list", dao.searchFood(svo));
 		}else {
-			m.addAttribute("search_list", dao.searchFood_kind(svo));
+				m.addAttribute("search_list", dao.searchFood_kind(svo));				
 		}
 		Food_searchPageMaker pageMaker = new Food_searchPageMaker();
 		pageMaker.setSvo(svo);
-		pageMaker.setTotalCount(fs.countpage(svo));
+		pageMaker.setTotalCount(fs.countpage_kid(svo));
 		m.addAttribute("pageMaker", pageMaker);
 		return "search";
 	}
@@ -99,7 +101,10 @@ public class FoodController {
 			e.printStackTrace();
 		}
 		String search = r.getParameter("search");
+		String kids = r.getParameter("kid");
+		int kid = Integer.parseInt(kids);
 		ra.addAttribute("searchs", search);
+		ra.addAttribute("kid", kid);
 		return "redirect:search";
 	}
 	
@@ -109,6 +114,22 @@ public class FoodController {
 		logger.info("Welcome search! The client url is {}.", "/uneeds/food/detail");
 		m.addAttribute("list", dao.detail(fid));
 		return "detail";
+	}
+	
+	@RequestMapping(value="detail", method=RequestMethod.POST)
+	public String detail_like(HttpServletRequest r) {
+		logger.info("Welcome search! The client url is {}.", "/uneeds/food/detail");
+		String fids = r.getParameter("fid");
+		int fid = Integer.parseInt(fids);
+		dao.detail_like(fid);
+		return "detail";
+	}
+	
+	@RequestMapping(value="reservation", method=RequestMethod.GET)
+	public String reservation(@RequestParam("fid") int fid, Model m) {
+		logger.info("Welcome search! The client url is {}.", "/uneeds/food/detail");
+		m.addAttribute("list", dao.detail(fid));
+		return "reservation";
 	}
 		
 	/* MongodbConnection list*/
