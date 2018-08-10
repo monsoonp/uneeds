@@ -83,8 +83,9 @@ public class MainController {
 			session.setAttribute("login", "logined");
 			session.setAttribute("id", id);
 			session.setAttribute("site", site);
-			System.out.printf("사이트: %s, 아이디: %s",site, id);
+			session.setAttribute("usercode", service.login(id, site));
 			
+			System.out.printf("사이트: %s, 아이디: %s",site, id);
 			
 			// 이전페이지 url가져오기
 			String referer = req.getHeader("Referer");

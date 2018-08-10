@@ -56,5 +56,11 @@ public class LoginServiceImpl implements LoginService{
 		
 	}
 	
+	// api 로그인
+	@Override
+	public int login(String id, String site) {
+		return loginDao.login(id, site);
+	}
+	
 
 }
