@@ -20,6 +20,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AdminMovie_Controller {
 	// http://localhost:8080/uneeds/admin_movie/*
 	
+	
+	//TEST
+	@RequestMapping(value = "/test", method = RequestMethod.GET)
+	public String test(){
+		return "rect_create";
+	}
+	
+	
 	//admin_movie메인
 	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public String main(){

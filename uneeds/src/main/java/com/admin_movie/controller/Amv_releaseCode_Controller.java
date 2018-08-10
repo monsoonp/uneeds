@@ -5,12 +5,12 @@ import java.util.List;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.movie.domain.ReleaseVO;
-
 import com.movie.service.ReleaseService;
 
 @Controller
@@ -37,5 +37,24 @@ public class Amv_releaseCode_Controller {
 	public String delete_Release(ReleaseVO rvo) throws Exception{
 		rservice.delete_release(rvo);
 		return "redirect:main";
+	}
+	
+	@RequestMapping(value="showtycd_count", method=RequestMethod.POST)
+	public @ResponseBody int showtycd_count(ReleaseVO rvo) throws Exception{
+		int x = rservice.showtycd_count(rvo);
+		return x;
+	}
+	
+	@RequestMapping(value="moviecd_count", method=RequestMethod.POST)
+	public @ResponseBody int moviecd_count(ReleaseVO rvo) throws Exception{
+		int x = rservice.moviecd_count(rvo);
+		return x;
+	}
+	
+	//상영영화입력검사
+	@RequestMapping(value="releaseall_count", method=RequestMethod.POST)
+	public @ResponseBody int releaseall_count(ReleaseVO rvo) throws Exception{
+		int x = rservice.releaseall_count(rvo);
+		return x;
 	}
 }

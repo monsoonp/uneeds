@@ -28,4 +28,9 @@ public class MovieServiceImpl implements MovieService{
 	public void delete_movie(MovieVO mvo) throws Exception {
 		dao.deleteMovie(mvo);
 	}
+
+	@Override
+	public int wgradecd_count(MovieVO mvo) throws Exception {
+		return dao.wgradecd_count(mvo);
+	}
 }

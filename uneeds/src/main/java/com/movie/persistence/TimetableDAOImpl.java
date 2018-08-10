@@ -26,5 +26,26 @@ public class TimetableDAOImpl implements TimetableDAO{
 	public void deleteTimetable(TimetableVO ttvo) {
 		mysqlSession.delete(mspace+".deleteTimetable",ttvo);
 	}
-	
+
+	//카운트
+	@Override
+	public int countrtime(TimetableVO ttvo) {
+		return mysqlSession.selectOne(mspace+".rtimecount",ttvo);
+	}
+
+	@Override
+	public int theatercd_count(TimetableVO ttvo) {
+		return mysqlSession.selectOne(mspace+".theatercd_count",ttvo);
+	}
+
+	@Override
+	public int tnumcd_count(TimetableVO ttvo) {
+		return mysqlSession.selectOne(mspace+".tnumcd_count",ttvo);
+	}
+
+	@Override
+	public int allcd_count(TimetableVO ttvo) {
+		return mysqlSession.selectOne(mspace+".allcd_count",ttvo);
+	}
+
 }

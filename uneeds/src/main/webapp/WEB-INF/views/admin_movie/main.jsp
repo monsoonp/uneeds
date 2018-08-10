@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -15,6 +14,8 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+
+	
 <style>
 ul {
 	text-decoration: none;
@@ -44,10 +45,40 @@ li {
 }
 	.navbar-brand2:hover{color:white; text-decoration: none;}
 	.navbar-brand2{text-decoration: none; color: gold;}
+	
+a#MOVE_TOP_BTN {
+   position: fixed;
+   right: 2%;
+   bottom: 50px;
+   display: none;
+   z-index: 999;
+}
+
+.loading{
+	background-image: url("http://newsimg.sedaily.com/2017/04/18/1OEP2BWRPS_1.gif");
+	background-repeat:no-repeat;
+	z-index:999;
+	position: absolute;
+	background-position:center;
+	background-color:white;
+	width:100%;
+	height:100%;
+}
+
 </style>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
+	function loading(){
+		setTimeout(function(){
+			$("#loading").remove();
+		},1500);
+	}
+	$(document).ready(function(){
+		loading();
+	})
+	
+	
 	function testc(e){
 		var x =e.getAttribute("id");
 		//var x = e.firstChild.nodeValue;
@@ -57,6 +88,23 @@ li {
 		ta.value="바보";
 		alert(ta.value);
 	}
+
+	//counting funtion
+	function counting(methodurl, whatcountcd, cdvalue){
+		var d={};
+		d[whatcountcd]=cdvalue;
+		$.ajax({
+			url: methodurl,
+			type:"POST",
+			data: d,
+			async: false, // ture: 비동기, false: 동기
+			success: function(data){
+				c = data;
+		    }
+		});
+		return c;
+	}
+	
 	
 	function realtimeClock() {
 		  document.rtcForm.rtcInput.value = getTimeStamp();
@@ -64,30 +112,30 @@ li {
 		}
 
 
-		function getTimeStamp() { // 24시간제
-		  var d = new Date();
-		  var s ="TIME "+
-		    leadingZeros(d.getFullYear(), 4) + '-' +
-		    leadingZeros(d.getMonth() + 1, 2) + '-' +
-		    leadingZeros(d.getDate(), 2) + ' ' +
+	function getTimeStamp() { // 24시간제
+	  var d = new Date();
+	  var s ="TIME "+
+	    leadingZeros(d.getFullYear(), 4) + '-' +
+	    leadingZeros(d.getMonth() + 1, 2) + '-' +
+	    leadingZeros(d.getDate(), 2) + ' ' +
 
-		    leadingZeros(d.getHours(), 2) + ':' +
-		    leadingZeros(d.getMinutes(), 2) + ':' +
-		    leadingZeros(d.getSeconds(), 2);
-		  return s;
-		}
+	    leadingZeros(d.getHours(), 2) + ':' +
+	    leadingZeros(d.getMinutes(), 2) + ':' +
+	    leadingZeros(d.getSeconds(), 2);
+	  return s;
+	}
 
 
-		function leadingZeros(n, digits) {
-		  var zero = '';
-		  n = n.toString();
+	function leadingZeros(n, digits) {
+	  var zero = '';
+	  n = n.toString();
 
-		  if (n.length < digits) {
-		    for (i = 0; i < digits - n.length; i++)
-		      zero += '0';
-		  }
-		  return zero + n;
-		}
+	  if (n.length < digits) {
+	    for (i = 0; i < digits - n.length; i++)
+	      zero += '0';
+	  }
+	  return zero + n;
+	}
 		
 	
 	function step1(e){
@@ -184,9 +232,16 @@ li {
 				if(i<=4){
 					tbb.append("<tr><td>" + d.wgradecd +"</td><td>"+d.wgradename+"</td><td>"+"-</td></tr>");
 				}else{
-					tbb.append("<tr><td>" + d.wgradecd +"</td><td>"+d.wgradename+"</td><td>"+
-							 "<span class='badge badge-pill badge-danger' wgradecd= '" + d.wgradecd +
-							"' onclick='delete_wg(this);'>삭제</span></td></tr>");
+					var cc=counting("wgradecd_count","wgradecd",d.wgradecd);
+					str="";
+					str="<tr><td>" + d.wgradecd +"</td><td>"+d.wgradename+"</td><td>";
+					if(cc==0){
+						str+="<span class='badge badge-pill badge-danger' wgradecd= '" + d.wgradecd +
+						"' onclick='delete_wg(this);'>삭제</span></td></tr>";
+					}else{
+						str+="-</td></tr>"
+					}
+					tbb.append(str);
 				}
 				wcd.append("<option value='"+d.wgradecd+"'>"+d.wgradename+"</option>");
 			}
@@ -198,6 +253,7 @@ li {
 			bindWGlist();
 		});
 	}
+	
 	//상영형태리스트
 	function bindSTlist(){
 		tbsh= $("#tbshowtype thead");
@@ -209,9 +265,19 @@ li {
 		$.get("list_Showtype",function(data, state){
 			for (var i = 0; i < data.length; i++) {
 				var d = data[i];
-				tbsb.append("<tr><td>" + d.showtycd +"</td><td>"+d.showtyname+"</td><td>"+
-						 "<span class='badge badge-pill badge-danger' showtycd= '" + d.showtycd +
-				"' onclick='delete_st(this);'>삭제</span></td></tr>");
+				var cc=counting("showtycd_count","showtycd",d.showtycd);
+				str="";
+				
+				str = str+"<tr><td>" + d.showtycd +"</td><td>"+d.showtyname+"</td><td>";
+				
+				if (cc==0){
+					str+= "<span class='badge badge-pill badge-danger' showtycd= '" + d.showtycd +
+					"' onclick='delete_st(this);'>삭제</span></td></tr>";
+				}else{
+					str+="-</td></tr>";
+				}
+				
+				tbsb.append(str);
 				
 				$("#sellshowtycd").append("<option value='"+d.showtycd+"'>"+d.showtyname+"</option>");
 			}
@@ -239,9 +305,17 @@ li {
 		$.get("list_Theater",function(data, state){
 			for (var i = 0; i < data.length; i++) {
 				var d = data[i];
-				tbtheb.append("<tr><td>" + d.theatercd +"</td><td>"+d.tname+"</td><td>"+
-						d.taddr+"</td><td>"+"<span class='badge badge-pill badge-danger' theatercd= '" 
-						+ d.theatercd +"' onclick='delete_th(this);'>삭제</span></td></tr>");
+				var cc=counting("theatercd_count","theatercd",d.theatercd);
+				str="";
+				str+="<tr><td>" + d.theatercd +"</td><td>"+d.tname+"</td><td>"+
+				d.taddr+"</td><td>";
+				if(cc==0){
+					str+="<span class='badge badge-pill badge-danger' theatercd= '" 
+						+ d.theatercd +"' onclick='delete_th(this);'>삭제</span></td></tr>";
+				}else{
+					str+="-</td></tr>";
+				}
+				tbtheb.append(str);
 				$("#sel_theatercd").append("<option value='"+d.theatercd+"'>"+d.tname+"</option>");
 				$("#sel_to_theatercd").append("<option value='"+d.theatercd+"'>"+d.tname+"</option>");
 			}
@@ -255,8 +329,67 @@ li {
 		});
 	}
 	
+	//상영시간코드 counting
+	function count_rtimecd(x){
+		$.ajax({
+			url:"count_rtimecd",
+			type:"POST",
+			data: {rtimecd:x},
+			async: false, // ture: 비동기, false: 동기
+			success: function(data){
+				c = data;
+		    }
+		});
+		return c;
+	}
+	
 	//상영시간리스트
 	function bindRTlist(){
+		rtcolortb1_h=$("#rtime_colortable_am thead");
+		rtcolortb1_b=$("#rtime_colortable_am tbody");
+		rtcolortb2_h=$("#rtime_colortable_pm thead");
+		rtcolortb2_b=$("#rtime_colortable_pm tbody");
+
+		rtcolortb1_h.empty();rtcolortb1_b.empty();
+		rtcolortb1_h.append("<tr><th style='color:red;'>AM<th>00<th>10<th>20<th>30<th>40<th>50<th></tr>");
+		for(r=1;r<=12;r++){
+			str="";
+			str+="<tr>";
+			for(c=1;c<=7;c++){
+				if(c==1){
+					if(r<=9){
+						str+="<td>"+"0"+r+"</td>";
+					}else{
+						str+="<td>"+r+"</td>";
+					}
+				}else{
+					if(r<=9){
+						str+="<td id='z0"+r+(c-2)+"0' style='border-style: outset;background-color:#D8D8D8;'></td>";
+					}else{
+						str+="<td id='z"+r+(c-2)+"0' style='border-style: outset;background-color:#D8D8D8;'></td>";
+					}
+				}
+			}
+			str+="</tr>"
+			rtcolortb1_b.append(str);
+		}
+		
+		rtcolortb2_h.empty();rtcolortb2_b.empty();
+		rtcolortb2_h.append("<tr><th style='color:blue;'>PM<th>00<th>10<th>20<th>30<th>40<th>50<th></tr>");
+		for(r2=13;r2<=24;r2++){
+			str2="";
+			str2+="<tr>";
+			for(c2=1;c2<=7;c2++){
+				if(c2==1){
+					str2+="<td>"+r2+"</td>";
+				}else{
+					str2+="<td id='z"+r2+(c2-2)+"0' style='border-style: outset;background-color:#151515;'></td>";
+				}
+			}
+			str2+="</tr>"
+			rtcolortb2_b.append(str2);
+		}
+		
 		tbrh= $("#tbrtime thead");
 		tbrb= $("#tbrtime tbody");
 		tbrh.empty();
@@ -268,9 +401,23 @@ li {
 		$.get("list_Rtime",function(data, state){
 			for (var i = 0; i < data.length; i++) {
 				var d = data[i];
-				tbrb.append("<tr><td>" + d.rtimecd +"</td><td>"+d.rtime+"</td><td>"+
-						 "<span class='badge badge-pill badge-danger' rtimecd= '" + d.rtimecd +
-				"' onclick='delete_rtime(this);'>삭제</span></td></tr>");
+				var str ="";
+				var cc=count_rtimecd(d.rtimecd);
+				str = str + "<tr><td>" + d.rtimecd +"</td><td>"+d.rtime+"</td>";
+				if(cc==0){
+					str = str + "<td><span class='badge badge-pill badge-danger' rtimecd= '" + d.rtimecd +
+							"' onclick='delete_rtime(this);'>삭제</span></td></tr>";
+				}else{
+					str = str +"<td>-</td></tr>";
+				}
+				tbrb.append(str);
+				
+				var rt =d.rtime
+				//alert(rt);
+				var cellid="#z";
+				cellid+=""+rt.substr(0,2)+"";
+				cellid+=""+rt.substr(rt.length-2,2)+"";
+				$(cellid).css("background-color","#04B4AE");
 				
 				$("#sel_rtimecd").append("<option value='"+d.rtimecd+"'>"+d.rtime+"</option>");
 			}
@@ -339,9 +486,9 @@ li {
 			for (var i = 0; i < data.length; i++) {
 				var d = data[i];
 				tbdb.append("<tr><td>" + d.discountcd +"</td><td>"+d.disname+"</td><td>"+"<input type='number' value="+
-						d.disrate+" style='width: 150px; text-align:right;padding-right:5px;'onKeyUp='if(this.value>1){this.value=1;}else if(this.value<0){this.value=0;}' max='1' min='0'step='0.01' id='i"+d.discountcd+"' discountcd='"+d.discountcd+
+						d.disrate+" style='width: 150px; text-align:right;padding-right:5px;'onKeyUp='if(this.value>1){this.value=1;}else if(this.value<0){this.value=0;}' max='1' min='0'step='0.01' id='ii"+d.discountcd+"' discountcd='"+d.discountcd+
 						"' disname='"+ d.disname +"'></td><td>"+
-						"<span class='badge badge-pill badge-primary' discountcd='"+d.discountcd+"' payname='" + d.payname +"' onclick='update_discount(this);'>수정</span> "
+						"<span class='badge badge-pill badge-primary' discountcd='"+d.discountcd+"' disname='" + d.disname +"' onclick='update_discount(this);'>수정</span> "
 						+"<span class='badge badge-pill badge-danger' discountcd= '" 
 						+ d.discountcd +"' onclick='delete_discount(this);'>삭제</span></td></tr>");
 			}
@@ -359,8 +506,10 @@ li {
 	//결제코드할인율수정
 	function update_discount(e){
 	  var x = e.getAttribute('disname');
-	  var s = "#i" + e.getAttribute('discountcd');
+	  var s = "#ii" + e.getAttribute('discountcd');
 	  var y =$(s).val();
+	  
+	  alert(y);
 	  
 	  var retVal = confirm("할인이벤트명 : "+x+" 의 할인율을 "+y+"로 변경하시겠습니까?");
 
@@ -385,9 +534,16 @@ li {
 		$.get("list_VTimetable",function(data, state){
 			for (var i = 0; i < data.length; i++) {
 				var d = data[i];
-				tbttb.append("<tr><td>" + d.timetcd +"</td><td>"+d.tname+"</td><td>"+d.tnum+"</td><td>"+d.rtime+"</td><td>"+
-						 "<span class='badge badge-pill badge-danger' timetcd= '" + d.timetcd +
-				"' onclick='delete_tiemtable(this);'>삭제</span></td></tr>");
+				str="";
+				str+="<tr><td>" + d.timetcd +"</td><td>"+d.tname+"</td><td>"+d.tnum+"</td><td>"+d.rtime+"</td><td>";
+				var tc=counting("timetcd_count","timetcd",d.timetcd);
+				if(tc==0){
+					str+="<span class='badge badge-pill badge-danger' timetcd= '" + d.timetcd +
+					"' onclick='delete_timetable(this);'>삭제</span></td></tr>"
+				}else{
+					str+="-</td></tr>"
+				}
+				tbttb.append(str);
 			}
 		});
 	}
@@ -396,6 +552,8 @@ li {
 	function delete_timetable(e){
 		$.post("delete_Timetable", { "timetcd" : e.getAttribute('timetcd') }, function(data, state){
 			bindVTlist();
+			bindRTlist();
+			bindTlist();
 		});
 	}
 	
@@ -413,17 +571,22 @@ li {
 	//지점별검색 리스트 바인딩
 	function bindlist_searchtt(){
 		frm=$("#frm_totimetable")[0];
+		
 		$.get("list_searchVTimetable",{"theatercd":frm.sel_to_theatercd.value},function(data, state){
 			tbttth= $("#tbtotimetable thead");
 			tbtttb= $("#tbtotimetable tbody");
 			tbttth.empty();
 			tbtttb.empty();		
+			var where = "";
 			for (var i = 0; i < data.length; i++) {
 				var d = data[i];
 				if(i==0){
-					tbttth.append("<tr><th style='width: 100px;color:gold;'>"+d.tname+"점</th><th>상영관</th><th>시간</th></tr>");
-				}
-				tbtttb.append("<tr><td></td><td>"+d.tnum+"</td><td>"+d.rtime+"</td></tr>");
+					tbttth.append("<tr><th style='width: 100px;color:gold;'>"+d.tname+"점</th><th>상영관</th><th>시간</th></tr>");}
+				if(where==d.tnum){
+					tbtttb.append("<tr><td></td><td></td><td>"+d.rtime+"</td></tr>");
+				}else{
+					tbtttb.append("<tr><td></td><td style='font-weight:bold;'>"+d.tnum+"</td><td>"+d.rtime+"</td></tr>");}
+				where=d.tnum;
 			}
 		});
 	}
@@ -442,11 +605,20 @@ li {
 			for (var i = 0; i < data.length; i++) {
 				var d = data[i];
 				var newd = d.openDt.substring(0,10);
-				tbmb.append("<tr><td>" + d.moviecd +"</td><td>"+d.moviename+"</td><td>"+
-						 d.showtm +"</td><td>"+ newd +"</td><td>"+
-						 d.genres +"</td><td>"+d.directors+"</td><td>"+
-						 "<span class='badge badge-pill badge-danger' moviecd= '" + d.moviecd +
-				"' onclick='delete_mv(this);'>삭제</span></td></tr>");
+				
+				var cc=counting("moviecd_count","moviecd",d.moviecd);
+				str="";
+				str+="<tr><td>" + d.moviecd +"</td><td>"+d.moviename+"</td><td>"+
+				 d.showtm +"</td><td>"+ newd +"</td><td>"+
+				 d.genres +"</td><td>"+d.directors+"</td><td>";
+				 
+				if(cc==0){
+					str+= "<span class='badge badge-pill badge-danger' moviecd= '" + d.moviecd +
+					"' onclick='delete_mv(this);'>삭제</span></td></tr>";
+				}else{
+					str+="-</td></tr>";
+				}
+				tbmb.append(str);
 
 				$("#sellmoviecd").append("<option value='"+d.moviecd+"'>"+d.moviename+"</option>");
 			}
@@ -481,7 +653,38 @@ li {
 		});
 	}
 	
+	function addComma(num) {
+		var regexp = /\B(?=(\d{3})+(?!\d))/g;
+		return num.toString().replace(regexp, ',');
+	}
+	
+	//예매영화상세리스트
+	function bindVTRlist(){
+		tbvtr_h= $("#vtotalreserv_tb thead");
+		tbvtr_b= $("#vtotalreserv_tb tbody");
+		tbvtr_h.empty();
+		tbvtr_b.empty();
+
+		tbvtr_h.append("<tr><th>No.</th><th>회원번호</th><th>영화명</th><th>지점명</th><th>상영일시</th><th>총예매인원</th><th>결제금액</th></tr>");
+		
+		$.get("list_VTotalreserv_admin",function(data, state){
+			for (var i = 0; i < data.length; i++) {
+				var d = data[i];
+				var str ="";
+				str+="<tr><td>" + d.reserdate+"</td><td>"+d.mcode+"</td><td>"
+				+d.moviename+"</td><td>"+ d.tname +"</td><td>"+ d.ttdate +"</td><td>"
+				+d.tpeople+"명</td><td>"+addComma(d.ttcash)+"</td></tr>";
+				
+				tbvtr_b.append(str);
+			}
+		});
+	}
+	
+	
+	
 	$(function(){
+		//loading();
+		
 		//네비바관리
 		navstate_s();
 		
@@ -503,10 +706,31 @@ li {
 		
 		//시간표바인딩
 		bindVTlist();
+		
 		//보유영화바인딩
 		bindMVlist();
 		
+		//시계
 		realtimeClock();
+		
+		//예매상세리스트
+		bindVTRlist();
+		
+		//스크롤
+		 $(window).scroll(function() {
+            if ($(this).scrollTop() > 20) {
+                $('#MOVE_TOP_BTN').fadeIn();
+            } else {
+                $('#MOVE_TOP_BTN').fadeOut();
+            }
+        });
+        
+        $("#MOVE_TOP_BTN").click(function() {
+            $('html, body').animate({
+                scrollTop : 0
+            }, 300);
+            return false;
+        });
 		
 		//파일up
 		$("#form_step1 button").on("click", function(){
@@ -535,7 +759,7 @@ li {
 	    			
 	            },
 	            error : function(error) {
-	                alert("파일 업로드에 실패하였습니다.");
+	                alert("다시 확인하고 등록하세요.");
 	            }
 	        });
 	    });
@@ -575,43 +799,56 @@ li {
 		//관람등급코드 등록버튼
 		$("#frm_wgrade button").on("click", function(){
 			frm=$("#frm_wgrade")[0];
+			if(frm.wgradename.value!=""){
 			$.post("insert_wgrade",{"wgradename":frm.wgradename.value},
 					function(data, state){
 				bindWGlist();
 				frm.wgradename.value="";
-			});
+			});}
 		});
 		
 		//상영형태코드 등록버튼
 		$("#frm_showtype button").on("click", function(){
 			frm=$("#frm_showtype")[0];
 			//alert(frm.showtyname.value);
+			if(frm.showtyname.value!=""){
 			$.post("insert_Showtype",{"showtyname":frm.showtyname.value},
 					function(data, state){
 				bindSTlist();
 				frm.showtyname.value="";
-			});
+			});}
 		});
 		
 		//영화관지점 등록버튼
 		$("#frm_theater button").on("click", function(){
 			frm=$("#frm_theater")[0];
+			if(frm.tname.value!=""&&frm.taddr.value!=""){
 			$.post("insert_Theater",{"tname":frm.tname.value,"taddr":frm.taddr.value},
 					function(data, state){
 				bindTlist();
 				frm.tname.value="";frm.taddr.value="";
-			});
+			});}
 		});
 		
 		//상영시간코드 등록버튼
 		$("#frm_rtime button").on("click", function(){
 			frm=$("#frm_rtime")[0];
 			//alert(frm.showtyname.value);
-			$.post("insert_Rtime",{"rtime":frm.rtime.value},
-					function(data, state){
-				bindRTlist();
-				frm.rtime.value="";
-			});
+			
+			var rtvalue=frm.rtime.value;
+			var subs=rtvalue.substr(rtvalue.length-1, 1);
+			
+			alert(rtvalue.length+" / "+ subs + "ㅋ");
+			
+			if(subs=="0" && rtvalue.length==5 && rtvalue!=""){
+				$.post("insert_Rtime",{"rtime":rtvalue},
+						function(data, state){
+					bindRTlist();
+				});
+			}else{
+				alert("10분 단위로 양식에 맞춰 입력하세요!");	
+			}
+			frm.rtime.value="";
 		});
 		
 		//결제코드 등록버튼
@@ -621,12 +858,12 @@ li {
 			if(x==""){
 				x=0;
 			}
-			
+			if(frm.payname.value!=""){
 			$.post("insert_Pay",{"payname":frm.payname.value,"paydrate":x},
 					function(data, state){
 				bindPlist();
 				frm.payname.value="";frm.paydrate.value="";
-			});
+			});}
 		});
 		
 		//할인코드 등록버튼
@@ -636,23 +873,41 @@ li {
 			if(x==""){
 				x=0;
 			}
-			
+			if(frm.disname.value!=""){
 			$.post("insert_Discount",{"disname":frm.disname.value,"disrate":x},
 					function(data, state){
 				bindDlist();
 				frm.disname.value="";frm.disrate.value="";
-			});
+			});}
 		});
 		
 		
 		//시간표 등록버튼
 		$("#frm_timetable button").on("click", function(){
 			frm=$("#frm_timetable")[0];
-
-			$.post("insert_Timetable",{"theatercd":frm.sel_theatercd.value,"tnumcd":frm.sel_tnumcd.value,"rtimecd":frm.sel_rtimecd.value},
-					function(data, state){
-				bindVTlist();
+			//상영시간코드 counting
+			
+			var c=0;
+			
+			$.ajax({
+				url:"allcd_count",
+				type:"POST",
+				data: {"theatercd":frm.sel_theatercd.value,"tnumcd":frm.sel_tnumcd.value,"rtimecd":frm.sel_rtimecd.value},
+				async: false, // ture: 비동기, false: 동기
+				success: function(data){
+					c = data;
+			    }
 			});
+			
+			if(c==0){
+				$.post("insert_Timetable",{"theatercd":frm.sel_theatercd.value,"tnumcd":frm.sel_tnumcd.value,"rtimecd":frm.sel_rtimecd.value},
+						function(data, state){
+					bindVTlist();
+				});
+			}else{
+				alert("이미 등록된 상영시간표 입니다.");
+			}
+			
 		});
 		
 		//시간표 지점별 검색
@@ -666,11 +921,28 @@ li {
 			var mcd = $("#sellmoviecd")[0].value;
 			var scd=$("#sellshowtycd")[0].value;
 			//alert(frm);
-			$.post("insert_Release",{"moviecd":mcd,"showtycd":scd}, function(data, state){
-				$("#collapseLeft2").attr("class","collapse");
-				bindVRMlist();
-				window.scrollTo(0,0);
+			
+			var c=0;
+			
+			$.ajax({
+				url:"releaseall_count",
+				type:"POST",
+				data: {"moviecd":mcd,"showtycd":scd},
+				async: false, // ture: 비동기, false: 동기
+				success: function(data){
+					c = data;
+			    }
 			});
+			
+			if(c==0){
+				$.post("insert_Release",{"moviecd":mcd,"showtycd":scd}, function(data, state){
+					$("#collapseLeft2").attr("class","collapse");
+					bindVRMlist();
+					window.scrollTo(0,0);
+				});
+			}else{
+				alert("이미 등록한 상영영화 입니다.")	
+			}
 		});
 		
 	});
@@ -680,6 +952,7 @@ li {
 
 </head>
 <body>
+	<div class="loading" id="loading"></div>
 	<nav class="navbar navbar-expand-sm navbar-dark sticky-top" style="background-color: #8A0886;">
 		<a class="navbar-brand" href="/uneeds/admin/main" style="font-weight: bold; font: gold;">
 		U admin</a>
@@ -687,9 +960,11 @@ li {
 		<a class="navbar-brand2" href="javascript:navstate()" id="a_rservstate" style="font-weight: bold;padding-left: 30px;">RESERV_STATE</a>
 		<form name="rtcForm">
 			<input type="text" name="rtcInput" readonly="readonly" 
-			style="font-weight: bold; font-size: x-large; border: 0px; background-color: #8A0886; color: white; width: 1150px; text-align: right;"/>
+			style="font-weight: bold; font-size: x-large; border: 0px; background-color: #8A0886; color: white; width: 1200px; text-align: right;"/>
 		</form>
 	</nav>
+	
+	<a id="MOVE_TOP_BTN" href="#" style="background-color: #8A0886; color: white; padding: 5px;"> TOP </a>
 	<div class="row" style="height: 1500px;">
 		<!-- 상영영화관리 -->
 		<div class="col-xl-6 bg-dark" style="padding-left: 20px;">
@@ -870,7 +1145,48 @@ li {
 			<ul style="padding-left: 5px; padding-top: 10px; margin: 0;">
 				<li style="color: #424242; font-weight: bold;">■ 영화 코드 관리</li>
 			</ul>
-			
+				
+				<div class="card">
+					<div class="card-header bg-dark">
+						<a class="collapsed card-link" data-toggle="collapse" style="font-weight: bold;color: white;"
+							href="#collapse4"> 상영시간코드</a>
+					</div>
+					<div id="collapse4" class="collapse" data-parent="#accordion">
+						<div class="card-body">
+							<form id="frm_rtime" method="post">
+								<table style="margin-bottom: 10px;">
+									<tr>
+										<td><input type="text" name="rtime" class="form-control form-control-sm" style="width: 300px;" placeholder="ex)09:00 추가할 상영시간을 입력하세요."></td>
+										<td><button type="button" class="btn btn-block btn-sm"
+										style="background-color: #04B4AE; color: white; font-weight: bold;">등록</button></td>
+									</tr>
+								</table>
+							</form>
+					
+							<div class="row">
+							<div class="col-sm-4" style="padding-left: 0;">
+								<table id="rtime_colortable_am" style="text-align: center;font-size:small;width: 280px;height: 350px;">
+								  <thead></thead>
+							      <tbody></tbody>
+							    </table>
+						     </div>
+						     <div class="col-sm-8"style="padding-right: 0;">
+								<table id="rtime_colortable_pm"style="text-align: center;font-size:small;width: 280px;height: 350px;">
+								  <thead></thead>
+							      <tbody></tbody>
+							    </table>
+						     </div>
+							</div>
+							<div class="table-responsive-sm" style="padding-top: 10px;">
+								<table class="table" id="tbrtime" style="text-align: center;width: 530px;padding-top: 5px; padding-bottom: 5px;">
+							      <thead class="thead-dark"></thead>
+							      <tbody></tbody>
+							     </table>
+							</div>
+						</div>
+					</div>
+				</div>
+				
 				<div class="card">
 					<div class="card-header bg-dark" >
 						<a class="card-link" data-toggle="collapse" href="#collapseOne" style="color: white; font-weight: bold;">
@@ -939,7 +1255,7 @@ li {
 								<table style="margin-bottom: 10px;">
 									<tr>
 										<td><input type="text" name="tname" class="form-control form-control-sm" style="width: 200px;" placeholder="추가할  지점명을 입력하세요."></td>
-										<td><input type="text" name="taddr" class="form-control form-control-sm" style="width: 560px;" placeholder="추가할 지점주소를 입력하세요."></td>
+										<td><input type="text" name="taddr" class="form-control form-control-sm" style="width: 500px;" placeholder="추가할 지점주소를 입력하세요."></td>
 										<td><button type="button" class="btn btn-block btn-sm"
 										style="background-color: #04B4AE; color: white; font-weight: bold;">등록</button></td>
 									</tr>
@@ -948,32 +1264,6 @@ li {
 							<div class="table-responsive-sm" >
 								<table class="table" id="tbtheater" style="text-align: center; font-size: small;">
 							      <thead class="thead-dark" style="font-size: x-small;"></thead>
-							      <tbody></tbody>
-							     </table>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="card">
-					<div class="card-header bg-dark">
-						<a class="collapsed card-link" data-toggle="collapse" style="font-weight: bold;color: white;"
-							href="#collapse4"> 상영시간코드</a>
-					</div>
-					<div id="collapse4" class="collapse" data-parent="#accordion">
-						<div class="card-body">
-							<form id="frm_rtime" method="post">
-								<table style="margin-bottom: 10px;">
-									<tr>
-										<td><input type="text" name="rtime" class="form-control form-control-sm" style="width: 300px;" placeholder="ex)09:00 추가할 상영시간을 입력하세요."></td>
-										<td><button type="button" class="btn btn-block btn-sm"
-										style="background-color: #04B4AE; color: white; font-weight: bold;">등록</button></td>
-									</tr>
-								</table>
-							</form>
-							<div class="table-responsive-sm" >
-								<table class="table" id="tbrtime" style="text-align: center;width: 600px;">
-							      <thead class="thead-dark"></thead>
 							      <tbody></tbody>
 							     </table>
 							</div>
@@ -1104,7 +1394,7 @@ li {
 							<div class="table-responsive-sm" >
 								<table class="table" id="tbtotimetable" style="text-align: center;width: 500px;">
 							      <thead class="thead-dark"></thead>
-							      <tbody></tbody>
+							      <tbody style="padding: 5px;"></tbody>
 							     </table>
 							</div>
 							
@@ -1123,52 +1413,35 @@ li {
 				<div class="card">
 					<div class="card-header" style="background-color: #FFBF00;">
 						<a class="collapsed card-link" data-toggle="collapse" style="color: black; font-weight: bold;"
-							href="#collapse7"> 예매현황 </a>
+							href="#collapse7"> 예매현황상세 </a>
 					</div>
 					<div id="collapse7" class="collapse show" data-parent="#accordion3">
+						<div class="card-body">
+							<table class="table table-dark table-hover" id="vtotalreserv_tb"
+								style="text-align: center; font-size: small;">
+								<thead>
+								</thead>
+								<tbody>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+				</div>
+				
+				<div id="accordion3">
+				<div class="card">
+					<div class="card-header" style="background-color: #FFBF00;">
+						<a class="collapsed card-link" data-toggle="collapse" style="color: black; font-weight: bold;" href="#collapse11">
+						++</a>
+					</div>
+					<div id="collapse11" class="collapse" data-parent="#accordion3">
 						<div class="card-body">
 							<table class="table table-dark table-hover"
 								style="text-align: center; font-size: small;">
 								<thead>
-									<tr>
-										<th>예매번호</th>
-										<th>회원번호</th>
-										<th>영화명</th>
-										<th>지점명</th>
-										<th>상영일시</th>
-										<th>예매인원</th>
-										<th>결제금액</th>
-									</tr>
 								</thead>
 								<tbody>
-									<tr>
-										<td>980518023725</td>
-										<td>2</td>
-										<td>건대</td>
-										<td>데드풀 2</td>
-										<td>18-05-19 16:30</td>
-										<td>2명</td>
-										<td>22000</td>
-									</tr>
-									<tr>
-										<td>980518023725</td>
-										<td>2</td>
-										<td>건대</td>
-										<td>데드풀 2</td>
-										<td>18-05-19 16:30</td>
-										<td>2명</td>
-										<td>22000</td>
-									</tr>
-									
-									<tr>
-										<td>980518023725</td>
-										<td>건대</td>
-										<td>데드풀 2</td>
-										<td>18-05-19 16:30</td>
-										<td>2명</td>
-										<td>22000</td>
-										<td><span class="badge badge-danger">취소</span></td>
-									</tr>
 								</tbody>
 							</table>
 						</div>
