@@ -146,7 +146,6 @@ $(function(){
 	});
 	function openNew(hname){
 		window.open("http://192.168.0.18:8080/uneeds/medical/hospitalViewPage?hname="+hname);
-// 		window.open("http://localhost:8080/uneeds/medical/hospitalViewPage?hname="+hname);
 	}
 	
 });
