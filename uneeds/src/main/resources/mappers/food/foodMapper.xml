@@ -27,7 +27,6 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	    fgmenu like concat('%',#{keyword},'%')) food where food.kid = #{kid} limit #{pageStart}, #{perPageNum};
 
 	</select>
-	
 
 	<!-- Mysql 검색결과 카운트 -->
 	<select id="listCount" resultType="int">
@@ -35,9 +34,20 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		OR fphone like concat('%',#{keyword},'%') OR fgmenu like concat('%',#{keyword},'%')
 	</select>
 	
+	<!-- Mysql 분류별검색결과 카운트 -->
+	<select id="listCount_kid" resultType="int">
+		SELECT count(*) FROM (select * from f_food WHERE fname like concat('%',#{keyword},'%') or faddr like concat('%',#{keyword},'%') or 
+	    fgmenu like concat('%',#{keyword},'%')) food where food.kid = #{kid} limit #{pageStart}, #{perPageNum};
+	</select>
+	
 	<!-- Mysql 음식점 자세히 보기 -->
 	<select id="detail" resultType="com.food.domain.Food_dataVo">
 		SELECT food.fname, food.faddr, food.fphone, food.fgmenu, food.fdetail, food.fimg1, food.fimg2, food.fimg3, food.flike, kind.kname FROM f_food food, f_kind kind where food.fid = #{fid} and food.kid = kind.kid; 
 	</select>
+	
+	<!-- Mysql 음식점 좋아요 -->
+	<update id="detail_like" parameterType="com.food.domain.Food_dataVo">
+		UPDATE f_food SET flike = flike + 1 WHERE fid = #{fid} 
+	</update>
 	
 </mapper>

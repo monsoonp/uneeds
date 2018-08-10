@@ -34,11 +34,6 @@ public class Food_MydataDAOImpl implements Food_MydataDAO {
 	}
 
 	@Override
-	public int countPaging(Food_searchVo svo) {
-		return mysqlSession.selectOne(namespace + ".listCount", svo);
-	}
-
-	@Override
 	public Food_dataVo detail(Integer fid) {
 		return mysqlSession.selectOne(namespace + ".detail", fid);
 	}
@@ -47,5 +42,19 @@ public class Food_MydataDAOImpl implements Food_MydataDAO {
 	public List<Food_dataVo> searchFood_kind(Food_searchVo svo) throws Exception {
 		return mysqlSession.selectList(namespace + ".listSearch_kid", svo);
 	}
+
+	@Override
+	public int countPaging_kid(Food_searchVo svo) {
+		return mysqlSession.selectOne(namespace + ".listCount_kid", svo);
+	}
 	
+	@Override
+	public int countPaging(Food_searchVo svo) {
+		return mysqlSession.selectOne(namespace + ".listCount", svo);
+	}
+
+	@Override
+	public Food_dataVo detail_like(Integer fid) {
+		return mysqlSession.selectOne(namespace + ".detail_like", fid);
+	}
 }

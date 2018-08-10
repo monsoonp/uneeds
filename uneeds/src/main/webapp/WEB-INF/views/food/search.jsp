@@ -10,60 +10,6 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
-function getMongoList(){
-	$.ajax({
-		url : "mongo_list_ajax",
-		timeout : 60000,
-		dataType : "json",
-		data : {
-			col_name : $("#col_name").val()				
-		},
-		success : function(data, status){
-			alert("성공!!!")
-			// 초기 변수 선언
-			var ul = $("#mongo_list");
-			var lis = "";
-			var d = null;
-			ul.empty();
-
-			// 이전 li 내용 제거
-				
-			// li 태그 그리기
-			for(var i=0; i<data.length; i++){
-				d = data[i]
-				lis += "<li><input name='fid' type='text' readonly='readonly' value='" + d._id + "'></li>" +
-						"<li><input name='fname' type='text' readonly='readonly' value='" + d.title + "'></li>" + 
-						"<li><input name='fgmenu' type='text' readonly='readonly' value='" + d.menu + "'></li>" +
-						"<li><input name='fdetail' type='text' readonly='readonly' value='" + d.detail + "'></li>" +
-				       "<li><input name='faddr' type='text' readonly='readonly' value='" + d.addr + "'></li>" + 
-				       "<li><input name='fphone' type='text' readonly='readonly' value='" + d.phone + "'></li>" + 
-				       "<li><input name='kid' type='text' readonly='readonly' value='" + d.kind + "'></li>" + 
-				       "<li><input name='fimg1' type='text' readonly='readonly' value='" + d.img1 + "'></li>" +
-				       "<li><input name='fimg2' type='text' readonly='readonly' value='" + d.img2 + "'></li>" +
-				       "<li><input name='fimg3' type='text' readonly='readonly' value='" + d.img3 + "'></li>"
-				$.post("food_insert",{
-						lid : $("#col_num").val(),
-						fname : d.title,
-						fgmenu : d.menu,
-						fdetail : d.detail,
-						faddr : d.addr, 
-						fphone : d.phone,
-						kid : d.kind,
-						fimg1 : d.img1,
-						fimg2 : d.img2,
-						fimg3 : d.img3
-					}).done(function(data, state){
-						console.log(data);
-						console.log(state);
-					});
-			}
-				ul.append(lis);
-		}
-	});
-	
-}
-
-
 </script>
 <title>UNEEDS FOOD</title>
 </head>
@@ -77,6 +23,7 @@ function getMongoList(){
 			<form action="search" method="post">
 				<div id="search_input_wrapper">
 					<input type="text" id="search_input" name="search" autocomplete="off" value="${param.searchs}">
+					<input type="hidden" name="kid" value="0">
 					<button type="submit" id="search_btn"></button>
 				</div>
 			</form>
