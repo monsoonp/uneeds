@@ -64,5 +64,4 @@ public class LoginDAOImpl implements LoginDAO{
 		System.out.println("usercode: "+result);
 		return result;
 	}
-	
 }
