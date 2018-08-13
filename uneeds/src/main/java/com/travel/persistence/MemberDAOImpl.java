@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.travel.model.MemberVO;
-import com.travel.model.TourcodeVO;
+import com.travel.model.TravelareainfoVO;
 
 @Repository
 public class MemberDAOImpl implements MemberDAO {

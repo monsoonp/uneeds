@@ -11,4 +11,7 @@ public interface MovieDAO {
 	public List<MovieVO> readMovie();
 	//영화삭제
 	public void deleteMovie(MovieVO mvo);
+	
+	//관람등급카운트
+	public int wgradecd_count(MovieVO mvo);
 }

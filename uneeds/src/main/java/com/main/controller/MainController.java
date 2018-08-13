@@ -65,9 +65,11 @@ public class MainController {
 	        ModelAndView mav = new ModelAndView();
 	        String referer = req.getHeader("Referer");
 	        String redirectUrl = (String) session.getAttribute("prevPage");
+	        System.out.println("테스트");
 	        
 	        if(service.loginCheck(session, usr, pwd)){ // 로그인 성공
 	            mav.setViewName("redirect:" + redirectUrl);
+	            System.out.println("테스트2");
 	            System.out.println("redirect:" + redirectUrl);
 	            session.removeAttribute(redirectUrl);
 	            }

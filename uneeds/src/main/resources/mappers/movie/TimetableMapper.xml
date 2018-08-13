@@ -10,6 +10,23 @@
 	</insert>
 	
 	<delete id="deleteTimetable">
-		delete from mv_timetable where timecd=#{timecd}
+		delete from mv_timetable where timetcd=#{timetcd}
 	</delete>
+	
+	<select id="rtimecount" resultType="int">
+		select count(*) from mv_timetable where rtimecd=#{rtimecd}
+	</select>
+	
+	<select id="tnumcd_count" resultType="int">
+		select count(*) from mv_timetable where tnumcd=#{tnumcd}
+	</select>
+	
+	<select id="theatercd_count" resultType="int">
+		select count(*) from mv_timetable where theatercd=#{theatercd}
+	</select>
+	
+	<select id="allcd_count" resultType="int">
+		select count(*) from mv_timetable 
+		where(theatercd=#{theatercd} and tnumcd=#{tnumcd} and rtimecd=#{rtimecd})
+	</select>
 </mapper>

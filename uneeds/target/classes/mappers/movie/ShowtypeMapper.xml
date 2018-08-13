@@ -16,4 +16,5 @@
 	<delete id="deleteShowtype">
 		delete from mv_showtype_table where showtycd=#{showtycd}
 	</delete>
+	
 </mapper>

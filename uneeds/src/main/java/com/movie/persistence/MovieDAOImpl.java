@@ -31,5 +31,10 @@ public class MovieDAOImpl implements MovieDAO{
 	public void deleteMovie(MovieVO mvo) {
 		mysqlSession.delete(mspace+".deleteMovie",mvo);
 	}
+
+	@Override
+	public int wgradecd_count(MovieVO mvo) {
+		return mysqlSession.selectOne(mspace+".wgradecd_count",mvo);
+	}
 	
 }

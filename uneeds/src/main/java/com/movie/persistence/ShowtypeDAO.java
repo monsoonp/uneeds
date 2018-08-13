@@ -11,4 +11,6 @@ public interface ShowtypeDAO {
 	public List<ShowtypeVO> readShowtype();
 	//상영형태코드삭제
 	public void deleteShowtype(ShowtypeVO stvo);
+	
+	
 }

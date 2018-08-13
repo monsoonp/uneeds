@@ -10,14 +10,16 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.movie.domain.RtimeVO;
+
 import com.movie.service.RtimeService;
+
 
 @Controller
 public class Amv_rtimeCode_Controller {
 	
 	@Inject
 	private RtimeService rtservice;
-	
+
 	//상영시간리스트-ajax
 	@RequestMapping(value="list_Rtime", method=RequestMethod.GET)
 	public @ResponseBody List<RtimeVO> list_Rtime() throws Exception{

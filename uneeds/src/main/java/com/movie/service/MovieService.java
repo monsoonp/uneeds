@@ -13,4 +13,7 @@ public interface MovieService {
 	
 	//영화 삭제
 	public void delete_movie(MovieVO mvo) throws Exception;
+	
+	
+	public int wgradecd_count(MovieVO mvo) throws Exception;
 }

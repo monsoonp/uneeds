@@ -17,4 +17,8 @@
 	<delete id="deleteMovie">
 		delete from mv_movie_table where moviecd=#{moviecd}
 	</delete>
+	
+	<select id="wgradecd_count" resultType="int">
+		select count(*) from mv_movie_table where wgradecd=#{wgradecd}
+	</select>
 </mapper>
