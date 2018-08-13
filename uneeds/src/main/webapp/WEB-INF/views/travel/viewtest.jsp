@@ -10,8 +10,8 @@
 
 <title>Insert title here</title>
 
-<link rel="stylesheet" type="text/css" href="./resources/css/app.d6157d9993ceb446bea8.css">
-<link rel ="stylesheet" id="gnb_style" type="text/css" href="./resources/css/gnb.css">
+<link rel="stylesheet" type="text/css" href="./resources/travel/css/app.d6157d9993ceb446bea8.css">
+<link rel ="stylesheet" id="gnb_style" type="text/css" href="./resources/travel/css/gnb.css">
 
 <!-- 선택시 맵 변경 부분 -->
 <script>

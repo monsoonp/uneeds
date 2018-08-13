@@ -50,7 +50,7 @@
 		<a class="nav-link" href="/uneeds/travel/viewtest">여행+</a>
 		<a class="nav-link" href="/uneeds/medical/main_view">의료</a>
 		<a class="nav-link" href="/uneeds/movie/main">영화/엔터</a>
-		<a class="nav-link" href="/uneeds/">공연/전시</a>
+		<a class="nav-link" href="/uneeds/exhibition/">공연/전시</a>
 		<a class="nav-link" href="/uneeds/admin/main">ADMIN</a>
 	</div>
 	<!-- 1단 -->
