@@ -22,7 +22,7 @@
 
 <div id="hd_wrapper">
         <ul id="tnb">
-                        <li><a href="#">회원가입</a></li>
+            <li><a href="#">회원가입</a></li>
             <li><a href="#"><b>로그인</b></a></li>
 
         </ul>
@@ -38,10 +38,9 @@
                 <h2>메인메뉴</h2>
                 <ul id="gnb_1dul">
                     <li id="logo"> <a href="main_view"><img src="../../../resources/medical/img/doc.png" alt=""></a> </li>
-                    <li style="display:none;"><a href="#" id="slide-menu-xxx" data-view="slide-type">추천-병원찾기</a></li>
-                    <li><a href="hospitalViewPage" id="slide-menu" data-view="slide-type">병원찾기</a></li>
-                    <li><a href="hospital_view2.jsp">응급진료</a></li>
-                    <li><a href="medicalViewPage">동네약국</a></li>
+                    <li><a href="hospitalViewPage" ><img src="../../../resources/medical/img/find.png" /> </a></li>
+                    <li><a href="hospitalViewPage"><img src="../../../resources/medical/img/em.png" /></a></li>
+                    <li><a href="medicalViewPage"><img src="../../../resources/medical/img/medical.png" /></a></li>
                 </ul>
                 
                 <!--상단 검색-->
@@ -375,7 +374,7 @@ $(function(){
 			  var gu= $("#z2 option:selected").text();
 			  alert(si);
 				 alert(gu);
-			  $.get("medicalAPI2_test222.jsp",{sido :si, sigun : gu},bindList);
+			  $.get("medicalList",{sido :si, sigun : gu},bindList);
 		  }
 		  else if (si == '부산' || si == '인천' || si == '대전' || si == '대구' || si == '광주' || si == '울산'){
 				  var gu = $("#z2 option:selected").text().substring(2);

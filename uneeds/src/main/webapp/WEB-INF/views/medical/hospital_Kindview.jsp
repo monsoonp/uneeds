@@ -39,10 +39,9 @@
                 <h2>메인메뉴</h2>
                 <ul id="gnb_1dul">
                     <li id="logo"> <a href="main_view"><img src="../../../resources/medical/img/doc.png" alt=""></a> </li>
-                    <li style="display:none;"><a href="#" id="slide-menu-xxx" data-view="slide-type">추천-병원찾기</a></li>
-                    <li><a href="hospitalViewPage" id="slide-menu" data-view="slide-type">병원찾기</a></li>
-                    <li><a href="view_test2.jsp">응급진료</a></li>
-                    <li><a href="medicalViewPage">동네약국</a></li>
+                    <li><a href="hospitalViewPage" ><img src="../../../resources/medical/img/find.png" /> </a></li>
+                    <li><a href="hospitalViewPage"><img src="../../../resources/medical/img/em.png" /></a></li>
+                    <li><a href="medicalViewPage"><img src="../../../resources/medical/img/medical.png" /></a></li>
                 </ul>
                 
                 <!--상단 검색-->
@@ -339,7 +338,7 @@ function bindKind(){
 		/* 메뉴 불러오기 */
 		for(var i=0; i<its.length; i++){
 		/* site-box 병원 메뉴 */	
-		ul.append("<li id='site-"+(i+1)+"' class='site-item' style='border: 0px none;'><h3><span class='icon-no' data-index='"+(i)+"'>"+(i+1)+"</span><span id='tt' data-code='"+$(its[i]).find("ykiho").text()+"'  data-mapx='"+$(its[i]).find("YPos").text()+"' data-mapy='"+$(its[i]).find("XPos").text()+"'><a href='/uneeds/medical/detailViewPage?ykiho="+$(its[i]).find("ykiho").text()+"&xpos="+$(its[i]).find("YPos").text()+"&ypos="+$(its[i]).find("XPos").text()+"'>"+$(its[i]).find("yadmNm").text() +"</span></a></h3><div class='addr'><a href='#'>"+$(its[i]).find("clCdNm").text() +"</a></div></li>");
+		ul.append("<li id='site-"+(i+1)+"' class='site-item' style='border: 0px none;'><h3><span class='icon-no' data-index='"+(i)+"'>"+(i+1)+"</span><span id='tt' data-code='"+$(its[i]).find("ykiho").text()+"'  data-mapx='"+$(its[i]).find("YPos").text()+"' data-mapy='"+$(its[i]).find("XPos").text()+"'><a href='/uneeds/medical/detailViewPage?ykiho="+$(its[i]).find("ykiho").text()+"&xpos="+$(its[i]).find("YPos").text()+"&ypos="+$(its[i]).find("XPos").text()+"'>"+$(its[i]).find("yadmNm").text() +"</span></a></h3><div class='addr'><a href='#'>"+$(its[i]).find("addr").text() +"</a></div></li>");
 			/* 마커 찍기 */
 			var position = new naver.maps.LatLng($(its[i]).find("YPos").text(), $(its[i]).find("XPos").text());
 			var markerOptions = {

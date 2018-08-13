@@ -41,10 +41,9 @@
                 <h2>메인메뉴</h2>
                 <ul id="gnb_1dul">
                     <li id="logo"> <a href="main_view"><img src="../../../resources/medical/img/doc.png" alt=""></a> </li>
-                    
-                    <li><a href="hospitalViewPage" >병원찾기</a></li>
-                    <li><a href="hospitalViewPage">응급진료</a></li>
-                    <li><a href="medicalViewPage">동네약국</a></li>
+                    <li><a href="hospitalViewPage" ><img src="../../../resources/medical/img/find.png" /> </a></li>
+                    <li><a href="hospitalViewPage"><img src="../../../resources/medical/img/em.png" /></a></li>
+                    <li><a href="medicalViewPage"><img src="../../../resources/medical/img/medical.png" /></a></li>
                 </ul>
                 
                 <!--상단 검색-->
@@ -145,7 +144,8 @@ $(function(){
 		openNew(hnames);				
 	});
 	function openNew(hname){
-		window.open("http://192.168.0.18:8080/uneeds/medical/hospitalViewPage?hname="+hname);
+		window.open("http://192.168.0.05:8080/uneeds/medical/hospitalViewPage?hname="+hname);
+// 		window.open("http://localhost:8080/uneeds/medical/hospitalViewPage?hname="+hname);
 	}
 	
 });

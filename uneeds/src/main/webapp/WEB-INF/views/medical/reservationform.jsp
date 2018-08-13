@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +12,7 @@
 
 
 <script type="text/javascript">
+
 var today = new Date();//오늘 날짜
 
 
@@ -47,7 +49,7 @@ function buildCalendar(){
   //달력 출력
   for(i=1; i<=lastDate.getDate(); i++){
     cell =row.insertCell();
-    day = "<span id='choice"+i+"' onclick='javascript:choiceDate(choice"+i+");'";
+    day = "<span class='choice"+i+"'";
     day += "data-index="+i+" value="+i+">";
     day += i;
     day +="</span>";
@@ -57,6 +59,39 @@ function buildCalendar(){
      row = calendar.insertRow();
 
   }
+}
+
+function bindCheckList(){
+	 $.get("checkListView", function(data, state){
+		  // 성공한 경우
+		  if(state == "success"){
+			  var ul = $(".checklist");
+			  ul.empty();
+			  // 타임 테이블
+			  for(var i=0; i<data.length; i++){
+			  ul.append("<input type='checkbox' value='"+data[i].ctcode+"' name='checklist'/>"+data[i].ctmemo);
+			  }
+		  }
+	 });
+}
+
+
+function bindTimetable(){
+	$.get("timeTableView", function(data, state){
+		  // 성공한 경우
+		  if(state == "success"){
+			  var ul = $(".time10");
+			  ul.empty();
+			  // 타임 테이블
+			  for(var i=0; i<data.length; i++){
+				  if (i %2==0){
+					  ul.append("<li><span class='un active' value='"+data[i].tcode+"'>00</span></li>");
+				  }else{
+					  ul.append("<li><span class='un active' value='"+data[i].tcode+"'>30</span></li>");
+				  }
+			  }
+		  }
+	});
 }
 
 
@@ -108,9 +143,9 @@ function buildCalendar(){
 								<dt><h3>2. 문항리스트</h3></dt>
 								<dd>
 	        						<div class="reservation-group">
+	        						
+	        						<!-- 체크리스트 -->
           								<div class="checklist">
-											<label for="male" class="radio" chec> <input type="checkbox" value="male" id="male" name="gender" />고혈압</label>
-  											<label for="female" class="radio"><input type="checkbox" value="male" id="female" name="gender" />저혈압</label>
  		  								</div>
         						</div>
         			
@@ -202,17 +237,11 @@ function buildCalendar(){
 									<col width="*">
 								</colgroup>
 								<tbody>
-								
-							    
 									<tr>
 										<th rowspan="3" class="ti">오전</th>								
 										<th class="hour am">10시</th>
 										<td>
 											<ul class="time10">
-												 
-														<li><span class="un">00</span></li>	
-														<li><span class="un">30</span></li>
-					
 											</ul>
 										</td>
 									</tr>
@@ -220,9 +249,6 @@ function buildCalendar(){
 										<th class="hour am">11시</th>
 										<td>
 											<ul class="time10">
-												 
-														<li><span class="un">00</span></li>
-														<li><span class="un">30</span></li>
 											</ul>
 										</td>
 									</tr>
@@ -230,14 +256,9 @@ function buildCalendar(){
 										<th class="hour am">12시</th>
 										<td>
 											<ul class="time10">
-														<li><span class="un">00</span></li>
-														<li><span class="un">30</span></li>
 											</ul>
 										</td>
 									</tr>
-
-								
-
 								</tbody>
 							</table>
 							<table summary="시간 선택" class="pm">
@@ -252,10 +273,7 @@ function buildCalendar(){
 										<th rowspan="8" class="ti">오후</th>
 										<th class="hour pm">1시</th>
 											<td>
-											<ul class="time10">
-												 
-														<li><span class="un active">00</span></li>
-														<li><span class="un active">30</span></li>
+											<ul class="time10">		
 											</ul>
 										</td>
 									</tr>
@@ -263,8 +281,6 @@ function buildCalendar(){
 										<th class="hour pm">2시</th>
 										<td>
 											<ul class="time10">
-														<li><span class="un">00</span></li>
-														<li><span class="un">30</span></li>												
 											</ul>
 										</td>
 									</tr>
@@ -272,8 +288,6 @@ function buildCalendar(){
 										<th class="hour pm">3시</th>
 											<td>
 											<ul class="time10">
-														<li><span class="un">00</span></li>
-														<li><span class="un">30</span></li>
 											</ul>
 										</td>
 									</tr>
@@ -281,8 +295,6 @@ function buildCalendar(){
 										<th class="hour pm">4시</th>
 											<td>
 											<ul class="time10">
-														<li><span class="un">00</span></li>
-														<li><span class="un">30</span></li>
 											</ul>
 										</td>
 									</tr>
@@ -290,8 +302,6 @@ function buildCalendar(){
 										<th class="hour pm">5시</th>
 											<td>
 											<ul class="time10">
-												<li><span class="un">00</span></li>
-												<li><span class="un">30</span></li>
 											</ul>
 										</td>
 									</tr>
@@ -299,8 +309,6 @@ function buildCalendar(){
 										<th class="hour pm">6시</th>
 											<td>
 											<ul class="time10">
-												<li><span class="un">00</span></li>
-												<li><span class="un">30</span></li>
 											</ul>
 										</td>
 									</tr>
@@ -339,19 +347,32 @@ function buildCalendar(){
     	var name = $("#username").val();
     	var phone = $("#phone").val();
     	var gender = $("#gender").val();
-    	console.log(name);
-    	console.log(phone);
-    	console.log(gender);
-    	
-    	alert(gender);
+    	var check = $("checklist").val();
      });
      
      function choiceDate(id){
     	 var ids = id;
     	 var test = ids.getAttribute('data-index');
-		 console.log(test);
+		 
      }
      
+     $(function(){
+    	 var dday = today.getDate();
+    	 if (dday == $(".choice"+dday).data('index')){
+    		 $(".choice"+dday).css({'border':'2px solid red'});
+    	 }
+    	 
+    	 for (var i = 0; i < dday; i++) {
+    		 $(".choice"+i).attr('class','un'); 
+		}
+    	   
+    	 // 체크 리스트 불러오기
+    	 bindCheckList();
+    	 bindTimetable();
+ 
+     });
+     
+
     </script>
 </body>
 </html>
