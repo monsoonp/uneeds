@@ -71,7 +71,7 @@ a#MOVE_TOP_BTN {
 <script>
 	function loading(){
 		setTimeout(function(){
-			$("#loading").remove();
+			$("#loading").fadeOut('slow');
 		},1500);
 	}
 	$(document).ready(function(){
