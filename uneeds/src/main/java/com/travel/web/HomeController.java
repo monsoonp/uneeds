@@ -318,28 +318,4 @@ public class HomeController {
 		return states;
 	}
 
-	@RequestMapping(value = "/list_collection")
-	public String listMongo(Model m) {
-		ArrayList<String> list = new ArrayList<>();
-		// 0. Client 객체
-		MongoClient mgc = new MongoClient("192.168.0.18", 27017);
-		// 1. 연결
-		MongoDatabase mgd = mgc.getDatabase("uneeds_db");
-		// 3. 컬렉션들
-		MongoIterable<String> cols = mgd.listCollectionNames();
-
-		// 4.Iterable을 List로 변환
-		/*
-		 * List<String> list = StreamSupport.stream(cols.spliterator(),
-		 * false).collect(Collectors.toList()); m.addAttribute("list", list);
-		 */
-		for (String s : cols) {
-			list.add(s);
-		}
-
-		m.addAttribute("list", list);
-
-		return "list_collection";
-	}
-
 }
