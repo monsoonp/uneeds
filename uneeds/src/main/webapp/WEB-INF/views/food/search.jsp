@@ -10,6 +10,8 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
+	console.log(${pageMaker.startPage});
+	console.log(${pageMaker.endPage});
 </script>
 <title>UNEEDS FOOD</title>
 </head>

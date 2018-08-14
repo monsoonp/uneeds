@@ -37,7 +37,7 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<!-- Mysql 분류별검색결과 카운트 -->
 	<select id="listCount_kid" resultType="int">
 		SELECT count(*) FROM (select * from f_food WHERE fname like concat('%',#{keyword},'%') or faddr like concat('%',#{keyword},'%') or 
-	    fgmenu like concat('%',#{keyword},'%')) food where food.kid = #{kid} limit #{pageStart}, #{perPageNum};
+	    fgmenu like concat('%',#{keyword},'%')) food where food.kid = #{kid};
 	</select>
 	
 	<!-- Mysql 음식점 자세히 보기 -->
@@ -49,5 +49,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	<update id="detail_like" parameterType="com.food.domain.Food_dataVo">
 		UPDATE f_food SET flike = flike + 1 WHERE fid = #{fid} 
 	</update>
+	
+	<!-- Mysql 음식점 예약분류 -->
+	<select id="rstype" resultType="com.food.domain.Food_reservationVo">
+		SELECT tlist FROM f_type;  
+	</select>
+	
+	<!-- Mysql 음식점 예약시간 -->
+	<select id="rstime" resultType="com.food.domain.Food_reservationVo">
+		SELECT tmlist FROM f_times;  
+	</select>
 	
 </mapper>

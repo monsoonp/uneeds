@@ -29,6 +29,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.food.domain.Food_dataVo;
 import com.food.domain.Food_searchPageMaker;
+import com.food.domain.Food_searchPageMaker_kid;
 import com.food.domain.Food_searchVo;
 import com.food.mongos.MongoUtil;
 import com.food.persistence.Food_MydataDAO;
@@ -81,13 +82,17 @@ public class FoodController {
 		svo.setKid(kid);
 		if(kid == 0) {
 			m.addAttribute("search_list", dao.searchFood(svo));
+			Food_searchPageMaker pageMaker = new Food_searchPageMaker();
+			pageMaker.setSvo(svo);
+			pageMaker.setTotalCount(fs.countpage(svo));
+			m.addAttribute("pageMaker", pageMaker);
 		}else {
-				m.addAttribute("search_list", dao.searchFood_kind(svo));				
+				m.addAttribute("search_list", dao.searchFood_kind(svo));	
+				Food_searchPageMaker_kid pageMaker = new Food_searchPageMaker_kid(); 
+				pageMaker.setSvo(svo);
+				pageMaker.setTotalCount(dao.countPaging_kid(svo));
+				m.addAttribute("pageMaker", pageMaker);
 		}
-		Food_searchPageMaker pageMaker = new Food_searchPageMaker();
-		pageMaker.setSvo(svo);
-		pageMaker.setTotalCount(fs.countpage_kid(svo));
-		m.addAttribute("pageMaker", pageMaker);
 		return "search";
 	}
 	
@@ -129,6 +134,8 @@ public class FoodController {
 	public String reservation(@RequestParam("fid") int fid, Model m) {
 		logger.info("Welcome search! The client url is {}.", "/uneeds/food/detail");
 		m.addAttribute("list", dao.detail(fid));
+		m.addAttribute("type_list", dao.rstype());
+		m.addAttribute("time_list", dao.rstime());
 		return "reservation";
 	}
 		

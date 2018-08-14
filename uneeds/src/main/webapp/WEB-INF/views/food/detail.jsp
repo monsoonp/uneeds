@@ -3,8 +3,8 @@
 <!DOCTYPE html>
 <html>
 <head>
-<script
-	src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=iXc25gyU5cMUdYySUzre"></script>
+<script type="text/javascript"
+src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=iXc25gyU5cMUdYySUzre&submodules=geocoder"></script>
 <script src="//cdn.ckeditor.com/4.10.0/standard/ckeditor.js"></script>
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -23,6 +23,16 @@
 				location.reload();
 			}
 		});
+	}
+	
+	
+	function reservation(){
+		var Url = "reservation?fid=";
+		var fid = $("#fid").val();
+		var popUp = Url + fid
+		var popOpen = "width=408, height=545, resizeable=no, status=no;";
+		
+		window.open(popUp,"",popOpen);
 	}
 </script>
 <title>UNEEDS FOOD</title>
@@ -45,21 +55,51 @@
 					<ul style="margin: 0px; padding: 0px;">
 						<li style="color: white;">LOGIN</li>
 					</ul>
+					<input type="hidden" id="addr" value="${list.faddr}">
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- 네이버 MAP API -->
-	<div id="food_detail_map_area">
-		<script type="text/javascript">
-			new naver.maps.Map('food_detail_map_area', {
-				center : new naver.maps.LatLng(37.2900533, 127.1036797),
-				zoom : 10,
-				mapTypeControl : true
-			// 일반, 위성 버튼 보이기 (v3 에서 바뀐 방식)
-			});
-		</script>
-	</div>
+	<div id="food_detail_map_area"></div>
+	<script id="code">
+    //function get_pointer (해당주소,대상지도 id,title) {
+	var addr = $("#addr").val().split("·");
+	var addrs = addr[1];
+    function get_pointer (getid) {
+        naver.maps.Service.geocode({
+		 address: addrs
+        }, function(status, response) {
+            if (status !== naver.maps.Service.Status.OK) {
+                //return alert('Something wrong!');
+                console.log('주소에러');
+            }
+
+            var result = response.result, // 검색 결과의 컨테이너
+
+                items = result.items; // 검색 결과의 배열
+
+            // do Something
+            var x = eval(items[0].point.x);
+            var y = eval(items[0].point.y);
+
+            var HOME_PATH = window.HOME_PATH || '.';
+
+            var cityhall = new naver.maps.LatLng(y, x),
+                map = new naver.maps.Map('food_detail_map_area', {
+                    center: cityhall.destinationPoint(0, 100),
+                    zoom: 10,
+                    mapTypeControl : true
+                }),
+                marker = new naver.maps.Marker({
+                    map: map,
+                    position: cityhall
+                });
+        });
+    }
+    /* 마커중복 사용안됨 */
+    get_pointer('addrs','map');
+</script>
 	<!-- 음식점 내용 및 리뷰 개수 -->
 	<div id="food_detail_img_area">
 		<div id="food_detail_img_contain">
@@ -116,18 +156,13 @@
 					</div>
 					<div style="width: 20px; display: inline-block;"></div>
 					<div id="food_detail_title_area_write_contain_review">
-						<a href="reservation?fid=${param.fid}">
-							<div id="food_detail_title_area_write_contain_review_img"></div>
+						<a href="javascript:reservation();">
+							<input type="hidden" id="fid" value="${param.fid}">
+							<div id="food_detail_title_area_write_contain_reservation_img"></div>
 							<div id="food_detail_title_area_write_contain_review_lang">예약하기</div>
 						</a>
 					</div>
 					<div style="width: 20px; display: inline-block;"></div>
-					<div id="food_detail_title_area_write_contain_review">
-						<a href="#food_detail_content_review_write_title">
-							<div id="food_detail_title_area_write_contain_review_img"></div>
-							<div id="food_detail_title_area_write_contain_review_lang">목록</div>
-						</a>
-					</div>
 				</div>
 			</div>
 		</div>

@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.food.domain.Food_dataVo;
+import com.food.domain.Food_reservationVo;
 import com.food.domain.Food_searchVo;
 
 @Repository
@@ -56,5 +57,15 @@ public class Food_MydataDAOImpl implements Food_MydataDAO {
 	@Override
 	public Food_dataVo detail_like(Integer fid) {
 		return mysqlSession.selectOne(namespace + ".detail_like", fid);
+	}
+
+	@Override
+	public List<Food_reservationVo> rstype() {
+		return mysqlSession.selectList(namespace + ".rstype");
+	}
+
+	@Override
+	public List<Food_reservationVo> rstime() {
+		return mysqlSession.selectList(namespace + ".rstime");
 	}
 }
