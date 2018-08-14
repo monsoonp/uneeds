@@ -1,8 +1,31 @@
+/*body style*/
+.consult_bg01{width: 887px; height: 1450px;}
+
 /* reservation_step02 */
-.step02 dl.info dt {width:330px;height:40px;border-bottom:3px solid #529ae6; margin-left: 40px}
-.step02 dl.info dt h3 {width:150px;height:40px;margin:0 0 0 10px;background:#529ae6  no-repeat 100% 0;color:#fff;line-height:40px;font-size:18px;text-indent:10px;}
-.step02 dl.info dd {width:328px;height:133px;margin-bottom:20px;border:1px solid #adc8cd;border-top:none;font-size:12px;color:#717b81;}
-.step02 dl.info dd label {
+.step02 dl.info_left{width: 340px; height: 200px;display: inline-block;}
+.step02 dl.info_left dt {width:330px;height:40px;border-bottom:3px solid #529ae6; margin-left: 40px}
+.step02 dl.info_left dt h3 {width:150px;height:40px;margin:0 0 0 10px;background:#529ae6  no-repeat 100% 0;color:#fff;line-height:40px;font-size:18px;text-indent:10px;}
+.step02 dl.info_left dd {width:328px;height:133px;margin-bottom:20px;border:1px solid #adc8cd;border-top:none;font-size:12px;color:#717b81;}
+.step02 dl.info_left dd label {
+	margin:10px 0 0 10px;
+	display: block;
+ 	color: rgba(0, 0, 0, 0.6);
+ 	font-size: 12px;
+ 	line-height: 1;
+  	text-transform: uppercase;
+ 	letter-spacing: .2em;
+  }
+  
+.step02 dl.info_left dd input {
+	margin:10px 10px 0 10px;
+	border-radius: 4px;
+	}
+
+.step02 dl.info_right{width: 400px; height: 200px; float: right; display: inline-block;}
+.step02 dl.info_right dt {width:330px;height:40px;border-bottom:3px solid #529ae6; margin-left: 40px}
+.step02 dl.info_right dt h3 {width:150px;height:40px;margin:0 0 0 10px;background:#529ae6  no-repeat 100% 0;color:#fff;line-height:40px;font-size:18px;text-indent:10px;}
+.step02 dl.info_right dd {width:328px;height:133px;margin-bottom:20px;border:1px solid #adc8cd;border-top:none;font-size:12px;color:#717b81;}
+.step02 dl.info_right dd label {
 	margin:10px 0 0 10px;
 	display: block;
  	color: rgba(0, 0, 0, 0.6);
@@ -13,10 +36,12 @@
  	letter-spacing: .2em;
   }
   
-.step02 dl.info dd input {
+.step02 dl.info_right dd input {
 	margin:10px 10px 0 10px;
 	border-radius: 4px;
 	}
+
+.checklist {width: 328px; height: 133px;}
 
 
 .reservation-group {
@@ -32,12 +57,19 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   margin: 0px 0 20px;
+  
 }
+
+.name{width: 320px;}
+.phone{width: 320px;}
+.genderlist{width: 320px; display: inline-block;}
 
 .gender {
 	margin: 0px 0 20px;
-	width:173px;
+	width:200px;
 	height: 21px;
+	float: right;
+	display: inline-block;
 }
 
 /* reservation_step03 */
@@ -52,13 +84,14 @@
 .step03 dl.calendar_list dd .con {width:330px;}
 .step03 dl.calendar_list dd .con table {width:100%;margin-bottom:20px;border-bottom:1px solid #adc8cd; border-left:1px solid #adc8cd; border-right:1px solid #adc8cd;  font-size:12px;color:#373a3c;}
 .step03 dl.calendar_list dd .con table tbody th span {display:block;width:46px;height:46px;border-left:1px solid #d9d2c5;border-bottom:1px solid #adc8cd;color:#a8a498;font-weight:normal;line-height:46px;}
-
-
 .step03 dl.calendar_list dd .con table tbody td span {position:relative;display:block;width:46px;height:46px;border-left:1px solid #d9d2c5;border-top:1px solid #d9d2c5;text-align:center;line-height:46px;}
+.step03 dl.calendar_list dd .con table tbody td span.un {background:#eee9e4;color:#a8a498;}
+.step03 dl.calendar_list dd .con table tbody td span.un:hover {border:none;color:#a8a498;cursor:default;}
+
 .step03 dl.calendar_list dd .con table tbody td span.first {border-left:1px solid #adc8cd;}
 .step03 dl.calendar_list dd .con table tbody td span.last {border-right:1px solid #adc8cd;}
 .step03 dl.calendar_list dd .con table tbody td span:hover {width:45px;height:45px;border:1px solid #53afc8;cursor:pointer;color:#089dba;font-weight:bold;line-height:46px;}
-.step03 dl.calendar_list dd .con table tbody td span.last:hover {width:46px;}
+
 .step03 dl.calendar_list dd .con table tbody td span.today {font-weight:bold;color:#089dba;}
 .step03 dl.calendar_list dd .con table tbody td span.impossible {background:#eee9e4;color:#a8a498;}
 .step03 dl.calendar_list dd .con table tbody td span.impossible:hover {width:46px;height:46px;border:1px solid #d9d2c5;border-right:none;border-bottom:none;line-height:46px;font-weight:normal;cursor:normal;}
@@ -67,10 +100,6 @@
 .step03 dl.calendar_list dd .con table tbody td span.next {background:#f2faf9;}
 .step03 dl.calendar_list dd .con table tbody td span .on {position:absolute;top:-20px;left:10px;width:34px;height:35px;background:url('../img/ico_spot.png') no-repeat 0 0;}
 .step03 dl.calendar_list dd .con table tbody td span.active {width:45px;height:45px;border:1px solid #53afc8;background:#53afc8;color:#fff;font-weight:bold;}
-
-
-
-
 .step03 dl.calendar_list dd .mobile_con {display:none;}
 .step03 dl.calendar_list dd.txt {width:328px;height:62px;padding:24px 0 0 0;border:1px solid #d9d2c5;background:#f9f4f0;color:#7f7f7f;font-size:14px;line-height:18px;clear:both;text-align:center;}
 .step03 dl.calendar_list dd.txt strong {color:#373a3c;}
@@ -114,8 +143,5 @@
 .step03 .description p.txt {color:#373a3c;}
 .step03 .description ul {margin-top:10px;}
 
-.step03 .btn_side {top:10px;width:680px;margin:0 0 50px 0}
+.step03 .btn_side {width:93px;height:41px;line-height:41px;font-size:16px;color:#529ae6;}
 .step03 .btn_side .btn01 {width:93px;height:41px;line-height:41px;font-size:16px;color:#529ae6;}
-.step03 .btn_side .btn01 img {margin-right:29px;vertical-align:middle;}
-.step03 .btn_side .btn02 {width:95px;height:43px;line-height:43px;font-size:16px;color:#fff;}
-.step03 .btn_side .btn02 img {margin-left:27px;vertical-align:middle;}

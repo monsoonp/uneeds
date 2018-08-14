@@ -24,7 +24,6 @@ public class LoginServiceImpl implements LoginService{
 	@Override
 	public boolean loginCheck(HttpSession session, String usr, String pwd) {
 		HashMap<String, Object> result = loginDao.selectOne(usr);
-		System.out.println(result);
 		if(result == null)
             return false;
         else {
@@ -35,7 +34,7 @@ public class LoginServiceImpl implements LoginService{
         	}else {
         		if(pw.equals(pwd)) {
     	        	session.setAttribute("userid", usr);
-    	        	session.setAttribute("lcode", Lcode);
+    	        	session.setAttribute("Lcode", Lcode);
         			return true;
         		}
         		else 
@@ -56,5 +55,9 @@ public class LoginServiceImpl implements LoginService{
 		
 	}
 	
-
+	// api 로그인
+	@Override
+	public int login(String id, String site) {
+		return loginDao.login(id, site);
+	}
 }

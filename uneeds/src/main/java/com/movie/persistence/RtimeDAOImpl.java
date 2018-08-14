@@ -32,5 +32,5 @@ public class RtimeDAOImpl implements RtimeDAO{
 	public void deleteRtime(RtimeVO rvo) {
 		mysqlSession.delete(mspace+".deleteRtime",rvo);
 	}
-	
+
 }

@@ -14,4 +14,14 @@ public interface ReleaseService {
 	
 	//상영영화코드 삭제
 	public void delete_release(ReleaseVO rvo) throws Exception;
+	
+	//상영형태 카운팅
+	public int showtycd_count(ReleaseVO rvo) throws Exception;
+	
+	//영화 카운팅
+	public int moviecd_count(ReleaseVO rvo) throws Exception;
+	
+	//상영영화 입력검사
+	public int releaseall_count(ReleaseVO rvo) throws Exception;
+	
 }

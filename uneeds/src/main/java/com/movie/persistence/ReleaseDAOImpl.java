@@ -31,4 +31,19 @@ public class ReleaseDAOImpl implements ReleaseDAO{
 	public void deleteRelease(ReleaseVO rvo) {
 		mysqlSession.delete(mspace+".deleteRelease",rvo);
 	}
+
+	@Override
+	public int showtycd_count(ReleaseVO rvo) {
+		return mysqlSession.selectOne(mspace+".showtycd_count",rvo);
+	}
+
+	@Override
+	public int moviecd_count(ReleaseVO rvo) {
+		return mysqlSession.selectOne(mspace+".moviecd_count",rvo);
+	}
+
+	@Override
+	public int releaseall_count(ReleaseVO rvo) {
+		return mysqlSession.selectOne(mspace+".releaseall_count",rvo);
+	}
 }

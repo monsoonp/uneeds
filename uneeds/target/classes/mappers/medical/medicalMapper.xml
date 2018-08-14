@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Config 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.medical.mappers.medicalMapper">	<!-- namespace = package / 임의 설정 -->
+	
+	<!-- sido code insert -->
+	<insert id="insertSido">
+	 insert into m_sido(sicode, siname) values(#{sicode}, #{siname})
+	</insert>
+	
+	<insert id="insertSigun">
+	 insert into m_sigun(guncode, gunname) values(#{guncode}, #{gunname})
+	</insert>
+	
+	<insert id="insertKinds">
+	 insert into m_kinds(mknumber, mkname) values(#{mknumber}, #{mkname})
+	</insert>
+	
+	<insert id="insertThema">
+	 insert into m_treatment(mtnumber, mtname) values(#{mtnumber}, #{mtname})
+	</insert>
+	
+	<select id="selectCheck" resultType="com.medical.domain.CheckListVO">
+	<![CDATA[
+	select ctcode, ctmemo from m_checklist
+	 ]]>
+	</select>
+	
+	<select id="selectTime" resultType="com.medical.domain.TimetableVO">
+	<![CDATA[
+	select tcode, ttime from m_time
+	 ]]>
+	</select>
+	
+	
+</mapper>

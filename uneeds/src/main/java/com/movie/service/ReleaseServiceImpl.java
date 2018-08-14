@@ -29,5 +29,20 @@ public class ReleaseServiceImpl implements ReleaseService{
 	public void delete_release(ReleaseVO rvo) throws Exception {
 		dao.deleteRelease(rvo);
 	}
+
+	@Override
+	public int showtycd_count(ReleaseVO rvo) throws Exception {
+		return dao.showtycd_count(rvo);
+	}
+
+	@Override
+	public int moviecd_count(ReleaseVO rvo) throws Exception {
+		return dao.moviecd_count(rvo);
+	}
+
+	@Override
+	public int releaseall_count(ReleaseVO rvo) throws Exception {
+		return dao.releaseall_count(rvo);
+	}
 	
 }

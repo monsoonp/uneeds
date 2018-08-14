@@ -16,4 +16,17 @@
 	<delete id="deleteRelease">
 		delete from mv_release_table where umoviecd=#{umoviecd}
 	</delete>
+	
+	<select id="showtycd_count" resultType="int">
+		select count(*) from mv_release_table where showtycd=#{showtycd}
+	</select>
+	
+	<select id="moviecd_count" resultType="int">
+		select count(*) from mv_release_table where moviecd=#{moviecd}
+	</select>
+	
+	<select id="releaseall_count" resultType="int">
+		select count(*) from mv_release_table 
+		where(moviecd=#{moviecd} and showtycd=#{showtycd})
+	</select>	
 </mapper>
