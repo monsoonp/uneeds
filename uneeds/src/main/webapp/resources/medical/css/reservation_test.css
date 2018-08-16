@@ -123,6 +123,7 @@
 .step03 dl.time dd table th {padding:8px 0 0 0;border-right:1px solid #adc8cd;font-weight:normal;color:#a8a498;vertical-align:top;}
 .step03 dl.time dd table td {}
 .step03 dl.time dd table th.ti {color:#089dba;border:none;text-align:right;}
+.step03 dl.time dd table th.tip {color:#089dba;border:none;text-align:right;}
 .step03 dl.time dd table td ul {position:relative;color:#373a3c;text-align:center;}
 .step03 dl.time dd table td ul li {position:relative;float:left;border-right:1px solid #d9d2c5;border-bottom:1px solid #d9d2c5;}
 .step03 dl.time dd table td ul.time10 li span {display:block;width:81px;height:30px;line-height:30px;}

@@ -1,13 +1,12 @@
 package com.medical.persistence;
 
-import java.util.List;
-
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
-import com.medical.domain.CheckListVO;
+
+import com.medical.domain.HospitalVO;
 import com.medical.domain.KindsVO;
 import com.medical.domain.SidoVO;
 import com.medical.domain.SigunVO;
@@ -44,6 +43,11 @@ public class InsertDAOImpl implements InsertDAO {
 	public void insertThema(ThemaVO to) {
 		mysqlSession.insert(namespace + ".insertThema", to);
 		
+	}
+
+	@Override
+	public void insertHospitals(HospitalVO hvo) throws Exception {
+		mysqlSession.insert(namespace + ".insertHospitals", hvo);
 	}
 
 
