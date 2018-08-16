@@ -2,6 +2,7 @@ package com.food.persistence;
 
 import java.util.List;
 import com.food.domain.Food_dataVo;
+import com.food.domain.Food_reservationVo;
 import com.food.domain.Food_searchVo;
 
 public interface Food_MydataDAO {
@@ -13,4 +14,6 @@ public interface Food_MydataDAO {
 	public int countPaging_kid(Food_searchVo svo);
 	public Food_dataVo detail(Integer fid);
 	public Food_dataVo detail_like(Integer fid);
+	public List<Food_reservationVo> rstype();
+	public List<Food_reservationVo> rstime();
 }
