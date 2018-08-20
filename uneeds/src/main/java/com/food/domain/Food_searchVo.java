@@ -53,6 +53,7 @@ public class Food_searchVo {
 		return kid;
 	}
 
+
 	public void setKid(int kid) {
 		this.kid = kid;
 	}

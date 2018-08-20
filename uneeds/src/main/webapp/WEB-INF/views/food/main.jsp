@@ -16,9 +16,9 @@
 		<ul style="text-align: center;">
 			<li>UNEEDS<br>FOOD</li>
 		</ul>
-		<form action="main" method="post">
+		<form action="search" method="get">
 		<div id="main_search" style="position: relative; margin-top: 40px;">
-    		<input id='input' type="text" name="main_search">
+    		<input id='input' type="text" name="keyword">
     		<span id=input_span>
     		<button id="btn_input">Search</button>
     		</span>
