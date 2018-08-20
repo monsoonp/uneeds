@@ -14,7 +14,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-
 	
 <style>
 ul {
@@ -513,7 +512,7 @@ a#MOVE_TOP_BTN {
 	  var s = "#ii" + e.getAttribute('discountcd');
 	  var y =$(s).val();
 	  
-	  alert(y);
+	  //alert(y);
 	  
 	  var retVal = confirm("할인이벤트명 : "+x+" 의 할인율을 "+y+"로 변경하시겠습니까?");
 
@@ -844,7 +843,7 @@ a#MOVE_TOP_BTN {
 			var rtvalue=frm.rtime.value;
 			var subs=rtvalue.substr(rtvalue.length-1, 1);
 			
-			alert(rtvalue.length+" / "+ subs + "ㅋ");
+			//alert(rtvalue.length+" / "+ subs + "ㅋ");
 			
 			if(subs=="0" && rtvalue.length==5 && rtvalue!=""){
 				$.post("insert_Rtime",{"rtime":rtvalue},
