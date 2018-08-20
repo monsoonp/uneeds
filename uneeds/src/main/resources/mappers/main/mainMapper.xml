@@ -9,7 +9,7 @@
 	
 	<!-- mySql -->
 	<select id="login" parameterType="hashmap" statementType="CALLABLE">
-		{call login_check(#{mid}, #{lname}, #{usercode,mode=OUT,jdbcType=INTEGER } )}
+		{call login_check(#{mid}, #{lname}, #{usercode,mode=OUT,jdbcType=INTEGER })}
 	</select>
 	
 	

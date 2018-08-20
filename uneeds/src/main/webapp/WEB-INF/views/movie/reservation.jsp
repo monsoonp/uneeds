@@ -49,7 +49,8 @@
 				 		if($("#sellist2 option:selected").val()>0){
 				  			selectTheater($("#theatercd").val());
 				  		}
-				 		$("#rselectdate").val($("#rselectdate2").val());
+				 		var dd = $("#rselectdate2").val();
+				 		$("#rselectdate").val(dd);
 					}
 				});
 	});
@@ -173,7 +174,7 @@
 			  for (var i = 0; i < data.length; i++) {
 				var d = data[i];
 				
-				if(((sd == ttoday) && (ttime <= d.rtime))||(sd > ttoday)){
+				if(((sd2 == ttoday) && (ttime <= d.rtime))||(sd2 > ttoday)){
 					if(cc==0){
 						str+="<hr style='margin: 0;'><p>"+d.tnum+"</p><br>";
 						str+="<h6><span class='badge badge-secondary' onclick='selectTime(this)' timetcd='"+d.timetcd+"'>"+d.rtime+"</span>";
@@ -343,7 +344,7 @@ padding-bottom: 4px; margin: 2px; margin-bottom: 4px;
 	<!-- top navi -->
 	<jsp:include page="/WEB-INF/views/movie/common/top_navbar.jsp"></jsp:include>
 
-<!-- 	<div class="container"> -->
+	<div class="container">
 		<div class="row" style="padding-top: 10px;">
 			<!--Left navi -->
 			<jsp:include page="/WEB-INF/views/movie/common/left_navbar2.jsp"></jsp:include>

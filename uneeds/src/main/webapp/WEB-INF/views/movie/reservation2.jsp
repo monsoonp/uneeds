@@ -22,7 +22,7 @@
 			  x=x+1;
 			  str= str + e.id+",";
 			  //$( "#seat" ).val(str.slice(0,-1));
-			  alert(x + str);
+			  //alert(x + str);
 		  }else if ((c=="orange")&&(x<=tpeople)){
 			  document.getElementById(e.id).style.backgroundColor = "#007bff";
 			  var re= e.id + ",";
