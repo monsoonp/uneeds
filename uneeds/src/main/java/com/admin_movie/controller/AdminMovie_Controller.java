@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class AdminMovie_Controller {
 	// http://localhost:8080/uneeds/admin_movie/*
 	
-	
 	//TEST
 	@RequestMapping(value = "/test", method = RequestMethod.GET)
 	public String test(){

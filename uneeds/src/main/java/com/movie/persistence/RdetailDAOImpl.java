@@ -19,4 +19,9 @@ public class RdetailDAOImpl implements RdetailDAO{
 	public int timetcd_count(RdetailVO rdvo) {
 		return mysqlSession.selectOne(mspace+".timetcd_count",rdvo);
 	}
+
+	@Override
+	public void insert_reserv1(RdetailVO rdvo) {
+		mysqlSession.insert(mspace+".insert_reserv1",rdvo);
+	}
 }

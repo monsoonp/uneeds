@@ -36,5 +36,10 @@ public class MovieDAOImpl implements MovieDAO{
 	public int wgradecd_count(MovieVO mvo) {
 		return mysqlSession.selectOne(mspace+".wgradecd_count",mvo);
 	}
+
+	@Override
+	public String getimgpath(MovieVO mvo) {
+		return mysqlSession.selectOne(mspace+".getimgpath",mvo);
+	}
 	
 }

@@ -14,4 +14,7 @@ public interface MovieDAO {
 	
 	//관람등급카운트
 	public int wgradecd_count(MovieVO mvo);
+	
+	//이미지주소
+	public String getimgpath(MovieVO mvo);
 }

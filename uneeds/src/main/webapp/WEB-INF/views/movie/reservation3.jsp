@@ -183,7 +183,7 @@ option{
 								<p class="text-muted" style="padding-right: 10px;">시간 </p><input type="text" class="resultinput" value="17:50" readonly="readonly">
 								<p class="text-muted" style="padding-right: 10px;">인원 </p><input type="text" id="amountT"class="resultinput" value="성인2, 학생2" readonly="readonly">
 								<p class="text-muted" style="padding-right: 10px;">좌석 </p><input type="text" id="seat" class="resultinput" value="-" readonly="readonly">
-								<p class="text-muted" style="padding-right: 10px;padding-top: 10px;">금액 </p><input type="text" class="resultinput" value="48,000" readonly="readonly" style="color: gold; font-size: x-large; width: 80px;">
+								<p class="text-muted" style="padding-right: 10px;padding-top: 10px;">금액 </p><input type="text" class="resultinput" value="48,000" readonly="readonly" style="color: gold; font-size: x-large; width: 100px;">
 								</div>
 								<div align="right" style="padding-top: 10px;">
 								<button type="button" class="btn btn-success btn-sm" >예약하기</button></div>

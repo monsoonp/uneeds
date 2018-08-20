@@ -11,7 +11,7 @@
 	</insert>
 	
 	<select id="listMovie" resultType="com.movie.domain.MovieVO">
-		select*from mv_movie_table
+		select*from mv_movie_table order by moviecd desc
 	</select>
 	
 	<delete id="deleteMovie">
@@ -20,5 +20,9 @@
 	
 	<select id="wgradecd_count" resultType="int">
 		select count(*) from mv_movie_table where wgradecd=#{wgradecd}
+	</select>
+	
+	<select id ="getimgpath" resultType="String">
+		select imgpath from mv_movie_table where moviecd=#{moviecd}
 	</select>
 </mapper>

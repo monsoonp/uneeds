@@ -24,4 +24,9 @@ public class VtimetableServiceImpl implements VTimetableService{
 	public List<ViewTimetableVO> list_search_timetable(ViewTimetableVO vtvo) throws Exception {
 		return dao.searchVTimetable(vtvo);
 	}
+
+	@Override
+	public String reserv_tname(int timetcd) throws Exception {
+		return dao.reserv_tname(timetcd);
+	}
 }

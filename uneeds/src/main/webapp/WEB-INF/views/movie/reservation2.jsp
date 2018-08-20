@@ -1,40 +1,42 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
 <meta charset="UTF-8">
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script>
   	var x = 0;
   	var str ="";
   	function selectBT(e) {
 	  //alert(e.id);
+	  var tpeople = $("#tpeople").val();
+	  //alert(tpeople);
 	  var c = document.getElementById(e.id).style.backgroundColor;
-	  if(c!="orange"){
-		  document.getElementById(e.id).style.backgroundColor = "orange";
-		  x=x+1;
-		  str= str + e.id+",";
-		  //$( "#seat" ).val(str.slice(0,-1));
-		  alert(x + str);
-	  }else{
-		  document.getElementById(e.id).style.backgroundColor = "#007bff";
-		  var re= e.id + ",";
-		  var st = str.replace(re, "");
-		  str=st;
-		  x=x-1;
-	  }
-	  var seatinput=str.slice(0,-1);
-	  $( "#seat" ).val(seatinput);
+
+		  if((c!="orange")&&(x<tpeople)){
+			  document.getElementById(e.id).style.backgroundColor = "orange";
+			  x=x+1;
+			  str= str + e.id+",";
+			  //$( "#seat" ).val(str.slice(0,-1));
+			  alert(x + str);
+		  }else if ((c=="orange")&&(x<=tpeople)){
+			  document.getElementById(e.id).style.backgroundColor = "#007bff";
+			  var re= e.id + ",";
+			  var st = str.replace(re, "");
+			  str=st;
+			  x=x-1;
+		  }else{
+			  alert("예매하신 인원은 " + tpeople+"명 입니다. 다시 확인하세요.");
+		  }
+		  var seatinput=str.slice(0,-1);
+		  $( "#seat" ).val(seatinput);
 	}
 	
+  	
 </script>
 <style>
 .nav-item {
@@ -106,7 +108,6 @@ li {
 option{
 	font-weight: bold;
 }
-
 .btn-primary,.btn-info{
 	width: 35px; border: 0px; padding: 5px; text-align: center;
 }
@@ -344,20 +345,33 @@ option{
 							<div class="col-lg-3" style="height: 580px;">
 								<div class="row" style="padding: 10px;padding-top: 0px;">
 									<div class="col" style="padding: 0px;">
-								<img src="/resources/movie/img/변산.png" alt="" style="width: 100%;height: 105%;">
+								<img src="/resources/movie/img/${remap.imgpath}" alt="" style="width: 100%;height: 105%;">
 								</div>
 								</div>
+								<form id="frm_reserv_step2">
 								<div class="row" style="padding: 10px; font-size: small; font-weight: bold;">
-								<input type="text" class="resultinput" value="변산" readonly="readonly" style="font-size: medium;"><br><br><br>
-								<p class="text-muted" style="padding-right: 10px;">극장</p><input type="text" class="resultinput" value="롯시-노원" readonly="readonly">
-								<p class="text-muted" style="padding-right: 10px;">날짜 </p><input type="text" id="getdate" readonly="readonly" value="2018-07-15" style="border: 0px; background-color: #343a40; color: white; font-weight: bold;">
-								<p class="text-muted" style="padding-right: 10px;">시간 </p><input type="text" class="resultinput" value="17:50" readonly="readonly">
-								<p class="text-muted" style="padding-right: 10px;">인원 </p><input type="text" id="amountT"class="resultinput" value="성인2, 학생2" readonly="readonly">
+								<input type="text" class="resultinput" id="rmovie" name="rmovie" value="${remap.rmovie}" readonly="readonly" style="font-size: medium;"><br><br><br>
+								<p class="text-muted" style="padding-right: 10px;">극장</p><input type="text" class="resultinput" value="${remap.rtheater}" readonly="readonly" id="rtheater" name="rtheater">
+								<p class="text-muted" style="padding-right: 10px;">날짜 </p><input type="text" id="rselectdate2" name="rselectdate2" readonly="readonly" value="${remap.rselectdate}" style="border: 0px; background-color: #343a40; color: white; font-weight: bold;">
+								<p class="text-muted" style="padding-right: 10px;">시간 </p><input type="text" class="resultinput"  id="rtime2" name="rtime2" value="${remap.rtime}" readonly="readonly">
+								<p class="text-muted" style="padding-right: 10px;">인원 </p>
+								<input type="text"  id="amountT" name="amountT" class="resultinput" value="${remap.amountT}" readonly="readonly">
 								<p class="text-muted" style="padding-right: 10px;">좌석 </p><input type="text" id="seat" class="resultinput" value="-" readonly="readonly">
-								<p class="text-muted" style="padding-right: 10px;padding-top: 10px;">금액 </p><input type="text" class="resultinput" value="48,000" readonly="readonly" style="color: gold; font-size: x-large; width: 80px;">
+								<p class="text-muted" style="padding-right: 10px;padding-top: 10px;">금액 </p><input type="text" id="rprice2" name="rprice2" class="resultinput" value="${remap.rprice}" readonly="readonly" style="color: gold; font-size: x-large; width: 100px;">
 								</div>
+								<input type="hidden" id="tpeople" name="tpeople" value="${rdvo.tpeople}">
+								<input type="hidden" id="peoplecd" name="peoplecd" value="${rdvo.peoplecd}">
+								<input type="hidden" id="umoviecd" name="umoviecd" value="${rdvo.umoviecd}">
+								<input type="hidden" id="timetcd" name="timetcd" value="${rdvo.timetcd}">
+								
+								<input type="hidden" id="imgpath" name="imgpath" value="${remap.imgpath}">
+								<input type="hidden" id="rselectdate" name="rselectdate" value="${remap.rselectdate}">
+								<input type="hidden" id="rprice" name="rprice" value="${remap.rprice}">
+								<input type="hidden" id="rtime" name="rtime" value="${remap.rtime}">
+								
 								<div align="right" style="padding-top: 10px;">
 								<button type="button" class="btn btn-success btn-sm" onclick="location.href='/uneeds/movie/reserv_paym'">결제하기</button></div>
+								</form>
 						</div>
 
 					</div>

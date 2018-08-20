@@ -33,4 +33,9 @@ public class MovieServiceImpl implements MovieService{
 	public int wgradecd_count(MovieVO mvo) throws Exception {
 		return dao.wgradecd_count(mvo);
 	}
+
+	@Override
+	public String get_imgpath(MovieVO mvo) throws Exception {
+		return dao.getimgpath(mvo);
+	}
 }

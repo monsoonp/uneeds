@@ -11,5 +11,8 @@ public interface VTimetableService {
 	
 	//시간표 검색
 	public List<ViewTimetableVO> list_search_timetable(ViewTimetableVO vtvo) throws Exception;
+		
+	//예약시 지점명
+	public String reserv_tname(int timetcd) throws Exception;
 	
 }

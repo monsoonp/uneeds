@@ -14,6 +14,9 @@ public interface MovieService {
 	//영화 삭제
 	public void delete_movie(MovieVO mvo) throws Exception;
 	
-	
+	//관람등급카운팅
 	public int wgradecd_count(MovieVO mvo) throws Exception;
+	
+	//이미지패스
+	public String get_imgpath(MovieVO mvo) throws Exception;
 }

@@ -52,13 +52,15 @@ a#MOVE_TOP_BTN {
    bottom: 50px;
    display: none;
    z-index: 999;
+   text-decoration: none;
 }
 
 .loading{
-	background-image: url("http://newsimg.sedaily.com/2017/04/18/1OEP2BWRPS_1.gif");
+	background-image: 
+	url("http://newsimg.sedaily.com/2017/04/18/1OEP2BWRPS_1.gif");
 	background-repeat:no-repeat;
 	z-index:999;
-	position: absolute;
+	position: fixed;
 	background-position:center;
 	background-color:white;
 	width:100%;
@@ -204,8 +206,10 @@ a#MOVE_TOP_BTN {
 				wgrade=3;
 			}else if(x=="19"){
 				wgrade=4;
-			}else{
+			}else if(x=="청소"){
 				wgrade=5;
+			}else{
+				wgrade=6;
 			}
 			$("#wgradecd")[0].value=wgrade;
 			
@@ -645,6 +649,8 @@ a#MOVE_TOP_BTN {
 						+d.umoviecd+"' onclick='delete_rele(this);' style='margin-left:5px;'>삭제</span><li>");
 			}
 		});
+		bindMVlist();
+		
 	}
 	//상영영화삭제
 	function delete_rele(e){
@@ -718,7 +724,7 @@ a#MOVE_TOP_BTN {
 		
 		//스크롤
 		 $(window).scroll(function() {
-            if ($(this).scrollTop() > 20) {
+            if ($(this).scrollTop() > 10) {
                 $('#MOVE_TOP_BTN').fadeIn();
             } else {
                 $('#MOVE_TOP_BTN').fadeOut();
