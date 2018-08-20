@@ -11,11 +11,7 @@
 	<select id="login" parameterType="hashmap" statementType="CALLABLE">
 		{call login_check(#{mid}, #{lname}, #{usercode,mode=OUT,jdbcType=INTEGER })}
 	</select>
-<<<<<<< HEAD
-	
-=======
-			
->>>>>>> branch 'master' of https://github.com/monsoonp/uneeds.git
+
 	<select id="logincheck" resultType="String">
         select * from umemeber_table where mid = ${mid} and pw = ${pw}
     </select>
