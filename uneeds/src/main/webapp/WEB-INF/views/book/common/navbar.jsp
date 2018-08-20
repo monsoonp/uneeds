@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%> 
-    
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <nav class="navbar navbar-expand-lg navbar-white bg-white fixed-top">
 		<div class="container">
 			<a class="navbar-brand" href="/uneeds/book/">
@@ -87,19 +87,43 @@
 				<!-- 드랍다운 2 end -->
 				
 				<!-- 내비 드랍다운3 -->
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog"
-					data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						login 
-					</a>
-					<div class="dropdown-menu dropdown-menu-right"
-						aria-labelledby="navbarDropdownBlog">
-						<div class="dropdown-item">
-							<!-- login -->
+				<c:choose>
+					<c:when test="${login != 'logined' }">
+						<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog"
+								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									login 
+								</a>
+								<div class="dropdown-menu dropdown-menu-right"
+									aria-labelledby="navbarDropdownBlog">
+									<div class="dropdown-item">
+										<!-- login -->
+										<jsp:include page="/WEB-INF/views/book/common/loginnav.jsp"></jsp:include>
+									</div>
+								</div>
+							
+						</li>
+					</c:when>
+					<c:otherwise>
+						<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog"
+								data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									<i class="fas fa-user-circle"></i>
+								</a>
+								<div class="dropdown-menu dropdown-menu-right"
+									aria-labelledby="navbarDropdownBlog">
+									<div class="dropdown-item">
+										<a href="#">${id} ( ${site} )</a>
+										<a href="#" onclick="totalLogout();">로그아웃</a>
+									</div>
+								</div>
+							
+						</li>						
+						<div class="display-none">
 							<jsp:include page="/WEB-INF/views/book/common/loginnav.jsp"></jsp:include>
 						</div>
-					</div>
-				</li>
+					</c:otherwise>
+				</c:choose>
 				
 			</ul>
 		</div>
