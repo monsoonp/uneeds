@@ -17,7 +17,7 @@ public class TourDAOImpl implements TourDAO {
 	@Inject
 	private SqlSession mysqlSession;
 
-	private static final String namespace = "com.travel.MemberMapper";
+	private static final String namespace = "com.travel.travelMapper";
 
 	
 	@Override
@@ -36,8 +36,8 @@ public class TourDAOImpl implements TourDAO {
 	}
 
 	@Override
-	public List<ReviewVO> reviewselectinfo() {
-		List<ReviewVO> list = mysqlSession.selectList(namespace + ".reviewselectinfo");
+	public List<ReviewVO> reviewselectinfo(String contentid) {
+		List<ReviewVO> list = mysqlSession.selectList(namespace + ".t_reviewselectinfo", contentid);
 		return list;
 	}
 

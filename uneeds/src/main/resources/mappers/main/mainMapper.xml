@@ -13,4 +13,20 @@
 	</select>
 	
 	
+		<select id="getTime" resultType="string">
+		select now()
+	</select>
+	
+	<select id="logincheck" resultType="String">
+        select * from umemeber_table where mid = ${mid} and pw = ${pw}
+    </select>
+	
+	<select id ="viewuMembers" resultType = "com.main.domain.uMemberVO">
+		select * from umemeber_table where mid = ${mid} and pw = ${pw}
+	</select>
+	
+	<select id="selectOne" resultType="java.util.HashMap">
+        select * from umemeber_table where mid = #{usr}
+    </select>
+	
 </mapper>

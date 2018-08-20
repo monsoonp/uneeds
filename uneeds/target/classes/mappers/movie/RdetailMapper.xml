@@ -7,4 +7,22 @@
 	<select id="timetcd_count" resultType="int">
 		select count(*) from mv_rdetail_table where timetcd=#{timetcd}
 	</select>
+	
+	<insert id="insert_reserv1">
+		insert into mv_rdetail_table(redetailcd,rselectdate,tpeople,peoplecd,umoviecd,
+		timetcd,statecd)
+		values(#{redetailcd},#{rselectdate},#{tpeople},#{peoplecd},#{umoviecd},
+		#{timetcd},1)
+	</insert>
+	
+<!-- 	<update id="update_reserv2"> -->
+<!-- 	<insert id="insert_reserv1"> -->
+<!-- 		insert into -->
+<!-- 		mv_rdetail_table(redetailcd,rselectdate,tpeople,peoplecd,umoviecd, -->
+<!-- 		timetcd,seatcd,paycd,discountcd,statecd) -->
+<!-- 		values(#{redetailcd},#{rselectdate},#{tpeople},#{peoplecd},#{umoviecd}, -->
+<!-- 		#{timetcd},#{seatcd},#{paycd},#{discountcd},1) -->
+<!-- 	</insert> -->
+<!-- 	</update> -->
+
 </mapper>
