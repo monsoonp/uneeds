@@ -14,5 +14,7 @@ public interface TourDAO {
 	
 	// review (리뷰) 값 insert
 	public void reviewinsertinfo(ReviewVO vo);
-	public List<ReviewVO> reviewselectinfo();
+	
+	// review 값 불러오기(select)
+	public List<ReviewVO> reviewselectinfo(String contentid);
 }
