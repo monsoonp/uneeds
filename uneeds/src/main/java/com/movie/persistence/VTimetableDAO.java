@@ -11,4 +11,7 @@ public interface VTimetableDAO {
 	//지점별상영시간표검색
 	public List<ViewTimetableVO> searchVTimetable(ViewTimetableVO vtvo);
 
+	
+	//예매시 사용 - 지점명
+	public String reserv_tname(int timetcd);
 }

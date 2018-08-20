@@ -21,6 +21,13 @@
 	 insert into m_treatment(mtnumber, mtname) values(#{mtnumber}, #{mtname})
 	</insert>
 	
+	<insert id="insertHospitals">
+	 insert into m_hospital(hname, hurl, htel, haddr) values(#{hname}, #{hurl}, #{htel}, #{haddr})
+	</insert>
+	
+	
+	
+	
 	<select id="selectCheck" resultType="com.medical.domain.CheckListVO">
 	<![CDATA[
 	select ctcode, ctmemo from m_checklist

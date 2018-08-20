@@ -23,4 +23,15 @@ public class VRmovieDAOImpl implements VRmovieDAO{
 		return mysqlSession.selectList(mspace+".listVRmovie");
 	}
 
+
+	@Override
+	public List<ViewRmovieVO> user_readVRmovie() {
+		return mysqlSession.selectList(mspace+".user_listVRmovie");
+	}
+
+	@Override
+	public List<ViewRmovieVO> reserv_movietype(int umoviecd) {
+		return mysqlSession.selectList(mspace+".reserv_movietype",umoviecd);
+	}
+
 }

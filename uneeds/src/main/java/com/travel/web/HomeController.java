@@ -28,12 +28,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.mongodb.DB;
-import com.mongodb.MongoClient;
-import com.mongodb.client.MongoDatabase;
-import com.mongodb.client.MongoIterable;
 import com.travel.model.BookMarkVO;
 import com.travel.model.ReviewVO;
 import com.travel.model.TravelareainfoVO;
@@ -66,6 +63,11 @@ public class HomeController {
 	@RequestMapping(value = "/bookmark")
 	public String bookmark(Locale locale, Model model) {
 		return "bookmark";
+	}
+	
+	@RequestMapping(value = "/detailpage")
+	public String detailfage(Locale locale, Model model) {
+		return "detailpage";
 	}
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -136,7 +138,7 @@ public class HomeController {
 			areaCode = Objects.isNull(areaCode) ? "1" : areaCode;
 
 			urlBuilder.append("&" + URLEncoder.encode("areaCode", "UTF-8") + "=" + URLEncoder.encode(areaCode, "UTF-8")); /* 서비스명=어플명 */
-
+			
 			url = new URL(urlBuilder.toString());
 			conn = (HttpURLConnection) url.openConnection();
 			conn.setRequestMethod("GET");
@@ -259,7 +261,9 @@ public class HomeController {
 
 		return new ResponseEntity<String>(sb.toString(), responseHeaders, HttpStatus.CREATED);
 	}
-
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
+	// 저장 부분 
 	/* 여행 list 자동 저장 등록 */
 	@RequestMapping(value = "t_travelapilist", method = RequestMethod.POST)
 	public @ResponseBody HashMap<String, String> insertMemberAjax(HttpServletRequest r, TravelareainfoVO vo) {
@@ -299,4 +303,11 @@ public class HomeController {
 	/* 리뷰 정보 저장 */
 
 	
+	// 불러오기 부분 
+	// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	/* 리뷰 정보 불러오기 */
+	@RequestMapping(value = "/reviewselectinfo", method = RequestMethod.GET)
+	public @ResponseBody List<ReviewVO> reviewselectinfo(@RequestParam("contentid") String contentid) {
+		return dao.reviewselectinfo(contentid);
+	}
 }

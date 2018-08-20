@@ -9,13 +9,12 @@ public class ViewRmovieVO {
 	private String wgradename;//관람등급명
 	private int showtycd;//상영형태코드
 	private String showtyname;//상영형태명
+	private String imgpath;
 	
 	public ViewRmovieVO() {}
 
-	
-
 	public ViewRmovieVO(int umoviecd, int moviecd, String moviename, int wgradecd, String wgradename, int showtycd,
-			String showtyname) {
+			String showtyname, String imgpath) {
 		super();
 		this.umoviecd = umoviecd;
 		this.moviecd = moviecd;
@@ -24,9 +23,18 @@ public class ViewRmovieVO {
 		this.wgradename = wgradename;
 		this.showtycd = showtycd;
 		this.showtyname = showtyname;
+		this.imgpath = imgpath;
 	}
 
 
+
+	public String getImgpath() {
+		return imgpath;
+	}
+
+	public void setImgpath(String imgpath) {
+		this.imgpath = imgpath;
+	}
 
 	public int getUmoviecd() {
 		return umoviecd;
@@ -100,14 +108,11 @@ public class ViewRmovieVO {
 		this.showtyname = showtyname;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "ViewRmovieVO [umoviecd=" + umoviecd + ", moviecd=" + moviecd + ", moviename=" + moviename
 				+ ", wgradecd=" + wgradecd + ", wgradename=" + wgradename + ", showtycd=" + showtycd + ", showtyname="
-				+ showtyname + "]";
+				+ showtyname + ", imgpath=" + imgpath + "]";
 	}
-	
 	
 }

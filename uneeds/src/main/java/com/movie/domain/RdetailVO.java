@@ -1,10 +1,9 @@
 package com.movie.domain;
 
-import java.util.Date;
 //예매상세
 public class RdetailVO {
 	private int redetailcd;
-	private Date rselectdate;
+	private String rselectdate;
 	private int tpeople;
 	private String peoplecd;
 	private int umoviecd;
@@ -18,7 +17,10 @@ public class RdetailVO {
 	}
 	
 
-	public RdetailVO(int redetailcd, Date rselectdate, int tpeople, String peoplecd, int umoviecd, int timetcd,
+
+
+
+	public RdetailVO(int redetailcd, String rselectdate, int tpeople, String peoplecd, int umoviecd, int timetcd,
 			String seatcd, int paycd, int discountcd, int statecd) {
 		super();
 		this.redetailcd = redetailcd;
@@ -33,6 +35,10 @@ public class RdetailVO {
 		this.statecd = statecd;
 	}
 
+
+
+
+
 	public String getPeoplecd() {
 		return peoplecd;
 	}
@@ -42,19 +48,34 @@ public class RdetailVO {
 		this.peoplecd = peoplecd;
 	}
 
-
+	
 	public int getRedetailcd() {
 		return redetailcd;
 	}
+
+
 	public void setRedetailcd(int redetailcd) {
 		this.redetailcd = redetailcd;
 	}
-	public Date getRselectdate() {
+
+
+
+	public String getRselectdate() {
 		return rselectdate;
 	}
-	public void setRselectdate(Date rselectdate) {
+
+
+
+
+
+	public void setRselectdate(String rselectdate) {
 		this.rselectdate = rselectdate;
 	}
+
+
+
+
+
 	public int getTpeople() {
 		return tpeople;
 	}
@@ -99,12 +120,17 @@ public class RdetailVO {
 	}
 
 
+
+
+
 	@Override
 	public String toString() {
 		return "RdetailVO [redetailcd=" + redetailcd + ", rselectdate=" + rselectdate + ", tpeople=" + tpeople
 				+ ", peoplecd=" + peoplecd + ", umoviecd=" + umoviecd + ", timetcd=" + timetcd + ", seatcd=" + seatcd
 				+ ", paycd=" + paycd + ", discountcd=" + discountcd + ", statecd=" + statecd + "]";
 	}
+
+
 
 
 }

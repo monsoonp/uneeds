@@ -49,8 +49,8 @@ function buildCalendar(){
   //달력 출력
   for(i=1; i<=lastDate.getDate(); i++){
     cell =row.insertCell();
-    day = "<span class='choice"+i+"'";
-    day += "data-index="+i+" value="+i+">";
+    day = "<span id='selectdate' class='choice"+i+"'";
+    day += "data-index="+i+" value="+i+" onclick='javascript:selectDate(this);'>";
     day += i;
     day +="</span>";
     cell.innerHTML = day;
@@ -80,18 +80,40 @@ function bindTimetable(){
 	$.get("timeTableView", function(data, state){
 		  // 성공한 경우
 		  if(state == "success"){
-			  var ul = $(".time10");
-			  ul.empty();
+			  var am = $(".timeam");
+			  var pm = $(".timepm");
+			  am.empty();
+			  pm.empty();
+			  
 			  // 타임 테이블
-			  for(var i=0; i<data.length; i++){
-				  if (i %2==0){
-					  ul.append("<li><span class='un active' value='"+data[i].tcode+"'>00</span></li>");
+			  am.append("<tr><th rowspan='4' class='ti'>오전</th>");
+			  pm.append("<tr><th rowspan='7' class='tip'>오후</th>");
+			  for(var i=0; i<data.length; i+=2){
+				  if (i < 6){
+					  am.append("<tr><th class='hour_am'>"+data[i].ttime.split(':')[0]+"시</th><td><ul class='time10'><li><span class='un active' value='"+(i+1)+"' data-index='"+(i+1)+"' onclick='javascript:selectTime(this);'>"+data[i].ttime.split(':')[1]+"</span></li><li><span class='un active' value='"+(i+2)+"' data-index='"+(i+2)+"' onclick='javascript:selectTime(this);'>"+data[i+1].ttime.split(':')[1]+"</span></li></ul></td></tr>");
 				  }else{
-					  ul.append("<li><span class='un active' value='"+data[i].tcode+"'>30</span></li>");
+					  pm.append("<tr><th class='hour_pm'>"+data[i].ttime.split(':')[0]+"시</th><td><ul class='time10'><li><span class='un active' value='"+(i+1)+"' data-index='"+(i+1)+"' onclick='javascript:selectTime(this);'>"+data[i].ttime.split(':')[1]+"</span></li><li><span class='un active' value='"+(i+2)+"' data-index='"+(i+2)+"' onclick='javascript:selectTime(this);'>"+data[i+1].ttime.split(':')[1]+"</span></li></ul></td></tr>");
 				  }
 			  }
+			  
 		  }
 	});
+}
+// 시간 선택 function
+function selectTime(e){
+	var ind = e.getAttribute("data-index");
+	console.log(ind);
+	document.getElementById("selTime").value = ind;
+}
+
+// 날짜 선택 function
+function selectDate(e){
+	var cday = e.getAttribute("data-index");
+	var yearM = document.getElementById("calendarYM").textContent;
+	var rday = yearM+cday+"일";
+	console.log(rday);
+	document.getElementById("fday").value = rday;
+	bindTimetable();
 }
 
 
@@ -164,14 +186,14 @@ function bindTimetable(){
 			</div>
 
 			<div class="step03">
-					<input name="Rday" value="2018-07-20" type="hidden">
+					<input id="fday" name="fday" value="" type="hidden">
 					<input name="rchk" value="" type="hidden">
 					<input name="renz" value="미사용" type="hidden">
 					<input name="renzday1" value="선택" type="hidden">
 					<input name="renzday2" value="선택" type="hidden">
 					<input name="moyn1" value="" type="hidden">
 					<input name="reserve_Num" value="" type="hidden"> 
-					
+					<input type="hidden" value="" id="selTime" name="selTime"/>
 					<fieldset>
 					<legend>예약날짜 선택</legend>
 					<div class="con_left">
@@ -230,35 +252,16 @@ function bindTimetable(){
 
 					<dd id="pg_time_table" class="minute">
 							<table summary="시간 선택" class="am">
+							
 								<caption>시간 선택</caption>
 								<colgroup>
 									<col width="43">
 									<col width="38">
 									<col width="*">
 								</colgroup>
-								<tbody>
-									<tr>
-										<th rowspan="3" class="ti">오전</th>								
-										<th class="hour am">10시</th>
-										<td>
-											<ul class="time10">
-											</ul>
-										</td>
-									</tr>
-									<tr>
-										<th class="hour am">11시</th>
-										<td>
-											<ul class="time10">
-											</ul>
-										</td>
-									</tr>
-									<tr>
-										<th class="hour am">12시</th>
-										<td>
-											<ul class="time10">
-											</ul>
-										</td>
-									</tr>
+								<!-- 오전 -->
+								<tbody class="timeam">
+									
 								</tbody>
 							</table>
 							<table summary="시간 선택" class="pm">
@@ -268,51 +271,8 @@ function bindTimetable(){
 									<col width="38">
 									<col width="*">
 								</colgroup>
-								<tbody>
-									<tr>
-										<th rowspan="8" class="ti">오후</th>
-										<th class="hour pm">1시</th>
-											<td>
-											<ul class="time10">		
-											</ul>
-										</td>
-									</tr>
-									<tr>
-										<th class="hour pm">2시</th>
-										<td>
-											<ul class="time10">
-											</ul>
-										</td>
-									</tr>
-									<tr>
-										<th class="hour pm">3시</th>
-											<td>
-											<ul class="time10">
-											</ul>
-										</td>
-									</tr>
-									<tr>
-										<th class="hour pm">4시</th>
-											<td>
-											<ul class="time10">
-											</ul>
-										</td>
-									</tr>
-									<tr>
-										<th class="hour pm">5시</th>
-											<td>
-											<ul class="time10">
-											</ul>
-										</td>
-									</tr>
-									<tr>
-										<th class="hour pm">6시</th>
-											<td>
-											<ul class="time10">
-											</ul>
-										</td>
-									</tr>
-									
+								<!-- 오후 -->
+								<tbody class="timepm">
 								</tbody>
 							</table>
 						
@@ -331,6 +291,7 @@ function bindTimetable(){
 						
 								<hr>
 								<button type="submit" class="btn_side">예약하기</button>
+								<button type="button" class="btn_cancel">예약취소</button>
 							
 					</fieldset>
 						</div>
@@ -343,31 +304,33 @@ function bindTimetable(){
 <!-- } 콘텐츠 끝 -->
 
      <script>
+     // 예약버튼 누르기
      $(".btn_side").on("click", function(){
     	var name = $("#username").val();
     	var phone = $("#phone").val();
     	var gender = $("#gender").val();
     	var check = $("checklist").val();
+    	var dday = $("selTime").val();
      });
      
-     function choiceDate(id){
-    	 var ids = id;
-    	 var test = ids.getAttribute('data-index');
-		 
-     }
+     $(".btn_cancel").on("click", function(){
+    	alert("취소되었습니다"); 
+     });
      
      $(function(){
+    	 // 오늘 날짜에 테두리 
     	 var dday = today.getDate();
     	 if (dday == $(".choice"+dday).data('index')){
     		 $(".choice"+dday).css({'border':'2px solid red'});
     	 }
-    	 
+    	 // 오늘 이전은 선택불가
     	 for (var i = 0; i < dday; i++) {
     		 $(".choice"+i).attr('class','un'); 
 		}
     	   
     	 // 체크 리스트 불러오기
     	 bindCheckList();
+    	 // 시간 불러오기
     	 bindTimetable();
  
      });

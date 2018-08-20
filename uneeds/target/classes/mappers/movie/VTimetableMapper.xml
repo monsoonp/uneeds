@@ -12,4 +12,8 @@
 		select * from timetable_view 
 		where theatercd=#{theatercd} order by tnum asc, rtime asc
 	</select>
+	
+	<select id="reserv_tname" resultType="String">
+		select tname from timetable_view where timetcd=#{timetcd}
+	</select>
 </mapper>

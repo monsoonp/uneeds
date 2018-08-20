@@ -2,6 +2,7 @@ package com.medical.persistence;
 
 
 
+import com.medical.domain.HospitalVO;
 import com.medical.domain.KindsVO;
 import com.medical.domain.SidoVO;
 import com.medical.domain.SigunVO;
@@ -13,6 +14,6 @@ public interface InsertDAO {
 	public void insertSigun(SigunVO vvo) throws Exception;
 	public void insertKinds(KindsVO ko) throws Exception;
 	public void insertThema(ThemaVO to) throws Exception;
-	
+	public void insertHospitals(HospitalVO hvo) throws Exception;
 	
 }

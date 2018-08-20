@@ -7,4 +7,12 @@
 	<select id="listVRmovie" resultType="com.movie.domain.ViewRmovieVO">
 		select*from rmovie_view order by umoviecd desc
 	</select>
+	
+	<select id="user_listVRmovie" resultType="com.movie.domain.ViewRmovieVO">
+		select*from rmovie_view order by moviename asc
+	</select>
+	
+	<select id ="reserv_movietype" resultType="com.movie.domain.ViewRmovieVO">
+		select moviename, showtyname from rmovie_view where umoviecd=#{umoviecd}
+	</select>
 </mapper>

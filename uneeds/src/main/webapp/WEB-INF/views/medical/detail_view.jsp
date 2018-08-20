@@ -85,18 +85,19 @@
     			  // 병원 이름
     			  nl.empty();
     			  nl.append(it.find("yadmNm").text());
-    			
+    			  document.getElementById("hname").value = it.find("yadmNm").text();
     			  // 병원 주소
     			  al.empty();
     			  al.append(it.find("addr").text());
-    			  
+    			  document.getElementById("haddr").value = it.find("addr").text();
     			  // 홈페이지 
     			  hl.empty();
     			  hl.append("<a href='"+ it.find("hospUrl").text()+"' target='_blank' style='color: #06F'>( "+ it.find("hospUrl").text()+" )</a>");
-    			  
+    			  document.getElementById("hurl").value = it.find("hospUrl").text();
     			  // 전화번호
     			  tl.empty();
     			  tl.append(it.find("telno").text());
+    			  document.getElementById("htel").value = it.find("telno").text();
     		  }
     		  
  			  });  
@@ -166,6 +167,18 @@
     			
     		  }
  			  }); 
+    	  
+    	  
+    	  
+    	  
+    	  // 예약정보 저장
+    	  $(".reservation_form").on("click",function(){
+    	  	alert("눌림");
+    	  	$.post("insertHospital",{hname:$("#hname").val(), hurl:$("#hurl").val(), htel:$("#htel").val(), haddr:$("#haddr").val()},function(data){
+    	  		
+    	  	});
+    	  	
+    	  });
     	  
     	  
       } ); // 시작 function
@@ -257,8 +270,8 @@ String mapy = request.getParameter("ypos");
 	</div>
 	<div class="hos_b_tit">
 		<p>
-		<a href="#" onclick="javascript:openPopup();"><img src="../../../resources/medical/img/reservation.png" style="width: 60px; height: auto;" id="reservation_form">예약하기</a>
-		<a href="#viewMap"><img src="../../../resources/medical/img/find_icon.png" style="width: 60px; height: auto;" id="reservation_form">지도보기</a>
+		<img src="../../../resources/medical/img/reservation.png" style="width: 60px; height: auto;" class="reservation_form">예약하기
+		<a href="#viewMap"><img src="../../../resources/medical/img/find_icon.png" style="width: 60px; height: auto;">지도보기</a>
 		</p>
 	</div>
 </div>
@@ -308,21 +321,11 @@ String mapy = request.getParameter("ypos");
 </div>
 </div>
 
+<input type="hidden" name="hname" id="hname" value=""/>
+<input type="hidden" name="hurl" id="hurl" value=""/>
+<input type="hidden" name="htel" id="htel" value=""/>
+<input type="hidden" name="haddr" id="haddr" value=""/>
 <!-- } 콘텐츠 끝 -->
-<script>
 
-
-	function openPopup(){
-		window.open("http://192.168.0.05:8080/uneeds/medical/reservationView", option);
-
-		var option = "width=370, height=360, resizable=no, scrollbars=no, status=no;";
-		
-	}
-
-	
-
-
-
-</script>
 </body>
 </html>

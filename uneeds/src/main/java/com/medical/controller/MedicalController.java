@@ -2,7 +2,7 @@ package com.medical.controller;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-
+import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLEncoder;
@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.medical.domain.CheckListVO;
+import com.medical.domain.HospitalVO;
 import com.medical.domain.KindsVO;
 import com.medical.domain.MedicalVO;
 import com.medical.domain.SidoVO;
@@ -88,6 +89,21 @@ public class MedicalController {
 		return "saveAPI_test";
 	}
 	
+	// insert_thema
+	@RequestMapping(value = "/insertHospital", method = RequestMethod.POST)
+	public String insertHospital(Model m,HttpServletRequest r) throws Exception{
+		HospitalVO hvo = new HospitalVO();
+		hvo.setHname(r.getParameter("hname"));
+		hvo.setHurl(r.getParameter("hurl"));
+		hvo.setHtel(r.getParameter("htel"));
+		hvo.setHaddr(r.getParameter("haddr"));
+		
+		dao.insertHospitals(hvo);		
+		
+		return "reservationform";
+	}
+	
+	
 	// select checkList
 	@RequestMapping(value="checkListView", method= RequestMethod.GET)
 	public @ResponseBody List<CheckListVO> checkListView() throws Exception{
@@ -144,7 +160,6 @@ public class MedicalController {
 	// detail_view page
 	@RequestMapping(value= "/detailViewPage", method = RequestMethod.GET)
 	public String detailView() throws Exception {
-
 		return "detail_view";
 	}
 	

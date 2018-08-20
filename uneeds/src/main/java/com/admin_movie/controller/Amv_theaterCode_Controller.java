@@ -20,20 +20,20 @@ public class Amv_theaterCode_Controller {
 	
 	//영화관지점리스트-ajax
 	@RequestMapping(value="list_Theater", method=RequestMethod.GET)
-	public @ResponseBody List<TheaterVO> list_Showtype() throws Exception{
+	public @ResponseBody List<TheaterVO> list_Theater() throws Exception{
 		return tservice.listall_Theater();
 	}
 	
 	//영화관지점등록-ajax
 	@RequestMapping(value="insert_Theater", method=RequestMethod.POST)
-	public String insert_Showtype(TheaterVO tvo) throws Exception{
+	public String insert_Theater(TheaterVO tvo) throws Exception{
 		tservice.insert_Theater(tvo);
 		return "redirect:main";
 	}
 	
 	//영화관지점삭제-ajax
 	@RequestMapping(value="delete_Theater", method=RequestMethod.POST)
-	public String delete_Showtype(TheaterVO tvo) throws Exception{
+	public String delete_Theater(TheaterVO tvo) throws Exception{
 		tservice.delete_Theater(tvo);
 		return "redirect:main";
 	}

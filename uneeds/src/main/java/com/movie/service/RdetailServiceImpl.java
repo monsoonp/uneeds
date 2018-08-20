@@ -18,5 +18,10 @@ public class RdetailServiceImpl implements RdetailService{
 	public int timetcd_count(RdetailVO rdvo) throws Exception {
 		return dao.timetcd_count(rdvo);
 	}
+
+	@Override
+	public void insert_reserv1(RdetailVO rdvo) throws Exception {
+		dao.insert_reserv1(rdvo);
+	}
 	
 }

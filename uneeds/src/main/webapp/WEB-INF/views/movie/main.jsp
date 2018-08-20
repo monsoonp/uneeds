@@ -6,8 +6,194 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<style type="text/css">
+	.loading{
+		background-image: 
+		url("https://i.gifer.com/7UqT.gif");
+		background-repeat:no-repeat;
+		z-index:999;
+		position: fixed;
+		background-position:center;
+		background-color:white;
+		width:100%;
+		height:100%;
+	}
+	a#MOVE_TOP_BTN {
+	   position: fixed;
+	   right: 11%;
+	   bottom: 50px;
+	   display: none;
+	   z-index: 999;
+	   text-decoration: none;
+	}
+	
+</style>
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+function mcd_imgpath(mcd){
+	$.ajax({
+		url:"get_imgpath",
+		type:"POST",
+		data: {moviecd: mcd},
+		async: false, // ture: 비동기, false: 동기
+		success: function(data){
+			s = data;
+	    }
+	});
+	return s;
+}
+
+//박스오피스 전일순위
+function boxoffice_top10(){	
+	$.get("listTopMovie", function(data, state){
+	   // 초기
+	   var items = data.boxOfficeResult.dailyBoxOfficeList;
+	   var div1 = $("#1to5");
+	   var div2 = $("#6to10");
+	   div1.empty();
+	   div2.empty();				   
+	   for (var i = 0; i < items.length; i++) {
+		   var rnum =items[i].rnum;
+		   var rank = items[i].rank;
+		   var  mcd = items[i].movieCd;
+		   var oldandnew= items[i].rankOldAndNew;
+		   //var oldandnew="NEW";		   
+		   var movienm=items[i].movieNm;
+		   var imgpath = mcd_imgpath(mcd);
+		   
+		   var str ="";
+		   
+		   str+="<div class='col' style='padding-left: 10px;'>";
+		   str+="<a href='"+imgpath+"' target='_blank' moviecd='"+mcd+"'>";
+		   str+="<img src='"+imgpath+"' alt='"+movienm+"' style='height:237px;width:162px;'></a>";
+		   
+		   if(oldandnew=="NEW"){
+			   str+="<span class='badge badge-success'>"+movienm.substr(0,7)+"</span>";
+			   str+="<span class='badge badge-danger'>"+rank+"위</span>";
+			   str+="<span class='badge badge-warning'>new</span>";
+		   }else{
+			   str+="<span class='badge badge-success'>"+movienm.substr(0,12)+"</span>";
+			   str+="<span class='badge badge-danger'>"+rank+"위</span>";
+		   }
+		   str+="</div>";
+		   if(rnum<=5){
+			   div1.append(str);
+		   }else{
+			   div2.append(str);
+		   }
+	  }});
+}
+//뉴스크롤링
+function append_news(){
+	$.ajax({
+		url:"craw_news",
+		type:"get",
+		success: function(data, state){
+			var colnews= $("#colnews");
+			colnews.empty();
+			var title = data.titles;
+			var content = data.contents;
+			var img = data.imgs;
+			var from = data.froms;
+			var from2=data.froms2;
+			var href = data.hrefs;
+			for (var i = 0; i < 13; i++) {
+				
+				var str = "";
+				str+="<div class='row' style='margin: 0; margin-bottom: 11px; margin-top: 10px'>";
+				str+="<div class='col-md-2' style='padding: 0;'>";
+				str+="<a href='https://entertain.naver.com/"+href[i]+"' target='_blank'>";
+				str+="<img src='"+img[i]+"' style='width: 100%'></a></div><div class='col-md-9'>";
+				str+="<p class='text-primary' style='font-size: small;'>"+title[i]+"</p>";
+				str+="<p>"+content[i]+"</p>";
+				str+="<span class= 'badge badge-pill badge-secondary' alien='right'>"+from[i]+"<em>  "+from2[i]+"</em></span></div></div>"
+				colnews.append(str);
+			}
+		}
+	});
+}
+
+
+//인기검색어 랭킹 크롤링
+function append_rank(){
+	$.ajax({
+		url:"craw_searchrank",
+		type:"get",
+		success: function(data, state){
+			var moviestb= $("#movieshearch_ranking_tb");
+			var peoplestb= $("#peopleshearch_ranking_tb");
+			moviestb.empty();
+			peoplestb.empty();
+			
+			var movies = data.search_rank;
+			var movies_ac=data.s_ac;//업다운
+			var movies_range=data.s_rangeac; //변동률
+				
+			var peoples = data.search_people;
+			var peoples_ac=data.p_ac;
+			var peoples_range=data.p_rangeac;
+				
+			
+			str="<tr><td colspan='3' style='text-align: center; font-weight: bold;'><strong>영화 인기검색어 순위</strong></td></tr>";
+			str2="<tr><td colspan='3'style='text-align: center; font-weight: bold;'><strong>영화인 인기검색어 순위</strong></td></tr>";
+			
+			for (var i = 0; i < 10; i++) {
+				str+="<tr><td><span class='badge badge-danger'>"+(i+1)+"</span></td>";
+				str+="<td>"+movies[i]+"</td>";
+				if(movies_ac[i]=="na"){
+					str+="<td>-</td></tr>";
+				}else if(movies_ac[i]=="up"){
+					str+="<td>▲"+movies_range[i]+"</td></tr>";
+				}else if(movies_ac[i]=="down"){
+					str+="<td>▼"+movies_range[i]+"</td></tr>";
+				}
+				
+				str2+="<tr><td><span class='badge badge-danger'>"+(i+1)+"</span></td>";
+				str2+="<td>"+peoples[i]+"</td>";
+				if(peoples_ac[i]=="na"){
+					str2+="<td>-</td></tr>";
+				}else if(peoples_ac[i]=="up"){
+					str2+="<td>▲"+peoples_range[i]+"</td></tr>";
+				}else if(peoples_ac[i]=="down"){
+					str2+="<td>▼"+peoples_range[i]+"</td></tr>";
+				}
+			}
+			moviestb.append(str);
+			peoplestb.append(str2);
+		}
+	});
+}
+
+function loading(){
+	setTimeout(function(){
+		$("#loading").fadeOut('slow');
+	},2300);
+}
+$(document).ready(function(){
+	loading();
+})
+
+$(function(){
+	boxoffice_top10();
+	append_news();
+	append_rank();
+	
+	//스크롤
+	$(window).scroll(function() {
+        if ($(this).scrollTop() > 5) {
+            $('#MOVE_TOP_BTN').fadeIn();
+        } else {
+            $('#MOVE_TOP_BTN').fadeOut();
+        }
+    });
+});
+</script>
+
 </head>
 <body>
+	<div class="loading" id="loading"></div>
+	<a id="MOVE_TOP_BTN" href="#" style="background-color: #DF0101; color: white; padding: 5px;"> TOP </a>
 	<!-- top navi -->
 	<jsp:include page="/WEB-INF/views/movie/common/top_navbar.jsp"></jsp:include>
 
@@ -19,156 +205,34 @@
 			<div class="col-lg-10" style="">
 				<div class="row" style="padding-left: 10px; text-align: center;">
 					<div class="col-lg-12 bg-dark" style="height: 560px;">
-						<div class="row" style="padding-top: 10px;">
-							<div class="col" style="padding-left: 10px;">
-							<a href="#"> <img src="/resources/movie/img/앤트맨과 와스프.png" alt="" style="width: 105%"></a>
-							<span class="badge badge-success">앤트맨과 와스프</span>
-							<span class="badge badge-danger">1위</span>
-							</div>
-							<div class="col">
-							<a href="#"> <img src="/resources/movie/img/스카이스.png" alt="" style="width: 105%"></a>
-							<span class="badge badge-success">스카이스크래퍼</span>
-							<span class="badge badge-danger">2위</span>
-							</div>
-							<div class="col">
-							<a href="#"> <img src="/resources/movie/img/마녀.png" alt="" style="width: 105%"></a>
-							<span class="badge badge-success">마녀</span>
-							<span class="badge badge-danger">3위</span>
-							</div>
-							<div class="col">
-							<a href="#"> <img src="/resources/movie/img/변산.png" alt="" style="width: 105%"></a>
-							<span class="badge badge-success">변산</span>
-							<span class="badge badge-danger">4위</span>
-							</div>
-							<div class="col">
-							<a href="#"> <img src="/resources/movie/img/오늘밤, 로맨스극장에서.png" alt="" style="width: 105%"></a>
-							<span class="badge badge-success">오늘밤 로맨스...</span>
-							<span class="badge badge-danger">5위</span>
-							</div>
+						<div class="row" style="padding-top: 10px;" id="1to5">
+							
 						</div>
-						<div class="row" style="padding-top: 10px; text-align: center;">
-							<div class="col" style="padding-left: 10px;">
-							<a href="#"> <img src="/resources/movie/img/탐정-리턴즈.png" alt="" style="width: 105%"></a>
-							<span class="badge badge-success">탐정 리턴즈</span>
-							<span class="badge badge-danger">6위</span>
-							</div>
-							<div class="col">
-							<a href="#"> <img src="/resources/movie/img/허스토리.png" alt="" style="width: 105%"></a>
-							<span class="badge badge-success">허스토리</span>
-							<span class="badge badge-danger">7위</span>
-							</div>
-							<div class="col">
-							<a href="#"> <img src="/resources/movie/img/바르다.png" alt="" style="width: 105%"></a>
-							<span class="badge badge-success">바르다가 사랑한...</span>
-							<span class="badge badge-danger">8위</span>
-							</div>
-							<div class="col">
-							<a href="#"> <img src="/resources/movie/img/미드나잇 선.png" alt="" style="width: 105%"></a>
-							<span class="badge badge-success">미드나잇 선</span>
-							<span class="badge badge-danger">9위</span>
-							</div>
-							<div class="col">
-							<a href="#"> <img src="/resources/movie/img/쥬라기 월드-폴른킹덤.png" alt="" style="width: 105%"></a>
-							<span class="badge badge-success">쥬라기월드</span>
-							<span class="badge badge-danger">10위</span>
-							</div>
+						<div class="row" style="padding-top: 10px; text-align: center;" id="6to10">
+							
 						</div>
 					</div>
 				</div>
 				
 				
 				<div class="row"  style="padding-left:10px;padding-top: 10px;">
-					<div class="col-md-8" style="background-color: white; font-size:xx-small;">
-						
-						<div class="row" style="margin: 0; margin-bottom: 10px; margin-top: 20px">
-							<div class="col-md-2" style="padding: 0;">
-								<a href="#"> <img src="/resources/movie/news_img/0000031052_001_20180711121406664.jpg" alt="" style="width: 100%"></a>
-							</div>
-							<div class="col-md-9">
-								<p class="text-primary" >‘신과함께-인과 연’, 천 년의 시간 담은 神들의 비밀 공개</p>
-								<p>▲ 사진=롯데엔터테인먼트 제공 영화 '신과함께-인과 연'(감독 김용화)이 천 년의 사연을 담은 시간을 공개했다. 11일 '신과함께-인과 연' 측은 보도스틸 10종을 공개하며 예비 관객들의 기대감을 높였다.</p>
-								<span class= "badge badge-pill badge-primary">파이낸셜뉴스 <em>15분전</em></span>
-							</div>
-						</div>
-						
-						<div class="row" style="margin: 0; margin-bottom: 10px">
-							<div class="col-md-2" style="padding: 0;">
-								<a href="#"> <img src="/resources/movie/news_img/53437.jpg" alt="" style="width: 100%"></a>
-							</div>
-							<div class="col-md-9">
-								<p class="text-primary" >[포토] '목격자' 올 여름 기대되는 스릴러 조합</p>
-								<p>'목격자'는 모두가 잠든 새벽 베란다에서 살인 사건을 목격한 상훈(이성민)이 범인 태호(곽시양)과 눈이 마주친 이후 범인의 다음 타깃이 되면서 벌어지는 추격전을 그린 스릴러 영화. 오는 8월 15일개봉</p>
-								<span class= "badge badge-pill badge-primary">MBC <em>15분전</em></span>
-							</div>
-						</div>
-						
-						<div class="row" style="margin: 0; margin-bottom: 10px">
-							<div class="col-md-2" style="padding: 0;">
-								<a href="#"> <img src="/resources/movie/news_img/1113676.jpg" alt="" style="width: 100%"></a>
-							</div>
-							<div class="col-md-9">
-								<p class="text-primary" >‘신과함께-인과 연’, 천 년의 시간 담은 神들의 비밀 공개</p>
-								<p>▲ 사진=롯데엔터테인먼트 제공 영화 '신과함께-인과 연'(감독 김용화)이 천 년의 사연을 담은 시간을 공개했다. 11일 '신과함께-인과 연' 측은 보도스틸 10종을 공개하며 예비 관객들의 기대감을 높였다.</p>
-								<span class= "badge badge-pill badge-primary">파이낸셜뉴스 <em>15분전</em></span>
-							</div>
-						</div>
-						
-						<div class="row" style="margin: 0; margin-bottom: 10px">
-							<div class="col-md-2" style="padding: 0;">
-								<a href="#"> <img src="/resources/movie/news_img/0000053427_001_20180711151036461.jpg" alt="" style="width: 100%"></a>
-							</div>
-							<div class="col-md-9">
-								<p class="text-primary" >‘신과함께-인과 연’, 천 년의 시간 담은 神들의 비밀 공개</p>
-								<p>▲ 사진=롯데엔터테인먼트 제공 영화 '신과함께-인과 연'(감독 김용화)이 천 년의 사연을 담은 시간을 공개했다. 11일 '신과함께-인과 연' 측은 보도스틸 10종을 공개하며 예비 관객들의 기대감을 높였다.</p>
-								<span class= "badge badge-pill badge-primary">파이낸셜뉴스 <em>15분전</em></span>
-							</div>
-						</div>
-						
-						<div class="row" style="margin: 0; margin-bottom: 10px">
-							<div class="col-md-2" style="padding: 0;">
-								<a href="#"> <img src="/resources/movie/news_img/0000031052_001_20180711121406664.jpg" alt="" style="width: 100%"></a>
-							</div>
-							<div class="col-md-9">
-								<p class="text-primary" >‘신과함께-인과 연’, 천 년의 시간 담은 神들의 비밀 공개</p>
-								<p>▲ 사진=롯데엔터테인먼트 제공 영화 '신과함께-인과 연'(감독 김용화)이 천 년의 사연을 담은 시간을 공개했다. 11일 '신과함께-인과 연' 측은 보도스틸 10종을 공개하며 예비 관객들의 기대감을 높였다.</p>
-								<span class= "badge badge-pill badge-primary">파이낸셜뉴스 <em>15분전</em></span>
-							</div>
-						</div>
+					<div class="col-md-8" style="background-color: white; font-size:x-small;" id="colnews">
 						
 					</div>
 					
 					
 					<div class="col-md-4">
-						<div class="row" style="background-color: black; padding-top: 10px">
+						<div class="row" style="background-color: black; padding-top: 10px; padding-bottom: 10px;">
 						<iframe src="https://www.youtube.com/embed/Vr_jR90k944" frameborder="0" allow="autoplay;"></iframe>
 						</div>
-						<div class="row" style="background-color: white; padding-top: 5px; padding-bottom: 10px">
-							<table style="font-size: small; font-weight: bold;">
-								<tr><td><strong>영화 인기검색어</strong></td></tr>
-								<tr><td><span class="badge badge-danger">1</span></td>
-								<td>앤트맨과 와스프</td><td></td></tr>
-								<tr><td><span class="badge badge-danger">2</span></td>
-								<td>마녀</td></tr>
-								<tr><td><span class="badge badge-danger">3</span></td>
-								<td>변산</td></tr>
-								<tr><td><span class="badge badge-danger">4</span></td>
-								<td>탐정:리턴즈</td></tr>
-								<tr><td><span class="badge badge-danger">5</span></td>
-								<td>인랑</td></tr>
-								<tr><td><span class="badge badge-danger">6</span></td>
-								<td>허스토리</td></tr>
-								<tr><td><span class="badge badge-danger">7</span></td>
-								<td>신과함께-인과 연</td></tr>
-								<tr><td><span class="badge badge-danger">8</span></td>
-								<td>시카리오:데이 오브 솔다도</td></tr>
-								<tr><td><span class="badge badge-danger">9</span></td>
-								<td>미드나잇 선</td></tr>
-								<tr><td><span class="badge badge-danger">10</span></td>
-								<td>쥬라기 월드:폴른 킹덤</td></tr>
+						<div class="row" style="background-color: white;">
+							<table style="font-size: small;" id ="movieshearch_ranking_tb" class="table table-dark table-hover">
 							</table>
 						</div>
-						<div class="row" style="background-color: white;padding-top: 15px; padding-bottom: 5px" align="center">
-							<img src="/resources/movie/img/playu_logo.png" alt="" style="size: 100%">
+						
+						<div class="row" style="background-color: white; padding-bottom: 10px">
+							<table style="font-size: small;" id ="peopleshearch_ranking_tb"class="table table-dark table-hover">
+							</table>
 						</div>
 						
 					</div>

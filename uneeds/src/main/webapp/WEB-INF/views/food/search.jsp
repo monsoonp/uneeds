@@ -24,7 +24,7 @@
 			</div>
 			<form action="search" method="post">
 				<div id="search_input_wrapper">
-					<input type="text" id="search_input" name="search" autocomplete="off" value="${param.searchs}">
+					<input type="text" id="search_input" name="search" autocomplete="off" value="${searchs}">
 					<input type="hidden" name="kid" value="0">
 					<button type="submit" id="search_btn"></button>
 				</div>
@@ -42,12 +42,13 @@
 <div id="menu_area">
 	<div id="menu_div">
 		<ul id="menu_ul">
+			
+			<li id="menu_li_second"><a href="search2?keyword=${searchs}&kid=1">한식</a></li>
+			<li id="menu_li_second"><a href="search2?keyword=${searchs}&kid=2">중식</a></li>
+			<li id="menu_li_second"><a href="search2?keyword=${searchs}&kid=3">일식</a></li>
+			<li id="menu_li_second"><a href="search2?keyword=${searchs}&kid=4">카페 / 전통 찻집</a></li>
+			<li id="menu_li_second"><a href="search2?keyword=${searchs}&kid=5">양식</a></li>
 			<li id="menu_li_first"><a href="#">내 주변</a></li>
-			<li id="menu_li_second"><a href="search?searchs=${param.searchs}&kid=1">한식</a></li>
-			<li id="menu_li_second"><a href="search?searchs=${param.searchs}&kid=2">중식</a></li>
-			<li id="menu_li_second"><a href="search?searchs=${param.searchs}&kid=3">일식</a></li>
-			<li id="menu_li_second"><a href="search?searchs=${param.searchs}&kid=4">카페 / 전통 찻집</a></li>
-			<li id="menu_li_second"><a href="search?searchs=${param.searchs}&kid=5">양식</a></li>
 		</ul>
 	</div>
 </div>

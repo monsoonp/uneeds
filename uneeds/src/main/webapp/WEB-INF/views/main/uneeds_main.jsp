@@ -51,6 +51,7 @@
 		<a class="nav-link" href="/uneeds/medical/main_view">의료</a>
 		<a class="nav-link" href="/uneeds/movie/main">영화/엔터</a>
 		<a class="nav-link" href="/uneeds/exhibition/">공연/전시</a>
+		<a class="nav-link" href="https://node-app-211400.appspot.com/">학습</a>
 		<a class="nav-link" href="/uneeds/admin/main">ADMIN</a>
 	</div>
 	<!-- 1단 -->

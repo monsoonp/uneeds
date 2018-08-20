@@ -19,4 +19,14 @@ public class VRmovieServiceImpl implements VRmovieService{
 		return dao.readVRmovie();
 	}
 
+	@Override
+	public List<ViewRmovieVO> user_listall_vrmovie() throws Exception {
+		return dao.user_readVRmovie();
+	}
+
+	@Override
+	public List<ViewRmovieVO> reserv_movietype(int umoviecd) throws Exception {
+		return dao.reserv_movietype(umoviecd);
+	}
+
 }

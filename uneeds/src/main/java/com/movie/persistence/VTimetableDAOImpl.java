@@ -26,5 +26,10 @@ public class VTimetableDAOImpl implements VTimetableDAO{
 	public List<ViewTimetableVO> searchVTimetable(ViewTimetableVO vtvo) {
 		return mysqlSession.selectList(mspace+".listsearchTimetable",vtvo);
 	}
+
+	@Override
+	public String reserv_tname(int timetcd) {
+		return mysqlSession.selectOne(mspace+".reserv_tname",timetcd);
+	}
 	
 }

@@ -14,7 +14,6 @@
 	src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-
 	
 <style>
 ul {
@@ -52,13 +51,15 @@ a#MOVE_TOP_BTN {
    bottom: 50px;
    display: none;
    z-index: 999;
+   text-decoration: none;
 }
 
 .loading{
-	background-image: url("http://newsimg.sedaily.com/2017/04/18/1OEP2BWRPS_1.gif");
+	background-image: 
+	url("http://newsimg.sedaily.com/2017/04/18/1OEP2BWRPS_1.gif");
 	background-repeat:no-repeat;
 	z-index:999;
-	position: absolute;
+	position: fixed;
 	background-position:center;
 	background-color:white;
 	width:100%;
@@ -204,8 +205,10 @@ a#MOVE_TOP_BTN {
 				wgrade=3;
 			}else if(x=="19"){
 				wgrade=4;
-			}else{
+			}else if(x=="청소"){
 				wgrade=5;
+			}else{
+				wgrade=6;
 			}
 			$("#wgradecd")[0].value=wgrade;
 			
@@ -509,7 +512,7 @@ a#MOVE_TOP_BTN {
 	  var s = "#ii" + e.getAttribute('discountcd');
 	  var y =$(s).val();
 	  
-	  alert(y);
+	  //alert(y);
 	  
 	  var retVal = confirm("할인이벤트명 : "+x+" 의 할인율을 "+y+"로 변경하시겠습니까?");
 
@@ -645,6 +648,8 @@ a#MOVE_TOP_BTN {
 						+d.umoviecd+"' onclick='delete_rele(this);' style='margin-left:5px;'>삭제</span><li>");
 			}
 		});
+		bindMVlist();
+		
 	}
 	//상영영화삭제
 	function delete_rele(e){
@@ -718,7 +723,7 @@ a#MOVE_TOP_BTN {
 		
 		//스크롤
 		 $(window).scroll(function() {
-            if ($(this).scrollTop() > 20) {
+            if ($(this).scrollTop() > 10) {
                 $('#MOVE_TOP_BTN').fadeIn();
             } else {
                 $('#MOVE_TOP_BTN').fadeOut();
@@ -838,7 +843,7 @@ a#MOVE_TOP_BTN {
 			var rtvalue=frm.rtime.value;
 			var subs=rtvalue.substr(rtvalue.length-1, 1);
 			
-			alert(rtvalue.length+" / "+ subs + "ㅋ");
+			//alert(rtvalue.length+" / "+ subs + "ㅋ");
 			
 			if(subs=="0" && rtvalue.length==5 && rtvalue!=""){
 				$.post("insert_Rtime",{"rtime":rtvalue},
