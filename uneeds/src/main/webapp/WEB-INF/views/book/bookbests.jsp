@@ -63,8 +63,8 @@ $(window).scroll(function() {
 
 var shopName;
 var genreName;
-if('${site}'!=null){
-	shopName='${site}';
+if('${s_site}'!=null){
+	shopName='${s_site}';
 }
 if('${genre}'!=null){
 	genreName='${genre}';
@@ -88,7 +88,7 @@ function showGenre(shop){
 	    		//console.log(data[i]);
 	    		d = data[i];
 	    		//console.log(d.sgname+", "+genreName);
-	    		if((genreName == d.sgname) && (shopName == '${site}')){	//선택된 장르 active
+	    		if((genreName == d.sgname) && (shopName == '${s_site}')){	//선택된 장르 active
 	    			$('#genrelist').append(	
 							'<a type="button" class="btn btn-primary btn-sm active"' +
 							'data-toggle="button" onclick="showBests(this);">'+d.sgname+'</a> ');
@@ -166,12 +166,12 @@ body {
 		<div class="row">
 			<div class="col-md-8" id="shoplist">
 				<c:forEach items="${slist }" var="s">
-					<c:if test="${site == s.bsname }">
+					<c:if test="${s_site == s.bsname }">
 						<a type="button" class="btn btn-primary btn-sm active" 
 						data-toggle='button' onclick="showGenre(this);">${s.bsname }</a>
 						<c:set value="${s.bsname }" var="bsname" scope="request"></c:set>	<!-- 장르에서 사이트 구분용 -->
 					</c:if>
-					<c:if test="${site != s.bsname }">
+					<c:if test="${s_site != s.bsname }">
 						<a type="button" class="btn btn-primary btn-sm" 
 						data-toggle='button' onclick="showGenre(this);">${s.bsname }</a>
 					</c:if>
@@ -182,7 +182,7 @@ body {
 			<div class="col-md-8" id="genrelist">
 				<c:forEach items="${glist }" var="g">
 					<c:choose>
-						<c:when test="${genre == fn:replace(g.sgname,' ','') and site == bsname}">	<!-- 해당 페이지의 사이트와 장르구분 -->
+						<c:when test="${genre == fn:replace(g.sgname,' ','') and s_site == bsname}">	<!-- 해당 페이지의 사이트와 장르구분 -->
 							<a type="button" class="btn btn-primary btn-sm active" 
 							data-toggle='button' onclick="showBests(this);">${g.sgname }</a>
 						</c:when>

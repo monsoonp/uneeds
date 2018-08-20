@@ -83,7 +83,7 @@ public class BookController {
 		logger.info("Welcome search! The client url is {}.", "/book/bestseller");
 		model.addAttribute("slist",bservice.selectStore());
 		
-		model.addAttribute("site", "YES24");
+		model.addAttribute("s_site", "YES24");
 		model.addAttribute("genre", "종합");
 		model.addAttribute("glist", bservice.selectGenre("YES24"));
 		Map<String, String> cate = bservice.getCate("YES24", "종합");
@@ -96,7 +96,7 @@ public class BookController {
 	@RequestMapping(value="bestseller/{site}", method=RequestMethod.POST)
 	public List<GenreVO> bookSeller(@PathVariable("site") String site, Model model) {
 		List<GenreVO> gVO = bservice.selectGenre(site);
-		model.addAttribute("site", site);
+		model.addAttribute("s_site", site);
 		model.addAttribute("glist", gVO);
 		return gVO;
 	}
@@ -105,7 +105,7 @@ public class BookController {
 	public String bookSeller(@PathVariable("site") String site , @PathVariable("genre") String genre, Model model) {
 		System.out.printf("사이트 : %s, 장르 : %s \n", site, genre);
 		genre = genre.replaceAll("-", "/");
-		model.addAttribute("site", site);
+		model.addAttribute("s_site", site);
 		model.addAttribute("genre", genre);
 		model.addAttribute("slist", bservice.selectStore());
 		model.addAttribute("glist", bservice.selectGenre(site));
