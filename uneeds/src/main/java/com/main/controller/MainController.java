@@ -76,6 +76,7 @@ public class MainController {
 	            session.setAttribute("login", "logined");
 				session.setAttribute("id", usr);
 				session.setAttribute("site", "uneeds");
+				session.setAttribute("usercode", service.login(usr, "uneeds"));
 	            
 	        }
 	        else{ // 로그인 실패
