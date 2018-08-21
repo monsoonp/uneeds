@@ -198,10 +198,11 @@ public class BookController {
 	public int checkPoint(@RequestBody BookInfoVO biVo, HttpServletRequest req) throws Exception {
 			HttpSession session = req.getSession();
 			String usercode = Integer.toString((int) session.getAttribute("usercode"));
-			System.out.println(biVo.toString());
-			System.out.println("==================================");
+			
 			return bservice.checkPoint(usercode, biVo.getIsbn());
 	}
+	
+	
 	
 	
 }
