@@ -13,10 +13,9 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 </head>
 
-
 <body >
 <div align="center" style="padding-top: 20px;">
-	<img src="../resources/main/img/logo2.png" alt="logo2" style="width: 100%;">
+	<img src="../resources/main/img/logo2.png" alt="logo2" style="width: 300px;height: 250px;">
 </div>
 <form action ="loginuneeds" method="post">
 	<div style="padding: 20px;">
