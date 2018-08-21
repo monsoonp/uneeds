@@ -9,6 +9,7 @@ import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.apache.commons.lang3.StringUtils;
 import org.bson.Document;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
@@ -58,7 +59,7 @@ public class CrawlUtil {
 		return d.first().select("span[style]");
 	}
 	
-	// yes24
+	// yes24	
 	public static PriceVO getYes24(String isbn)throws Exception {
 		Elements d= null;
 		PriceVO vo = null;
@@ -80,15 +81,15 @@ public class CrawlUtil {
 			//신규 가격
 			//Elements new_price = doc.select("span.nor_price").select("em.yes_m");
 			Elements new_price = d.select("div.goodsList_list").first().select("p.goods_price").select("strong");
-			vo.setNew_price(Jsoup.parse(new_price.toString()).text());
+			vo.setNew_price(StringUtils.defaultString(Jsoup.parse(new_price.toString()).text(), " "));
 			
 			//e북 가격
 			Elements e_price = d.select("div.goodsList_list").first().select("p.goods_linkage").select("a:contains(eBook)").select("em.txt_price");
-			vo.setE_price(Jsoup.parse(e_price.toString()).text());
+			vo.setE_price(StringUtils.defaultString(Jsoup.parse(e_price.toString()).text(), " "));
 			
 			//중고 가격
 			Elements used_price = d.select("div.goodsList_list:nth-child(2)").select("p.goods_price:contains(최저)").select("em.act_txt002:nth-child(1)");
-			vo.setUsed_price(Jsoup.parse(used_price.toString()).text());
+			vo.setUsed_price(StringUtils.defaultString(Jsoup.parse(used_price.toString()).text(), " "));
 			
 			System.out.println("yes24: "+vo.toString());
 		} catch (Exception e) {
@@ -97,7 +98,8 @@ public class CrawlUtil {
 		
 		return vo;
 	}
-	// 교보문고
+	
+	
 	public static PriceVO getKyobo(String isbn)throws Exception {
 		Element d= null;
 		PriceVO vo = null;
@@ -114,16 +116,16 @@ public class CrawlUtil {
 			//새책
 			//String new_price = Jsoup.parse(Jsoup.connect(new_link).get().select("span.sell_price").first().toString()).text();
 			String new_price = Jsoup.parse(d.select("div.sell_price").select("strong").toString()).text();
-			vo.setNew_price(new_price);
+			vo.setNew_price(StringUtils.defaultString(new_price, " "));
 			
 			//이북
 			String e_price = Jsoup.parse(d.select("ul.other").select("strong").toString()).text();
-			vo.setE_price(e_price.split(" ")[0]);
+			vo.setE_price(StringUtils.defaultString(e_price.split(" ")[0], " "));
 			
 			//중고 url http://used.kyobobook.co.kr/product/prod	uctSearchList.ink?type=isbn&typeValue= {isbn}
 			url = "http://used.kyobobook.co.kr/product/productSearchList.ink?type=isbn&typeValue="+isbn;
 			String str = Jsoup.connect(url).get().select("div.search_detail").select("dd.lowest-price").toString();
-			vo.setUsed_price(Jsoup.parse(str).text().split(" ")[0]);
+			vo.setUsed_price(StringUtils.defaultString(Jsoup.parse(str).text().split(" ")[0], " "));
 			
 			System.out.println("kyobo: "+vo.toString());
 		} catch (Exception e) {
@@ -133,7 +135,6 @@ public class CrawlUtil {
 		return vo;
 	}
 	
-	// 알라딘
 	public static PriceVO getAladin(String isbn)throws Exception {
 		Element d= null;
 		PriceVO vo = null;
@@ -144,15 +145,16 @@ public class CrawlUtil {
 			vo.setUrl(url);	// 가격 정보 url
 			d = Jsoup.connect(url).get().select("div.ss_book_box").first(); // 도서 검색
 			
+			
 			//새책
 			String new_price = Jsoup.parse(d.select("span.ss_p2").toString()).text();
-			vo.setNew_price(new_price);
+			vo.setNew_price(StringUtils.defaultString(new_price, " "));
 			
 			//이북
 			String e_price = Jsoup.parse(d.select("li:contains(전자책)").toString()).text();
-			vo.setE_price(e_price.split(": ")[1]);
+			vo.setE_price(StringUtils.defaultString(e_price.split(": ")[1], " "));
 			
-			//중고 
+			//중고 url http://used.kyobobook.co.kr/product/prod	uctSearchList.ink?type=isbn&typeValue= {isbn}
 			url = "http://www.aladin.co.kr/search/wsearchresult.aspx?SearchTarget=Used&KeyWord="+isbn;
 			
 			d =	Jsoup.connect(url).get().select("div.ss_book_box").first();
@@ -160,7 +162,7 @@ public class CrawlUtil {
 					select("table:nth-child(1)").select("table:nth-child(1)").select("td:contains(회원중고)").
 					select("tr:nth-child(4)").toString();
 			
-			vo.setUsed_price(Jsoup.parse(str).text().split(" ")[3]);
+			vo.setUsed_price(StringUtils.defaultString(Jsoup.parse(str).text().split(" ")[3], " "));
 			
 			System.out.println("aladin: "+vo.toString());
 		} catch (Exception e) {
@@ -169,7 +171,6 @@ public class CrawlUtil {
 		
 		return vo;
 	}
-	// 인터파크
 	public static PriceVO getInterpark(String isbn)throws Exception {
 		Element d= null;
 		PriceVO vo = null;
@@ -183,13 +184,14 @@ public class CrawlUtil {
 			
 			//새책
 			String new_price = Jsoup.parse(d.select("span.nowMoney").toString()).text();
-			vo.setNew_price(new_price);
+			new_price=StringUtils.defaultString(new_price);
+			vo.setNew_price(StringUtils.defaultString(new_price," "));
 			
 			//이북
 			String e_price = Jsoup.parse(d.select("span.Fprice").toString()).text();
-			vo.setE_price(e_price);
+			vo.setE_price(StringUtils.defaultString(e_price," "));
 			
-			
+			vo.setUsed_price(StringUtils.defaultString(""));
 			
 			System.out.println("interpark: "+vo.toString());
 		} catch (Exception e) {

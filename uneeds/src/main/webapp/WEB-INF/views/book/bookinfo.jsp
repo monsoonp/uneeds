@@ -76,6 +76,7 @@ function point(){
 	    	var f_star = '<i class="fas fa-star"></i>';
 	    	var h_star = '<i class="fas fa-star-half-alt"></i>';
 	    	var e_star = '<i class="far fa-star"></i>';
+	    	var heart = '<i class="far fa-heart fa-lg" onclick="check(this);"></i>';
 	    	var star_rating = '';
 	    	for (var i = 0; i < full; i++) {
 	    		star_rating+=f_star;
@@ -86,12 +87,8 @@ function point(){
 	    	for (var i = 0; i < emp; i++) {
 	    		star_rating+=e_star;
 			}
-	    	$('h2').after(star_rating);
-	    	
-	    	//<i class="fas fa-star"></i>
-			//<i class="fas fa-star-half-alt"></i>			
-			//<i class="far fa-star"></i>
-	    	
+	    	$('h2').after(star_rating+" "+parseInt(data)+" "+heart);
+	    		    	
 	    },complete: function(){
 			
 		},error: function(error) {
@@ -161,13 +158,40 @@ function prices(){
 	//$('#loadingtr').remove();
 }
 
-function change(i){
-	if($(i).hasClass('fas') == true){
-		$(i).addClass('far');
-		$(i).removeClass('fas');
+function change(i,frm){
+	$.ajax({
+		url:"/uneeds/book/pointbook",
+		type:"post",
+		data:JSON.stringify({
+			isbn: frm.isbn.value.split(">")[1].split("<")[0],
+			title: frm.title.value,
+			author: frm.author.value,
+			pub: frm.pub.value,
+			price: frm.price.value,
+			discount: frm.discount.value
+		}),
+		contentType: "application/json; charset=utf-8",
+	    complete:function(){
+	    	
+	    }
+		
+	})
+	
+}
+function check(i){
+	var i = $(i);
+	if(i.hasClass('fas') == true){
+		i.addClass('far');
+		i.removeClass('fas');
+		if(i.hasClass('fa-heart'==true)){
+			alert('찜 목록에서 해제되었습니다.');
+		}
 	}else{
-		$(i).addClass('fas');
-		$(i).removeClass('far');
+		i.addClass('fas');
+		i.removeClass('far');
+		if(i.hasClass('fa-heart'==true)){
+			alert('찜 목록에 등록되었습니다.');
+		}
 	}
 }
 </script>
@@ -208,9 +232,20 @@ body {
 			<div class="main-book">
 				<div class="row mb-4 my-auto mx-auto px-auto py-3">
 					<!-- 북마크 -->
-					<div class="info_bookmark">
-						<i class="far fa-bookmark fa-3x" onclick="change(this);"></i>
-					</div>
+					<c:if test="${login eq 'logined' }">
+						<div class="info_bookmark">
+							<button class="bookmarkBtn" type="button" onclick="change(this,this.form);">
+								<c:choose>
+									<c:when test="${pointed eq 1}">
+										<i class="fas fa-bookmark fa-3x" onclick="check(this);"></i>
+									</c:when>
+									<c:otherwise>
+										<i class="far fa-bookmark fa-3x" onclick="check(this);"></i>
+									</c:otherwise>
+								</c:choose>
+							</button>
+						</div>
+					</c:if>
 					<!-- 이미지 -->
 					<div class="col-md-5 my-auto mx-auto">
 						<!--<c:set var="img" value="${fn:replace(fn:split(infoVo.image,'?')[0],'\"','' )}"/>-->

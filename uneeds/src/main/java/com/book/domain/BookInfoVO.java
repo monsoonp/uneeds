@@ -23,13 +23,14 @@ public class BookInfoVO implements Serializable {
 	private int disRate;
 	private String desc;
 	private String link;
+	private String star;
 	
 	//
 	public BookInfoVO() {
 		super();
 	}
 	public BookInfoVO(String title, String author, String pub, String img, String isbn, String date, int price,
-			int discount, int disRate, String desc, String link) {
+			int discount, int disRate, String desc, String link, String star) {
 		super();
 		this.title = title;
 		this.author = author;
@@ -42,6 +43,7 @@ public class BookInfoVO implements Serializable {
 		this.disRate = disRate;
 		this.desc = desc;
 		this.link = link;
+		this.star = star;
 	}
 	
 	//
@@ -114,17 +116,20 @@ public class BookInfoVO implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	public String getStar() {
+		return star;
+	}
+	public void setStar(String star) {
+		this.star = star;
+	}
 	
-	//
 	@Override
 	public String toString() {
 		return "BookInfoVO [title=" + title + ", author=" + author + ", pub=" + pub + ", img=" + img + ", isbn=" + isbn
 				+ ", date=" + date + ", price=" + price + ", discount=" + discount + ", disRate=" + disRate + ", desc="
-				+ desc + ", link=" + link + "]";
+				+ desc + ", link=" + link + ", star=" + star + "]";
 	}
-	
-	
-	
+		
 	
 	
 }

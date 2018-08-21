@@ -2,11 +2,14 @@ package com.book.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -79,15 +82,18 @@ public class BookController {
 	
 	//도서 베스트셀러 페이지
 	@RequestMapping(value="bestseller", method=RequestMethod.GET)
-	public String bookSeller(Model model) {
+	public String bookSeller(Model model, HttpServletRequest req) {
 		logger.info("Welcome search! The client url is {}.", "/book/bestseller");
-		model.addAttribute("slist",bservice.selectStore());
+		HttpSession session = req.getSession();
+		String usercode =  Integer.toString((int) (session.getAttribute("usercode")==null?0:session.getAttribute("usercode")));
 		
+		// default
+		model.addAttribute("slist",bservice.selectStore());
 		model.addAttribute("s_site", "YES24");
 		model.addAttribute("genre", "종합");
 		model.addAttribute("glist", bservice.selectGenre("YES24"));
 		Map<String, String> cate = bservice.getCate("YES24", "종합");
-		model.addAttribute("bests", bservice.findBests(cate.get("bscate"), cate.get("sgcategory")));
+		model.addAttribute("bests", bservice.findBests(cate.get("bscate"), cate.get("sgcategory"), usercode));
 		
 		return "bookbests";
 	}
@@ -102,8 +108,11 @@ public class BookController {
 	}
 	//도서 베스트셀러 결과 (각 서점, 장르별)
 	@RequestMapping(value= "bestseller/{site}/{genre}", method=RequestMethod.GET)
-	public String bookSeller(@PathVariable("site") String site , @PathVariable("genre") String genre, Model model) {
+	public String bookSeller(@PathVariable("site") String site , @PathVariable("genre") String genre, Model model, HttpServletRequest req) {
 		System.out.printf("사이트 : %s, 장르 : %s \n", site, genre);
+		HttpSession session = req.getSession();
+		String usercode =  Integer.toString((int) (session.getAttribute("usercode")==null?0:session.getAttribute("usercode")));
+		
 		genre = genre.replaceAll("-", "/");
 		model.addAttribute("s_site", site);
 		model.addAttribute("genre", genre);
@@ -112,7 +121,8 @@ public class BookController {
 		
 		Map<String, String> cate = bservice.getCate(site, genre);
 		System.out.println(cate.get("bscate")+","+cate.get("sgcategory"));
-		model.addAttribute("bests", bservice.findBests(cate.get("bscate"), cate.get("sgcategory")));
+		model.addAttribute("bests", bservice.findBests(cate.get("bscate"), cate.get("sgcategory"), usercode));
+		
 		return "bookbests";
 	}
 	
@@ -128,15 +138,18 @@ public class BookController {
 	
 	// 도서 정보
 	@RequestMapping(value="info/{isbn}", method=RequestMethod.GET)
-	public ModelAndView bookInfo(@PathVariable("isbn") String isbn) throws Exception {
+	public ModelAndView bookInfo(@PathVariable("isbn") String isbn, HttpServletRequest req) throws Exception {
 		ModelAndView mav = new ModelAndView();
+		logger.info("Welcome info! The client url is {}.", "/book/info");
+		
+		HttpSession session = req.getSession();
+		String usercode =  Integer.toString((int) session.getAttribute("usercode"));
+		
 		String result = NaverSearch.booksearch(isbn).toString();
 		
-		//mav.addObject("info", JsonParser.parseDoc(result.substring(1, result.length())));
-		mav.addObject("info", JsonParser.parseDoc(result));
 		
-		//mav.addObject("price", CrawlUtil.getPrices(isbn));
-		logger.info("Welcome info! The client url is {}.", "/book/info");
+		mav.addObject("info", JsonParser.parseDoc(result));
+		mav.addObject("pointed", bservice.checkPoint(usercode, isbn));
 		
 		mav.setViewName("bookinfo");
 		return mav;
@@ -164,5 +177,31 @@ public class BookController {
 		String link = biVo.getLink();
 		return CrawlUtil.getPoint(link).toString().split(":")[1].split("%")[0];
 	}
+	
+	// 도서 찜하기
+	@ResponseBody
+	@RequestMapping(value="pointbook", method=RequestMethod.POST)
+	public void pointBook(@RequestBody BookInfoVO biVo, HttpServletRequest req) throws Exception {
+			HttpSession session = req.getSession();
+			int usercode = (int) session.getAttribute("usercode");
+			System.out.println(biVo.toString());
+			Map<String, Object> map = new HashMap<String, Object>();
+	
+			bservice.insertBook(biVo);
+			map.put("usercode", usercode);
+			map.put("isbn", biVo.getIsbn());
+			bservice.pointBook(map);
+	}
+	// 찜 확인
+	@ResponseBody
+	@RequestMapping(value="pointcheck", method=RequestMethod.POST)
+	public int checkPoint(@RequestBody BookInfoVO biVo, HttpServletRequest req) throws Exception {
+			HttpSession session = req.getSession();
+			String usercode = Integer.toString((int) session.getAttribute("usercode"));
+			System.out.println(biVo.toString());
+			System.out.println("==================================");
+			return bservice.checkPoint(usercode, biVo.getIsbn());
+	}
+	
 	
 }
