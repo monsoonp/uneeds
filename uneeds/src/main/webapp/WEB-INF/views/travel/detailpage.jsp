@@ -227,11 +227,18 @@ var btn = document.getElementById("reviewbutton");
 // Get the <span> element that closes the modal
 var span = document.getElementsByClassName("modal-close")[0];                                          
 
-
+var id = '<%=session.getAttribute("userid")%>';
 // When the user clicks on the button, open the modal 
+
+
 btn.onclick = function() {
-    modal.style.display = "block";
+	if(id == 'null'){
+		alert("로그인 후 등록해주세요.");
+	}else {
+	    modal.style.display = "block";
+	}
 }
+
 
 // When the user clicks on <span> (x), close the modal
 span.onclick = function() {
@@ -1012,6 +1019,15 @@ window.onclick = function(event) {
 	}
 </script>
 
+<script>
+	function reviewinsert(listdata){
+			
+		console.log("확인");	
+		console.log();
+	}
+</script>
+
+
 </head>
 <body class="place_list">
 	<!-- header 부분 -->
@@ -1020,7 +1036,7 @@ window.onclick = function(event) {
 	<!-- header 부분 -->
 
 	<div id="app">
-		<div id="container" role="main" data-reactroot="">
+		<div id="container" role="main" data-reactroot="" >
 			<div id="content" class="content">
 				<div class="ct_box_area">
 					<div class="biz_name_area">
@@ -1062,9 +1078,7 @@ window.onclick = function(event) {
 						<div class="list_bizinfo"></div>
 					</div>
 
-					<div id="panel01" class="tab_detail_area" role="tabpanel"
-						aria-labelledby="tab01" aria-expanded="true" aria-hidden="false">
-						<div>
+					<div id="panel01" class="tab_detail_area" role="tabpanel" aria-labelledby="tab01" aria-expanded="true" aria-hidden="false"> <div>
 
 								<!-- 리  뷰 -->
 							<div class="sc_box relation_place">
@@ -1072,7 +1086,7 @@ window.onclick = function(event) {
 								    <button id="reviewbutton" style="position: absolute; right: 0;">리뷰 쓰기</button>
  								</h3>
 								    <!-- The Modal -->
-								    <form action="">
+							<form>
 								<div id = "modal-content">
     								<div id="myModal" class="modal">
 	 									<!-- Modal content -->
@@ -1113,13 +1127,12 @@ window.onclick = function(event) {
         											</div>
         										</div>
         										
-        										<div class = "reviewputipcancel">
-        											<input id="reviewputup" type="submit"  style="margin: 5px;" value ="리뷰 쓰기">
-        											<input id="reviewcancel" type="button"  style="margin: 5px;" value = "취소">
+        										<div class = "reviewputipcancel" style="text-align: right;">
+        											<input id="reviewputup" type="button"  style="margin: 5px; " value ="리뷰 쓰기" onclick="javascript:reviewinsert(this.form)">
         										</div>
         									
-        									</form>
-        									</div></div></div>
+        									</div></div></div></form>
+        									</div>
         									
 
 								<div class="relation_place_area">

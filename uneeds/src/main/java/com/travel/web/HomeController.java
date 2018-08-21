@@ -33,6 +33,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.travel.model.BookMarkVO;
 import com.travel.model.ReviewVO;
+import com.travel.model.ReviewinsertVO;
+import com.travel.model.TMemberVO;
 import com.travel.model.TravelareainfoVO;
 import com.travel.persistence.TourDAO;
 
@@ -68,6 +70,11 @@ public class HomeController {
 	@RequestMapping(value = "/detailpage")
 	public String detailfage(Locale locale, Model model) {
 		return "detailpage";
+	}
+	
+	@RequestMapping(value = "/additionmemberinfo")
+	public String additionmemberinfo(Locale locale, Model model) {
+		return "additionmemberinfo";
 	}
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
@@ -110,8 +117,7 @@ public class HomeController {
 			}
 			rd.close();
 			conn.disconnect();
-			
-		System.out.println(sb.toString());
+		
 		return new ResponseEntity<String>(sb.toString(), responseHeaders, HttpStatus.CREATED);
 	}
 
@@ -157,7 +163,6 @@ public class HomeController {
 			rd.close();
 			conn.disconnect();
 
-		System.out.println(sb.toString());
 		return new ResponseEntity<String>(sb.toString(), responseHeaders, HttpStatus.CREATED);
 	}
 	
@@ -197,7 +202,7 @@ public class HomeController {
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("Content-type", "application/json");
-		System.out.println("Response code: " + conn.getResponseCode());
+		
 		BufferedReader rd;
 		if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
 			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -211,10 +216,10 @@ public class HomeController {
 		}
 		rd.close();
 		conn.disconnect();
-		System.out.println(sb.toString());
 
 		return new ResponseEntity<String>(sb.toString(), responseHeaders, HttpStatus.CREATED);
 	}
+	
 	
 	// 컨텐츠ID / 컨텐츠타입을 통하여 상세 정보 가져오는 부분
 	@RequestMapping(value = "/detailedinformation", method = RequestMethod.GET)
@@ -223,7 +228,7 @@ public class HomeController {
 		String contenttype = request.getParameter("contenttype");
 		contenttype = Objects.isNull(contenttype) ? "12" : contenttype;
 		String contentId = request.getParameter("contentId");
-
+		
 		StringBuilder urlBuilder = new StringBuilder("http://api.visitkorea.or.kr/openapi/service/rest/KorService/detailIntro"); /* URL */
 		urlBuilder.append("?" + URLEncoder.encode("ServiceKey", "UTF-8") + "= 1T7BS1EDFAZ2UpQNRMnhaTeNc%2FF0Mv2DGlpwUgzubu22EGQofVc%2BqWuWTOYydw%2BryYH3uIsZRCc1g8FfZbPzYA%3D%3D"); /*Service Key */
 		urlBuilder.append("&" + URLEncoder.encode("ServiceKey", "UTF-8") + "=" + URLEncoder.encode("1T7BS1EDFAZ2UpQNRMnhaTeNc%2FF0Mv2DGlpwUgzubu22EGQofVc%2BqWuWTOYydw%2BryYH3uIsZRCc1g8FfZbPzYA%3D%3D (URL- Encode)", "UTF-8")); /* 공공데이터포털에서 발급받은 인증키 */
@@ -242,7 +247,6 @@ public class HomeController {
 		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
 		conn.setRequestMethod("GET");
 		conn.setRequestProperty("Content-type", "application/json");
-		System.out.println("Response code: " + conn.getResponseCode());
 		BufferedReader rd;
 		if (conn.getResponseCode() >= 200 && conn.getResponseCode() <= 300) {
 			rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -256,8 +260,6 @@ public class HomeController {
 		}
 		rd.close();
 		conn.disconnect();
-		System.out.println("===========================================");
-		System.out.println(sb.toString());
 
 		return new ResponseEntity<String>(sb.toString(), responseHeaders, HttpStatus.CREATED);
 	}
@@ -301,7 +303,40 @@ public class HomeController {
 	}
 	
 	/* 리뷰 정보 저장 */
-
+	@RequestMapping(value = "t_reviewinsert", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, String> insertreviewinfo(HttpServletRequest r, ReviewinsertVO vo) {
+		try {
+			r.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// 초기
+		HashMap<String, String> states = new HashMap<String, String>();
+		states.put("state", "ok");
+		// insert
+		dao.reviewinsertinfo(vo);
+		
+		return states;
+	}
+	
+	/* 추가 가입 정보 저장 */
+	@RequestMapping(value = "t_additionmemberinfo", method = RequestMethod.POST)
+	public @ResponseBody HashMap<String, String> insertmembercheck(HttpServletRequest r, TMemberVO vo) {
+		try {
+			r.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		// 초기
+		HashMap<String, String> states = new HashMap<String, String>();
+		states.put("state", "ok");
+		// insert
+		dao.insertmembercheck(vo);
+		
+		return states;
+	}
 	
 	// 불러오기 부분 
 	// ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -310,4 +345,10 @@ public class HomeController {
 	public @ResponseBody List<ReviewVO> reviewselectinfo(@RequestParam("contentid") String contentid) {
 		return dao.reviewselectinfo(contentid);
 	}
+	
+	/* 로그인 시 추가 입력 사항 확인 */
+	@RequestMapping(value = "/membercheck", method = RequestMethod.GET)
+	public @ResponseBody List<TMemberVO> membercheckinfo(@RequestParam("mid") String mid) {
+		return dao.membercheckinfo(mid);
+	}	
 }
