@@ -141,7 +141,6 @@ public class BookController {
 		mav.setViewName("bookinfo");
 		return mav;
 	}
-	
 	// 도서 상세 정보
 	@ResponseBody
 	@RequestMapping(value="info/bookdesc", method=RequestMethod.POST, produces = "application/json; charset=utf-8")
