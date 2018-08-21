@@ -183,14 +183,18 @@ function check(i){
 	if(i.hasClass('fas') == true){
 		i.addClass('far');
 		i.removeClass('fas');
-		if(i.hasClass('fa-heart'==true)){
+		if(i.hasClass('fa-heart')==false){
 			alert('찜 목록에서 해제되었습니다.');
+		}else{
+			alert('위시리스트에서 해제되었습니다.');
 		}
 	}else{
 		i.addClass('fas');
 		i.removeClass('far');
-		if(i.hasClass('fa-heart'==true)){
+		if(i.hasClass('fa-heart')==false){
 			alert('찜 목록에 등록되었습니다.');
+		}else{
+			alert('위시리스트에 등록되었습니다.');
 		}
 	}
 }
@@ -228,6 +232,7 @@ body {
 		<!-- 책 목록 -->
 
 		<c:set var="infoVo" value="${info.items[0] }"/>
+		<form>
 		<div class="books">
 			<div class="main-book">
 				<div class="row mb-4 my-auto mx-auto px-auto py-3">
@@ -321,9 +326,18 @@ body {
 						<p id="desc"></p>
 					</div>
 				</div>
+				<input name="isbn" class="display-none" value="${isbn }">
+				<input name="title" class="display-none" value="${title }">
+				<input name="author" class="display-none" value="${author}">
+				<input name="pub" class="display-none" value="${pub }">
+				<input name="img" class="display-none" value="${img }">
+				<input name="price" class="display-none" value="${price }">
+				<input name="discount" class="display-none" value="${discount }">
+				<input name="desc" class="display-none" value="${infoVo.description }">
+				
 			</div>
 		</div>
-		
+		</form>	
 	</div>
 	
 	<!-- 하단 여백 -->

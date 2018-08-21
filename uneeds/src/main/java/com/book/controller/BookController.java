@@ -99,16 +99,16 @@ public class BookController {
 	}
 	//도서 베스트셀러 인터넷 서점 장르목록 가져오기
 	@ResponseBody
-	@RequestMapping(value="bestseller/{site}", method=RequestMethod.POST)
-	public List<GenreVO> bookSeller(@PathVariable("site") String site, Model model) {
+	@RequestMapping(value="bestseller/{s_site}", method=RequestMethod.POST)
+	public List<GenreVO> bookSeller(@PathVariable("s_site") String site, Model model) {
 		List<GenreVO> gVO = bservice.selectGenre(site);
 		model.addAttribute("s_site", site);
 		model.addAttribute("glist", gVO);
 		return gVO;
 	}
 	//도서 베스트셀러 결과 (각 서점, 장르별)
-	@RequestMapping(value= "bestseller/{site}/{genre}", method=RequestMethod.GET)
-	public String bookSeller(@PathVariable("site") String site , @PathVariable("genre") String genre, Model model, HttpServletRequest req) {
+	@RequestMapping(value= "bestseller/{s_site}/{genre}", method=RequestMethod.GET)
+	public String bookSeller(@PathVariable("s_site") String site , @PathVariable("genre") String genre, Model model, HttpServletRequest req) {
 		System.out.printf("사이트 : %s, 장르 : %s \n", site, genre);
 		HttpSession session = req.getSession();
 		String usercode =  Integer.toString((int) (session.getAttribute("usercode")==null?0:session.getAttribute("usercode")));
