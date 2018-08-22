@@ -90,8 +90,12 @@ public class MainController {
 			HttpSession session= req.getSession();
 			session.setAttribute("login", "logined");
 			session.setAttribute("id", id);
+			session.setAttribute("userid", id);
 			session.setAttribute("site", site);
-			session.setAttribute("usercode", service.login(id, site));
+			int code = service.login(id, site);
+			session.setAttribute("usercode", code);
+			session.setAttribute("mcode", code);
+			
 			System.out.printf("사이트: %s, 아이디: %s",site, id);
 			
 			// 이전페이지 url가져오기	// 실제 사용되지 않음, javascript에서 redirect

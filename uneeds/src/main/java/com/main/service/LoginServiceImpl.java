@@ -29,12 +29,14 @@ public class LoginServiceImpl implements LoginService{
         else {
         	String pw = (String) result.get("pw").toString();
         	String Lcode = (String) result.get("Lcode").toString();
+        	int mcode = (int)(result.get("mcode"));
         	if(pwd == null) {
         		return false;
         	}else {
         		if(pw.equals(pwd)) {
     	        	session.setAttribute("userid", usr);
     	        	session.setAttribute("Lcode", Lcode);
+    	        	session.setAttribute("mcode", mcode);
         			return true;
         		}
         		else 
