@@ -124,6 +124,7 @@ function bind_book(){
 									publisher+span+
 									pubdate+
 									'</p>'+
+									'<p><b>ISBN:</b> '+isbn+'</p>'+
 									discount+
 								'</div>'+
 							'</div>'+
@@ -131,15 +132,14 @@ function bind_book(){
 						"</li>");
 		    	}
 	    	}else{
-	    		//ul.empty();
 	    		ul.append("<li>"+
-			    		'<div class="main-div">'+
-							'<div class="row mb-4">'+
-								'<div class="panel col-md-12">'+
-									'<h2>검색 결과가 없습니다.</h2>'+
+				    		'<div class="main-div">'+
+								'<div class="row mb-4">'+
+									'<div class="panel col-md-12">'+
+										'<h2>검색 결과가 없습니다.</h2>'+
+									'</div>'+
 								'</div>'+
 							'</div>'+
-						'</div>'+
 						"</li>");
 	    	}
 	    	

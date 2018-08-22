@@ -226,8 +226,6 @@ body {
 
 		<h1 class="my-4">BOOK INFO</h1>
 		
-		<!-- /.row -->
-		
 		<hr/>
 		<!-- 책 목록 -->
 
@@ -257,10 +255,10 @@ body {
 						<c:set var="img" value="${fn:substring(infoVo.image, 1, fn:indexOf(infoVo.image, '?'))}"/>
 						<c:choose>
 							<c:when test="${img ne null || img ne ''}">
-								<img src="${img}"/>
+								<img src="${img}" class="img"/>
 							</c:when>
 							<c:otherwise>
-								<img src="${img = '/resources/book/img/defaultbook.png' }"/>
+								<img src="${img = '/resources/book/img/defaultbook.png' }" class="img"/>
 							</c:otherwise>
 						</c:choose>
 					</div>
