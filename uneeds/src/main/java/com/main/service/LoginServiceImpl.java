@@ -29,7 +29,7 @@ public class LoginServiceImpl implements LoginService{
         else {
         	String pw = (String) result.get("pw").toString();
         	String Lcode = (String) result.get("Lcode").toString();
-        	String mcode = (String) result.get("mcode").toString();
+        	int mcode = (int)(result.get("mcode"));
         	if(pwd == null) {
         		return false;
         	}else {
