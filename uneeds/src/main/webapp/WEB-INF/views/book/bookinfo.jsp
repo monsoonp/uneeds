@@ -296,6 +296,7 @@ body {
 						</c:choose>
 					</div>
 				</div>
+				
 				<!-- 최저가 -->
 				<div class="row mb-4 my-auto mx-auto px-auto py-3">
 					<div class="col-md-8 mx-auto my-auto py-auto">
