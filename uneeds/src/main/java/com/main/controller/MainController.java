@@ -73,6 +73,7 @@ public class MainController {
 	            System.out.println("redirect:" + redirectUrl);
 	            session.removeAttribute(redirectUrl);
 	            
+	            
 	            session.setAttribute("login", "logined");
 				session.setAttribute("id", usr);
 				session.setAttribute("site", "uneeds");
