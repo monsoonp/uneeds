@@ -1,4 +1,4 @@
-body{
+	body{
     	background: url('/resources/food/image/main.jpg') no-repeat center center fixed;
 		background-repeat: no-repeat; 
  		background-attachment: fixed; 
@@ -7,6 +7,21 @@ body{
  		-moz-background-size:cover;
  		-o-background-size:cover;
  		min-width:800px;	 
+	}
+	
+	a:link {
+	text-decoration: none;
+	color: black;
+	}
+
+	a:visited {
+	text-decoration: none;
+	color: black;
+	}
+
+	a:hover {
+	text-decoration: none;
+	color: black;
 	}
 
 	li{

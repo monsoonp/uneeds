@@ -88,7 +88,10 @@ li {
 
 #user_info {
 	float: right !important;
-	margin: 20px 0px;
+	margin-top: 20px;
+	margin-bottom: 7px;
+	margin-left: 0px;
+	margin-right: 0px;
 }
 
 #null_div {
@@ -335,7 +338,7 @@ li {
 }
 
 #food_detail_title_area_count {
-	width: 75%;
+	width: 65%;
 	height: 55px;
 	float: left;
 }
@@ -344,7 +347,7 @@ li {
 	display: inline-block;
 	height: 55px;
 	margin-right: 40px;
-	padding-left:5px;
+	padding-left:10px;
 }
 
 #food_detail_title_area_count_like_num {
@@ -361,7 +364,7 @@ li {
 	float: left; 
 	height: 45px;
 	margin-top: 10px;
-	width: 25%;
+	width: 35%;
 }
 
 #food_detail_title_area_write_contain {
@@ -379,7 +382,7 @@ li {
     display: inline-block;
     width: 24px;
     height: 22px;
-    background: url("/resources/image/write_img.png") center no-repeat;
+    background: url("/resources/food/image/write_img.png") center no-repeat;
 }
 
 #food_detail_title_area_write_contain_review_lang{
@@ -388,6 +391,14 @@ li {
     height: 25px;
     font-size: 17px;
     color: #fff;
+}
+
+#food_detail_title_area_write_contain_reservation_img{
+	float: left;
+    display: inline-block;
+    width: 30px;
+    height: 22px;
+    background: url("/resources/food/image/rs.png") center no-repeat;
 }
 
 #food_detail_title_area_write_contain_like{
@@ -401,7 +412,7 @@ li {
     display: inline-block;
     width: 24px;
     height: 22px;
-    background: url("/resources/image/like_img.png") center no-repeat;
+    background: url("/resources/food/image/like_img.png") center no-repeat;
 }
 
 #food_detail_title_area_write_contain_like_lang{
@@ -466,7 +477,7 @@ li {
 #food_detail_content_info{
 	position: relative;
 	width: 100%;
-	height: 240px;
+	height: 200px;
 }
 
 #food_detail_content_info_common{
@@ -531,7 +542,7 @@ li {
 	display: inline-block;
 	width: 428px;
 	height: 40px;
-	background-image: url("/zerock/resources/image/line.png");
+	background-image: url("/resources/food/image/line.png");
     background-position-y: -11px;
 }
 
@@ -592,7 +603,7 @@ li {
 	display: inline-block;
 	width: 433px;
 	height: 25px;
-	background-image: url("/resources/image/line.png");
+	background-image: url("/resources/food/image/line.png");
     background-position-y: -10px;
     margin-bottom: 10px;
 }
@@ -631,7 +642,7 @@ li {
 	display: inline-block;
 	width: 433px;
 	height: 25px;
-	background-image: url("/resources/image/line.png");
+	background-image: url("/resources/food/image/line.png");
     background-position-y: -10px;
     margin-bottom: 10px;
 }
@@ -654,7 +665,7 @@ li {
 	position:relative;
 	width: 960px;
 	height: 285px;
-	margin-top: 40px;
+	margin-top: 20px;
 	border-bottom: #E0E0E0 solid 1px;
 }
 
@@ -669,8 +680,7 @@ li {
 
 #food_detail_content_review_write_textarea{
 	width:100%;
-	height:200px;
-	background-color: black;
+	height:150px;
 }
 
 #food_detail_content_review_write_btn{
@@ -678,6 +688,32 @@ li {
 	width:100%;
 	height: 40px;
 	text-align: right;
+}
+
+#food_detail_content_review_write_btn_photo{
+	float:right;
+	background:#3f3f3f;
+	border: 0;
+	width: 250px;
+	padding-top : 4px;
+	text-align: center;"
+}
+
+#food_detail_content_review_write_btn_null{
+	width:20px;
+	height:10px;
+	float: right;
+}
+
+#food_detail_content_review_write_btn_submit{
+	float:right;
+	background-color: white;
+	outline: none;
+	border: 1px solid #dadada;
+	color: #8f8f8f;
+	width: 200px;
+	text-align: left;
+	padding-top:4px;
 }
 
 #food_detail_content_review_list_contain{

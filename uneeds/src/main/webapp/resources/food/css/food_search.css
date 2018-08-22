@@ -83,9 +83,12 @@ li {
     border: 0px;
 }
 
-#user_info{
-	float: right!important;
-	margin: 20px 0px;	
+#user_info {
+	float: right !important;
+	margin-top: 20px;
+	margin-bottom: 7px;
+	margin-left: 0px;
+	margin-right: 0px;
 }
 
 #null_div{

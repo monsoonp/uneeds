@@ -72,8 +72,7 @@ src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=iXc25gyU5cMUdYySU
 					<li style="padding-left: 5px;"><a href="/uneeds/logout" style="color: white; font-size: 14px;">로그아웃</a></li>
 					<%} %>
 				</ul>
-				<%String mcodes = (String)session.getAttribute("mcode"); 
-		  		int mcode = Integer.parseInt(mcodes); %>
+				<%int mcode = (int)session.getAttribute("mcode");%>
 					<input type="hidden" id="addr" value="${list.faddr}">
 					<input type="hidden" id="mcode" value="<%=mcode%>">
 			</div>

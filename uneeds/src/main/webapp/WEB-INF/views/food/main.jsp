@@ -6,6 +6,17 @@
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
 <link rel="stylesheet" href="/resources/food/css/food_main.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script type="text/javascript">
+	function reservationList(){
+		var URL = "reservationList?mcode=";
+		var mcode = $("#mcode").val();
+		var popUp = URL + mcode;
+		var popOpen = "width=408, height=545, resizeable=no, status=no;";
+		window.open(popUp,"",popOpen);
+	}
+</script>
 <title>UNEEDS FOOD</title>
 </head>
 <body>
@@ -18,7 +29,7 @@
 		<div style="float: right; padding-right: 20px;"><a href="/uneeds/login" style="color: white; font-size: 20px;">LOGIN</a></div>
 <%} else { %>
 		<div style="float: right; padding-right: 20px; color: white; font-size: 20px;">
-			<%= id %>님<br> 
+			<a onclick="reservationList();"><%=id %>님</a><br> 
 		</div>
 		<br>
 		<div style="float: right; padding-right: 30px;">

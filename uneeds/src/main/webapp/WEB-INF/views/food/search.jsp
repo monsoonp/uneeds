@@ -10,8 +10,13 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript">
-	console.log(${pageMaker.startPage});
-	console.log(${pageMaker.endPage});
+	function reservationList(){
+		var URL = "reservationList?mcode=";
+		var mcode = $("#mcode").val();
+		var popUp = URL + mcode;
+		var popOpen = "width=408, height=545, resizeable=no, status=no;";
+		window.open(popUp,"",popOpen);
+	}
 </script>
 <title>UNEEDS FOOD</title>
 </head>
@@ -35,7 +40,7 @@
 					<%if(id==null){ %>				
 					<li><a href="/uneeds/login" style="color: white; font-size: 17px;">LOGIN</a></li>
 					<%} else {%>
-					<li style="color: white; font-size:15px;"><%=id %>님</li>
+					<li style="color: white; font-size:15px;"><a onclick="reservationList();"><%=id %>님</a></li>
 					<li style="padding-left: 5px;"><a href="/uneeds/logout" style="color: white;">로그아웃</a></li>
 					<%} %>
 				</ul>
