@@ -1,6 +1,7 @@
 package com.book.persistence;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -9,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.book.domain.BookInfoVO;
+import com.book.domain.BookVO;
 
 @Repository
 public class BookDAOImpl implements BookDAO{
@@ -31,4 +33,10 @@ public class BookDAOImpl implements BookDAO{
 		return mysqlSession.selectOne(namespace+".checkPoint", point);
 	}
 
+	@Override
+	public List<BookVO> bookmark(String usercode) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("usercode", usercode);
+		return mysqlSession.selectList(namespace+".bookmark", map);
+	}
 }

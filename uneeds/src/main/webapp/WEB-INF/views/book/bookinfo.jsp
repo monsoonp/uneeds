@@ -257,22 +257,21 @@ body {
 						<c:set var="img" value="${fn:substring(infoVo.image, 1, fn:indexOf(infoVo.image, '?'))}"/>
 						<c:choose>
 							<c:when test="${img ne null || img ne ''}">
-								<img src="${img}" style="width:80%; height: 80%"/>
+								<img src="${img}"/>
 							</c:when>
 							<c:otherwise>
-								<img src="/resources/book/img/defaultbook.png" style="width:80%; height: 80%"/>
+								<img src="${img = '/resources/book/img/defaultbook.png' }"/>
 							</c:otherwise>
 						</c:choose>
 					</div>
 					<!-- 도서 -->
 					<div class="panel col-md-5 my-auto mx-auto">
 						<h2>${fn:replace( fn:split(infoVo.title,'(' )[0] ,'\"','')}</h2>
-							<c:if test="${fn:split(infoVo.title,'(' )[1] ne null}">
-								<p>
-									(${fn:replace( fn:split(infoVo.title,'(' )[1] ,'\"','')}
-								</p>
-								
-							</c:if>
+						<c:if test="${fn:split(infoVo.title,'(' )[1] ne null}">
+							<p>
+								(${fn:replace( fn:split(infoVo.title,'(' )[1] ,'\"','')}
+							</p>
+						</c:if>
 						<p>
 							<a href='/uneeds/book/search/${author = fn:replace(infoVo.author, "\"", "") }'>${author }</a>
 							<span>|</span>
@@ -282,7 +281,8 @@ body {
 						</p>
 						<p>
 							<c:set var="isbn" value="${fn:split(infoVo.isbn,' ' )[1]}" />
-							ISBN : ${fn:replace( fn:split(fn:split(isbn, '>')[1] ,'<')[0],'\"','') }
+							<c:set var="isbn" value="${fn:replace( fn:split(fn:split(isbn, '>')[1] ,'<')[0],'\','') }"/>
+							ISBN : ${isbn}	
 						</p>
 						<c:choose>
 							<c:when test="${infoVo.discount ne null }">

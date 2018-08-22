@@ -41,5 +41,12 @@
 		select count(*) from b_pointedbook where mcode = #{usercode} and bcode = (select bcode from b_bookinfo where bisbn = #{isbn})
 	</select>
 	
+	<!-- 찜 목록-->
+	<select id="bookmark" parameterType="hashmap" resultType="com.book.domain.BookVO">
+		select i.*, a.aname, p.pname
+			from b_pointedbook b, b_bookinfo i, b_author a, b_publisher p 
+			where 
+				b.bcode = i.bcode and b.mcode = #{usercode} and i.acode = a.acode and i.pcode = p.pcode
+	</select>
 	
 </mapper>

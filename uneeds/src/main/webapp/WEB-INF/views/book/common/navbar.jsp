@@ -40,7 +40,12 @@
 						</a> 
 						<a class="dropdown-item" href="/uneeds/book/bestseller">
 							스테디 셀러
-						</a> 
+						</a>
+						<c:if test="${login eq 'logined' }">
+							<a class="dropdown-item" href="/uneeds/book/bookmark">
+								찜 목록
+							</a>
+						</c:if> 
 					</div>
 				</li>
 				

@@ -6,6 +6,7 @@ import java.util.Map;
 import org.bson.Document;
 
 import com.book.domain.BookInfoVO;
+import com.book.domain.BookVO;
 import com.book.domain.GenreVO;
 import com.book.domain.PriceVO;
 import com.book.domain.StoreVO;
@@ -24,4 +25,6 @@ public interface BookService {
 	public void pointBook(Map<String, Object> map);
 	
 	public int checkPoint(String usercode, String isbn);
+	
+	public List<BookVO> bookmark(String usercode);
 }

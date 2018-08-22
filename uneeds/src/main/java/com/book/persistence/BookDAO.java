@@ -1,9 +1,11 @@
 package com.book.persistence;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.book.domain.BookInfoVO;
+import com.book.domain.BookVO;
 
 public interface BookDAO {
 	
@@ -13,4 +15,5 @@ public interface BookDAO {
 	
 	public int checkPoint(Map<String, Object> point);
 	
+	public List<BookVO> bookmark(String usercode);
 }

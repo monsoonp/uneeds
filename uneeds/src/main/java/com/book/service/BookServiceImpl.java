@@ -12,6 +12,7 @@ import org.bson.Document;
 import org.springframework.stereotype.Service;
 
 import com.book.domain.BookInfoVO;
+import com.book.domain.BookVO;
 import com.book.domain.GenreVO;
 import com.book.domain.PriceVO;
 import com.book.domain.StoreVO;
@@ -74,7 +75,10 @@ public class BookServiceImpl implements BookService{
 				Document d1 = (Document) d.get("result");
 				ArrayList<Document> b = (ArrayList<Document>) d1.get("items");
 				d1=b.get(0);
-				String isbn = d1.get("isbn").toString().split(">")[1].split("<")[0].toString();
+				String isbn = d1.get("isbn").toString();
+				if (isbn.contains(">")) {
+					isbn = isbn.split(">")[1].split("<")[0].toString();
+				}
 				b2 = new Document();
 				b2.append("check", checkPoint(usercode, isbn));
 				newList.add(i, b2);
@@ -110,6 +114,11 @@ public class BookServiceImpl implements BookService{
 		map.put("usercode", usercode);
 		map.put("isbn", isbn);
 		return bookDao.checkPoint(map);
+	}
+	
+	@Override
+	public List<BookVO> bookmark(String usercode) {
+		return bookDao.bookmark(usercode);
 	}
 
 	
