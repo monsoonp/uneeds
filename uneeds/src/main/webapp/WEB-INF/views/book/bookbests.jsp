@@ -266,7 +266,7 @@ body {
 								</div>
 								<div class="panel col-md-8 my-auto">
 									<!-- title -->
-									<button class="title" onclick="book_info(this.form);">${fn:split(b.result.items[0].title,'(' )[0] }</button>
+									<button class="title" onclick="book_info(this.form);">${title = fn:split(b.result.items[0].title,'(' )[0] }</button>
 										<c:if test="${fn:split(b.result.items[0].title,'(' )[1] ne null}">
 											<p>
 												(${fn:split(b.result.items[0].title,'(' )[1]}
