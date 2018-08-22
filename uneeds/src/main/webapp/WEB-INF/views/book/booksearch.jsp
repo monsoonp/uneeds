@@ -215,7 +215,7 @@ body {
 		<div class="row mb-4 py-4">
 			<div class="col-md-12">
 				<form class="search_form">
-					<input type="text" value='' class="searcher" placeholder="검색 입력후 엔터" autofocus>
+					<input type="text" value='' class="searcher" placeholder="검색어 입력후 엔터" autofocus>
 				</form>
 				<hr class="searcherLine"/>
 			</div>
