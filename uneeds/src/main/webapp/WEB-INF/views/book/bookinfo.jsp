@@ -265,7 +265,7 @@ body {
 					</div>
 					<!-- 도서 -->
 					<div class="panel col-md-5 my-auto mx-auto">
-						<h2>${fn:replace( fn:split(infoVo.title,'(' )[0] ,'\"','')}</h2>
+						<h2>${title = fn:replace( fn:split(infoVo.title,'(' )[0] ,'\"','')}</h2>
 						<c:if test="${fn:split(infoVo.title,'(' )[1] ne null}">
 							<p>
 								(${fn:replace( fn:split(infoVo.title,'(' )[1] ,'\"','')}
