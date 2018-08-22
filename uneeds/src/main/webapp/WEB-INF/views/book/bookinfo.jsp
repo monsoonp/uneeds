@@ -163,9 +163,10 @@ function change(i,frm){
 		url:"/uneeds/book/pointbook",
 		type:"post",
 		data:JSON.stringify({
-			isbn: frm.isbn.value.split(">")[1].split("<")[0],
+			isbn: frm.isbn.value,
 			title: frm.title.value,
 			author: frm.author.value,
+			img: frm.img.value,
 			pub: frm.pub.value,
 			price: frm.price.value,
 			discount: frm.discount.value
