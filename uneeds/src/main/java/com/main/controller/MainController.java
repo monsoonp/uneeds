@@ -72,7 +72,13 @@ public class MainController {
 	            System.out.println("테스트2");
 	            System.out.println("redirect:" + redirectUrl);
 	            session.removeAttribute(redirectUrl);
-	            }
+	            
+	            session.setAttribute("login", "logined");
+				session.setAttribute("id", usr);
+				session.setAttribute("site", "uneeds");
+				session.setAttribute("usercode", service.login(usr, "uneeds"));
+	            
+	        }
 	        else{ // 로그인 실패
 	        	mav.setViewName("redirect:" + redirectUrl);
 	        }
@@ -85,10 +91,10 @@ public class MainController {
 			session.setAttribute("login", "logined");
 			session.setAttribute("id", id);
 			session.setAttribute("site", site);
+			session.setAttribute("usercode", service.login(id, site));
 			System.out.printf("사이트: %s, 아이디: %s",site, id);
 			
-			
-			// 이전페이지 url가져오기
+			// 이전페이지 url가져오기	// 실제 사용되지 않음, javascript에서 redirect
 			String referer = req.getHeader("Referer");
 			return "redirect:"+referer;
 		}

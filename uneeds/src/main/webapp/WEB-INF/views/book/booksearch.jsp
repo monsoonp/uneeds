@@ -27,6 +27,8 @@
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Kirang+Haerang" rel="stylesheet">
 <!-- Font Awesome - Glyphicons 대용 -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+<!-- autocomplete -->
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.26/jquery.autocomplete.min.js'></script>
 
 <script type="text/javascript">
 var showTimes;		// 시간
@@ -39,18 +41,10 @@ var display;	//가져온 목록수
 $(function(){
 	// 저자, 출판사로 검색이 넘어올 시 
 	if('${text}'!=''){
-		
 		check_text('${text}');
 		$('.searcher').val('${text}')
 	}
 	currentPosition = parseInt($("#right_section").css("top"));  // 
-	/*
-	showTimes = setInterval(function() {	// 1.000초마다 내부 실행
-		
-				
-	}, 1000);
-	clearInterval(showTimes);	// showTimes 함수 정지
-	*/
 	
 	//input 태그 엔터 시
 	$('input[type="text"]').keydown(function() {
@@ -60,6 +54,31 @@ $(function(){
 	    }
 	    
 	});
+	
+	// 자동완성
+	$(".searcher").autocomplete({
+    	lookup: function(query, done){
+    		var result = {suggestions: []};
+    		$.ajax({
+	   			url : "/uneeds/book/search/autocomplete",
+	   			type : 'post',	
+	   			dataType : 'json',
+	   			data: query,//JSON.stringify({text : query})
+	   	       	contentType: "application/json; charset=utf-8",
+	   		    success : function(data, status) {
+	   		    	data.forEach(function(element){
+	   		    		result.suggestions.push({value:element.btitle});
+	   		    	});
+	   		    },
+	   		    complete : function(){
+	   		    	done(result);
+	   		    }
+     		})
+    	},
+    	onSelect: function (suggestion) {
+    		//$(".searcher").value=suggestion.data;
+    	}
+    });
 	
 });
 
@@ -71,8 +90,7 @@ function check_text(text){
 		total=0;
 		display=0;
 		ul.empty();
-		//alert(inputText+","+listCount);
-		
+			
 	}else{
 		listCount+=1;
 	}
@@ -133,6 +151,7 @@ function bind_book(){
 									publisher+span+
 									pubdate+
 									'</p>'+
+									'<p><b>ISBN:</b> '+isbn+'</p>'+
 									discount+
 								'</div>'+
 							'</div>'+
@@ -140,15 +159,14 @@ function bind_book(){
 						"</li>");
 		    	}
 	    	}else{
-	    		//ul.empty();
 	    		ul.append("<li>"+
-			    		'<div class="main-div">'+
-							'<div class="row mb-4">'+
-								'<div class="panel col-md-12">'+
-									'<h2>검색 결과가 없습니다.</h2>'+
+				    		'<div class="main-div">'+
+								'<div class="row mb-4">'+
+									'<div class="panel col-md-12">'+
+										'<h2>검색 결과가 없습니다.</h2>'+
+									'</div>'+
 								'</div>'+
 							'</div>'+
-						'</div>'+
 						"</li>");
 	    	}
 	    	
@@ -172,6 +190,21 @@ function bind_book(){
 		timeout:10000
 	});
 }
+//스크롤 시
+$(window).scroll(function() {
+	// 스크롤이 바닥에 닿으면
+	if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+		check_text(inputText);
+	};
+   
+	var position = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다.  
+	if(position >= 600){
+		$("#right_section").stop().animate({"top":position+currentPosition+"px"},100);  
+	}else{	
+		$("#right_section").stop().animate({"top":position+currentPosition+"px"},100);
+	}
+   
+});
 
 function change(i){
 	if($(i).hasClass('fas') == true){
@@ -209,7 +242,7 @@ body {
 		<div class="row mb-4 py-4">
 			<div class="col-md-12">
 				<form class="search_form">
-					<input type="text" value='' class="searcher" placeholder="검색 입력후 엔터" autofocus>
+					<input type="text" value='' class="searcher" placeholder="검색어 입력후 엔터" autofocus>
 				</form>
 				<hr class="searcherLine"/>
 			</div>

@@ -6,7 +6,7 @@ public class BookVO {
 	
 	//
 	private int bcode;
-	private int bisbn;
+	private String bisbn;
 	private String btitle;
 	private int acode;
 	private int pcode;
@@ -15,12 +15,14 @@ public class BookVO {
 	private int bdiscount;
 	private Date bdate;
 	private String bdesc;
+	private String aname;
+	private String pname;
 	
 	public BookVO() {
 		super();
 	}
-	public BookVO(int bcode, int bisbn, String btitle, int acode, int pcode, String bimage, int bprice, int bdiscount,
-			Date bdate, String bdesc) {
+	public BookVO(int bcode, String bisbn, String btitle, int acode, int pcode, String bimage, int bprice,
+			int bdiscount, Date bdate, String bdesc, String aname, String pname) {
 		super();
 		this.bcode = bcode;
 		this.bisbn = bisbn;
@@ -32,8 +34,10 @@ public class BookVO {
 		this.bdiscount = bdiscount;
 		this.bdate = bdate;
 		this.bdesc = bdesc;
+		this.aname = aname;
+		this.pname = pname;
 	}
-	
+
 	//
 	public int getBcode() {
 		return bcode;
@@ -41,10 +45,10 @@ public class BookVO {
 	public void setBcode(int bcode) {
 		this.bcode = bcode;
 	}
-	public int getBisbn() {
+	public String getBisbn() {
 		return bisbn;
 	}
-	public void setBisbn(int bisbn) {
+	public void setBisbn(String bisbn) {
 		this.bisbn = bisbn;
 	}
 	public String getBtitle() {
@@ -96,12 +100,25 @@ public class BookVO {
 		this.bdesc = bdesc;
 	}
 	
+	public String getAname() {
+		return aname;
+	}
+	public void setAname(String aname) {
+		this.aname = aname;
+	}
+	public String getPname() {
+		return pname;
+	}
+	public void setPname(String pname) {
+		this.pname = pname;
+	}
+	
 	//
 	@Override
 	public String toString() {
-		return "BestsVO [bcode=" + bcode + ", bisbn=" + bisbn + ", btitle=" + btitle + ", acode=" + acode + ", pcode="
+		return "BookVO [bcode=" + bcode + ", bisbn=" + bisbn + ", btitle=" + btitle + ", acode=" + acode + ", pcode="
 				+ pcode + ", bimage=" + bimage + ", bprice=" + bprice + ", bdiscount=" + bdiscount + ", bdate=" + bdate
-				+ ", bdesc=" + bdesc + "]";
+				+ ", bdesc=" + bdesc + ", aname=" + aname + ", pname=" + pname + "]";
 	}
 	
 	

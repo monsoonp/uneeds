@@ -8,6 +8,7 @@
 	</select>
 	
 	<!-- 베스트셀러 페이지 -->
+	
 	<!-- 인터넷 서점 목록 -->
 	<select id="storeList" resultType="com.book.domain.StoreVO">
 		select * from b_bookshop order by bscode asc
@@ -25,17 +26,32 @@
 			where b.bsname=#{bsname} and  g.sgname like #{sgname} '%' and b.bscode=g.bscode
 	</select>
 	
-	<!-- 
-	<insert id="insertMember">
-		insert into tbl_member(userid ,userpw, username, email) 
-			values(#{userid}, #{userpw}, #{username}, #{email})
-	</insert>  # 파라미터 , VO객체와 이름이 같게 getter로 값 가져옴
-	-->
-	<!-- 
-	<select id="listMember" resultType="org.zerock.domain.MemberVO">
-		select * from tbl_member order by regdate desc
-	</select>
-	-->
+	<!-- 책 등록 -->
+	<insert id="insertBook" parameterType="com.book.domain.BookInfoVO">
+		{call insert_bookinfo(#{isbn}, #{title}, #{author}, #{pub}, #{img}, #{price}, #{discount}, #{desc} ) }
+	</insert>
 	
+	<!-- 찜 등록 -->
+	<insert id="pointBook" parameterType="hashmap">
+		{call point_book(#{usercode}, #{isbn} )}
+	</insert>
+	
+	<!-- 찜 목록 확인 -->
+	<select id="checkPoint" parameterType="hashmap" resultType="integer">
+		select count(*) from b_pointedbook where mcode = #{usercode} and bcode = (select bcode from b_bookinfo where bisbn = #{isbn})
+	</select>
+	
+	<!-- 찜 목록-->
+	<select id="bookmark" parameterType="hashmap" resultType="com.book.domain.BookVO">
+		select i.*, a.aname, p.pname
+			from b_pointedbook b, b_bookinfo i, b_author a, b_publisher p 
+			where 
+				b.bcode = i.bcode and b.mcode = #{usercode} and i.acode = a.acode and i.pcode = p.pcode
+	</select>
+	
+	<!-- 자동완성 -->
+	<select id="autocomplete" parameterType="string" resultType="com.book.domain.AutoVO">
+		select * from b_searcher where btitle like '%' #{query} '%' 
+	</select>
 	
 </mapper>

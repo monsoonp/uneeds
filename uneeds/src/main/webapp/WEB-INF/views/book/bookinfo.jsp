@@ -76,6 +76,7 @@ function point(){
 	    	var f_star = '<i class="fas fa-star"></i>';
 	    	var h_star = '<i class="fas fa-star-half-alt"></i>';
 	    	var e_star = '<i class="far fa-star"></i>';
+	    	var heart = '<i class="far fa-heart fa-lg" onclick="check(this);"></i>';
 	    	var star_rating = '';
 	    	for (var i = 0; i < full; i++) {
 	    		star_rating+=f_star;
@@ -86,12 +87,8 @@ function point(){
 	    	for (var i = 0; i < emp; i++) {
 	    		star_rating+=e_star;
 			}
-	    	$('h2').after(star_rating);
-	    	
-	    	//<i class="fas fa-star"></i>
-			//<i class="fas fa-star-half-alt"></i>			
-			//<i class="far fa-star"></i>
-	    	
+	    	$('h2').after(star_rating+" "+parseInt(data)+" "+heart);
+	    		    	
 	    },complete: function(){
 			
 		},error: function(error) {
@@ -161,13 +158,44 @@ function prices(){
 	//$('#loadingtr').remove();
 }
 
-function change(i){
-	if($(i).hasClass('fas') == true){
-		$(i).addClass('far');
-		$(i).removeClass('fas');
+function change(i,frm){
+	$.ajax({
+		url:"/uneeds/book/pointbook",
+		type:"post",
+		data:JSON.stringify({
+			isbn: frm.isbn.value.split(">")[1].split("<")[0],
+			title: frm.title.value,
+			author: frm.author.value,
+			pub: frm.pub.value,
+			price: frm.price.value,
+			discount: frm.discount.value
+		}),
+		contentType: "application/json; charset=utf-8",
+	    complete:function(){
+	    	
+	    }
+		
+	})
+	
+}
+function check(i){
+	var i = $(i);
+	if(i.hasClass('fas') == true){
+		i.addClass('far');
+		i.removeClass('fas');
+		if(i.hasClass('fa-heart')==false){
+			alert('찜 목록에서 해제되었습니다.');
+		}else{
+			alert('위시리스트에서 해제되었습니다.');
+		}
 	}else{
-		$(i).addClass('fas');
-		$(i).removeClass('far');
+		i.addClass('fas');
+		i.removeClass('far');
+		if(i.hasClass('fa-heart')==false){
+			alert('찜 목록에 등록되었습니다.');
+		}else{
+			alert('위시리스트에 등록되었습니다.');
+		}
 	}
 }
 </script>
@@ -198,41 +226,50 @@ body {
 
 		<h1 class="my-4">BOOK INFO</h1>
 		
-		<!-- /.row -->
-		
 		<hr/>
 		<!-- 책 목록 -->
 
 		<c:set var="infoVo" value="${info.items[0] }"/>
+		<form>
 		<div class="books">
 			<div class="main-book">
 				<div class="row mb-4 my-auto mx-auto px-auto py-3">
 					<!-- 북마크 -->
-					<div class="info_bookmark">
-						<i class="far fa-bookmark fa-3x" onclick="change(this);"></i>
-					</div>
+					<c:if test="${login eq 'logined' }">
+						<div class="info_bookmark">
+							<button class="bookmarkBtn" type="button" onclick="change(this,this.form);">
+								<c:choose>
+									<c:when test="${pointed eq 1}">
+										<i class="fas fa-bookmark fa-3x" onclick="check(this);"></i>
+									</c:when>
+									<c:otherwise>
+										<i class="far fa-bookmark fa-3x" onclick="check(this);"></i>
+									</c:otherwise>
+								</c:choose>
+							</button>
+						</div>
+					</c:if>
 					<!-- 이미지 -->
 					<div class="col-md-5 my-auto mx-auto">
 						<!--<c:set var="img" value="${fn:replace(fn:split(infoVo.image,'?')[0],'\"','' )}"/>-->
 						<c:set var="img" value="${fn:substring(infoVo.image, 1, fn:indexOf(infoVo.image, '?'))}"/>
 						<c:choose>
 							<c:when test="${img ne null || img ne ''}">
-								<img src="${img}" style="width:80%; height: 80%"/>
+								<img src="${img}" class="img"/>
 							</c:when>
 							<c:otherwise>
-								<img src="/resources/book/img/defaultbook.png" style="width:80%; height: 80%"/>
+								<img src="${img = '/resources/book/img/defaultbook.png' }" class="img"/>
 							</c:otherwise>
 						</c:choose>
 					</div>
 					<!-- 도서 -->
 					<div class="panel col-md-5 my-auto mx-auto">
 						<h2>${fn:replace( fn:split(infoVo.title,'(' )[0] ,'\"','')}</h2>
-							<c:if test="${fn:split(infoVo.title,'(' )[1] ne null}">
-								<p>
-									(${fn:replace( fn:split(infoVo.title,'(' )[1] ,'\"','')}
-								</p>
-								
-							</c:if>
+						<c:if test="${fn:split(infoVo.title,'(' )[1] ne null}">
+							<p>
+								(${fn:replace( fn:split(infoVo.title,'(' )[1] ,'\"','')}
+							</p>
+						</c:if>
 						<p>
 							<a href='/uneeds/book/search/${author = fn:replace(infoVo.author, "\"", "") }'>${author }</a>
 							<span>|</span>
@@ -242,7 +279,8 @@ body {
 						</p>
 						<p>
 							<c:set var="isbn" value="${fn:split(infoVo.isbn,' ' )[1]}" />
-							ISBN : ${fn:replace( fn:split(fn:split(isbn, '>')[1] ,'<')[0],'\"','') }
+							<c:set var="isbn" value="${fn:replace( fn:split(fn:split(isbn, '>')[1] ,'<')[0],'\','') }"/>
+							ISBN : ${isbn}	
 						</p>
 						<c:choose>
 							<c:when test="${infoVo.discount ne null }">
@@ -286,9 +324,18 @@ body {
 						<p id="desc"></p>
 					</div>
 				</div>
+				<input name="isbn" class="display-none" value="${isbn }">
+				<input name="title" class="display-none" value="${title }">
+				<input name="author" class="display-none" value="${author}">
+				<input name="pub" class="display-none" value="${pub }">
+				<input name="img" class="display-none" value="${img }">
+				<input name="price" class="display-none" value="${price }">
+				<input name="discount" class="display-none" value="${discount }">
+				<input name="desc" class="display-none" value="${infoVo.description }">
+				
 			</div>
 		</div>
-		
+		</form>	
 	</div>
 	
 	<!-- 하단 여백 -->
