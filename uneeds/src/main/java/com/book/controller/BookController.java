@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.book.domain.AutoVO;
 import com.book.domain.BookInfoVO;
 import com.book.domain.GenreVO;
 import com.book.domain.PriceVO;
@@ -65,20 +66,29 @@ public class BookController {
 		mav.setViewName("booksearch");
 		return mav;
 	}
+	// 도서 검색 페이지 / default text
 	@RequestMapping(value="search/{text}", method=RequestMethod.GET)
 	public ModelAndView bookSearch(@PathVariable("text") String text) {
 		ModelAndView mav = new ModelAndView();
 		
 		mav.addObject("text", text);
 		mav.setViewName("booksearch");
-		System.out.println(text);
+		
 		return mav;
 	}
+	// 도서 검색 결과 return
 	@ResponseBody
 	@RequestMapping(value="search/{text}/{num}", method=RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public StringBuffer bookSearch(@PathVariable("text") String text, @PathVariable("num") int start) {
 		return bservice.bookSearch(text, start);
-	}   
+	}  
+	// 도서 검색 자동완성 결과 return
+	@ResponseBody
+	@RequestMapping(value="search/autocomplete", method=RequestMethod.POST, produces = "application/json; charset=utf-8")
+	public List<AutoVO> autoComplete(@RequestBody String query) {
+		System.out.println(query);
+		return bservice.autocomplete(query);
+	}
 	
 	//도서 베스트셀러 페이지
 	@RequestMapping(value="bestseller", method=RequestMethod.GET)
@@ -139,11 +149,12 @@ public class BookController {
 	// 도서 정보
 	@RequestMapping(value="info/{isbn}", method=RequestMethod.GET)
 	public ModelAndView bookInfo(@PathVariable("isbn") String isbn, HttpServletRequest req) throws Exception {
-		ModelAndView mav = new ModelAndView();
 		logger.info("Welcome info! The client url is {}.", "/book/info");
-		
+		ModelAndView mav = new ModelAndView();
 		HttpSession session = req.getSession();
-		String usercode =  Integer.toString((int) session.getAttribute("usercode"));
+		
+		int user = (int) (session.getAttribute("usercode")==null?0:session.getAttribute("usercode"));
+		String usercode =  Integer.toString(user);
 		
 		String result = NaverSearch.booksearch(isbn).toString();
 		
@@ -182,26 +193,36 @@ public class BookController {
 	@ResponseBody
 	@RequestMapping(value="pointbook", method=RequestMethod.POST)
 	public void pointBook(@RequestBody BookInfoVO biVo, HttpServletRequest req) throws Exception {
-			HttpSession session = req.getSession();
-			int usercode = (int) session.getAttribute("usercode");
-			System.out.println(biVo.toString());
-			Map<String, Object> map = new HashMap<String, Object>();
-	
-			bservice.insertBook(biVo);
-			map.put("usercode", usercode);
-			map.put("isbn", biVo.getIsbn());
-			bservice.pointBook(map);
+		HttpSession session = req.getSession();
+		int usercode = (int) session.getAttribute("usercode");
+		System.out.println(biVo.toString());
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		bservice.insertBook(biVo);
+		map.put("usercode", usercode);
+		map.put("isbn", biVo.getIsbn());
+		bservice.pointBook(map);
 	}
 	// 찜 확인
 	@ResponseBody
 	@RequestMapping(value="pointcheck", method=RequestMethod.POST)
 	public int checkPoint(@RequestBody BookInfoVO biVo, HttpServletRequest req) throws Exception {
-			HttpSession session = req.getSession();
-			String usercode = Integer.toString((int) session.getAttribute("usercode"));
-			
-			return bservice.checkPoint(usercode, biVo.getIsbn());
-	}
+		HttpSession session = req.getSession();
+		String usercode = Integer.toString((int) session.getAttribute("usercode"));
 	
+		return bservice.checkPoint(usercode, biVo.getIsbn());
+	}
+	//찜목록
+	@RequestMapping(value="bookmark", method=RequestMethod.GET)
+	public ModelAndView bookmark(HttpServletRequest req) throws Exception {
+		ModelAndView mav = new ModelAndView();
+		HttpSession session = req.getSession();
+		String usercode = Integer.toString((int) session.getAttribute("usercode"));
+		mav.addObject("bookmark", bservice.bookmark(usercode));
+		
+		mav.setViewName("bookmark");
+		return mav;
+	}
 	
 	
 	

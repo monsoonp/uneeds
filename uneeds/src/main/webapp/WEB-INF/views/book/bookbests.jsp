@@ -124,15 +124,48 @@ function book_info(frm){
 	});
 }
 
-function change(i){
-	if($(i).hasClass('fas') == true){
-		$(i).addClass('far');
-		$(i).removeClass('fas');
+function change(i,frm){
+	$.ajax({
+		url:"/uneeds/book/pointbook",
+		type:"post",
+		data:JSON.stringify({
+			isbn: frm.isbn.value,
+			title: frm.title.value,
+			author: frm.author.value,
+			pub: frm.pub.value,
+			price: frm.price.value,
+			discount: frm.discount.value,
+			desc: frm.desc.value
+		}),
+		contentType: "application/json; charset=utf-8",
+	    complete:function(){
+	    	
+	    }
+		
+	})
+	
+}
+function check(i){
+	var i = $(i);
+	if(i.hasClass('fas') == true){
+		i.addClass('far');
+		i.removeClass('fas');
+		if(i.hasClass('fa-heart')==false){
+			alert('찜 목록에서 해제되었습니다.');
+		}else{
+			alert('위시리스트에서 해제되었습니다.');
+		}
 	}else{
-		$(i).addClass('fas');
-		$(i).removeClass('far');
+		i.addClass('fas');
+		i.removeClass('far');
+		if(i.hasClass('fa-heart')==false){
+			alert('찜 목록에 등록되었습니다.');
+		}else{
+			alert('위시리스트에 등록되었습니다.');
+		}
 	}
 }
+
 </script>
 <style type="text/css">
 body {
@@ -143,7 +176,7 @@ body {
 </head>
 <body>
 	<!-- ${pageContext.request.contextPath} 프로젝트 webapp까지의 경로 -->
-	<div id="right_section"  class="pointed md-2" style="position:absolute;top:100px;right:0;z-index: 999;margin-right: 100px;">  
+	<div id="right_section"  class="pointed md-2 display-none" style="position:absolute;top:100px;right:0;z-index: 999;margin-right: 100px;">  
            <div><h1>찜 목록</h1></div>  
     </div>  
     <!-- loading -->
@@ -202,6 +235,7 @@ body {
 
 		<div class="books">
 		<ul>
+			<c:set var="count" value="-1"/>
 			<c:forEach items="${bests[0].bookList }" var="b">
 			
 				<li>
@@ -209,9 +243,20 @@ body {
 						<div class="main-div">
 							<div class="row mb-4 my-auto py-auto">
 								<!-- 북마크 -->
-								<div class="list_bookmark">
-									<i class="far fa-bookmark fa-2x" onclick="change(this);"></i>
-								</div>
+								<c:if test="${login eq 'logined' }">
+									<div class="list_bookmark">
+										<button class="bookmarkBtn" type="button" onclick="change(this,this.form);">
+											<c:choose>
+												<c:when test="${bests[1].bookmark[count = count+1].check eq 1}">
+													<i class="fas fa-bookmark fa-3x" onclick="check(this);"></i>
+												</c:when>
+												<c:otherwise>
+													<i class="far fa-bookmark fa-3x" onclick="check(this);"></i>
+												</c:otherwise>
+											</c:choose>
+										</button>
+									</div>
+								</c:if>
 								<div class="col-md-4 my-auto">
 									<div class="book_img_div mx-auto">
 										<div></div>
@@ -233,6 +278,8 @@ body {
 										<a href="/uneeds/book/search/${pub = b.result.items[0].publisher }">${pub }</a>
 										<span>|</span>
 										${date = b.result.items[0].pubdate }
+										<span>|</span>
+										<i class="far fa-heart fa-lg" onclick="check(this);"></i>
 									</p>
 									<p>
 										<c:set var="isbn" value="${fn:split(b.result.items[0].isbn,' ' )[1]}"></c:set>
@@ -252,8 +299,16 @@ body {
 										</c:otherwise>
 									</c:choose>
 									<input name="isbn" id="isbn" type="hidden" value="${isbn}">
+									<input name="title" class="display-none" value="${title }">
+									<input name="author" class="display-none" value="${aut}">
+									<input name="pub" class="display-none" value="${pub }">
+									<input name="img" class="display-none" value="${img }">
+									<input name="price" class="display-none" value="${p }">
+									<input name="discount" class="display-none" value="${d }">
+									<input name="desc" class="display-none" value="${b.result.items[0].description }">
 									
 								</div>
+								
 							</div>
 						</div> 
 						
