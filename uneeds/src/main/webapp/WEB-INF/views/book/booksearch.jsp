@@ -27,6 +27,8 @@
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans|Kirang+Haerang" rel="stylesheet">
 <!-- Font Awesome - Glyphicons 대용 -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+<!-- autocomplete -->
+<script src='//cdnjs.cloudflare.com/ajax/libs/jquery.devbridge-autocomplete/1.2.26/jquery.autocomplete.min.js'></script>
 
 <script type="text/javascript">
 var showTimes;		// 시간
@@ -52,6 +54,31 @@ $(function(){
 	    }
 	    
 	});
+	
+	// 자동완성
+	$(".searcher").autocomplete({
+    	lookup: function(query, done){
+    		var result = {suggestions: []};
+    		$.ajax({
+	   			url : "/uneeds/book/search/autocomplete",
+	   			type : 'post',	
+	   			dataType : 'json',
+	   			data: query,//JSON.stringify({text : query})
+	   	       	contentType: "application/json; charset=utf-8",
+	   		    success : function(data, status) {
+	   		    	data.forEach(function(element){
+	   		    		result.suggestions.push({value:element.btitle});
+	   		    	});
+	   		    },
+	   		    complete : function(){
+	   		    	done(result);
+	   		    }
+     		})
+    	},
+    	onSelect: function (suggestion) {
+    		//$(".searcher").value=suggestion.data;
+    	}
+    });
 	
 });
 

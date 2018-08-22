@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.bson.Document;
 
+import com.book.domain.AutoVO;
 import com.book.domain.BookInfoVO;
 import com.book.domain.BookVO;
 import com.book.domain.GenreVO;
@@ -27,4 +28,5 @@ public interface BookService {
 	public int checkPoint(String usercode, String isbn);
 	
 	public List<BookVO> bookmark(String usercode);
+	public List<AutoVO> autocomplete(String query);
 }

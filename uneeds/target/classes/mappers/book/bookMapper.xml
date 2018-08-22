@@ -49,4 +49,9 @@
 				b.bcode = i.bcode and b.mcode = #{usercode} and i.acode = a.acode and i.pcode = p.pcode
 	</select>
 	
+	<!-- 자동완성 -->
+	<select id="autocomplete" parameterType="string" resultType="com.book.domain.AutoVO">
+		select * from b_searcher where btitle like '%' #{query} '%' 
+	</select>
+	
 </mapper>

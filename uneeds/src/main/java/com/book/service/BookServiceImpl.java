@@ -11,6 +11,7 @@ import javax.inject.Inject;
 import org.bson.Document;
 import org.springframework.stereotype.Service;
 
+import com.book.domain.AutoVO;
 import com.book.domain.BookInfoVO;
 import com.book.domain.BookVO;
 import com.book.domain.GenreVO;
@@ -119,6 +120,11 @@ public class BookServiceImpl implements BookService{
 	@Override
 	public List<BookVO> bookmark(String usercode) {
 		return bookDao.bookmark(usercode);
+	}
+	
+	@Override
+	public List<AutoVO> autocomplete(String query) {
+		return sDao.autoComplete(query);
 	}
 
 	
