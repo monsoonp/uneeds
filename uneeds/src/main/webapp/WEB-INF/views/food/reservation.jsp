@@ -91,8 +91,7 @@ $(function() {
 	<form name="form">
 	<div style="text-align: left; padding-left: 25px;">
 		<%String id = (String)session.getAttribute("userid"); %>
-		<%String mcodes = (String)session.getAttribute("mcode"); 
-		  int mcode = Integer.parseInt(mcodes);
+		<%int mcode = (int)session.getAttribute("mcode"); 
 		%>
 		<input id="mcode" name="mcode" type="hidden" value='<%=mcode %>'>
 		<div style="margin-bottom: 7px;">

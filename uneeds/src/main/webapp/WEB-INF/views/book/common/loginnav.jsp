@@ -13,6 +13,9 @@
 	
 	<!-- login div -->
 	<div class="loginDiv">
+		<div>
+			<a href="/uneeds/login">유니즈 로그인</a>
+		</div>
 		<!-- 구글 -->
 		<div class="g-signin2" data-onsuccess="onSignIn" data-theme="dark"></div>
 		<!-- 페북 --><!-- 로그아웃 버튼 자동생성 -->
