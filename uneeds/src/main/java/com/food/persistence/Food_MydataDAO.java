@@ -16,4 +16,6 @@ public interface Food_MydataDAO {
 	public Food_dataVo detail_like(Integer fid);
 	public List<Food_reservationVo> rstype();
 	public List<Food_reservationVo> rstime();
+	public void insertReservation(Food_reservationVo rvo);
+	public List<Food_reservationVo> reservationFood(Food_reservationVo rvo);
 }

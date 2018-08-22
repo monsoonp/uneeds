@@ -10,8 +10,22 @@
 </head>
 <body>
 	<div id="main_logo">
-	<a href="main"><img alt="로고" src="/resources/food/image/logo_main.png"></a>
+		<a href="/uneeds/"><img alt="로고" src="/resources/food/image/logo_main.png"></a>
+<%
+	String id = (String)session.getAttribute("userid"); 
+%>
+<% if(id == null) {%>
+		<div style="float: right; padding-right: 20px;"><a href="/uneeds/login" style="color: white; font-size: 20px;">LOGIN</a></div>
+<%} else { %>
+		<div style="float: right; padding-right: 20px; color: white; font-size: 20px;">
+			<%= id %>님<br> 
+		</div>
+		<br>
+		<div style="float: right; padding-right: 30px;">
+			<a href="/uneeds/logout" style="color: white; font-size: 15px;">로그아웃</a>
+		</div>
 	</div>
+<%}%>
 	<div id="main_first_message">
 		<ul style="text-align: center;">
 			<li>UNEEDS<br>FOOD</li>

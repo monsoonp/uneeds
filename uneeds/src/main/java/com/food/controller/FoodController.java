@@ -3,6 +3,7 @@ package com.food.controller;
 import java.io.UnsupportedEncodingException;
 import java.lang.ProcessBuilder.Redirect;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -28,6 +29,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.food.domain.Food_dataVo;
+import com.food.domain.Food_reservationVo;
 import com.food.domain.Food_searchPageMaker;
 import com.food.domain.Food_searchPageMaker_kid;
 import com.food.domain.Food_searchVo;
@@ -53,35 +55,27 @@ public class FoodController {
 	private Food_MydataService fs;
 	
 	@RequestMapping(value="main", method=RequestMethod.POST)
-	public String main_post( RedirectAttributes ra, Food_searchVo vo) {
-
-		String searchs = vo.getKeyword();
-		System.out.println("ㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎㅎ"+searchs);
+	public String main_post(Food_searchVo svo, RedirectAttributes ra) {
+		String searchs = svo.getKeyword();
 		ra.addAttribute("searchs", searchs);
 		int kid = 0;
 		ra.addAttribute("kid",kid);
 		return "redirect:search";
 	}
 	
-	// 메인페이지 로딩\
-	
+	// 메인페이지 로딩
 	@RequestMapping(value="main", method=RequestMethod.GET)
 	public String main() {
 		logger.info("Welcome search! The client url is {}.", "/uneeds/food/main");		
 		return "main";
 	}
 	
-	// 검색 페이지 로딩(메인)
+	// 검색 페이지 로딩
 	@RequestMapping(value="search", method=RequestMethod.GET)
-	public String search(Food_searchVo svo, Model m) throws Exception {
+	public String search(Food_searchVo svo,Model m) throws Exception {
 		logger.info("Welcome search! The client url is {}.", "/uneeds/food/search");
-
-		svo.setKid(0);
-		int kid =svo.getKid();
-		String searchs= svo.getKeyword();
-		System.out.println("ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"+searchs);
-		
-		//svo.setKeyword(r.getParameter("searchs"));
+		String searchs = svo.getKeyword();
+		int kid = svo.getKid();
 		if(kid == 0) {
 			m.addAttribute("search_list", dao.searchFood(svo));
 			Food_searchPageMaker pageMaker = new Food_searchPageMaker();
@@ -89,47 +83,17 @@ public class FoodController {
 			pageMaker.setTotalCount(fs.countpage(svo));
 			m.addAttribute("pageMaker", pageMaker);
 			m.addAttribute("searchs",searchs);
+		}else if(kid !=0) {
+				m.addAttribute("search_list", dao.searchFood_kind(svo));	
+				Food_searchPageMaker_kid pageMaker = new Food_searchPageMaker_kid(); 
+				pageMaker.setSvo(svo);
+				pageMaker.setTotalCount(dao.countPaging_kid(svo));
+				m.addAttribute("pageMaker", pageMaker);
+				m.addAttribute("searchs",searchs);
 		}
 		return "search";
 	}
-	
-	@RequestMapping(value="search2", method=RequestMethod.GET)
-	public String search2(Food_searchVo svo, Model m) throws Exception {
-		logger.info("Welcome search! The client url is {}.", "/uneeds/food/search2");
 
-		String searchs= svo.getKeyword();
-		System.out.println("ㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋㅋ"+searchs);
-		
-		//svo.setKeyword(r.getParameter("searchs"));
-
-		m.addAttribute("search_list", dao.searchFood_kind(svo));	
-		Food_searchPageMaker_kid pageMaker = new Food_searchPageMaker_kid(); 
-		pageMaker.setSvo(svo);
-		pageMaker.setTotalCount(dao.countPaging_kid(svo));
-		m.addAttribute("pageMaker", pageMaker);
-		m.addAttribute("searchs",searchs);
-		
-		return "search";
-	}
-	
-	@RequestMapping(value="search", method=RequestMethod.POST)
-	public String searchs(HttpServletRequest r, RedirectAttributes ra) {
-		logger.info("Welcome search! The client url is {}.", "/uneeds/food/searchs");
-		try {
-			r.setCharacterEncoding("utf-8");
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		String search = r.getParameter("search");
-		String kids = r.getParameter("kid");
-
-		int kid = Integer.parseInt(kids);
-		ra.addAttribute("searchs", search);
-		ra.addAttribute("kid", kid);
-		return "redirect:search";
-	}
-	
 	// 상세보기 로딩
 	@RequestMapping(value="detail", method=RequestMethod.GET)
 	public String detail(@RequestParam("fid") int fid, Model m) {
@@ -148,14 +112,43 @@ public class FoodController {
 	}
 	
 	@RequestMapping(value="reservation", method=RequestMethod.GET)
-	public String reservation(@RequestParam("fid") int fid, Model m) {
-		logger.info("Welcome search! The client url is {}.", "/uneeds/food/detail");
+	public String reservation_get(@RequestParam("fid") int fid, Model m) {
+		logger.info("Welcome search! The client url is {}.", "/uneeds/food/reservation_get");
 		m.addAttribute("list", dao.detail(fid));
 		m.addAttribute("type_list", dao.rstype());
 		m.addAttribute("time_list", dao.rstime());
 		return "reservation";
 	}
 		
+	@RequestMapping(value="reservation", method=RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, String> reservation_post(Food_reservationVo rvo, HttpServletRequest r) {
+		logger.info("Welcome search! The client url is {}.", "/uneeds/food/reservation_post");
+		HashMap<String, String> status = new HashMap<>();
+		status.put("status", "success");
+		dao.insertReservation(rvo);
+		return status;
+	}
+	
+	@RequestMapping(value="reservationList", method=RequestMethod.GET)
+	public String reservation_ok(Food_reservationVo rvo, Model m) {
+		m.addAttribute("list",dao.reservationFood(rvo));
+		return "reservationList";
+	}
+	
+	@RequestMapping(value="test", method=RequestMethod.GET)
+	public String test() {
+		return "test";
+	}
+	
+	@RequestMapping(value="test", method=RequestMethod.POST)
+	public String test1(Food_reservationVo rvo, HttpServletRequest r) {
+		logger.info("Welcome search! The client url is {}.", "/uneeds/food/reservation_post");
+		System.out.println(r.getCharacterEncoding());
+		System.out.println(r.getParameter("t1"));
+		return "reservation_ok";
+	}
+	
 	/* MongodbConnection list*/
 	@RequestMapping("/mongoutil_test")
 	public String testMongoutil(Model m) {

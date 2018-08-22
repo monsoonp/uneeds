@@ -52,12 +52,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- Mysql 음식점 예약분류 -->
 	<select id="rstype" resultType="com.food.domain.Food_reservationVo">
-		SELECT tlist FROM f_type;  
+		SELECT * FROM f_type;  
 	</select>
 	
 	<!-- Mysql 음식점 예약시간 -->
 	<select id="rstime" resultType="com.food.domain.Food_reservationVo">
-		SELECT tmlist FROM f_times;  
+		SELECT * FROM f_times;  
+	</select>
+	
+	<!-- Mysql 음식점 예약 -->
+	<insert id="insertReservation">
+		INSERT INTO f_reservation(fid, rsname, rsphone, rsperson, rsdate, tid, tmid, mcode) VALUES(#{fid}, #{rsname}, #{rsphone}, #{rsperson}, #{rsdate}, #{tid}, #{tmid}, #{mcode});
+	</insert>
+	
+	<!-- Mysql 음식점 예약현황 -->
+	<select id="listReservation" resultType="com.food.domain.Food_reservationVo">
+		SELECT r.*, f.fname, t.tlist, fm.tmlist FROM f_reservation r, f_food f, f_type t, f_times fm where mcode = #{mcode} and r.fid = f.fid and r.tid = t.tid and r.tmid = fm.tmid;
 	</select>
 	
 </mapper>

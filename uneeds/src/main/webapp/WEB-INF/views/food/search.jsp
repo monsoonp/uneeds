@@ -22,16 +22,22 @@
 			<div id="logo_cell">
 				<a href="main"><img alt="로고" src="/resources/food/image/logo_main.png"></a>
 			</div>
-			<form action="search" method="post">
+			<form action="search" method="get">
 				<div id="search_input_wrapper">
-					<input type="text" id="search_input" name="search" autocomplete="off" value="${searchs}">
+					<input type="text" id="search_input" name="keyword" autocomplete="off" value="${searchs}">
 					<input type="hidden" name="kid" value="0">
-					<button type="submit" id="search_btn"></button>
+					<button id="search_btn"></button>
 				</div>
 			</form>
 			<div id="user_info">
+				<%	String id = (String)session.getAttribute("userid"); %>
 				<ul style="margin: 0px; padding: 0px;">
-					<li style="color: white;">LOGIN</li>
+					<%if(id==null){ %>				
+					<li><a href="/uneeds/login" style="color: white; font-size: 17px;">LOGIN</a></li>
+					<%} else {%>
+					<li style="color: white; font-size:15px;"><%=id %>님</li>
+					<li style="padding-left: 5px;"><a href="/uneeds/logout" style="color: white;">로그아웃</a></li>
+					<%} %>
 				</ul>
 			</div>
 		</div>
@@ -42,12 +48,12 @@
 <div id="menu_area">
 	<div id="menu_div">
 		<ul id="menu_ul">
-			
-			<li id="menu_li_second"><a href="search2?keyword=${searchs}&kid=1">한식</a></li>
-			<li id="menu_li_second"><a href="search2?keyword=${searchs}&kid=2">중식</a></li>
-			<li id="menu_li_second"><a href="search2?keyword=${searchs}&kid=3">일식</a></li>
-			<li id="menu_li_second"><a href="search2?keyword=${searchs}&kid=4">카페 / 전통 찻집</a></li>
-			<li id="menu_li_second"><a href="search2?keyword=${searchs}&kid=5">양식</a></li>
+			<li id="menu_li_second"><a href="search?keyword=${searchs}&kid=0">전체</a></li>
+			<li id="menu_li_second"><a href="search?keyword=${searchs}&kid=1">한식</a></li>
+			<li id="menu_li_second"><a href="search?keyword=${searchs}&kid=2">중식</a></li>
+			<li id="menu_li_second"><a href="search?keyword=${searchs}&kid=3">일식</a></li>
+			<li id="menu_li_second"><a href="search?keyword=${searchs}&kid=4">카페 / 전통 찻집</a></li>
+			<li id="menu_li_second"><a href="search?keyword=${searchs}&kid=5">양식</a></li>
 			<li id="menu_li_first"><a href="#">내 주변</a></li>
 		</ul>
 	</div>
