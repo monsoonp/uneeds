@@ -39,18 +39,10 @@ var display;	//가져온 목록수
 $(function(){
 	// 저자, 출판사로 검색이 넘어올 시 
 	if('${text}'!=''){
-		
 		check_text('${text}');
 		$('.searcher').val('${text}')
 	}
 	currentPosition = parseInt($("#right_section").css("top"));  // 
-	/*
-	showTimes = setInterval(function() {	// 1.000초마다 내부 실행
-		
-				
-	}, 1000);
-	clearInterval(showTimes);	// showTimes 함수 정지
-	*/
 	
 	//input 태그 엔터 시
 	$('input[type="text"]').keydown(function() {
@@ -71,8 +63,7 @@ function check_text(text){
 		total=0;
 		display=0;
 		ul.empty();
-		//alert(inputText+","+listCount);
-		
+			
 	}else{
 		listCount+=1;
 	}
@@ -172,6 +163,21 @@ function bind_book(){
 		timeout:10000
 	});
 }
+//스크롤 시
+$(window).scroll(function() {
+	// 스크롤이 바닥에 닿으면
+	if ($(window).scrollTop() == $(document).height() - $(window).height()) {
+		check_text(inputText);
+	};
+   
+	var position = $(window).scrollTop(); // 현재 스크롤바의 위치값을 반환합니다.  
+	if(position >= 600){
+		$("#right_section").stop().animate({"top":position+currentPosition+"px"},100);  
+	}else{	
+		$("#right_section").stop().animate({"top":position+currentPosition+"px"},100);
+	}
+   
+});
 
 function change(i){
 	if($(i).hasClass('fas') == true){

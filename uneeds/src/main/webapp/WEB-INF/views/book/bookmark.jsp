@@ -95,10 +95,7 @@ body {
 </style>
 </head>
 <body>
-	<!-- ${pageContext.request.contextPath} 프로젝트 webapp까지의 경로 -->
-	<div id="right_section"  class="pointed md-2" style="position:absolute;top:100px;right:0;z-index: 999;margin-right: 100px;">  
-           <div><h1>찜 목록</h1></div>  
-    </div>  
+	
     <!-- loading -->
 	<div id="loading" class="display-none"></div>
 	
@@ -110,7 +107,7 @@ body {
 	<!-- Page Content -->
 	<div class="container">
 
-		<h1 class="my-4">찜 목록</h1>
+		<h1 class="my-4 color-white">찜 목록</h1>
 		
 		<div class="row">
 			
