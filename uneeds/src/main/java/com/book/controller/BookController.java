@@ -14,6 +14,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -190,6 +191,7 @@ public class BookController {
 	}
 	
 	// 도서 찜하기
+	@Transactional
 	@ResponseBody
 	@RequestMapping(value="pointbook", method=RequestMethod.POST)
 	public void pointBook(@RequestBody BookInfoVO biVo, HttpServletRequest req) throws Exception {
@@ -204,6 +206,7 @@ public class BookController {
 		bservice.pointBook(map);
 	}
 	// 찜 확인
+	@Transactional
 	@ResponseBody
 	@RequestMapping(value="pointcheck", method=RequestMethod.POST)
 	public int checkPoint(@RequestBody BookInfoVO biVo, HttpServletRequest req) throws Exception {
