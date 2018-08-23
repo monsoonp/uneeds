@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <nav class="navbar navbar-expand-lg navbar-white bg-white fixed-top">
 		<div class="container">
-			<a class="navbar-brand" href="/uneeds/book/">
+			<a class="navbar-brand" href="/uneeds/">
 				<img src="${pageContext.request.contextPath}/resources/book/img/bookmain.png"/>
 			</a>
 		<button class="navbar-toggler navbar-toggler-right" type="button"
