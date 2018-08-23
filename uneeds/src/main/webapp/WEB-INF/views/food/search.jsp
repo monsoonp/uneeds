@@ -14,9 +14,10 @@
 		var URL = "reservationList?mcode=";
 		var mcode = $("#mcode").val();
 		var popUp = URL + mcode;
-		var popOpen = "width=408, height=545, resizeable=no, status=no;";
+		var popOpen = "width=875, height=555, resizeable=no, status=no;";
 		window.open(popUp,"",popOpen);
 	}
+
 </script>
 <title>UNEEDS FOOD</title>
 </head>
@@ -40,8 +41,10 @@
 					<%if(id==null){ %>				
 					<li><a href="/uneeds/login" style="color: white; font-size: 17px;">LOGIN</a></li>
 					<%} else {%>
-					<li style="color: white; font-size:15px;"><a onclick="reservationList();"><%=id %>님</a></li>
+					<li style="color: white; font-size:15px;"><a style="color: white; font-size:15px;" onclick="reservationList();"><%=id %>님</a></li>
 					<li style="padding-left: 5px;"><a href="/uneeds/logout" style="color: white;">로그아웃</a></li>
+					<%int mcode = (int)session.getAttribute("mcode");%>
+					<input type="hidden" id="mcode" value="<%=mcode%>">
 					<%} %>
 				</ul>
 			</div>

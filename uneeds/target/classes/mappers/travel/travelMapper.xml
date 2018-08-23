@@ -29,7 +29,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</insert>
 	
 	<select id = "t_reviewselectinfo" resultType="com.travel.model.ReviewVO">
-		SELECT * FROM t_review_table where contentid = #{contentid}
+		select c.Rcode, a.mid, c.tourtext, c.star, c.tourdate, c.contentid from umemeber_table a, t_member_table b, t_review_table c 
+		where a.mcode = b.mcode and b.TourMembercode = c.TourMembercode and contentid = #{contentid} ORDER BY Rcode DESC;
 	</select>
 	
 	<select id = "t_groubcheck" resultType="com.travel.model.TMemberVO">

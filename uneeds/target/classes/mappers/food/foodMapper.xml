@@ -70,4 +70,9 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SELECT r.*, f.fname, t.tlist, fm.tmlist FROM f_reservation r, f_food f, f_type t, f_times fm where mcode = #{mcode} and r.fid = f.fid and r.tid = t.tid and r.tmid = fm.tmid;
 	</select>
 	
+	<!-- Mysql 음식점 예약전체 리스트-->
+	<select id="reservationTotal" resultType="com.food.domain.Food_reservationVo">
+		SELECT r.*, f.fname, t.tlist, fm.tmlist FROM f_reservation r, f_food f, f_type t, f_times fm where r.fid = f.fid and r.tid = t.tid and r.tmid = fm.tmid;
+	</select>
+	
 </mapper>

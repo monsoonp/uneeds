@@ -29,7 +29,7 @@
 		<div style="float: right; padding-right: 20px;"><a href="/uneeds/login" style="color: white; font-size: 20px;">LOGIN</a></div>
 <%} else { %>
 		<div style="float: right; padding-right: 20px; color: white; font-size: 20px;">
-			<a onclick="reservationList();"><%=id %>님</a><br> 
+			<%=id %>님<br> 
 		</div>
 		<br>
 		<div style="float: right; padding-right: 30px;">

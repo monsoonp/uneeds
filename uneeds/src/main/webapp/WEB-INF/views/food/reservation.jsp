@@ -17,12 +17,9 @@
 	
 </style>
 <title>Insert title here</title>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-<link rel="stylesheet" href="//code.jquery.com/ui/1.10.4/themes/smoothness/jquery-ui.css">
-<link href="http://fonts.googleapis.com/earlyaccess/jejugothic.css">
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<script src="//code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 <script type="text/javascript">
 $(function() {
 	$( "#datepicker" ).datepicker(
@@ -127,7 +124,7 @@ $(function() {
 			예약 날짜 :
 		</div>
 		<div style="margin-bottom: 15px;">
-				<input id="rsdate" name="rsdate" type="text" id="datepicker" size="9" style="text-align: center; width: 100px; height:25px; box-sizing: border-box; border: 2px solid #ccc; border-radius: 4px;">
+				<input id="rsdate" name="rsdate" type="date" style="text-align: center; width: 130px; height:25px; box-sizing: border-box; border: 2px solid #ccc; border-radius: 4px;">
 		</div>
 		<div style="margin-bottom: 7px;">
 				예약 시간 :

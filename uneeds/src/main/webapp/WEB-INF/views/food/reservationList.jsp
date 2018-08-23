@@ -1,4 +1,4 @@
-#<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -59,6 +59,7 @@
 				<th style="width: 60px;">인원</th>
 				<th style="width: 60px;">분류</th>
 				<th style="width: 120px;">날짜</th>
+				<th style="width: 80px;">예약유뮤</th>
 				<th style="border-right: 0px; width: 60px;">시간</th>
 			</tr>
 			<%int x = 0; %>
@@ -71,6 +72,12 @@
 				<td>${l.rsperson}</td>
 				<td>${l.tlist}</td>
 				<td>${l.rsdate}</td>
+				<c:if test="${l.rscheck==0}">
+				<td>대기</td>
+				</c:if>
+				<c:if test="${l.rscheck==1}">
+				<td>완료</td>
+				</c:if>
 				<td style="border-right: 0px;">${l.tmlist}</td>
 			</tr>
 			</c:forEach>
