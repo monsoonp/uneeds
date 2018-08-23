@@ -54,4 +54,9 @@
 		select * from b_searcher where btitle like '%' #{query} '%' 
 	</select>
 	
+	<!-- 인기 도서 -->
+	<select id="countBook" resultType="com.book.domain.BookVO">
+		select i.* from b_bookinfo i, v_bookmark b where i.bcode = b.bcode limit 5;
+	</select>
+	
 </mapper>

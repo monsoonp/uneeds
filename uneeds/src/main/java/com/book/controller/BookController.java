@@ -51,7 +51,7 @@ public class BookController {
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
 		String formattedDate = dateFormat.format(date);
 		
-		//mav.addObject("serverTime", formattedDate);
+		mav.addObject("countbest", bservice.countBook());
 		
 		mav.setViewName("bookmain");
 		return mav;

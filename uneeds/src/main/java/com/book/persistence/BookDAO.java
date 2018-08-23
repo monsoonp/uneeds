@@ -16,4 +16,6 @@ public interface BookDAO {
 	public int checkPoint(Map<String, Object> point);
 	
 	public List<BookVO> bookmark(String usercode);
+	
+	public List<BookVO> countBook();
 }

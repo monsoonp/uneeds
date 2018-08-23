@@ -126,6 +126,11 @@ public class BookServiceImpl implements BookService{
 	public List<AutoVO> autocomplete(String query) {
 		return sDao.autoComplete(query);
 	}
+	
+	@Override
+	public List<BookVO> countBook() {
+		return bookDao.countBook();
+	}
 
 	
 }

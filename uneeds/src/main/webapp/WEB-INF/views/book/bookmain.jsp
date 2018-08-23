@@ -11,8 +11,9 @@
 <!-- css -->
 <link href="/resources/book/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link href="/resources/book/css/modern-custom.css" rel="stylesheet"/>
-<link href="/resources/book/css/bookList.css" rel="stylesheet"/>
 <link href="/resources/book/css/login.css" rel="stylesheet"/>
+<link href="/resources/book/css/animate.css" rel="stylesheet"/>
+<link href="/resources/book/css/bookList.css" rel="stylesheet"/>
 <!-- jquery / bootstrap / js-->
 <script src="//code.jquery.com/jquery-latest.js"></script> <!-- must be top -->
 <script src="/resources/book/bootstrap/js/bootstrap.min.js"></script>
@@ -164,27 +165,34 @@ body {
 	<!-- Page Content -->
 	<div class="container" id="background">
 
-		<h1 class="my-4">WELCOME!</h1>
+		<h1 class="my-4 animated animatedFadeInUp fadeInUp">WELCOME!</h1>
 		
 		<hr/>
-
-		<!-- Call to Action Section -->
+		
 		<div class="row mb-4">
 			<div class="col-md-8">
 				<p class="fadeInUp">
 					인내할 수 있는 자는 그가 원하는 결과를 얻을 수 있다. - 벤자민 프랭클린 - 
-					
 				</p>
 				<hr/>
 			</div>
-			<div style="height:600px;"></div>
 			
-			<div class="col-md-4">
-				<hr/>
+			<div class="col-md-12 my-auto py-auto">
+				<div class="main-book animated animatedFadeInUp fadeInUp">
+					<h2>인기도서 목록</h2>
+					<div class="row mb-4 my-auto mx-auto py-3">
+						<c:forEach items="${countbest }" var="c">
+							<div class="col-md-2 my-auto mx-auto py-auto px-auto">
+								<img src="${c.bimage }" class="img"/>
+								<a href="/uneeds/book/info/${c.bisbn }">${c.btitle }</a>
+							</div>
+						</c:forEach>
+					</div>
+				</div>
 			</div>
+				
+			<div class="col-md-12" style="height:400px;"></div>
 	
-			
-			
 		</div>
 	</div>
 	<!-- /.container -->

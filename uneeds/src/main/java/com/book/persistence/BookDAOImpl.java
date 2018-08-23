@@ -39,4 +39,9 @@ public class BookDAOImpl implements BookDAO{
 		map.put("usercode", usercode);
 		return mysqlSession.selectList(namespace+".bookmark", map);
 	}
+	
+	@Override
+	public List<BookVO> countBook() {
+		return mysqlSession.selectList(namespace+".countBook");
+	}
 }

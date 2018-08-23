@@ -29,4 +29,6 @@ public interface BookService {
 	
 	public List<BookVO> bookmark(String usercode);
 	public List<AutoVO> autocomplete(String query);
+	
+	public List<BookVO> countBook();
 }
