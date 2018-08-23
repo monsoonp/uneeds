@@ -716,7 +716,7 @@ $(function(){
 function reviewmodal(){
 	var modal = document.getElementById("myModal");
 	var btn = document.getElementById("reviewbutton"); // Get the button that opens the modal
-	var span = document.getElementsByClassName("modal-close")[0];         // Get the <span> element that closes the modal                                 
+	var span = document.getElementsByClassName("modal-close")[1];         // Get the <span> element that closes the modal                                 
 
 	var id = '<%=session.getAttribute("userid")%>';
 	// When the user clicks on the button, open the modal
@@ -769,7 +769,7 @@ function reviewmodal(){
 </script>
 
 <!--  list 표시 -->
-<script>	// 상세 리스트 띄우기
+<script>	// 리스트에서 상세 리스트 띄우기
 	function detailedinformat(data){
 		var ul = $("#list_place_col1");
 		
@@ -779,11 +779,16 @@ function reviewmodal(){
 		ul.empty();
 		ul.append(
 				"<li class=list_item type_restaurant=''>" +
+					"<div class='func_btn_area'><form>"+
+						"<input class= 'button button5' name='input2' type= 'button'  value ='즐겨찾기' onclick= javascript:listpage2(this.form);>" +
+						"<input type='hidden' name = 'bommarkcontentid' class = 'bommarkclass' value = '" + item.find("contentid").text() + "'>" +
+						"<input type='hidden' name = 'bommarkcontenttypeid' class = 'bommarkclass' value = '" + item.find("contenttypeid").text() + "'>" +
+						"<input class= 'button button5' name='input2' type= 'button'  value ='좋아요' onclick= javascript:listpage2(this.form);>" +
+						"</form></div>"+
 					"<div class=list_item_inner id ='listdetail'>"+
 						"</div>" +
 					"<div class=list_item_inner>" +
-						"</div>" +
-					"<div class=list_item_inner>" +
+						"<h3><span> 추천 여행지 </span></h3>" +
 						"<div class='flick_container' style='height: 150px; z-index: 1;'>"+
 							"<a class='btn_direction btn_prev' id = 'recommend_prev' aria-label='이전' role='button' onclick='javascript:moverecommend(this);'>"+
 							"<svg class='icon' role='presentation' version='1.1' width='9' height='16' viewBox='0 0 9 16'>"+
@@ -794,7 +799,7 @@ function reviewmodal(){
 							"<path fill='#666666' d='M8,9v1H7v1H6v1H5v1H4v1H3v1H2v1H1v-1H0v-1h1v-1h1v-1h1v-1h1v-1h1V9 h1V7H5V6H4V5H3V4H2V3H1V2H0V1h1V0h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v2H8z'></path></svg></a></div>" +
 							"</div>" +
 					"<div class=list_item_inner>" +
-						"<h3>리뷰 <input class = 'infoarea' type = 'button'  name='input1' onclick= javascript:reviewmodal(); value ='리뷰쓰기' ></h3>" +
+						"<div><h3 style='float:left; padding-top: 8px;'>리뷰</h3><input class= 'button button5' type = 'button'  name='input1' onclick= javascript:reviewmodal(); value ='리뷰쓰기' style='margin-left : 200px'></div>" +
 						"<div class='flick_container' style='height: 150px; z-index: 1;'>"+
 							"<a class='btn_direction btn_prev' id = 'reviewlist_prev' aria-label='이전' role='button' onclick='javascript:move(this);'>"+
 							"<svg class='icon' role='presentation' version='1.1' width='9' height='16' viewBox='0 0 9 16'>"+
@@ -803,8 +808,9 @@ function reviewmodal(){
 							"<a class='btn_direction btn_next' id = 'reviewlist_next' aria-label='다음' role='button' onclick='javascript:move(this);'>" +
 							"<svg class='icon' role='presentation' version='1.1' width='9' height='16' viewBox='0 0 9 16'>" +
 							"<path fill='#666666' d='M8,9v1H7v1H6v1H5v1H4v1H3v1H2v1H1v-1H0v-1h1v-1h1v-1h1v-1h1v-1h1V9 h1V7H5V6H4V5H3V4H2V3H1V2H0V1h1V0h1v1h1v1h1v1h1v1h1v1h1v1h1v1h1v2H8z'></path></svg></a>"+
-						"</div><input type=button value='되돌아가기' onClick='detailshowhide();'></div></div></li>");
+						"</div></div></div><input class='button button5' type=button value='돌아가기' onClick='detailshowhide();' style='margin-left : 250px; margin-top : 8px; margin-bottom : 8px;'></li>");
 		reviewstar(contentid);
+		moverecommend();
 	}
 </script>
 
@@ -824,20 +830,27 @@ function	reviewstar(contentid){
 		list = $("#review_list_right");
 		list.empty();
 		
+		if(data[0] == null){
+			list.append("<span>방문하셔서 첫번째 리뷰를 작성해주세요.</span>")
+		}
+		
 		for (var i = 0; i < data.length; i++) {
+			
 			d = data[i];
 			star += d.star;
 			dt = new Date(d.tourdate);
 			list.append(
 					"<div class='flick_content' role='listItem'>" +
 						"<div class='list_item' role='listitem'>" +
+							"<div class = 'txt' style='float:left; font-size:18px; margin-left : 10px; margin-right : 10px;'><strong>"+ d.mid +"</strong></div>" +
+							"<div style='font-size: 13px; margin : 3px;'> (" + dt.getFullYear() + "." + (dt.getMonth() + 1) + "." + dt.getDate()+ " " + dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds() + "  작성)</div>" +
 							"<div class=star_area_list>" +
 								"<span class=star_list> <span class=bg> <span class=value style='width: "+ d.star*20 +"%'></span></span></span> " +
 								"<span class=score><em>" + d.star + "</em> / 5</span>" +
 							"</div>" +
 							"<div class='txtdiv' style = 'text-align: center;'>" +
 								"<div class ='txtbox' style='width:228px;min-height:25px;'>"+ d.tourtext +"</div></div>" +
-						"</div></div>")
+						"</div></div>");
 			}
 		move();
 		},
@@ -849,26 +862,26 @@ function	reviewstar(contentid){
 </script>
 
 <script>	// review 버튼 클릭 시 review 이동 스크립트
+	
 	var reviewlistlength = 0;
 	var recommendlistlength = 0;
 	
 	function move(click) {
-
 		var leftright = $(click).attr("aria-label");
 		reviewlist = document.getElementById("review_list_right");  //review의 list 객체 받아오기
 		
 		if(leftright == "다음"){
-			reviewlistlength -= 282; 
+			reviewlistlength -= 272; 
 			reviewlist.style.transform="translate("+reviewlistlength+"px , 0px)";     //왼쪽으로 이동
 		}
 		if(leftright == "이전"){
-			reviewlistlength += 282; 
+			reviewlistlength += 272; 
 			reviewlist.style.transform="translate("+reviewlistlength+"px , 0px)"; 		//오른쪽으로 이동
 		}
 		
 		if (reviewlist.offsetWidth < 564){
-				$("#reviewlist_prev").hide();
-				$("#reviewlist_next").hide();
+			$("#reviewlist_prev").hide();
+			$("#reviewlist_next").hide();
 		}else if(reviewlistlength >= 0){	//버튼 클릭 쇼 하이드
 			$("#reviewlist_prev").hide();
 			$("#reviewlist_next").show();
@@ -888,17 +901,17 @@ function	reviewstar(contentid){
 		recommendlist = document.getElementById("recommend");  //review의 list 객체 받아오기
 		
 		if(leftright == "다음"){
-			reviewlistlength -= 282; 
+			recommendlistlength -= 282; 
 			recommendlist.style.transform="translate("+recommendlistlength+"px , 0px)";     //왼쪽으로 이동
 		}
 		if(leftright == "이전"){
-			reviewlistlength += 282; 
+			recommendlistlength += 282; 
 			recommendlist.style.transform="translate("+recommendlistlength+"px , 0px)"; 		//오른쪽으로 이동
 		}
 		
 		if (recommendlist.offsetWidth < 564){
-				$("#recommend_prev").hide();
-				$("#recommend_next").hide();
+			$("#recommend_prev").hide();
+			$("#recommend_next").hide();
 		}else if(recommendlistlength >= 0){	//버튼 클릭 쇼 하이드
 			$("#recommend_prev").hide();
 			$("#recommend_next").show();
@@ -919,7 +932,8 @@ function listpage1(listdata){
 	var number = listdata.data1.value; //번호
 	var contentid = listdata.data2.value; //contentid
 	var contenttypeid = listdata.data3.value; //contenttypeid
-			
+		reviewlistlength = 0;
+		recommendlistlength = 0;
 		$.ajax({
 			url : "detailedinformation",
 			type : 'get',
@@ -942,9 +956,8 @@ function listpage1(listdata){
 }
 
 	function listpage2(listdata){
-		var number = listdata.data1.value; //번호
-		var listcontentid = listdata.data2.value; //contentid
-		var contenttypeid = listdata.data3.value; //contenttypeid
+		var listcontentid = listdata.bommarkcontentid.value; //contentid
+		var contenttypeid = listdata.bommarkcontenttypeid.value; //contenttypeid
 	
 		var id = '<%=session.getAttribute("userid")%>';
 			
@@ -966,6 +979,8 @@ function listpage1(listdata){
 		var number = listdata.data1.value; //번호
 		var contentid = listdata.data2.value; //contentid
 		var contenttypeid = listdata.data3.value; //contenttypeid
+		reviewlistlength = 0;
+		recommendlistlength = 0;		
 		
 		var ul1 = $("#list_place_col");
 		var ul2 = $("#list_place_col1");
@@ -1003,8 +1018,7 @@ function listpage1(listdata){
 </script>
 
 <!--  시도 구분 -->
-<script>
-	// 시군구 api를 통해서 list를 왼쪽 폴더창에 보여줌
+<script>// 시군구 api를 통해서 list를 왼쪽 폴더창에 보여줌
 	function bindList(data){
 		var ul = $("#list_place_col");
 		var items = $(data).find("item");
@@ -1012,6 +1026,12 @@ function listpage1(listdata){
 			ul.empty();
 			for (var i = 0; i < items.length; i++){
 				item = $(items[i]);
+				var title = item.find("title").text();
+				
+					if(item.find("title").text().length > 17){
+						title = item.find("title").text().substr(0, 13);
+						title = title.slice(0, 12) + "...";
+					}
 				
 					ul.append("<li 'id'= '"+ item.find("title").text() + "' class= list_item type_restaurant>" +  
 									"<div class = list_item_inner>" +
@@ -1024,17 +1044,19 @@ function listpage1(listdata){
 										"<div class= info_area>" +
 											"<div class= tit>" +
 												"<span class=tit_inner>" +
-												"<input class = 'infoarea'  type = 'button'  name='input1' value='" + item.find("title").text() + "' onclick= javascript:listpage1(this.form); >" +
+												"<em class='alphabet' style = 'color: rgb(0, 0, 238);'>"+ (i+1) +"&nbsp;</em>"+
+												"<input class = 'infoarea'  type = 'button' name='input1' value='" + title + "' onclick= javascript:listpage1(this.form);>" +
 											"</input></span></div>" +
 											"<div class = listid  id= 'listid_" + item.find("contentid").text() + "' title= '" + item.find("contentid").text() + "'></div>" +
-												"<input class= 'gnb_btn_bookmark' name='input2' type= 'button'  value ='즐겨찾기' onclick= javascript:listpage2(this.form);>" +
 												"<input type='hidden' name = 'data1' class = 'data1' value = '"+ i +"'>" +
 												"<input type='hidden' name = 'data2' class = 'data2' value = '" + item.find("contentid").text() + "'>" +
 												"<input type='hidden' name = 'data3' class = 'data3' value = '" + item.find("contenttypeid").text() + "'>" +
 												"<input type='hidden' id='gnb_bookmark_" + i +"' onclick= javascript:listpage3(this.form); >"+
-											"</div></form>" +
+											"</div>" +
+											"<input type= 'button' class='button button5' value ='개요/설명 보기' onclick= javascript:arealistvinfo(this.form);>"+
+											"<input type= 'button' class='button button5' value ='홈페이지' onclick= javascript:arealishomepage(this.form);>"+
 											"<div><span>콘텐츠 조회수 : " + item.find("readcount").text() + "</span></div>"+
-											"</div></li>");
+											"</form></div></li>");
 					
 					$.post("t_travelapilist", {
 						contentid : Number(item.find("contentid").text()),
@@ -1067,7 +1089,94 @@ function listpage1(listdata){
 			sg.append("<option value ='" + item.find("code").text() + "'>" + item.find("name").text() + "</option>");
 		}
 	}	
+</script>
+
+<script>	//over 정보 주기
+	function arealistvinfo(data){
+		
+		var number = data.data1.value; //번호
+		var contentid = data.data2.value; //contentid
+		var contenttypeid = data.data3.value; //contenttypeid
+
+		var modal = document.getElementById("ovewview");
+		var btn = document.getElementById("reviewbutton"); // Get the button that opens the modal
+		var span = document.getElementsByClassName("modal-close")[0];         // Get the <span> element that closes the modal    
+		var overviewstory = $("#ovewviewinfo");
+		
+		// When the user clicks on <span> (x), close the modal
+		span.onclick = function() {
+		    modal.style.display = "none";
+		}
+
+		// When the user clicks anywhere outside of the modal, close it
+		window.onclick = function(event) {
+		    if (event.target == modal) {
+		        modal.style.display = "none";
+		    }
+		}
+								
+		$.ajax({
+			url : "overviewinformaiton",
+			type : 'get',
+			datatype : 'json',
+			async : true,
+			data : {
+				"contentId" : contentid,
+				"contenttype" : contenttypeid
+			},
+			success : function(datalist) {
+				
+				var items = $(datalist).find("item");
+				modal.style.display = "block";
+				overviewstory.empty();
+				
+				for (var i = 0; i < items.length; i++){
+					item = $(items[i]);
+					overviewstory.append(item.find("overview").text());
+				}
+			},error : function(request, status, error){ //에러 함수
+				alert("ERROR");
+			}
+		});
+	}
 	
+function arealishomepage(data){
+		
+		var number = data.data1.value; //번호
+		var contentid = data.data2.value; //contentid
+		var contenttypeid = data.data3.value; //contenttypeid
+
+		$.ajax({
+			url : "overviewinformaiton",
+			type : 'get',
+			datatype : 'json',
+			async : true,
+			data : {
+				"contentId" : contentid,
+				"contenttype" : contenttypeid
+			},
+			success : function(datalist) {
+				
+				var items = $(datalist).find("item");
+				
+				for (var i = 0; i < items.length; i++){
+					item = $(items[i]);
+											
+						var homepagelist = item.find("homepage").text().split('<').join(',').split('>').join(',').split('"').join(',').split(',');
+						
+						for (var j = 0; j < homepagelist.length; j++){
+							if (homepagelist[j].match('http')) {
+								var homepage = homepagelist[j];
+							}
+					}
+				}
+				window.open(homepage);
+			},error : function(request, status, error){ //에러 함수
+				alert("ERROR");
+			}
+		});
+	}
+
 </script>
 
 <!-- 최초 표현 -->
@@ -1187,16 +1296,14 @@ window.onresize = funLoad;
 </script>
 <!-- 높이 자동 조정 -->
 
-<script>
+<script> // 이미지 없을 시 빈이미지 출력
 	function imagechage(data){
 		var img = $(data).attr("img")
 		if(img == null){
 			$(data).attr('src', "/resources/travel/img/noimage.gif");
 		}
-		
 	}
 </script>
-
 
 <script>	// 가입 시 추가 정보 입력 창
 	function additionmemberinfo(data){
@@ -1244,13 +1351,11 @@ window.onresize = funLoad;
 				
 					var ullist = $("#recommend");
 					ullist.empty();
-					ullist.append("<h3><span> 추천 검색 </span></h3>");
 				
 					for (var i = 0; i < data.length; i++) {
 						$.ajax({
 							url : "areabase",
 							type : 'get',
-							async : false,
 							data : {
 								"contentid" : data[i].contentid
 							},
@@ -1269,14 +1374,12 @@ window.onresize = funLoad;
 			$.ajax({
 				url : "bookmarkrecommend",
 				type : 'get',
-				async : false,
 				data : {
 					mid : '<%=id%>'},
 				success : function(data) {
 				
 					var ullist = $("#recommend");
 					ullist.empty();
-					ullist.append("<h3><span> 추천 검색 </span></h3>");
 				
 					if(data[0] == null){
 						ullist.append("<span>추천 검색이 없습니다.</span>");
@@ -1285,7 +1388,6 @@ window.onresize = funLoad;
 							$.ajax({
 								url : "areabase",
 								type : 'get',
-								async : false,
 								data : {
 									"contentid" : data[i].contentid
 								},
@@ -1306,7 +1408,7 @@ window.onresize = funLoad;
 	
 	function overview(contentid, contenttype){
 		var ullist = $("#recommend");
-				
+
 		$.ajax({
 			url : "overviewinformaiton",
 			type : 'get',
@@ -1323,20 +1425,18 @@ window.onresize = funLoad;
 					item = $(items[i]);
 						ullist.append("<div class='flick_content' role='listItem'>" +
 						"<div class='list_item' role='listitem'>" +
-							"<div class='thumb' style='z-index: 0;'>" +
+							"<div class='thumb' style='z-index: 0; text-align:center;'>" +
 							"<img src= '" + item.find("firstimage").text()+ "' width='100' height='100' onerror= 'javascript:imagechage(this);' alt=''></div>"+
 							"<div class='txtdiv' style='text-align: center;'><div class='txtbox' style='width:228px;min-height:25px;'>"+ item.find("title").text()+ "</div>"+
-							"</div></div></div>"
-					);
+							"</div></div></div>");
 				}
-
-				moverecommend();
 			},error : function(request, status, error){ //에러 함수
 				alert("ERROR");
 			}
 		});
 	};
 </script>
+
 
 </head>
 <body class="place_list">
@@ -1397,13 +1497,33 @@ window.onresize = funLoad;
         </div>
         
         <div class="modal-footer" style="text-align: right;">
-        	<input id="addtionmember" type="button"  style="margin: 5px; " value ="추가 정보 입력" onclick="javascript:additionmemberinfo(this.form)">
+        	<input id="addtionmember" type="button"  style="margin: 5px;" value ="추가 정보 입력" onclick="javascript:additionmemberinfo(this.form)">
         </div>
       </div> 
       </form>
     </div>
   </div>
 
+	
+	<div id = "modal-content">
+    	<div id="ovewview" class="modal">
+	 		<!-- Modal content -->
+	 		<div class="modal-content">	
+	 			<div style="text-align: center; margin: 5px">
+        			<span class="modal-close">&times;</span>
+	 				<h3 >개요 / 설명</h3>
+        		</div>							                                                           
+        		<div class = "reviewmaincontaier"> 
+        			<div class="tile user-tile">
+        				<div class="user-indent">
+        					<div class="user-name" id = "ovewviewinfo"></div>
+        				</div>
+        			</div>
+        		</div>
+			</div>
+		</div>
+	</div>
+	
 	<!-- header 부분 -->
 	<header id= "header" role="banner">
 			<jsp:include page="topheader.jsp" flush="false"/>
@@ -1467,7 +1587,7 @@ window.onresize = funLoad;
         										</div>
         									</div>    
         									                                                           
-        									<div class = "reviewmaincontaier"> 
+        									<div class = "reviewmaincontaier" style="text-align:center;"> 
         										<div class="tile user-tile">
         												<div class="user-indent">
         													<div class="user-name"><%=id %>님 리뷰를 작성해주세요.</div>
@@ -1475,7 +1595,7 @@ window.onresize = funLoad;
         										</div>
         									
         										<div class="tile rating-tile">
-        											<div aria-label="별표 평점"  tabindex="0" jstcache="13" class="rating-indent rating rating-actionable" style="-moz-user-select: none;">
+        											<div aria-label="별표 평점"  tabindex="0" jstcache="13" class="rating-indent rating rating-actionable" style="text-align:center; -moz-user-select: none;">
         												<span class="rating" id="mainstar" title="0">
         													<span aria-label="1성급" id="star1" role="button" tabindex="0" jstcache="14" class="rating-star" aria-checked="false" aria-pressed="false"></span>
         													<span aria-label="2성급" id="star2" role="button" tabindex="0" jstcache="15" class="rating-star" aria-checked="false" aria-pressed="false"></span>
@@ -1485,7 +1605,7 @@ window.onresize = funLoad;
         												</span> </div> </div>
         										</div>
         									
-        										<div class="mobile-scrollable-fill">
+        										<div class="mobile-scrollable-fill" style="text-align:center;">
         											<div class="tile review-text-tile-with-add-photo" >
         												<div class="review-text-indent">
         													<textarea placeholder="이 장소에서의 경험을 자세히 공유하세요." class="review-text" id="textarea-text" style="height: 120px;"></textarea>
