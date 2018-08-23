@@ -31,4 +31,5 @@ public interface BookService {
 	public List<AutoVO> autocomplete(String query);
 	
 	public List<BookVO> countBook();
+	public List<BookVO> recommendBook(String isbn);
 }

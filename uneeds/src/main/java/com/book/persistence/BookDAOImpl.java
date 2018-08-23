@@ -44,4 +44,9 @@ public class BookDAOImpl implements BookDAO{
 	public List<BookVO> countBook() {
 		return mysqlSession.selectList(namespace+".countBook");
 	}
+	
+	@Override
+	public List<BookVO> recommendBook(String isbn) {
+		return mysqlSession.selectList(namespace+".recommendBook", isbn);
+	}
 }

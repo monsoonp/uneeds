@@ -18,4 +18,6 @@ public interface BookDAO {
 	public List<BookVO> bookmark(String usercode);
 	
 	public List<BookVO> countBook();
+	
+	public List<BookVO> recommendBook(String isbn);
 }

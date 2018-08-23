@@ -159,9 +159,9 @@ public class BookController {
 		
 		String result = NaverSearch.booksearch(isbn).toString();
 		
-		
 		mav.addObject("info", JsonParser.parseDoc(result));
 		mav.addObject("pointed", bservice.checkPoint(usercode, isbn));
+		mav.addObject("countbest", bservice.recommendBook(isbn));	
 		
 		mav.setViewName("bookinfo");
 		return mav;

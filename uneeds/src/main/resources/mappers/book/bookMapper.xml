@@ -59,4 +59,16 @@
 		select i.* from b_bookinfo i, v_bookmark b where i.bcode = b.bcode limit 5;
 	</select>
 	
+	<!-- 추천 도서 -->
+	<select id="recommendBook" parameterType="string" resultType="com.book.domain.BookVO">
+		select i.* from b_bookinfo i where i.bcode in
+			(select p.bcode from b_pointedbook p 
+				where p.mcode in 
+					(select b.mcode from b_pointedbook b 
+						where b.bcode =
+							(select bcode from b_bookinfo where bisbn = #{isbn})) 
+							and p.bcode != (select bcode from b_bookinfo where bisbn = #{isbn}) 
+								group by bcode order by count(p.bcode) desc) limit 5;
+	</select>
+	
 </mapper>

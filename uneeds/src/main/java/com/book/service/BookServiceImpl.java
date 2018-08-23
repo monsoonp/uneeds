@@ -131,6 +131,11 @@ public class BookServiceImpl implements BookService{
 	public List<BookVO> countBook() {
 		return bookDao.countBook();
 	}
+	
+	@Override
+	public List<BookVO> recommendBook(String isbn) {
+		return bookDao.recommendBook(isbn);
+	}
 
 	
 }
