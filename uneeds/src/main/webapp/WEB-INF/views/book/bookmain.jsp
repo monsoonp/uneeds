@@ -177,13 +177,13 @@ body {
 				<hr/>
 			</div>
 			
-			<div class="col-md-12 my-auto py-auto">
-				<div class="main-book animated animatedFadeInUp fadeInUp">
-					<h2>인기도서 목록</h2>
+			<div class="main-book animated animatedFadeInUp fadeInUp">
+				<div class="col-md-12 my-auto py-auto">
+					<h3>관련 추천 도서</h3>
 					<div class="row mb-4 my-auto mx-auto py-3">
 						<c:forEach items="${countbest }" var="c">
 							<div class="col-md-2 my-auto mx-auto py-auto px-auto">
-								<img src="${c.bimage }" class="img"/>
+								<img src="${c.bimage }" class="img" />
 								<a href="/uneeds/book/info/${c.bisbn }">${c.btitle }</a>
 							</div>
 						</c:forEach>
