@@ -174,6 +174,9 @@ body {
 											<h3>${b.bprice }원</h3>
 										</c:otherwise>
 									</c:choose>
+									<p>
+										${b.bdesc }
+									</p>
 									<input name="isbn" id="isbn" class="display-none" value="${isbn}">
 									  
 								</div>

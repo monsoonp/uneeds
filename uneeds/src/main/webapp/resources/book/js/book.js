@@ -9,6 +9,7 @@ dependencies:
 */
 
 // swipe
+/*
 $(".carousel").swipe({
 
   swipe: function(event, direction, distance, duration, fingerCount, fingerData) {
@@ -20,11 +21,12 @@ $(".carousel").swipe({
   allowPageScroll:"vertical"
 
 });
+*/
+
+/* 시계 */
 $(document).ready(function() {
 	printClock();
-	
 });
-/* 시계 */
 function printClock() {
     
     var clock = document.getElementById("clock");	// 출력할 장소 선택

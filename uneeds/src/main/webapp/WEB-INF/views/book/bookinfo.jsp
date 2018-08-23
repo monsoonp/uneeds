@@ -19,6 +19,8 @@
 <script src="${pageContext.request.contextPath}/resources/book/bootstrap/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/book/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/book/js/jquery.min.js"></script>
+<!-- 구글차트 -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <!-- swipe testing... -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/book/js/book.js"></script>
@@ -54,7 +56,7 @@ $(window).scroll(function() {
 	}
    
 });
-
+// 평점
 function point(){
 	var link = "${fn:replace(info.items[0].link, '\"','')}";
 		console.log(link);
@@ -97,6 +99,7 @@ function point(){
 	    
 	});
 }
+// 도서 상세
 function desc(){
 	var link = "${fn:replace(info.items[0].link, '\"','')}";
 		console.log(link);
@@ -119,6 +122,15 @@ function desc(){
 	    
 	});
 }
+// 할인율
+function d_rate(p, d){
+	dis = (p-d)*100/p;
+	if (dis == 100){
+		return 0;
+	}
+	return dis;
+}
+// 가격 / 차트
 function prices(){
 	var tbl = $("#prices");
 	var isbn = "${fn:replace( fn:split(fn:split(fn:split(info.items[0].isbn,' ' )[1], '>')[1] ,'<')[0],'\"','') }";
@@ -133,19 +145,82 @@ function prices(){
 		dataType : 'json',
 		contentType: "application/json; charset=utf-8",
 	    success : function(data, status) {
-	    	//console.log(data);
 	    	yes = data.yes24;
 	    	kyo = data.kyobo;
 	    	ala = data.aladin;
 	    	ipk = data.interpark;
-	    	tbl.append("<tr><td><a href="+yes.url+" target='_blank'>yes24</a></td><td>"+yes.new_price+"</td><td>"+
-	    										yes.used_price+"</td><td>"+yes.e_price+"</td></tr>");
-	    	tbl.append("<tr><td><a href="+kyo.url+" target='_blank'>교보문고</a></td><td>"+kyo.new_price+"</td><td>"+
-	    										kyo.used_price+"</td><td>"+kyo.e_price+"</td></tr>");
-	    	tbl.append("<tr><td><a href="+ala.url+" target='_blank'>알라딘</a></td><td>"+ala.new_price+"</td><td>"+
-	    										ala.used_price+"</td><td>"+ala.e_price+"</td></tr>");
-	    	tbl.append("<tr><td><a href="+ipk.url+" target='_blank'>인터파크</a></td><td>"+ipk.new_price.split("(")[0]+"</td><td>"+
-	    										ipk.used_price+"</td><td>"+ipk.e_price.split(" ")[0]+"</td></tr>");
+	    	
+	    	tbl.append("<tr><td><a href="+yes.url+" target='_blank'>yes24</a></td><td>"+(yes.new_price||'')+"</td><td>"+
+	    										(yes.used_price||'')+"</td><td>"+(yes.e_price||'')+"</td></tr>");
+	    	tbl.append("<tr><td><a href="+kyo.url+" target='_blank'>교보문고</a></td><td>"+(kyo.new_price||'')+"</td><td>"+
+	    										(kyo.used_price||'')+"</td><td>"+(kyo.e_price||'')+"</td></tr>");
+	    	tbl.append("<tr><td><a href="+ala.url+" target='_blank'>알라딘</a></td><td>"+(ala.new_price||'')+"</td><td>"+
+	    										(ala.used_price||'')+"</td><td>"+(ala.e_price||'')+"</td></tr>");
+	    	tbl.append("<tr><td><a href="+ipk.url+" target='_blank'>인터파크</a></td><td>"+(ipk.new_price.split("(")[0]||'')+"</td><td>"+
+	    										(ipk.used_price||'')+"</td><td>"+(ipk.e_price.split(" ")[0]||'')+"</td></tr>");
+	    	
+	    	
+    		var yn = (yes.new_price||'').split("원")[0].replace(",","");
+    		var yu = (yes.used_price||'').split("원")[0].replace(",","");
+    		var ye = (yes.e_price||'').split("원")[0].replace(",","");
+    		
+    		var kn = (kyo.new_price||'').split("원")[0].replace(",","");
+    		var ku = (kyo.used_price||'').split("원")[0].replace(",","");
+    		var ke = (kyo.e_price||'').split("원")[0].replace(",","");
+    		
+    		var an = (ala.new_price||'').split("원")[0].replace(",","");
+    		var au = (ala.used_price||'').split("원")[0].replace(",","");
+    		var ae = (ala.e_price||'').split("원")[0].replace(",","");
+    		
+    		var ipkn = (ipk.new_price||'').split("원")[0].replace(",","");
+    		var iu = (ipk.used_price||'').split("원")[0].replace(",","");
+    		var ie = (ipk.e_price||'').split("원")[0].replace(",","");
+    		
+    		google.charts.load('current', {'packages':['corechart']});
+	        google.charts.setOnLoadCallback(drawChart);
+	    	function drawChart() {
+	    		
+	        	var data = google.visualization.arrayToDataTable([
+	        		['BookStore', 'Yes24', '교보문고', '알라딘', '인터파크'],
+	                ['새책',   Number(yn), Number(kn), Number(an),Number(ipkn)],
+	                ['중고',   Number(yu), Number(ku), Number(au),Number(iu)],
+	                ['E-북',   Number(ye), Number(ke), Number(ae),Number(ie)]
+		        ]);
+	        	
+	         	var options = {
+		            title: '가격(단위: 원)',
+		            backgroundColor: {
+		                fillOpacity: 0
+		            },
+		            curveType: 'function',
+		            legend: { position: 'bottom' }		        
+	         	};
+	          	var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+	          	chart.draw(data, options);
+	        }
+	    	
+	    	google.charts.load('current', {'packages':['corechart']});
+	    	google.charts.setOnLoadCallback(drawChart2);
+	    	function drawChart2(){
+	    		var data = google.visualization.arrayToDataTable([
+	        		['BookStore', 'Yes24', '교보문고', '알라딘', '인터파크'],
+	                ['중고',   Number(d_rate(yn,yu)), Number(d_rate(yn,ku)), Number(d_rate(yn,au)),Number(d_rate(yn,iu))],
+	                ['E-북',   Number(d_rate(yn,ye)), Number(d_rate(yn,ke)), Number(d_rate(yn,ae)),Number(d_rate(yn,ie))]
+		        ]);
+	          	
+	          	var options = {
+			            title: '할인율(단위: %)',
+			            backgroundColor: {
+			                fillOpacity: 0
+			            },
+			            legend: { position: 'bottom', maxLines: 3 },
+			            bar: { groupWidth: '30%' },
+			            isStacked: false,
+			            
+		         };
+	          	var chart = new google.visualization.ColumnChart(document.getElementById('chart_div2'));
+	          	chart.draw(data, options);
+	    	}
 	    },
 	    complete: function(){
 			$('#loadingtr').remove();
@@ -316,6 +391,15 @@ body {
 							</tr>
 							
 						</table>
+					</div>
+				</div>
+				<!-- 할인율 차트 -->
+				<div class="row mb-4 my-auto mx-auto px-auto py-auto">
+					<div class="col-md-10 mx-auto my-auto py-3 px-auto">
+						<div id="chart_div" class="img"></div>
+					</div>
+					<div class="col-md-10 mx-auto my-auto py-3 px-auto">
+						<div id="chart_div2" class="img"></div>
 					</div>
 				</div>
 				<!-- 도서 상세 -->
