@@ -406,8 +406,31 @@ body {
 				<div class="row mb-4 my-auto py-auto">
 					<div class="col-md-12 my-auto mx-auto">
 						<hr/>
+						<div class="panel-group" id="accordion">
+							<div class="panel panel-default">
+								<div class="panel-heading">
+									<h4 class="panel-title">
+										<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+											<span class="glyphicon glyphicon-th-list"> </span>내용 보기
+										</a>
+									</h4>
+								</div>
+								<div id="collapseTwo" class="panel-collapse collapse">
+									<div class="panel-body">
+										<div class="row">
+											<div class="col-md-12">
+												<p id="desc"></p>
+												<a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo"> 
+													내용 접기
+												</a>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						
 						<div id="content" class="contentloading"></div>
-						<p id="desc"></p>
 					</div>
 				</div>
 				<input name="isbn" class="display-none" value="${isbn }">
