@@ -19,8 +19,6 @@
 <script src="${pageContext.request.contextPath}/resources/book/bootstrap/js/bootstrap.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/book/bootstrap/js/bootstrap.bundle.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/book/js/jquery.min.js"></script>
-<!-- 구글차트 -->
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <!-- swipe testing... -->
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery.touchswipe/1.6.4/jquery.touchSwipe.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/book/js/book.js"></script>
@@ -28,6 +26,8 @@
 <!-- <script src="../resources/book/js/bootstrap.bundle.min.js"></script> -->
 <!-- 구글폰트 -->
 <link href="https://fonts.googleapis.com/css?family=Black+Han+Sans" rel="stylesheet">
+<!-- 구글차트 -->
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <!-- Font Awesome - Glyphicons 대용 -->
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
