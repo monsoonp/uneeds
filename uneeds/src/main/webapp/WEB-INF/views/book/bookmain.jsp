@@ -183,8 +183,10 @@ body {
 					<div class="row mb-4 my-auto mx-auto py-3">
 						<c:forEach items="${countbest }" var="c">
 							<div class="col-md-2 my-auto mx-auto py-auto px-auto">
-								<img src="${c.bimage }" class="img" />
-								<a href="/uneeds/book/info/${c.bisbn }">${c.btitle }</a>
+								<a href="/uneeds/book/info/${c.bisbn }">
+									<img src="${c.bimage }" class="img" />
+									${c.btitle }
+								</a>
 							</div>
 						</c:forEach>
 					</div>
