@@ -63,6 +63,11 @@ public class HomeController {
 		return "main";
 	}
 	
+	@RequestMapping(value = "/customerlist")
+	public String customerlist(Locale locale, Model model) {
+		return "customerlist";
+	}
+	
 	@RequestMapping(value = "/bookmark")
 	public String bookmark(Locale locale, Model model) {
 		return "bookmark";
