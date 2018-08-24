@@ -91,7 +91,7 @@
 		<img src="/resources/admin/img/logo3.jpg"  style="height: 200px; width: 220px;">
 	</div>
 	<div class="col-lg2" style="width: 220px; text-align: center; background: #04B4AE;">
-		<h2 style="padding-top: 70px;"><a href="#">FOOD</a></h2>
+		<h2 style="padding-top: 70px;"><a href="/uneeds/admin_food/main">FOOD</a></h2>
 	</div>
 	<div class="col-lg2" style="width: 220px;">	</div>
 </div>

@@ -40,7 +40,7 @@ a:hover {
 				alert("가져오기");
 				
 				// 초기 변수
-				var table = "rsList";
+				var table = $("#rsList");
 				var lsth = "";
 				var lstd = "";
 				var d = null;
@@ -57,7 +57,7 @@ a:hover {
 						"<th style='width: 80px;'>예약유뮤</th>" +
 						"<th style='border-right: 0px; width: 60px;'>시간</th>" +
 						"</tr>"
-				table.html(lsth);
+				table.append(lsth);
 				
 			},
 			error:function(request,status,error){
