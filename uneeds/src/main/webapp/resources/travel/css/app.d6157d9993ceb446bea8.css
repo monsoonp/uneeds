@@ -7409,4 +7409,5 @@ input[id="checkboxstar"]:checked + label svg  #main-circ{
 @keyframes animateStarOut{
   0%{transform:scale(1.4);}
   100%{transform:scale(1);}
+  
 }
