@@ -1,12 +1,12 @@
 package com.food.domain;
 
 public class Food_reservationVo {
-	private int fid, tid, tmid, rsperson, mcode, rsid;
+	private int fid, tid, tmid, rsperson, mcode, rsid, rscheck;
 	private String rsname, rsphone, rsdate, tlist, tmlist, fname;
 	
 	public Food_reservationVo() {}
 
-	public Food_reservationVo(int fid, int tid, int tmid, int rsperson, int mcode, int rsid, String rsname,
+	public Food_reservationVo(int fid, int tid, int tmid, int rsperson, int mcode, int rsid, int rscheck, String rsname,
 			String rsphone, String rsdate, String tlist, String tmlist, String fname) {
 		super();
 		this.fid = fid;
@@ -15,6 +15,7 @@ public class Food_reservationVo {
 		this.rsperson = rsperson;
 		this.mcode = mcode;
 		this.rsid = rsid;
+		this.rscheck = rscheck;
 		this.rsname = rsname;
 		this.rsphone = rsphone;
 		this.rsdate = rsdate;
@@ -69,6 +70,14 @@ public class Food_reservationVo {
 
 	public void setRsid(int rsid) {
 		this.rsid = rsid;
+	}
+
+	public int getRscheck() {
+		return rscheck;
+	}
+
+	public void setRscheck(int rscheck) {
+		this.rscheck = rscheck;
 	}
 
 	public String getRsname() {

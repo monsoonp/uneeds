@@ -133,6 +133,7 @@ function change(i,frm){
 			title: frm.title.value,
 			author: frm.author.value,
 			pub: frm.pub.value,
+			img: frm.img.value,
 			price: frm.price.value,
 			discount: frm.discount.value,
 			desc: frm.desc.value

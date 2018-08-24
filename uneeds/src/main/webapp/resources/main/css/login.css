@@ -23,3 +23,47 @@
 	float:left;
 	display: inline-block;
 }
+
+
+@import url(http://fonts.googleapis.com/css?family=Roboto:400);
+body {
+  background-color:#fff;
+  -webkit-fontoothing: antialiased;
+  font: normal 14px Roboto,arial,sans-serif;
+}
+
+.form-login {
+    background-color: rgba(30,30,30,0.2);
+    padding-top: 10px;
+    padding-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border-radius: 15px;
+    border-width: 5px;
+    box-shadow:0 1px 0 #8080ff;
+}
+
+h4 { 
+ border:0 solid #fff; 
+ border-bottom-width:1px;
+ padding-bottom:10px;
+ text-align: center;
+}
+
+.form-control {
+    border-radius: 10px;
+}
+
+.wrapper {
+    text-align: center;
+}
+
+.loginlogo{
+	border-top-left-radius: 2em; 
+	border-top-right-radius: 2em; 
+	border-bottom-right-radius: 2em; 
+	border-bottom-left-radius: 2em;
+	width: 380px;
+	height: 220px;
+	opacity: 0.6;
+}
