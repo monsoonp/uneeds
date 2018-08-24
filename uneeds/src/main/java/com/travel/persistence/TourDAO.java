@@ -15,6 +15,15 @@ public interface TourDAO {
 	// BookMark (즐겨찾기용) 값 insert
 	public void bookmarkinsertinfo(BookMarkVO vo);
 	
+	// BookMark (즐겨찾기용) 값 delete
+	public void bookmarkdelete(BookMarkVO vo);
+	
+	// goomark 값 insert
+	public void goodmarkinsertinfo(BookMarkVO vo);
+	
+	// BookMark (즐겨찾기용) 값 delete
+	public void goodmarkdelete(BookMarkVO vo);
+	
 	// review (리뷰) 값 insert
 	public void reviewinsertinfo(ReviewinsertVO vo);
 	
@@ -35,4 +44,10 @@ public interface TourDAO {
 	
 	// contentid로 정보 가져오기
 	public List<TravelareainfoVO> areabaseinfo(int contentid);
+	
+	// 즐겨찾기가 있는지 확인
+	public Boolean checkboxbookmarkview(String id, int contentid);
+	
+	// 좋아요가 있는지 확인
+	public Boolean checkboxgoodmarkview(String id, int contentid);
 }
