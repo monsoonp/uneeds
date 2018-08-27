@@ -78,7 +78,7 @@ function point(){
 	    	var f_star = '<i class="fas fa-star"></i>';
 	    	var h_star = '<i class="fas fa-star-half-alt"></i>';
 	    	var e_star = '<i class="far fa-star"></i>';
-	    	var heart = '<i class="far fa-heart fa-lg" onclick="check(this);"></i>';
+	    	var heart = '<c:if test="${login eq 'logined' }"><i class="far fa-heart fa-lg" onclick="check(this);"></i></c:if>';
 	    	var star_rating = '';
 	    	for (var i = 0; i < full; i++) {
 	    		star_rating+=f_star;

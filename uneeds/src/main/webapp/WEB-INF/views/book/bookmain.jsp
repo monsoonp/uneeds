@@ -124,21 +124,16 @@ body {
 					<!-- 설명 -->
 					<div class="carousel-caption d-none d-md-block">
 						<h3>도서 검색</h3>
-						<h3>SERACH FOR WHAT U NEED!</h3>
-						<label class="realTime">
-							${serverTime}<br>
-							${time}<br/>
-							<!-- ${pageContext.request.contextPath} -->
-						</label>
+						<label>SERACH FOR WHAT U NEED!</label>
 					</div>
 				</div>
 				<!-- seller -->
 				<div class="carousel-item" onclick="location.href='bestseller'"
 					style="background-image: url('/resources/book/img/booksale.jpg')">
 					<div class="carousel-caption d-none d-md-block">
-						<h3 style="color: black;">잘나가는 도서</h3>	
-						<h3 style="color: black;">Best n Steady</h3>	
-						<label style="color: black;">See wat kinda books r here</label>
+						<h3>잘나가는 도서</h3>	
+						<h3>Best n Steady</h3>	
+						<label>See wat kinda books r here</label>
 					</div>
 				</div>
 				<!-- store map -->

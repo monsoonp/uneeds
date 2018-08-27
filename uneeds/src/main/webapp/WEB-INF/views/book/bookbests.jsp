@@ -279,8 +279,10 @@ body {
 										<a href="/uneeds/book/search/${pub = b.result.items[0].publisher }">${pub }</a>
 										<span>|</span>
 										${date = b.result.items[0].pubdate }
-										<span>|</span>
-										<i class="far fa-heart fa-lg" onclick="check(this);"></i>
+										<c:if test="${login eq 'logined' }">
+											<span>|</span>
+											<i class="far fa-heart fa-lg" onclick="check(this);"></i>
+										</c:if>
 									</p>
 									<p>
 										<c:set var="isbn" value="${fn:split(b.result.items[0].isbn,' ' )[1]}"></c:set>
