@@ -30,7 +30,7 @@ src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=iXc25gyU5cMUdYySU
 		var Url = "reservation?fid=";
 		var fid = $("#fid").val();
 		var popUp = Url + fid
-		var popOpen = "width=455, height=545, resizeable=no, status=no;";
+		var popOpen = "width=455, height=565, resizeable=no, status=no;";
 		
 		window.open(popUp,"",popOpen);
 	}
@@ -39,7 +39,7 @@ src="https://openapi.map.naver.com/openapi/v3/maps.js?clientId=iXc25gyU5cMUdYySU
 		var URL = "reservationList?mcode=";
 		var mcode = $("#mcode").val();
 		var popUp = URL + mcode;
-		var popOpen = "width=915, height=555, resizeable=no, status=no;";
+		var popOpen = "width=950, height=555, resizeable=no, status=no;";
 		window.open(popUp,"",popOpen);
 	}
 	
