@@ -125,6 +125,7 @@ body {
 					<div class="carousel-caption d-none d-md-block">
 						<h3>도서 검색</h3>
 						<label>SERACH FOR WHAT U NEED!</label>
+						<h3></h3>
 					</div>
 				</div>
 				<!-- seller -->
@@ -142,6 +143,7 @@ body {
 					<div class="carousel-caption d-none d-md-block">
 						<h3>서점 지도</h3>
 						<label>Book Store</label>
+						<h3></h3>
 					</div>
 				</div>
 				
