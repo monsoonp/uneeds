@@ -108,7 +108,7 @@
 				"http://192.168.0.63:8080/uneeds/book/");
 	var state = naver_id_login.getUniqState();
 	naver_id_login.setButton("white", 2, 40);
-	naver_id_login.setDomain("192.168.0.5:8080/");
+	naver_id_login.setDomain("192.168.0.63:8080/");
 	//naver_id_login.setPopup();
 	naver_id_login.init_naver_id_login();
 	naver_id_login.get_naver_userprofile("naverState();");
