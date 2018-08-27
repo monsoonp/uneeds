@@ -105,7 +105,7 @@
 	
 	//네이버 로그인
 	var naver_id_login = new naver_id_login("dhxVzayDoaI1Ff2KDolt",
-				"http://192.168.0.5:8080/uneeds/book/");
+				"http://192.168.0.63:8080/uneeds/book/");
 	var state = naver_id_login.getUniqState();
 	naver_id_login.setButton("white", 2, 40);
 	naver_id_login.setDomain("192.168.0.5:8080/");

@@ -135,7 +135,12 @@ function bind_book(){
 		    		author = '<a href="/uneeds/book/search/'+author+'">'+author.replace(/\|/g,", ")+'</a>'; // 저자로 검색
 		    		publisher = it.publisher.replace(/(<([^>]+)>)/ig,"");
 		    		publisher = '<a href="/uneeds/book/search/'+publisher+'">'+it.publisher+'</a>';	// 출판사로 검색
+		    		
 		    		isbn = it.isbn.split(' ')[1];
+		    		if (isbn.indexOf("<") == 0){
+		    			isbn = isbn.split(">")[1].split("<")[0];
+		    		}
+		    		
 		    		pubdate = it.pubdate;
 		    		ul.append("<li>"+
 			    		'<div class="main-div">'+
