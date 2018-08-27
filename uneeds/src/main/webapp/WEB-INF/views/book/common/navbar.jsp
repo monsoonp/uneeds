@@ -62,29 +62,23 @@
 						<a class="dropdown-item" href="/uneeds/">
 							UNEEDS HOME
 						</a> 
-						<a class="dropdown-item" href="#">
-							공연 / 전시
-						</a> 
-						<a class="dropdown-item" href="#">
-							영화 / 엔터
-						</a> 
-						<a class="dropdown-item" href="#">
+						<a class="dropdown-item" href="/uneeds/food/main">
 							맛집
 						</a> 
-						<a class="dropdown-item" href="#">
+						<a class="dropdown-item" href="/uneeds/travel/viewtest">
 							여행
 						</a> 
-						<a class="dropdown-item" href="#">
+						<a class="dropdown-item" href="/uneeds/medical/main_view">
 							의료
 						</a>
-						<a class="dropdown-item" href="#">
-							쇼핑N
-						</a>
-						<a class="dropdown-item" href="#">
-							축구
-						</a>
-						<a class="dropdown-item" href="#">
-							어학
+						<a class="dropdown-item" href="/uneeds/movie/main">
+							영화 / 엔터
+						</a> 
+						<a class="dropdown-item" href="/uneeds/exhibition/">
+							공연 / 전시
+						</a> 
+						<a class="dropdown-item" href="https://node-app-211400.appspot.com/">
+							학습
 						</a>
 						
 					</div>
