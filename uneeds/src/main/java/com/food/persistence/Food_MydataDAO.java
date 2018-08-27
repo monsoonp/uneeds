@@ -19,4 +19,6 @@ public interface Food_MydataDAO {
 	public void insertReservation(Food_reservationVo rvo);
 	public List<Food_reservationVo> reservationFood(Food_reservationVo rvo);
 	public List<Food_reservationVo> reservationFoodTotal(Food_reservationVo rvo);
+	public List<Food_reservationVo> reservationFoodOn(Food_reservationVo rvo);
+	public List<Food_reservationVo> reservationFoodOff(Food_reservationVo rvo);
 }

@@ -62,17 +62,30 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	<!-- Mysql 음식점 예약 -->
 	<insert id="insertReservation">
-		INSERT INTO f_reservation(fid, rsname, rsphone, rsperson, rsdate, tid, tmid, mcode) VALUES(#{fid}, #{rsname}, #{rsphone}, #{rsperson}, #{rsdate}, #{tid}, #{tmid}, #{mcode});
+		INSERT INTO f_reservation(fid, rsname, rsphone, rsperson, rsdate, tid, tmid, mcode) VALUES(#{fid}, #{rsname}, #{rsphone}, #{rsperson}, 
+		#{rsdate}, #{tid}, #{tmid}, #{mcode});
 	</insert>
 	
 	<!-- Mysql 음식점 예약현황 -->
 	<select id="listReservation" resultType="com.food.domain.Food_reservationVo">
-		SELECT r.*, f.fname, t.tlist, fm.tmlist FROM f_reservation r, f_food f, f_type t, f_times fm where mcode = #{mcode} and r.fid = f.fid and r.tid = t.tid and r.tmid = fm.tmid;
+		SELECT r.*, f.fname, t.tlist, fm.tmlist FROM f_reservation r, f_food f, f_type t, f_times fm where mcode = #{mcode} and 
+		r.fid = f.fid and r.tid = t.tid and r.tmid = fm.tmid order by rsid DESC;		
 	</select>
 	
 	<!-- Mysql 음식점 예약전체 리스트-->
 	<select id="reservationTotal" resultType="com.food.domain.Food_reservationVo">
-		SELECT r.*, f.fname, t.tlist, fm.tmlist FROM f_reservation r, f_food f, f_type t, f_times fm where r.fid = f.fid and r.tid = t.tid and r.tmid = fm.tmid;
+		SELECT r.*, f.fname, t.tlist, fm.tmlist FROM f_reservation r, f_food f, f_type t, f_times fm where r.fid = f.fid and r.tid = t.tid
+		and r.tmid = fm.tmid order by rsid DESC;
 	</select>
+	
+	<!-- Mysql 음식점 예약 대기-->
+	<update id="reservationOff" parameterType="com.food.domain.Food_reservationVo">
+		UPDATE f_reservation SET rscheck = 0 where rsid=#{rsid}
+	</update>
+	
+	<!-- Mysql 음식점 예약전체 완료-->
+	<update id="reservationOn" parameterType="com.food.domain.Food_reservationVo">
+		UPDATE f_reservation SET rscheck = 1 where rsid=#{rsid}
+	</update>
 	
 </mapper>

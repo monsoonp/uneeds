@@ -136,19 +136,6 @@ public class FoodController {
 		return "reservationList";
 	}
 	
-	@RequestMapping(value="test", method=RequestMethod.GET)
-	public String test() {
-		return "test";
-	}
-	
-	@RequestMapping(value="test", method=RequestMethod.POST)
-	public String test1(Food_reservationVo rvo, HttpServletRequest r) {
-		logger.info("Welcome search! The client url is {}.", "/uneeds/food/reservation_post");
-		System.out.println(r.getCharacterEncoding());
-		System.out.println(r.getParameter("t1"));
-		return "reservation_ok";
-	}
-	
 	/* MongodbConnection list*/
 	@RequestMapping("/mongoutil_test")
 	public String testMongoutil(Model m) {

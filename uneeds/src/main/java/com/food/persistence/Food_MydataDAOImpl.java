@@ -83,4 +83,14 @@ public class Food_MydataDAOImpl implements Food_MydataDAO {
 	public List<Food_reservationVo> reservationFoodTotal(Food_reservationVo rvo) {
 		return mysqlSession.selectList(namespace + ".reservationTotal", rvo);
 	}
+
+	@Override
+	public List<Food_reservationVo> reservationFoodOn(Food_reservationVo rvo) {
+		return mysqlSession.selectList(namespace + ".reservationOn", rvo);
+	}
+
+	@Override
+	public List<Food_reservationVo> reservationFoodOff(Food_reservationVo rvo) {
+		return mysqlSession.selectList(namespace + ".reservationOff", rvo);
+	}
 }

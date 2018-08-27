@@ -56,12 +56,25 @@ public class Admin_FoodController {
 	private Food_MydataService fs;
 		
 	@RequestMapping(value="main", method=RequestMethod.GET)
-	public String admin_main() {
+	public String admin_main(Food_reservationVo rvo, Model m) {
+		m.addAttribute("list", dao.reservationFoodTotal(rvo));
 		return "main";
 	}
 	
 	@RequestMapping(value="reservationtotal", method=RequestMethod.GET)
 	public @ResponseBody List<Food_reservationVo> reservationTotal(Food_reservationVo rvo, Model m) {
 		return dao.reservationFoodTotal(rvo);
+	}
+	
+	@RequestMapping(value="reservationoff", method=RequestMethod.GET)
+	public String reservationoff(Food_reservationVo rvo, Model m) {
+		dao.reservationFoodOff(rvo);
+		return "redirect:main";
+	}
+	
+	@RequestMapping(value="reservationon", method=RequestMethod.GET)
+	public String reservationon(Food_reservationVo rvo, Model m) {
+		dao.reservationFoodOn(rvo);
+		return "redirect:main";
 	}
 }
