@@ -62,7 +62,6 @@
 			<li id="menu_li_second"><a href="search?keyword=${searchs}&kid=3">일식</a></li>
 			<li id="menu_li_second"><a href="search?keyword=${searchs}&kid=4">카페 / 전통 찻집</a></li>
 			<li id="menu_li_second"><a href="search?keyword=${searchs}&kid=5">양식</a></li>
-			<li id="menu_li_first"><a href="#">내 주변</a></li>
 		</ul>
 	</div>
 </div>
