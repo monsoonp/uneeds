@@ -69,6 +69,7 @@ var infowindows = []; // 정보 배열
 			    	position: position.destinationPoint(90, 15),
 			    	map: map,
 			    	icon: {
+			    		url : HOME_PATH,
 			        	size: new naver.maps.Size(50, 50),
 			        	origin: new naver.maps.Point(0, 0),
 			        	anchor: new naver.maps.Point(25, 26)
