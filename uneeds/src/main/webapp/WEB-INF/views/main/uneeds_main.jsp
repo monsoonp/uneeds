@@ -47,7 +47,7 @@
 	<jsp:include page="uneeds_main_top.jsp" flush="false"/>
 	<!-- 영상 -->
 	<div class="player px-auto">
-		<iframe width="100%" height="100%" src="https://www.youtube.com/embed/cHKam3ifXc4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+		<iframe width="100%" height="100%" src="https://www.youtube.com/embed/QhtWB0X03-o" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
 	</div>
 	
 	<div class="container-fluid" align="center" style="padding-bottom: 10px;">
