@@ -32,11 +32,23 @@
 	a:hover{
 		text-decoration: none;
 	}
+	.player{
+		position: absolute;
+		width: 700px;
+		height: 400px;
+		z-index: 999;
+		left: 430px;
+		top: 300px;
+	}
 </style>
 </head>
 <body>
 
 	<jsp:include page="uneeds_main_top.jsp" flush="false"/>
+	<!-- 영상 -->
+	<div class="player px-auto">
+		<iframe width="100%" height="100%" src="https://www.youtube.com/embed/cHKam3ifXc4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+	</div>
 	
 	<div class="container-fluid" align="center" style="padding-bottom: 10px;">
 		<a href="#"> 
