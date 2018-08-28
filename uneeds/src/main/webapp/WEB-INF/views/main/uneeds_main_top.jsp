@@ -43,6 +43,7 @@
 		if (id == null) {
 	%>
 	<div align="right" style="padding-top: 10px;">
+		<!-- 
 		<a href="#" style="padding-right: 10px;"> 
 		<img src="../resources/main/img/n.png" alt="naver" style="width:25px;height: 25px;">
 		</a>
@@ -52,8 +53,11 @@
 		<a href="/uneeds/login" style="padding-right: 10px;"> 
 		<img src="../resources/main/img/u.png" alt="uneeds" style="width:25px;height: 25px;">
 		</a>
+		 -->
 		<button type="button" class="btn btn-primary btn-sm"  style="margin-right: 20px;" 
-		onclick="uneeds_join.jsp','','width=400,height=500,left=600')">JOIN</button>
+		onclick="location.href='/uneeds/login'">LOGIN</button>
+		<button type="button" class="btn btn-primary btn-sm"  style="margin-right: 20px;" 
+		onclick="uneeds_join.jsp">JOIN</button>
 	</div>
 	<%} else { %>
 	<div align="right" style="padding-top: 10px;">

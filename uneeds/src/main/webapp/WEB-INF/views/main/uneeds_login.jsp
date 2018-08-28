@@ -14,6 +14,13 @@
   <link href="/resources/main/css/login.css" rel="stylesheet"/>
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 
+<script>
+	$(function(){
+		if('${login}' == 'logined'){
+			location.href="/uneeds/";
+		}
+	});
+</script>
 <style type="text/css">
 body {
 	height: 100%;
@@ -60,6 +67,10 @@ body {
 								JOIN <i class="fas fa-plus-circle"></i>
 							</a>
 						</span>
+					</div>
+					<!-- login -->
+					<div class="wrapper px-auto py-auto my-auto mx-auto px-auto">
+						<jsp:include page="/WEB-INF/views/main/common/loginnav.jsp"></jsp:include>
 					</div>
 					
 				</div>
