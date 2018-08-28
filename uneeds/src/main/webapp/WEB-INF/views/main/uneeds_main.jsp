@@ -34,11 +34,11 @@
 	}
 	.player{
 		position: absolute;
-		width: 700px;
-		height: 400px;
+		width: 40%;
+		height: 50%;
 		z-index: 999;
-		left: 430px;
-		top: 300px;
+		left: 30%;
+		top: 38%;
 	}
 </style>
 </head>
