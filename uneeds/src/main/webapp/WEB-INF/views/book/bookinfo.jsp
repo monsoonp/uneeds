@@ -156,8 +156,8 @@ function prices(){
 	    										(kyo.used_price||'')+"</td><td>"+(kyo.e_price||'')+"</td></tr>");
 	    	tbl.append("<tr><td><a href="+ala.url+" target='_blank'>알라딘</a></td><td>"+(ala.new_price||'')+"</td><td>"+
 	    										(ala.used_price||'')+"</td><td>"+(ala.e_price||'')+"</td></tr>");
-	    	tbl.append("<tr><td><a href="+ipk.url+" target='_blank'>인터파크</a></td><td>"+(ipk.new_price.split("(")[0]||'')+"</td><td>"+
-	    										(ipk.used_price||'')+"</td><td>"+(ipk.e_price.split(" ")[0]||'')+"</td></tr>");
+	    	tbl.append("<tr><td><a href="+ipk.url+" target='_blank'>인터파크</a></td><td>"+((ipk.new_price||'').split("(")[0]||'')+"</td><td>"+
+	    										(ipk.used_price||'')+"</td><td>"+((ipk.e_price||'').split(" ")[0]||'')+"</td></tr>");
 	    	
 	    	
     		var yn = (yes.new_price||'').split("원")[0].replace(",","");
