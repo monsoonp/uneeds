@@ -13,7 +13,7 @@
 		var URL = "reservationList?mcode=";
 		var mcode = $("#mcode").val();
 		var popUp = URL + mcode;
-		var popOpen = "width=408, height=545, resizeable=no, status=no;";
+		var popOpen = "width=915, height=555, resizeable=no, status=no;";
 		window.open(popUp,"",popOpen);
 	}
 </script>
@@ -29,7 +29,9 @@
 		<div style="float: right; padding-right: 20px;"><a href="/uneeds/login" style="color: white; font-size: 20px;">LOGIN</a></div>
 <%} else { %>
 		<div style="float: right; padding-right: 20px; color: white; font-size: 20px;">
-			<%=id %>님<br> 
+			<a style="color: white; font-size: 17px;" onclick="reservationList();"><%=id %>님</a> 
+			<%int mcode = (int)session.getAttribute("mcode");%>
+			<input type="hidden" id="mcode" value="<%=mcode%>">
 		</div>
 		<br>
 		<div style="float: right; padding-right: 30px;">
