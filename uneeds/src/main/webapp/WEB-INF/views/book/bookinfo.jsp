@@ -14,6 +14,7 @@
 <link href="${pageContext.request.contextPath}/resources/book/bootstrap/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
 <link href="${pageContext.request.contextPath}/resources/book/css/modern-custom.css" rel="stylesheet"/>
 <link href="${pageContext.request.contextPath}/resources/book/css/bookList.css" rel="stylesheet"/>
+<link href="${pageContext.request.contextPath}/resources/book/css/animate.css" rel="stylesheet"/>
 <!-- jquery / bootstrap / js-->
 <script src="//code.jquery.com/jquery-latest.js"></script> <!-- must be top -->
 <script src="${pageContext.request.contextPath}/resources/book/bootstrap/js/bootstrap.min.js"></script>
