@@ -67,7 +67,7 @@ function boxoffice_top10(){
 		   str+="<div class='col' style='padding-left: 10px;'>";
 		   str+="<a href='"+imgpath+"' target='_blank' moviecd='"+mcd+"'>";
 		   str+="<img src='"+imgpath+"' alt='"+movienm+"' style='height:237px;width:162px;'></a>";
-		   
+		 
 		   if(oldandnew=="NEW"){
 			   str+="<span class='badge badge-success'>"+movienm.substr(0,7)+"</span>";
 			   str+="<span class='badge badge-danger'>"+rank+"위</span>";

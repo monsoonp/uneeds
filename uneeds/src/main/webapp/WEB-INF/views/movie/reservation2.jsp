@@ -5,38 +5,73 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" >
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-  <script>
-  	var x = 0;
+<script>
+  	var tcount = 0;
   	var str ="";
   	function selectBT(e) {
 	  //alert(e.id);
 	  var tpeople = $("#tpeople").val();
 	  //alert(tpeople);
 	  var c = document.getElementById(e.id).style.backgroundColor;
-
-		  if((c!="orange")&&(x<tpeople)){
+		  if((c!="orange")&&(tcount<tpeople)){
 			  document.getElementById(e.id).style.backgroundColor = "orange";
-			  x=x+1;
+			  tcount=tcount+1;
 			  str= str + e.id+",";
 			  //$( "#seat" ).val(str.slice(0,-1));
 			  //alert(x + str);
-		  }else if ((c=="orange")&&(x<=tpeople)){
+		  }else if ((c=="orange")&&(tcount<=tpeople)){
 			  document.getElementById(e.id).style.backgroundColor = "#007bff";
 			  var re= e.id + ",";
 			  var st = str.replace(re, "");
 			  str=st;
-			  x=x-1;
+			  tcount=tcount-1;
 		  }else{
 			  alert("예매하신 인원은 " + tpeople+"명 입니다. 다시 확인하세요.");
 		  }
 		  var seatinput=str.slice(0,-1);
 		  $( "#seat" ).val(seatinput);
+		  $( "#seatcd" ).val(seatinput);
 	}
 	
+    function frmsubmit(){
+    	var tpeople = $("#tpeople").val();
+    	if(tpeople==tcount){
+    		return true;
+    	}else{
+    		alert("예매정보가 누락되었습니다. 알맞은 좌석정보를 선택하세요.");
+    		return false;
+    	}
+    }
   	
+    $(function(){
+    	$.post("list_seatcd_ing",{"umoviecd": $("#umoviecd").val(), "timetcd":$("#timetcd").val()},
+    			function(data, state){
+    		  for (var i = 0; i < data.length; i++) {
+  				var d = data[i];
+				//alert(d);
+				var ingseat ="#"+d;
+				$(ingseat).attr("class","btn btn-info btn-sm");
+				$(ingseat).attr("disabled","disabled");
+  			  }	
+    	});
+    	$.post("list_seatcd_comp",{"umoviecd": $("#umoviecd").val(), "timetcd":$("#timetcd").val()},
+    			function(data, state){
+    		  for (var i = 0; i < data.length; i++) {
+  				var d = data[i];
+				//alert(d);
+				var compseat ="#"+d;
+				//$(compseat).attr("class","btn btn-info btn-sm");
+				$(compseat).html("X");
+				$(compseat).attr("disabled","disabled");
+				$(compseat).attr("style","background-color:grey;");
+  			  }	
+    	});
+    	
+    });
 </script>
 <style>
 .nav-item {
@@ -114,6 +149,7 @@ option{
 .btn-primary:disabled{
 	background-color: grey;
 }
+
 .btn-info:disabled{
 	background-color: #D358F7;
 }
@@ -234,8 +270,8 @@ option{
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="F3">F3</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="F4">F4</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="F5">F5</button>
-									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="F6" disabled="disabled">X</button>
-									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="F7" disabled="disabled">X</button>
+									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="F6">F6</button>
+									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="F7">F6</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="F8">F8</button>&nbsp&nbsp
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="F9">F9</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="F10">F10</button>
@@ -257,9 +293,9 @@ option{
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="G8">G8</button>&nbsp&nbsp
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="G9">G9</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="G10">G10</button>
-									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="G11" disabled="disabled">X</button>
-									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="G12" disabled="disabled">X</button>
-									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="G13" disabled="disabled">X</button>
+									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="G11">G11</button>
+									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="G12">G12</button>
+									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="G13">G13</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="G14">G14</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="G15">G15</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="G16">G16</button>
@@ -277,8 +313,8 @@ option{
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="H10">H10</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="H11">H11</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="H12">H12</button>
-									<button type="button" class="btn btn-info btn-sm" onclick="selectBT(this)" id="H13" disabled="disabled">H13</button>
-									<button type="button" class="btn btn-info btn-sm" onclick="selectBT(this)" id="H14" disabled="disabled">H14</button>
+									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="H13">H13</button>
+									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="H14">H14</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="H15">H15</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="H16">H16</button>
 								</div>
@@ -310,8 +346,8 @@ option{
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="J7">J7</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="J8">J8</button>&nbsp&nbsp
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="J9">J9</button>
-									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="J10" disabled="disabled">X</button>
-									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="J11" disabled="disabled">X</button>
+									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="J10">J10</button>
+									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="J11">J11</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="J12">J12</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="J13">J13</button>
 									<button type="button" class="btn btn-primary btn-sm" onclick="selectBT(this)" id="J14">J14</button>
@@ -348,7 +384,7 @@ option{
 								<img src="/resources/movie/img/${remap.imgpath}" alt="" style="width: 100%;height: 105%;">
 								</div>
 								</div>
-								<form id="frm_reserv_step2">
+								
 								<div class="row" style="padding: 10px; font-size: small; font-weight: bold;">
 								<input type="text" class="resultinput" id="rmovie" name="rmovie" value="${remap.rmovie}" readonly="readonly" style="font-size: medium;"><br><br><br>
 								<p class="text-muted" style="padding-right: 10px;">극장</p><input type="text" class="resultinput" value="${remap.rtheater}" readonly="readonly" id="rtheater" name="rtheater">
@@ -359,6 +395,7 @@ option{
 								<p class="text-muted" style="padding-right: 10px;">좌석 </p><input type="text" id="seat" class="resultinput" value="-" readonly="readonly">
 								<p class="text-muted" style="padding-right: 10px;padding-top: 10px;">금액 </p><input type="text" id="rprice2" name="rprice2" class="resultinput" value="${remap.rprice}" readonly="readonly" style="color: gold; font-size: x-large; width: 100px;">
 								</div>
+								<form id="frm_Rstep2" action="reserv_paym" method="post" onsubmit="return frmsubmit();">
 								<input type="hidden" id="tpeople" name="tpeople" value="${rdvo.tpeople}">
 								<input type="hidden" id="peoplecd" name="peoplecd" value="${rdvo.peoplecd}">
 								<input type="hidden" id="umoviecd" name="umoviecd" value="${rdvo.umoviecd}">
@@ -368,11 +405,13 @@ option{
 								<input type="hidden" id="rselectdate" name="rselectdate" value="${remap.rselectdate}">
 								<input type="hidden" id="rprice" name="rprice" value="${remap.rprice}">
 								<input type="hidden" id="rtime" name="rtime" value="${remap.rtime}">
-								
+								<input type="hidden" id="redetailcd" name="redetailcd" value="${rdvo.redetailcd}">
+								<input type="hidden" id="seatcd" name="seatcd">
 								<div align="right" style="padding-top: 10px;">
-								<button type="button" class="btn btn-success btn-sm" onclick="location.href='/uneeds/movie/reserv_paym'">결제하기</button></div>
-								</form>
-						</div>
+		
+								<input type="submit" class="btn btn-success btn-sm" value="할인·결제선택">
+								
+						</div></form>
 
 					</div>
 				</div>

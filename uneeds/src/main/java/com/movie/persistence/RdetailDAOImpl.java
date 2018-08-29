@@ -1,5 +1,7 @@
 package com.movie.persistence;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -23,5 +25,25 @@ public class RdetailDAOImpl implements RdetailDAO{
 	@Override
 	public void insert_reserv1(RdetailVO rdvo) {
 		mysqlSession.insert(mspace+".insert_reserv1",rdvo);
+	}
+
+	@Override
+	public void insert_reserv2(RdetailVO rdvo) {
+		mysqlSession.insert(mspace+".update_reserv2",rdvo);
+	}
+
+	@Override
+	public List<RdetailVO> listseat_ing(RdetailVO rdvo) {
+		return mysqlSession.selectList(mspace+".listseat_ing", rdvo);
+	}
+
+	@Override
+	public List<RdetailVO> listseat_complete(RdetailVO rdvo) {
+		return mysqlSession.selectList(mspace+".listseat_complete", rdvo);
+	}
+
+	@Override
+	public void insert_reserv4(RdetailVO rdvo) {
+		mysqlSession.insert(mspace+".update_reserv4",rdvo);
 	}
 }

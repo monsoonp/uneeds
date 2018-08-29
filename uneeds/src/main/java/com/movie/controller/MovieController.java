@@ -37,11 +37,11 @@ public class MovieController {
 //	}
 
 	//할인결제
-	@RequestMapping(value = "/reserv_paym", method = RequestMethod.GET)
-	public String reserv_paym(){
-		
-		return "reservation3";
-	}
+//	@RequestMapping(value = "/reserv_paym", method = RequestMethod.GET)
+//	public String reserv_paym(){
+//		
+//		return "reservation3";
+//	}
 	
 	//예매내역
 	@RequestMapping(value = "/orderList", method = RequestMethod.GET)

@@ -4,16 +4,48 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace = "com.movie.mapper.RdetailMapper">
+
 	<select id="timetcd_count" resultType="int">
 		select count(*) from mv_rdetail_table where timetcd=#{timetcd}
 	</select>
 	
+	<!-- 영화예매기본요소 -->
 	<insert id="insert_reserv1">
 		insert into mv_rdetail_table(redetailcd,rselectdate,tpeople,peoplecd,umoviecd,
 		timetcd,statecd)
 		values(#{redetailcd},#{rselectdate},#{tpeople},#{peoplecd},#{umoviecd},
 		#{timetcd},1)
 	</insert>
+	
+	<!-- 자리선택 -->
+	<update id="update_reserv2">
+		update mv_rdetail_table set seatcd=#{seatcd}, statecd=2
+		where redetailcd=#{redetailcd}
+	</update>
+	
+	<!-- 결제정보 -->
+	<update id="update_reserv3">
+		update mv_rdetail_table set paycd=#{paycd}, discountcd=#{discountcd}, statecd=3
+		where redetailcd=#{redetailcd}
+	</update>
+	
+	<!-- 결제완료 -->
+	<update id="update_reserv4">
+		update mv_rdetail_table set paycd=#{paycd}, discountcd=#{discountcd}, statecd=4
+		where redetailcd=#{redetailcd}
+	</update>
+
+	<!-- 좌석현황(예약중) -->
+	<select id="listseat_ing" resultType="com.movie.domain.RdetailVO">
+		select seatcd from mv_rdetail_table 
+		where umoviecd=#{umoviecd} and timetcd=#{timetcd} and statecd in(2,3)
+	</select>
+	
+	<!-- 좌석현황(예약완료) -->
+	<select id="listseat_complete" resultType="com.movie.domain.RdetailVO">
+		select seatcd from mv_rdetail_table 
+		where umoviecd=#{umoviecd} and timetcd=#{timetcd} and statecd=4;
+	</select>
 	
 <!-- 	<update id="update_reserv2"> -->
 <!-- 	<insert id="insert_reserv1"> -->

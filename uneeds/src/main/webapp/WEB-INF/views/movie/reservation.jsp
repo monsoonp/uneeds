@@ -161,6 +161,7 @@
 	  var str ="";
 	  var where = "";
 	  var c=1; var cc=0;
+	  
 	  dtb.empty();
 	  
 	  var sd = $("#rselectdate").val();
@@ -333,13 +334,12 @@ option{
 }
 
 .ui-datepicker{ font-size: 14px; width: 90%; height: 110%;}
-.ui-datepicker-prev,.ui-datepicker-next{display: none;}
 .ui-datepicker td span, .ui-datepicker td a{
 padding-bottom: 4px; margin: 2px; margin-bottom: 4px;
 }
 
 </style>
-
+<!-- .ui-datepicker-prev,.ui-datepicker-next{display: none;} -->
 <body>
 	<!-- top navi -->
 	<jsp:include page="/WEB-INF/views/movie/common/top_navbar.jsp"></jsp:include>

@@ -35,6 +35,16 @@
 	</bean>
 	<!-- 요청 mysqlSession -->
 	
+		
+	<!-- 트랜잭션 -->
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="mysqlDataSource"></property>
+	</bean>
+	<!-- 어노테이션을 이용한 트랜잭션관리 가능 -->
+	<tx:annotation-driven/>
+	
+	
+	
 	<!-- Oracle dataSource -->
 	<bean id="oracleDataSource"	class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<!-- <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property> -->
